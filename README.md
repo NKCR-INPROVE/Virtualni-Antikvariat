@@ -13,3 +13,4 @@ Virtuální antikvariát je jednoduchá platforma, kam knihovna m?že vložit seznam
 nabízených knih s informací o cen?, typu platby, dodání. Registrovaným zájemc?m o
 knihy je tak zprost?edkována – jednoduše a p?ehledn? – ?ást knižní produkce, která
 by již byla zlikvidována.
+
