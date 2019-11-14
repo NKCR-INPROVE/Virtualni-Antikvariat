@@ -1,14 +1,15 @@
-# Virtualni-Antikvariat
+# Virtuální antikvariát
 
-## CÃ­l projektu:
-VÂ rÃ¡mci nabÃ­dkovÃ© povinnosti danÃ© legislativou musÃ­ knihovny vÂ ÄŒR nabÃ­zet
-vyÅ™azovanÃ© knihy. KÂ automatizaci tohoto procesu vznikla aplikace VirtuÃ¡lnÃ­ depozitnÃ­
-knihovna. Jakmile konkrÃ©tnÃ­ kniha projde tÃ­mto vyÅ™azovacÃ­m postupem a nenÃ­ vÂ rÃ¡mci
-nÄ›j pÅ™edÃ¡na do konzervaÄnÃ­ knihovny, pÅ™Ã­padnÄ› centrÃ¡lnÃ­ depozitnÃ­ knihovny, Äi jinÃ©
-veÅ™ejnÃ© knihovny, stÃ¡vÃ¡ se vÂ knihovnÃ­m systÃ©mu nadbyteÄnou. PÅ™ed fÃ¡zÃ­ likvidace
-Å™ada knihoven nabÃ­zÃ­ tyto svazky kÂ vyuÅ¾itÃ­ veÅ™ejnosti. VyvÃ­jenÃ½ nÃ¡stroj VirtuÃ¡lnÃ­
-antikvariÃ¡t mÃ¡ umoÅ¾nit knihovnÃ¡m tyto knihy nabÃ­dnout ÄtenÃ¡Å™Å¯m snadno a rychle.
-VirtuÃ¡lnÃ­ antikvariÃ¡t je jednoduchÃ¡ platforma, kam knihovna mÅ¯Å¾e vloÅ¾it seznam
-nabÃ­zenÃ½ch knih sÂ informacÃ­ o cenÄ›, typu platby, dodÃ¡nÃ­. RegistrovanÃ½m zÃ¡jemcÅ¯m o
-knihy je tak zprostÅ™edkovÃ¡na â€“ jednoduÅ¡e a pÅ™ehlednÄ› â€“ ÄÃ¡st kniÅ¾nÃ­ produkce, kterÃ¡
-by jiÅ¾ byla zlikvidovÃ¡na.
+## Cíl projektu:
+
+V rámci nabídkové povinnosti dané legislativou musí knihovny v ?R nabízet
+vy?azované knihy. K automatizaci tohoto procesu vznikla aplikace Virtuální depozitní
+knihovna. Jakmile konkrétní kniha projde tímto vy?azovacím postupem a není v rámci
+n?j p?edána do konzerva?ní knihovny, p?ípadn? centrální depozitní knihovny, ?i jiné
+ve?ejné knihovny, stává se v knihovním systému nadbyte?nou. P?ed fází likvidace
+?ada knihoven nabízí tyto svazky k vyuití ve?ejnosti. Vyvíjenı nástroj Virtuální
+antikvariát má umonit knihovnám tyto knihy nabídnout ?tená??m snadno a rychle.
+Virtuální antikvariát je jednoduchá platforma, kam knihovna m?e vloit seznam
+nabízenıch knih s informací o cen?, typu platby, dodání. Registrovanım zájemc?m o
+knihy je tak zprost?edkována – jednoduše a p?ehledn? – ?ást kniní produkce, která
+by ji byla zlikvidována.
