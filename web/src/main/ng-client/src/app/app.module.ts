@@ -1,18 +1,79 @@
 import { BrowserModule } from '@angular/platform-browser';
-import { NgModule } from '@angular/core';
+import { NgModule, APP_INITIALIZER } from '@angular/core';
+
+import { HttpClientModule, HttpClient, HTTP_INTERCEPTORS } from '@angular/common/http';
+import { DatePipe } from '@angular/common';
+import { registerLocaleData } from '@angular/common';
+import localeCs from '@angular/common/locales/cs';
+import { FormsModule } from '@angular/forms';
+import { ReactiveFormsModule } from '@angular/forms';
+
+import { TranslateModule, TranslateLoader } from '@ngx-translate/core';
+import { TranslateHttpLoader } from '@ngx-translate/http-loader';
 
 import { AppRoutingModule } from './app-routing.module';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+
 import { AppComponent } from './app.component';
+import { AppState } from './app.state';
+import { AppService } from './app.service';
+import { AuthGuard } from './auth-guard';
+
+import { MaterialModule } from './material.module';
+
+import { ResultsComponent } from './pages/results/results.component';
+import { HomeComponent } from './pages/home/home.component';
+import { FooterComponent } from './components/footer/footer.component';
+import { NavbarComponent } from './components/navbar/navbar.component';
+import { AppConfiguration } from './app-configuration';
+import { LoginComponent } from './pages/login/login.component';
+import { BasicAuthInterceptor, ErrorInterceptor } from './shared';
+
+
+registerLocaleData(localeCs, 'cs');
+
+export function HttpLoaderFactory(http: HttpClient) {
+  return new TranslateHttpLoader(http);
+}
+
+export function createTranslateLoader(http: HttpClient) {
+  return new TranslateHttpLoader(http, './assets/i18n/', '.json');
+}
+
 
 @NgModule({
   declarations: [
-    AppComponent
+    AppComponent,
+    ResultsComponent,
+    HomeComponent,
+    FooterComponent,
+    NavbarComponent,
+    LoginComponent
   ],
   imports: [
     BrowserModule,
-    AppRoutingModule
+    AppRoutingModule,
+    MaterialModule,
+    BrowserAnimationsModule,
+    FormsModule,
+    ReactiveFormsModule,
+    HttpClientModule,
+    TranslateModule.forRoot({
+      loader: {
+        provide: TranslateLoader,
+        useFactory: createTranslateLoader,
+        deps: [HttpClient]
+      }
+    }),
   ],
-  providers: [],
+  providers: [
+    { provide: HTTP_INTERCEPTORS, useClass: BasicAuthInterceptor, multi: true },
+    { provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true },
+    // provider used to create fake backend
+      //  fakeBackendProvider
+
+    { provide: APP_INITIALIZER, useFactory: (config: AppConfiguration) => () => config.load(), deps: [AppConfiguration], multi: true },
+    HttpClient, DatePipe, AppState, AppService, AuthGuard],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
