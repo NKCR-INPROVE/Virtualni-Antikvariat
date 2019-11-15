@@ -82,7 +82,7 @@ export function createTranslateLoader(http: HttpClient) {
     { provide: HTTP_INTERCEPTORS, useClass: BasicAuthInterceptor, multi: true },
     { provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true },
     { provide: APP_INITIALIZER, useFactory: (config: AppConfiguration) => () => config.load(), deps: [AppConfiguration], multi: true },
-    HttpClient, DatePipe, AppState, AppService, AuthGuard],
+    HttpClient, DatePipe, AppConfiguration, AppState, AppService, AuthGuard],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

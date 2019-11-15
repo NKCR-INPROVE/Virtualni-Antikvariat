@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { AppConfiguration } from 'src/app/app-configuration';
 
 @Component({
   selector: 'app-facets',
@@ -7,9 +8,10 @@ import { Component, OnInit } from '@angular/core';
 })
 export class FacetsComponent implements OnInit {
 
-  constructor() { }
+  constructor(private config: AppConfiguration) { }
 
   ngOnInit() {
+    console.log(this.config.facets);
   }
 
 }

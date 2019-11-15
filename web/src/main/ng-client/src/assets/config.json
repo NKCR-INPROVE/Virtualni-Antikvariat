@@ -1,3 +1,4 @@
 {
-    "defaultLang": "cs"
+    "defaultLang": "cs",
+    "facets": ["zdroj", "bohemika", "pocet_exemplaru", "rokvydani", "status"]
 }

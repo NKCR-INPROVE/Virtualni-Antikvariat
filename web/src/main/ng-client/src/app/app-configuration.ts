@@ -2,7 +2,6 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable, of } from 'rxjs';
 import { Configuration } from './shared/config';
-import { AppState } from './app.state';
 
 @Injectable({
     providedIn: 'root'
@@ -11,14 +10,17 @@ import { AppState } from './app.state';
     private config: Configuration;
     public invalidServer: boolean;
 
+    public get facets() {
+        return this.config.facets;
+    }
+
     /**
      * List the files holding section configuration in assets/configs folder
      */
     private configs: string[] = ['search'];
 
     constructor(
-        private http: HttpClient,
-        private state: AppState) { }
+        private http: HttpClient) { }
 
     public configLoaded() {
         return this.config && true;

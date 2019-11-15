@@ -14,20 +14,18 @@ export class SearchFormComponent implements OnInit {
   searchParams: SearchParams = new SearchParams();
   advParams: AdvancedParams = new AdvancedParams();
 
+  views: string[] = ['bohemika', 'ztrata'];
+
   constructor(
     public dialog: MatDialog,
     private route: ActivatedRoute,
     private router: Router) { }
 
   ngOnInit() {
-    // this.searchParams = Object.assign(SearchParams, this.route.snapshot.queryParams as SearchParams);
-    // this.advParams = this.route.snapshot.queryParams as AdvancedParams;
-    
     this.router.events.subscribe(val => {
       if (val instanceof NavigationEnd) {
         Utils.sanitize(this.route.snapshot.queryParams, this.searchParams);
         Utils.sanitize(this.route.snapshot.queryParams, this.advParams);
-        console.log(this.searchParams);
       }
     });
   }
@@ -35,6 +33,10 @@ export class SearchFormComponent implements OnInit {
   search() {
     const params = {...this.searchParams, ...this.advParams};
     this.router.navigate(['/results'], {queryParams: params});
+  }
+
+  export() {
+    
   }
 
   openAdvanced(): void {

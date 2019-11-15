@@ -8,6 +8,16 @@
     <button mat-icon-button matSuffix (click)="openAdvanced()" [title]="'Advanced search' | translate" [attr.aria-label]="'Advanced search' | translate">
         <mat-icon>reorder</mat-icon>
     </button>
+
+    <span><a (click)="export()">{{'Export' | translate}}</a></span> &#160;
+
+    
+    <mat-form-field>
+    <mat-label>{{'pohledy' | translate}}</mat-label>
+    <mat-select>
+            <mat-option *ngFor="let view of views" [value]="view">{{view}}</mat-option>
+    </mat-select>
+    </mat-form-field>
 </div>
 
 

@@ -7,7 +7,6 @@
     <span class="example-fill-remaining-space"></span>
 
     <span><a routerLink="home">{{'Home' | translate}}</a></span> &#160;
-    <span><a (click)="export()">{{'Export' | translate}}</a></span> &#160;
     <span>
       <a *ngIf="!user" (click)="login()">{{'Login' | translate}}</a>
       <a *ngIf="user" (click)="logout()">{{'Logout' | translate}}</a>
