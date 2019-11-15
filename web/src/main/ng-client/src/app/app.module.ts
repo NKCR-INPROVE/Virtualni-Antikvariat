@@ -28,6 +28,11 @@ import { NavbarComponent } from './components/navbar/navbar.component';
 import { AppConfiguration } from './app-configuration';
 import { LoginComponent } from './pages/login/login.component';
 import { BasicAuthInterceptor, ErrorInterceptor } from './shared';
+import { RegistrationComponent } from './pages/registration/registration.component';
+import { SearchFormComponent, AdvancedSearchDialog } from './components/search-form/search-form.component';
+import { FacetsComponent } from './components/facets/facets.component';
+import { ResultItemComponent } from './components/result-item/result-item.component';
+import { ResultsHeaderComponent } from './components/results-header/results-header.component';
 
 
 registerLocaleData(localeCs, 'cs');
@@ -48,7 +53,13 @@ export function createTranslateLoader(http: HttpClient) {
     HomeComponent,
     FooterComponent,
     NavbarComponent,
-    LoginComponent
+    LoginComponent,
+    RegistrationComponent,
+    SearchFormComponent,
+    AdvancedSearchDialog,
+    FacetsComponent,
+    ResultItemComponent,
+    ResultsHeaderComponent
   ],
   imports: [
     BrowserModule,
@@ -66,6 +77,7 @@ export function createTranslateLoader(http: HttpClient) {
       }
     }),
   ],
+  entryComponents: [AdvancedSearchDialog], 
   providers: [
     { provide: HTTP_INTERCEPTORS, useClass: BasicAuthInterceptor, multi: true },
     { provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true },
