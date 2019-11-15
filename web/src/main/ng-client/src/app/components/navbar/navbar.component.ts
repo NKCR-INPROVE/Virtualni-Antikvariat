@@ -5,6 +5,8 @@ import { AppService } from '../../app.service';
 import { ActivatedRoute, RouterStateSnapshot, Router } from '@angular/router';
 import { AuthenticationService } from 'src/app/shared';
 import { User } from 'src/app/models/user';
+import { MatDialog } from '@angular/material';
+import { LoginComponent } from 'src/app/pages/login/login.component';
 
 @Component({
   selector: 'app-navbar',
@@ -16,6 +18,7 @@ export class NavbarComponent implements OnInit {
   user: User;
 
   constructor(
+    public dialog: MatDialog,
     private authService: AuthenticationService,
     private route: ActivatedRoute,
     private router: Router,
@@ -39,11 +42,17 @@ export class NavbarComponent implements OnInit {
     this.authService.logout();
   }
 
-  gologin() {
-    this.state.redirectUrl = this.router.url;
+  login() {
 
-    console.log(this.route, this.state.redirectUrl);
-    this.router.navigate(['login']);
+    const dialogRef = this.dialog.open(LoginComponent, {
+      width: '350px'
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      if (result) {
+
+      }
+    });
   }
 
 }

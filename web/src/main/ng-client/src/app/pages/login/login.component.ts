@@ -3,6 +3,7 @@ import { Router, ActivatedRoute } from '@angular/router';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { first } from 'rxjs/operators';
 import { AuthenticationService } from 'src/app/shared/authentication.service';
+import { MatDialogRef } from '@angular/material';
 
 
 
@@ -15,13 +16,14 @@ export class LoginComponent implements OnInit {
     error = '';
 
     constructor(
+        public dialogRef: MatDialogRef<LoginComponent>,
         private formBuilder: FormBuilder,
         private route: ActivatedRoute,
         private router: Router,
         private authenticationService: AuthenticationService
-    ) { 
+    ) {
         // redirect to home if already logged in
-        if (this.authenticationService.currentUserValue) { 
+        if (this.authenticationService.currentUserValue) {
             this.router.navigate(['/']);
         }
     }
@@ -40,6 +42,8 @@ export class LoginComponent implements OnInit {
     get f() { return this.loginForm.controls; }
 
     onSubmit() {
+
+        console.log('tttaaadddyyy');
         this.submitted = true;
 
         // stop here if form is invalid
@@ -53,7 +57,8 @@ export class LoginComponent implements OnInit {
             .subscribe(
                 data => {
                     console.log(data);
-                    this.router.navigate([this.returnUrl]);
+                    // this.router.navigate([this.returnUrl]);
+                    this.dialogRef.close();
                 },
                 error => {
                     this.error = error;

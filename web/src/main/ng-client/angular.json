@@ -68,25 +68,17 @@
               "optimization": false,
               "outputHashing": "none",
               "commonChunk": false,
-              "sourceMap": true,
+              "sourceMap": {
+                "scripts": true,
+                "styles": true,
+                "vendor": false
+              },
               "extractCss": true,
               "namedChunks": true,
               "aot": false,
               "extractLicenses": false,
               "vendorChunk": false,
               "buildOptimizer": false,
-              "budgets": [
-                {
-                  "type": "initial",
-                  "maximumWarning": "2mb",
-                  "maximumError": "5mb"
-                },
-                {
-                  "type": "anyComponentStyle",
-                  "maximumWarning": "6kb",
-                  "maximumError": "10kb"
-                }
-              ],
               "assets": [
                 "src/assets",
                 "src/favicon.ico",

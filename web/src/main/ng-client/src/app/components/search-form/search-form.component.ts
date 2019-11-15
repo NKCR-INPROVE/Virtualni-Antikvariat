@@ -27,6 +27,7 @@ export class SearchFormComponent implements OnInit {
       if (val instanceof NavigationEnd) {
         Utils.sanitize(this.route.snapshot.queryParams, this.searchParams);
         Utils.sanitize(this.route.snapshot.queryParams, this.advParams);
+        console.log(this.searchParams);
       }
     });
   }

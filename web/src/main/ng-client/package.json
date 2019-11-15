@@ -4,7 +4,7 @@
   "scripts": {
     "ng": "ng",
     "start": "ng serve",
-    "start.ui.mock": "ng serve --configuration=dev --proxy-config proxy.conf.js",
+    "start.ui.mock": "ng serve --source-map=true --configuration=dev --proxy-config proxy.conf.js",
     "build": "ng build",
     "test": "ng test",
     "lint": "ng lint",

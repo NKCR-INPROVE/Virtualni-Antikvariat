@@ -77,13 +77,10 @@ export function createTranslateLoader(http: HttpClient) {
       }
     }),
   ],
-  entryComponents: [AdvancedSearchDialog], 
+  entryComponents: [AdvancedSearchDialog, LoginComponent],
   providers: [
     { provide: HTTP_INTERCEPTORS, useClass: BasicAuthInterceptor, multi: true },
     { provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true },
-    // provider used to create fake backend
-      //  fakeBackendProvider
-
     { provide: APP_INITIALIZER, useFactory: (config: AppConfiguration) => () => config.load(), deps: [AppConfiguration], multi: true },
     HttpClient, DatePipe, AppState, AppService, AuthGuard],
   bootstrap: [AppComponent]

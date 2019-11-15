@@ -9,7 +9,7 @@
     <span><a routerLink="home">{{'Home' | translate}}</a></span> &#160;
     <span><a (click)="export()">{{'Export' | translate}}</a></span> &#160;
     <span>
-      <a *ngIf="!user" routerLink="login">{{'Login' | translate}}</a>
+      <a *ngIf="!user" (click)="login()">{{'Login' | translate}}</a>
       <a *ngIf="user" (click)="logout()">{{'Logout' | translate}}</a>
     </span> &#160;
     <span><a routerLink="/registrace">{{'Registrace' | translate}}</a></span> &#160;
