@@ -2,6 +2,6 @@ import { Injectable } from '@angular/core';
 
 @Injectable()
 export class AppState {
-  redirectUrl: string;
+  public isHome: boolean;
 }
 

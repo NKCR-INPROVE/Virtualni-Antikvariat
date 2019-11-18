@@ -3,6 +3,7 @@ import { MatDialogRef, MAT_DIALOG_DATA, MatDialog } from '@angular/material';
 import { SearchParams, AdvancedParams } from 'src/app/models/search-params';
 import { Router, ActivatedRoute, NavigationEnd } from '@angular/router';
 import { Utils } from 'src/app/shared/utils';
+import { AuthenticationService } from 'src/app/shared';
 
 @Component({
   selector: 'app-search-form',
@@ -10,6 +11,8 @@ import { Utils } from 'src/app/shared/utils';
   styleUrls: ['./search-form.component.scss']
 })
 export class SearchFormComponent implements OnInit {
+
+  isLogged: boolean;
 
   searchParams: SearchParams = new SearchParams();
   advParams: AdvancedParams = new AdvancedParams();
@@ -19,9 +22,11 @@ export class SearchFormComponent implements OnInit {
   constructor(
     public dialog: MatDialog,
     private route: ActivatedRoute,
-    private router: Router) { }
+    private router: Router,
+    private authService: AuthenticationService) { }
 
   ngOnInit() {
+    this.authService.currentUser.subscribe(x => this.isLogged = x !== null);
     this.router.events.subscribe(val => {
       if (val instanceof NavigationEnd) {
         Utils.sanitize(this.route.snapshot.queryParams, this.searchParams);

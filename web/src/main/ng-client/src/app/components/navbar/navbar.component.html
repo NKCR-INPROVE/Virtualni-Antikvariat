@@ -1,21 +1,23 @@
 <mat-toolbar color="primary" class="mat-elevation-z6">
   <mat-toolbar-row>
 
-    <span>{{'app.title' | translate}}</span>
+    <span><a routerLink="home">{{'app.title' | translate}}</a></span>
 
     <!-- This fills the remaining space of the current row -->
     <span class="example-fill-remaining-space"></span>
-
+    <span *ngIf="user">{{user.username}}</span>&#160;
     <span><a routerLink="home">{{'Home' | translate}}</a></span> &#160;
+    
     <span>
       <a *ngIf="!user" (click)="login()">{{'Login' | translate}}</a>
       <a *ngIf="user" (click)="logout()">{{'Logout' | translate}}</a>
     </span> &#160;
     <span><a routerLink="/registrace">{{'Registrace' | translate}}</a></span> &#160;
-    <span><a (click)="changeLang()">{{currLang}}</a></span>
+    <span><a (click)="changeLang()">{{currLang}}</a></span> &#160;
+    <span *ngIf="user"><a *ngIf="user.role === 'admin'" (click)="admin()">{{'admin' | translate}}</a></span>
   </mat-toolbar-row>
   <mat-toolbar-row>
     <span class="example-fill-remaining-space"></span>
-    <app-search-form></app-search-form>
+    <app-search-form *ngIf="!state.isHome"></app-search-form>
   </mat-toolbar-row>
 </mat-toolbar>

@@ -6,7 +6,7 @@ import { ActivatedRoute, RouterStateSnapshot, Router } from '@angular/router';
 import { AuthenticationService } from 'src/app/shared';
 import { User } from 'src/app/models/user';
 import { MatDialog } from '@angular/material';
-import { LoginComponent } from 'src/app/pages/login/login.component';
+import { LoginComponent } from 'src/app/components/login/login.component';
 
 @Component({
   selector: 'app-navbar',

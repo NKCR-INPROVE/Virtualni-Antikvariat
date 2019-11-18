@@ -26,7 +26,7 @@ import { HomeComponent } from './pages/home/home.component';
 import { FooterComponent } from './components/footer/footer.component';
 import { NavbarComponent } from './components/navbar/navbar.component';
 import { AppConfiguration } from './app-configuration';
-import { LoginComponent } from './pages/login/login.component';
+import { LoginComponent } from './components/login/login.component';
 import { BasicAuthInterceptor, ErrorInterceptor } from './shared';
 import { RegistrationComponent } from './pages/registration/registration.component';
 import { SearchFormComponent, AdvancedSearchDialog } from './components/search-form/search-form.component';
