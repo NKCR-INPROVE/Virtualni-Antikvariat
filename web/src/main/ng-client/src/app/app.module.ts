@@ -33,6 +33,9 @@ import { SearchFormComponent, AdvancedSearchDialog } from './components/search-f
 import { FacetsComponent } from './components/facets/facets.component';
 import { ResultItemComponent } from './components/result-item/result-item.component';
 import { ResultsHeaderComponent } from './components/results-header/results-header.component';
+import { AdminComponent } from './pages/admin/admin.component';
+import { fakeBackendProvider, FakeBackendInterceptor } from './shared/fake-backend';
+import { environment } from 'src/environments/environment';
 
 
 registerLocaleData(localeCs, 'cs');
@@ -43,6 +46,17 @@ export function HttpLoaderFactory(http: HttpClient) {
 
 export function createTranslateLoader(http: HttpClient) {
   return new TranslateHttpLoader(http, './assets/i18n/', '.json');
+}
+
+const providers: any[] = [
+  { provide: HTTP_INTERCEPTORS, useClass: BasicAuthInterceptor, multi: true },
+  { provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true },
+  { provide: APP_INITIALIZER, useFactory: (config: AppConfiguration) => () => config.load(), deps: [AppConfiguration], multi: true },
+  HttpClient, DatePipe, AppConfiguration, AppState, AppService, AuthGuard];
+
+if (!environment.production) {
+  console.log('Enabling mocked services.');
+  providers.push(fakeBackendProvider);
 }
 
 
@@ -59,7 +73,8 @@ export function createTranslateLoader(http: HttpClient) {
     AdvancedSearchDialog,
     FacetsComponent,
     ResultItemComponent,
-    ResultsHeaderComponent
+    ResultsHeaderComponent,
+    AdminComponent
   ],
   imports: [
     BrowserModule,
@@ -78,11 +93,7 @@ export function createTranslateLoader(http: HttpClient) {
     }),
   ],
   entryComponents: [AdvancedSearchDialog, LoginComponent],
-  providers: [
-    { provide: HTTP_INTERCEPTORS, useClass: BasicAuthInterceptor, multi: true },
-    { provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true },
-    { provide: APP_INITIALIZER, useFactory: (config: AppConfiguration) => () => config.load(), deps: [AppConfiguration], multi: true },
-    HttpClient, DatePipe, AppConfiguration, AppState, AppService, AuthGuard],
+  providers,
   bootstrap: [AppComponent]
 })
 export class AppModule { }

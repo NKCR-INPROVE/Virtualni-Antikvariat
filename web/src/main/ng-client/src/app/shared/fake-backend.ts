@@ -21,7 +21,7 @@ export class FakeBackendInterceptor implements HttpInterceptor {
 
         function handleRoute() {
             switch (true) {
-                case url.endsWith('/users/authenticate') && method === 'POST':
+                case url.endsWith('/lg') && method === 'POST':
                     return authenticate();
                 case url.endsWith('/users') && method === 'GET':
                     return getUsers();
@@ -36,22 +36,22 @@ export class FakeBackendInterceptor implements HttpInterceptor {
         function authenticate() {
             const { username, password } = body;
             const user = users.find(x => x.username === username && x.password === password);
-            if (!user) return error('Username or password is incorrect');
+            if (!user) { return error('Username or password is incorrect'); }
             return ok({
                 id: user.id,
                 username: user.username
-            })
+            });
         }
 
         function getUsers() {
-            if (!isLoggedIn()) return unauthorized();
+            if (!isLoggedIn()) { return unauthorized(); }
             return ok(users);
         }
 
         // helper functions
 
         function ok(body?) {
-            return of(new HttpResponse({ status: 200, body }))
+            return of(new HttpResponse({ status: 200, body }));
         }
 
         function error(message) {

@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { TranslateService } from '@ngx-translate/core';
 import { ActivatedRoute, Router, NavigationEnd } from '@angular/router';
 import { AppState } from './app.state';
+import { HomeComponent } from './pages/home/home.component';
 
 @Component({
   selector: 'app-root',
@@ -25,10 +26,10 @@ export class AppComponent implements OnInit {
   ngOnInit() {
     this.router.events.subscribe(val => {
       if (val instanceof NavigationEnd) {
-        this.state.isHome = this.route.snapshot.firstChild.routeConfig.path === '' ||
-         this.route.snapshot.firstChild.routeConfig.path === 'home';
+        this.state.isHome = this.route.snapshot.firstChild.routeConfig.component.name === 'HomeComponent';
       }
     });
+
   }
 
 }

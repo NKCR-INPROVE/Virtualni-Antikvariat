@@ -43,7 +43,6 @@ export class LoginComponent implements OnInit {
 
     onSubmit() {
 
-        console.log('tttaaadddyyy');
         this.submitted = true;
 
         // stop here if form is invalid
@@ -57,8 +56,10 @@ export class LoginComponent implements OnInit {
             .subscribe(
                 data => {
                     console.log(data);
-                    // this.router.navigate([this.returnUrl]);
-                    this.dialogRef.close();
+                    this.dialogRef.close(data);
+                    if (this.returnUrl) {
+                        this.router.navigate([this.returnUrl]);
+                    }
                 },
                 error => {
                     this.error = error;
