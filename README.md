@@ -1,6 +1,6 @@
 # Virtuální antikvariát
 
-## Cíl projektu: i
+## Cíl projektu:
 
 V rámci nabídkové povinnosti dané legislativou musí knihovny v ČR nabízet
 vyřazované knihy. K automatizaci tohoto procesu vznikla aplikace Virtuální depozitní
