@@ -44,6 +44,10 @@ export class SearchFormComponent implements OnInit {
     
   }
 
+  offers() {}
+
+  demands() {}
+
   openAdvanced(): void {
     const data = Object.assign({}, this.advParams);
     const dialogRef = this.dialog.open(AdvancedSearchDialog, {

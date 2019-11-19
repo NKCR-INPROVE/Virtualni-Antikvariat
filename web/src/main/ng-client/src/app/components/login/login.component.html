@@ -3,15 +3,13 @@
 <form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
     <mat-dialog-content class="mat-typography">
         <mat-form-field>
-            <input matInput [placeholder]="'username' | translate" [formControl]="f.username"
-                [errorStateMatcher]="matcher" cdkFocusInitial>
+            <input matInput [placeholder]="'username' | translate" [formControl]="f.username" cdkFocusInitial>
             <mat-error *ngIf="f.username.hasError('required')">
                 {{'Username is required' | translate}}
             </mat-error>
         </mat-form-field>
         <mat-form-field>
-            <input matInput [placeholder]="'password' | translate" [formControl]="f.password" type="password"
-                [errorStateMatcher]="matcher">
+            <input matInput [placeholder]="'password' | translate" [formControl]="f.password" type="password" />
             <mat-error *ngIf="f.password.hasError('required')">
                 {{'Password is required' | translate}}
             </mat-error>

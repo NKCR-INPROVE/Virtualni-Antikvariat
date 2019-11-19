@@ -14,7 +14,7 @@
     </span> &#160;
     <span><a routerLink="/registrace">{{'Registrace' | translate}}</a></span> &#160;
     <span><a (click)="changeLang()">{{currLang}}</a></span> &#160;
-    <span *ngIf="user"><a *ngIf="user.role === 'admin'" (click)="admin()">{{'admin' | translate}}</a></span>
+    <span *ngIf="user"><a *ngIf="user.role === 'admin'" routerLink="/admin">{{'admin' | translate}}</a></span>
   </mat-toolbar-row>
   <mat-toolbar-row>
     <span class="example-fill-remaining-space"></span>
