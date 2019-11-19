@@ -33,7 +33,7 @@ public class InitServlet extends HttpServlet {
   public static String CONFIG_DIR = ".vdk";
 
   //Default config directory in webapp
-  public static String DEFAULT_CONFIG_DIR = "/assets/config.json";
+  public static String DEFAULT_CONFIG_DIR = "/assets";
 
   //Default configuration file 
   public static String DEFAULT_CONFIG_FILE = "config.json";
