@@ -27,6 +27,9 @@ public class InitServlet extends HttpServlet {
   public static final Logger LOGGER = Logger.getLogger(InitServlet.class.getName());
 
   //Directory where cant override configuration  
+  public static final String APP_DIR_KEY = "vdk_app_dir";
+
+  //Directory where cant override configuration  
   public static String CONFIG_DIR = ".vdk";
 
   //Default config directory in webapp
@@ -34,6 +37,9 @@ public class InitServlet extends HttpServlet {
 
   //Default configuration file 
   public static String DEFAULT_CONFIG_FILE = "config.json";
+
+  //Default config directory in webapp
+  public static String DEFAULT_I18N_DIR = "/assets/i18n";
 
   Scheduler sched;
 
@@ -63,13 +69,22 @@ public class InitServlet extends HttpServlet {
   @Override
   public void init() throws ServletException {
     try {
-      DEFAULT_CONFIG_FILE = getServletContext().getRealPath(DEFAULT_CONFIG_DIR);
-      CONFIG_DIR = System.getProperty("user.home") + File.separator + ".vdk";
-      if (getServletContext().getInitParameter("app_dir") != null) {
-        CONFIG_DIR = getServletContext().getInitParameter("app_dir");
+      if (getServletContext().getInitParameter("def_config_dir") != null) {
+        DEFAULT_CONFIG_DIR = getServletContext().getInitParameter("def_config_dir");
       }
-      System.out.println("App dir is ------> " + CONFIG_DIR);
 
+      DEFAULT_CONFIG_FILE = getServletContext().getRealPath(DEFAULT_CONFIG_DIR) + File.separator + DEFAULT_CONFIG_FILE;
+      DEFAULT_I18N_DIR = getServletContext().getRealPath(DEFAULT_I18N_DIR);
+
+      if (System.getProperty(APP_DIR_KEY) != null) {
+        CONFIG_DIR = System.getProperty(APP_DIR_KEY);
+      } else if (getServletContext().getInitParameter("app_dir") != null) {
+        CONFIG_DIR = getServletContext().getInitParameter("app_dir");
+      } else {
+        CONFIG_DIR = System.getProperty("user.home") + File.separator + CONFIG_DIR;
+      }
+      LOGGER.log(Level.INFO, "app dir is ----> {0}", CONFIG_DIR);
+      
       sched = VDKScheduler.getInstance().getScheduler();
       getJobs();
       sched.start();
@@ -82,8 +97,10 @@ public class InitServlet extends HttpServlet {
 
     try {
 
-      File dir = new File(System.getProperty("user.home") + File.separator
-              + ".vdk" + File.separator + "jobs" + File.separator);
+      File dir = new File(DEFAULT_CONFIG_DIR + File.separator + "jobs" + File.separator);
+      if(!dir.exists()) {
+        return;
+      }
       File[] children = dir.listFiles();
       for (File child : children) {// check interrupted thread
 

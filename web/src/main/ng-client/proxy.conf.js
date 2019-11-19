@@ -7,12 +7,7 @@ const PROXY_CONFIG = {
     "target": "http://localhost:443/api",
     "logLevel": "debug",
     "bypass": function (req, res, proxyOptions) {
-      req.headers["X-Custom-Header"] = "yes";
-        console.log(req.query, req.method);
-        console.log('path -> ' + req.path);
-        console.log('body -> ' + req.body);
-        console.log('originalurl -> ' + req.originalUrl);
-      
+      req.headers["X-Custom-Header"] = "yes";      
       
       if (req.path.indexOf('/assets') > -1) {
         return req.url;

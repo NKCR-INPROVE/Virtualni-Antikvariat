@@ -26,7 +26,9 @@ export class AppComponent implements OnInit {
   ngOnInit() {
     this.router.events.subscribe(val => {
       if (val instanceof NavigationEnd) {
-        this.state.isHome = this.route.snapshot.firstChild.routeConfig.component.name === 'HomeComponent';
+        // console.log(this.route.snapshot);
+        // this.state.isHome = this.route.snapshot.firstChild.routeConfig.component.name === 'HomeComponent';
+        this.state.isHome = this.route.snapshot.firstChild.routeConfig.component === HomeComponent;
       }
     });
 

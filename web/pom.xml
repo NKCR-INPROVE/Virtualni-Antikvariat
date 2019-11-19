@@ -132,6 +132,75 @@
     
       <!-- Insert jsp pageEncoding tag to index.html -->
       <plugin> 
+        <groupId>com.google.code.maven-replacer-plugin</groupId> 
+        <artifactId>replacer</artifactId> 
+        <version>1.5.3</version> 
+        <executions> 
+          <execution> 
+            <id>replace-for-index</id>
+            <phase>prepare-package</phase> 
+            <goals> 
+              <goal>replace</goal> 
+            </goals>  
+            <configuration> 
+              <file>${project.basedir}/src/main/webapp/index.html</file> 
+              <replacements> 
+                <replacement> 
+                  <token>&lt;!doctype html&gt;</token> 
+                  <value>&lt;%@page contentType="text/html" pageEncoding="UTF-8"%&gt;&lt;!doctype html&gt;</value> 
+                </replacement> 
+                <replacement> 
+                  <token>base href="/"</token> 
+                  <value>base href="/${context.name}/"</value> 
+                </replacement> 
+              </replacements> 
+            </configuration> 
+          </execution> 
+	  
+          <execution> 
+            <id>replace-for-config</id>
+            <phase>prepare-package</phase> 
+            <goals> 
+              <goal>replace</goal> 
+            </goals>  
+            <configuration> 
+              <file>${project.basedir}/src/main/webapp/assets/config.json</file> 
+              <replacements> 
+                <replacement> 
+                  <token>&lt;!doctype html&gt;</token> 
+                  <value>&lt;%@page contentType="text/html" pageEncoding="UTF-8"%&gt;&lt;!doctype html&gt;</value> 
+                </replacement> 
+                <replacement> 
+                  <token>"context": "/",</token> 
+                  <value>"context": "/${context.name}/",</value> 
+                </replacement> 
+              </replacements> 
+            </configuration> 
+          </execution> 
+          
+          <execution> 
+            <id>replace-for-styles</id>
+            <phase>prepare-package</phase> 
+            <goals> 
+              <goal>replace</goal> 
+            </goals> 
+            
+            <configuration> 
+              <includes>
+                <include>${project.basedir}/src/main/webapp/styles.*.css</include>
+              </includes> 
+              <replacements> 
+                <replacement> 
+                  <token>/assets/fonts/</token> 
+                  <value>assets/fonts/</value> 
+                </replacement> 
+              </replacements> 
+            </configuration>  
+          </execution> 
+        </executions>
+      </plugin>
+      
+      <plugin> 
         
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-compiler-plugin</artifactId>
