@@ -5,6 +5,7 @@
  */
 package cz.inovatika.vdk;
 
+import static cz.inovatika.vdk.common.SolrIndexerCommiter.getServer;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.logging.Level;
@@ -13,7 +14,13 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import org.apache.solr.client.solrj.SolrClient;
 import org.apache.solr.client.solrj.SolrQuery;
+import org.apache.solr.client.solrj.impl.HttpSolrClient;
+import org.apache.solr.client.solrj.impl.NoOpResponseParser;
+import org.apache.solr.client.solrj.request.DirectXmlRequest;
+import org.apache.solr.client.solrj.request.QueryRequest;
+import org.apache.solr.common.util.NamedList;
 import org.json.JSONObject;
 
 /**
@@ -79,7 +86,21 @@ public class SearchServlet extends HttpServlet {
       @Override
       JSONObject doPerform(HttpServletRequest req, HttpServletResponse resp) throws Exception {
         JSONObject json = new JSONObject();
-        SolrQuery query = new SolrQuery();
+        
+        HttpSolrClient client = new HttpSolrClient.Builder("http://localhost:8983/solr").build();
+        
+        SolrQuery query = new SolrQuery("*:*");
+        query.setRows(1);
+        QueryRequest qreq = new QueryRequest(query);
+
+        NoOpResponseParser dontMessWithSolr = new NoOpResponseParser();
+        dontMessWithSolr.setWriterType("json");
+        client.setParser(dontMessWithSolr);
+        NamedList<Object> qresp = client.request(qreq, "oai");
+        String jsonResponse = (String) qresp.get("response");
+        System.out.println(jsonResponse);
+        json = new JSONObject(jsonResponse);
+        client.close();
         return json;
       }
     },
@@ -87,6 +108,19 @@ public class SearchServlet extends HttpServlet {
       @Override
       JSONObject doPerform(HttpServletRequest req, HttpServletResponse resp) throws Exception {
         JSONObject json = new JSONObject();
+        String xml = "<add><doc>\n" +
+"    <field name=\"code\">111</field>\n" +
+"    <field name=\"md5\">t1</field></doc>\n" +
+"  <doc>\n" +
+"    <field name=\"code\">333</field>\n" +
+"    <field name=\"md5\">t22</field></doc></add>";
+        DirectXmlRequest xmlreq = new DirectXmlRequest( "/update", xml );
+        SolrClient client = getServer("catalog");
+        
+        client.request(xmlreq);
+        // client.commit();
+        
+        client.close();
         return json;
       }
     };

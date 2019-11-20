@@ -13,7 +13,26 @@
         <servlet-name>SearchServlet</servlet-name>
         <url-pattern>/search/*</url-pattern>
     </servlet-mapping>
-    
+    <servlet>
+        <servlet-name>SchedulerServlet</servlet-name>
+        <servlet-class>cz.inovatika.vdk.SchedulerServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>SchedulerServlet</servlet-name>
+        <url-pattern>/sched/*</url-pattern>
+    </servlet-mapping>
+    <servlet>
+        <servlet-name>HarvestServlet</servlet-name>
+        <servlet-class>cz.inovatika.vdk.HarvestServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>IndexServlet</servlet-name>
+        <servlet-class>cz.inovatika.vdk.IndexServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>IndexServlet</servlet-name>
+        <url-pattern>/index/*</url-pattern>
+    </servlet-mapping>
     <servlet>
         <servlet-name>ConfigServlet</servlet-name>
         <servlet-class>cz.inovatika.vdk.ConfigServlet</servlet-class>
@@ -24,7 +43,6 @@
         <url-pattern>/config</url-pattern>
         <url-pattern>/assets/config.json</url-pattern>
     </servlet-mapping>
-    
     <servlet>
         <servlet-name>I18nServlet</servlet-name>
         <servlet-class>cz.inovatika.vdk.I18nServlet</servlet-class>
@@ -34,7 +52,6 @@
         <url-pattern>/assets/i18n/*</url-pattern>
         <url-pattern>/i18n/*</url-pattern>
     </servlet-mapping>
-	
     <servlet>
         <servlet-name>StaticServlet</servlet-name>
         <jsp-file>/index.jsp</jsp-file>
@@ -47,7 +64,10 @@
         <url-pattern>/results/*</url-pattern>
         <url-pattern>/login</url-pattern>
     </servlet-mapping>
-	
+    <servlet-mapping>
+        <servlet-name>HarvestServlet</servlet-name>
+        <url-pattern>/harvest/*</url-pattern>
+    </servlet-mapping>
     <session-config>
         <session-timeout>
             30

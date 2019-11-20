@@ -5,7 +5,7 @@
  */
 package cz.inovatika.vdk;
 
-import cz.incad.vdkcommon.VDKScheduler;
+import cz.inovatika.vdk.common.VDKScheduler;
 import java.io.File;
 import java.io.IOException;
 import java.sql.SQLException;
@@ -60,7 +60,7 @@ public class InitServlet extends HttpServlet {
   @Override
   public void destroy() {
     try {
-      sched.shutdown(false);
+      sched.shutdown(true);
     } catch (SchedulerException ex) {
       Logger.getLogger(InitServlet.class.getName()).log(Level.SEVERE, null, ex);
     }
@@ -88,16 +88,21 @@ public class InitServlet extends HttpServlet {
       sched = VDKScheduler.getInstance().getScheduler();
       getJobs();
       sched.start();
+      
+      
+      
+      
     } catch (SQLException | SchedulerException ex) {
       LOGGER.log(Level.SEVERE, null, ex);
     }
   }
+  
 
   private void getJobs() throws SQLException, SchedulerException {
 
     try {
 
-      File dir = new File(DEFAULT_CONFIG_DIR + File.separator + "jobs" + File.separator);
+      File dir = new File(CONFIG_DIR + File.separator + "jobs" + File.separator);
       if(!dir.exists()) {
         return;
       }
