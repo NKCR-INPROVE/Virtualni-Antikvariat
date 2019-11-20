@@ -1,2 +1,5 @@
 web/nb-configuration.xml
 /web/target/
+/web/src/main/webapp/assets/
+/web/src/main/webapp/.*js
+/web/src/main/webapp/.*css
