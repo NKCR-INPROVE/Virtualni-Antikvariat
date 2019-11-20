@@ -1,11 +1,11 @@
 package cz.inovatika.vdk;
 
-import cz.incad.vdkcommon.DbUtils;
-import cz.incad.vdkcommon.Knihovna;
-import cz.incad.vdkcommon.SolrIndexerCommiter;
-import cz.incad.vdkcommon.VDKJobData;
-import cz.incad.vdkcommon.solr.Indexer;
-import cz.incad.vdkcommon.solr.IndexerQuery;
+import cz.inovatika.vdk.common.DbUtils;
+import cz.inovatika.vdk.common.Knihovna;
+import cz.inovatika.vdk.common.SolrIndexerCommiter;
+import cz.inovatika.vdk.common.VDKJobData;
+import cz.inovatika.vdk.solr.Indexer;
+import cz.inovatika.vdk.solr.IndexerQuery;
 import java.io.File;
 import java.io.IOException;
 import java.io.PrintWriter;
