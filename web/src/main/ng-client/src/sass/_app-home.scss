@@ -1,35 +1,9 @@
 // --- HOME ---
 
-.containerX {
+app-home {
+  height: 100%;
   background-color: silver;
-  padding: 20px;
-
-  .app-row {
-    background-color: black;
-
-    div {
-      background-color: red;
-      height: 100px;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      
-      &:nth-child(1) {
-        background-color: aqua;
-      }
-
-      &:nth-child(2) {
-        background-color: bisque;  
-      }
-
-      &:nth-child(3) {
-        background-color: blueviolet;
-      }
-
-      &:nth-child(4) {
-        background-color: coral;
-      }
-    }
-  }
+  //justify-content: center;
+  align-items: center;
+  text-align: center;
 }
-

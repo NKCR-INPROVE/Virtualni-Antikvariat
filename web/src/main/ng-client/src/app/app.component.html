@@ -1,9 +1,11 @@
-<header>
-  <app-navbar></app-navbar>
+<header fxLayout="row">
+  <app-navbar fxFlex></app-navbar>
 </header>
-<main>
-  <router-outlet></router-outlet>
+<main fxLayout="row">
+  <div fxFlex class="app-container">
+    <router-outlet></router-outlet>
+  </div>
 </main>
-<footer class="page-footer">
-  <app-footer></app-footer>
+<footer fxLayout="row">
+  <app-footer fxFlex fxLayoutGap="10px"></app-footer>
 </footer>

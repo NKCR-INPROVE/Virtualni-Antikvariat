@@ -1,0 +1,22 @@
+// --- LAYOUT ---
+
+header {
+  background-color: red;
+  min-height: 80px;
+}
+
+main {
+  background-color: green;
+  min-height: calc(100% - 128px - 50px);
+
+  @import "app-home";
+}
+
+footer {
+  background-color: black;
+  color: white;
+  min-height: 50px;
+
+  @import "app-footer";
+}
+

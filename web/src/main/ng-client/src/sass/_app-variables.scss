@@ -26,3 +26,10 @@ $candy-app-theme: mat-light-theme($candy-app-primary, $candy-app-accent, $candy-
 
 // colors
 $primary-color:                   color("cyan", "base") !default;
+
+
+// pedro
+$app-gap: 16px !default;
+
+$app-container-width-max: 1280px !default;
+$app-container-width: 90% !default;

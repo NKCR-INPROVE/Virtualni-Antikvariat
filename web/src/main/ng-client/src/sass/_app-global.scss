@@ -1,8 +1,18 @@
+// --- GLOBAL ---
+
 html, body { height: 100%; }
 body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
 
 .example-fill-remaining-space {
-    /* This fills the remaining space, by using flexbox. 
-       Every toolbar row uses a flexbox row layout. */
-    flex: 1 1 auto;
-  }
+   /* This fills the remaining space, by using flexbox. 
+      Every toolbar row uses a flexbox row layout. */
+   flex: 1 1 auto;
+}
+
+// --- PEDRO ---
+
+.app-container {
+	margin: 0 auto;
+	max-width: $app-container-width-max;
+	width: $app-container-width;
+}

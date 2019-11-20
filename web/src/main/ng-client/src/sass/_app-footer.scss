@@ -1,6 +1,10 @@
-footer {
-    -webkit-box-flex: 0;
-    -webkit-flex: none;
-    flex: none;
-    
+// --- FOOTER ---
+
+app-footer {
+  padding: 0 $app-gap;
+  align-items: center;
+
+  .app-fx-right {
+    text-align: right;
   }
+}
