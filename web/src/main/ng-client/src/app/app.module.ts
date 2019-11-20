@@ -20,6 +20,7 @@ import { AppService } from './app.service';
 import { AuthGuard } from './auth-guard';
 
 import { MaterialModule } from './material.module';
+import { FlexLayoutModule } from '@angular/flex-layout';
 
 import { ResultsComponent } from './pages/results/results.component';
 import { HomeComponent } from './pages/home/home.component';
@@ -80,6 +81,7 @@ if (!environment.production) {
     BrowserModule,
     AppRoutingModule,
     MaterialModule,
+    FlexLayoutModule,
     BrowserAnimationsModule,
     FormsModule,
     ReactiveFormsModule,
