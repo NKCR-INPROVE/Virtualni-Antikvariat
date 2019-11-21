@@ -14,6 +14,14 @@
         <url-pattern>/search/*</url-pattern>
     </servlet-mapping>
     <servlet>
+        <servlet-name>UsersServlet</servlet-name>
+        <servlet-class>cz.inovatika.vdk.UsersServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>UsersServlet</servlet-name>
+        <url-pattern>/users/*</url-pattern>
+    </servlet-mapping>
+    <servlet>
         <servlet-name>SchedulerServlet</servlet-name>
         <servlet-class>cz.inovatika.vdk.SchedulerServlet</servlet-class>
     </servlet>
