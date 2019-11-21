@@ -1,10 +1,11 @@
-
 package cz.inovatika.vdk;
-
 
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.net.InetAddress;
+import java.util.HashSet;
 import java.util.Iterator;
+import java.util.Set;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.servlet.ServletException;
@@ -12,16 +13,17 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+import org.apache.commons.io.IOUtils;
 import org.json.JSONObject;
 
 /**
  *
  * @author alberto
  */
-public class LoginServlet extends HttpServlet {
+public class UsersServlet extends HttpServlet {
 
-  public static final Logger LOGGER = Logger.getLogger(LoginServlet.class.getName());
-  public static final String ACTION_NAME = "action";
+  public static final Logger LOGGER = Logger.getLogger(UsersServlet.class.getName());
+  static boolean isLocalhost = false;
 
   /**
    * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -35,22 +37,41 @@ public class LoginServlet extends HttpServlet {
   protected void processRequest(HttpServletRequest req, HttpServletResponse resp)
           throws ServletException, IOException {
 
+    resp.setContentType("application/json;charset=UTF-8");
+    resp.setHeader("Cache-Control", "no-cache, no-store, must-revalidate"); // HTTP 1.1
+    resp.setHeader("Pragma", "no-cache"); // HTTP 1.0
+    resp.setDateHeader("Expires", 0); // Proxies.
+    PrintWriter out = resp.getWriter();
+    
     try {
-
-      String actionNameParam = req.getParameter(ACTION_NAME);
+      String actionNameParam = req.getPathInfo().substring(1);
       if (actionNameParam != null) {
-        LoginServlet.Actions actionToDo = LoginServlet.Actions.valueOf(actionNameParam.toUpperCase());
-        resp.setContentType("application/json;charset=UTF-8");
-        actionToDo.doPerform(req, resp);
+        Set<String> localAddresses = new HashSet<>();
+        localAddresses.add(InetAddress.getLocalHost().getHostAddress());
+        for (InetAddress inetAddress : InetAddress.getAllByName("localhost")) {
+          localAddresses.add(inetAddress.getHostAddress());
+        }
+        if (localAddresses.contains(req.getRemoteAddr())) {
+          LOGGER.log(Level.INFO, "running from local address");
+          isLocalhost = true;
+        }
+
+        Actions actionToDo = Actions.valueOf(actionNameParam.toUpperCase());
+        if (UsersController.isLogged(req) || isLocalhost) {
+          out.print(actionToDo.doPerform(req, resp));
+        } else {
+          JSONObject json = new JSONObject();
+          json.put("error", "not logged");
+          out.print(json.toString());
+        }
+
       } else {
-        PrintWriter out = resp.getWriter();
         out.print("actionNameParam -> " + actionNameParam);
       }
     } catch (IOException e1) {
       LOGGER.log(Level.SEVERE, e1.getMessage(), e1);
       resp.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
       resp.sendError(HttpServletResponse.SC_INTERNAL_SERVER_ERROR, e1.toString());
-      PrintWriter out = resp.getWriter();
       out.print(e1.toString());
     } catch (SecurityException e1) {
       LOGGER.log(Level.SEVERE, e1.getMessage(), e1);
@@ -58,33 +79,53 @@ public class LoginServlet extends HttpServlet {
     } catch (Exception e1) {
       LOGGER.log(Level.SEVERE, e1.getMessage(), e1);
       resp.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
-      PrintWriter out = resp.getWriter();
       resp.sendError(HttpServletResponse.SC_INTERNAL_SERVER_ERROR, e1.toString());
       out.print(e1.toString());
     }
   }
-  
 
   enum Actions {
+    ADD {
+      @Override
+      JSONObject doPerform(HttpServletRequest req, HttpServletResponse resp) throws Exception {
+
+        JSONObject jo = new JSONObject();
+        try {
+          if (req.getMethod().equals("POST")) {
+            String js = IOUtils.toString(req.getInputStream(), "UTF-8");
+            jo = UsersController.add(new JSONObject(js));
+          } else {
+            jo = UsersController.add(new JSONObject(req.getParameter("json")));
+          }
+          
+          
+
+        } catch (Exception ex) {
+          jo.put("logged", false);
+          jo.put("error", ex.toString());
+        }
+        return jo;
+
+      }
+    },
     LOGIN {
       @Override
-      void doPerform(HttpServletRequest req, HttpServletResponse resp) throws Exception {
+      JSONObject doPerform(HttpServletRequest req, HttpServletResponse resp) throws Exception {
 
-        PrintWriter out = resp.getWriter();
         JSONObject jo = new JSONObject();
         try {
 
           String user = req.getParameter("user");
           if (user != null) {
-            
-            if(LoginController.login(req, user, req.getParameter("pwd"))){
+
+            if (UsersController.login(req, user, req.getParameter("pwd"))) {
               jo.put("logged", true);
-              
-            }else{
+
+            } else {
               jo.put("logged", false);
               jo.put("error", "invalid user name or password");
             }
-            
+
           } else {
             jo.put("logged", false);
             jo.put("error", "invalid user name or password");
@@ -94,16 +135,14 @@ public class LoginServlet extends HttpServlet {
           jo.put("logged", false);
           jo.put("error", ex.toString());
         }
-        out.println(jo.toString());
+        return jo;
 
       }
     },
     LOGOUT {
       @Override
-      void doPerform(HttpServletRequest req, HttpServletResponse resp) throws Exception {
-        resp.setContentType("application/json;charset=UTF-8");
-
-        PrintWriter out = resp.getWriter();
+      JSONObject doPerform(HttpServletRequest req, HttpServletResponse resp) throws Exception {
+        
         JSONObject jo = new JSONObject();
         try {
           req.getSession().invalidate();
@@ -112,23 +151,27 @@ public class LoginServlet extends HttpServlet {
         } catch (Exception ex) {
           jo.put("error", ex.toString());
         }
-        if (req.getParameter("json.wrf") != null) {
-          out.println(req.getParameter("json.wrf") + "(" + jo.toString() + ")");
-        } else {
-          out.println(jo.toString(2));
-        }
+        return jo;
+        
+      }
+    },
+    ALL {
+      @Override
+      JSONObject doPerform(HttpServletRequest req, HttpServletResponse resp) throws Exception {
+        
+        JSONObject jo = UsersController.getAll();
+        return jo;
+        
       }
     },
     TESTLOGIN {
       @Override
-      void doPerform(HttpServletRequest req, HttpServletResponse resp) throws Exception {
-        resp.setContentType("application/json;charset=UTF-8");
-
-        PrintWriter out = resp.getWriter();
+      JSONObject doPerform(HttpServletRequest req, HttpServletResponse resp) throws Exception {
+        
         JSONObject jo = new JSONObject();
         try {
-          jo = (JSONObject) req.getSession().getAttribute("user");
-          if(jo == null){
+          jo = (JSONObject) UsersController.get(req);
+          if (jo == null) {
             jo = new JSONObject();
             jo.put("error", "nologged");
           }
@@ -136,15 +179,11 @@ public class LoginServlet extends HttpServlet {
         } catch (Exception ex) {
           jo.put("error", ex.toString());
         }
-        if (req.getParameter("json.wrf") != null) {
-          out.println(req.getParameter("json.wrf") + "(" + jo.toString(2) + ")");
-        } else {
-          out.println(jo.toString(2));
-        }
+        return jo;
       }
     };
 
-    abstract void doPerform(HttpServletRequest req, HttpServletResponse resp) throws Exception;
+    abstract JSONObject doPerform(HttpServletRequest req, HttpServletResponse resp) throws Exception;
   }
 
   // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

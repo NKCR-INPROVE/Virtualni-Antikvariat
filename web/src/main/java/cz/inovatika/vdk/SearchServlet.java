@@ -6,6 +6,7 @@
 package cz.inovatika.vdk;
 
 import static cz.inovatika.vdk.common.SolrIndexerCommiter.getServer;
+import cz.inovatika.vdk.solr.SolrSearcher;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.logging.Level;
@@ -15,12 +16,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import org.apache.solr.client.solrj.SolrClient;
-import org.apache.solr.client.solrj.SolrQuery;
-import org.apache.solr.client.solrj.impl.HttpSolrClient;
-import org.apache.solr.client.solrj.impl.NoOpResponseParser;
 import org.apache.solr.client.solrj.request.DirectXmlRequest;
-import org.apache.solr.client.solrj.request.QueryRequest;
-import org.apache.solr.common.util.NamedList;
 import org.json.JSONObject;
 
 /**
@@ -52,14 +48,14 @@ public class SearchServlet extends HttpServlet {
       String actionNameParam = req.getPathInfo().substring(1);
       if (actionNameParam != null) {
         Actions actionToDo = Actions.valueOf(actionNameParam.toUpperCase());
-        JSONObject json = actionToDo.doPerform(req, resp);
+        String json = actionToDo.doPerform(req, resp);
         String user = "";
-        if (req.getUserPrincipal() != null) {
-          user = req.getUserPrincipal().getName();
-        }
+//        if (req.getUserPrincipal() != null) {
+//          user = req.getUserPrincipal().getName();
+//        }
 //        LOGGER.log(Level.INFO, "[SEARCH] response={0} payload='{'{1}'}' user='{'{2}'}'",
 //                new Object[]{json.toString(), req.getQueryString(), user});
-        out.println(json.toString(2));
+        out.println(json);
       } else {
 
         out.print("actionNameParam -> " + actionNameParam);
@@ -84,29 +80,16 @@ public class SearchServlet extends HttpServlet {
 
     QUERY {
       @Override
-      JSONObject doPerform(HttpServletRequest req, HttpServletResponse resp) throws Exception {
-        JSONObject json = new JSONObject();
+      String doPerform(HttpServletRequest req, HttpServletResponse resp) throws Exception {
+        // JSONObject json = new JSONObject();
+        SolrSearcher searcher = new SolrSearcher((req));
+        return searcher.json();
         
-        HttpSolrClient client = new HttpSolrClient.Builder("http://localhost:8983/solr").build();
-        
-        SolrQuery query = new SolrQuery("*:*");
-        query.setRows(1);
-        QueryRequest qreq = new QueryRequest(query);
-
-        NoOpResponseParser dontMessWithSolr = new NoOpResponseParser();
-        dontMessWithSolr.setWriterType("json");
-        client.setParser(dontMessWithSolr);
-        NamedList<Object> qresp = client.request(qreq, "oai");
-        String jsonResponse = (String) qresp.get("response");
-        System.out.println(jsonResponse);
-        json = new JSONObject(jsonResponse);
-        client.close();
-        return json;
       }
     },
     FACET {
       @Override
-      JSONObject doPerform(HttpServletRequest req, HttpServletResponse resp) throws Exception {
+      String doPerform(HttpServletRequest req, HttpServletResponse resp) throws Exception {
         JSONObject json = new JSONObject();
         String xml = "<add><doc>\n" +
 "    <field name=\"code\">111</field>\n" +
@@ -121,11 +104,11 @@ public class SearchServlet extends HttpServlet {
         // client.commit();
         
         client.close();
-        return json;
+        return json.toString();
       }
     };
 
-    abstract JSONObject doPerform(HttpServletRequest req, HttpServletResponse resp) throws Exception;
+    abstract String doPerform(HttpServletRequest req, HttpServletResponse resp) throws Exception;
   }
       
 

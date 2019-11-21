@@ -1,7 +1,7 @@
 package cz.inovatika.vdk;
 
 import cz.inovatika.vdk.common.DbUtils;
-import cz.inovatika.vdk.common.Knihovna;
+import cz.inovatika.vdk.common.User;
 import cz.inovatika.vdk.common.SolrIndexerCommiter;
 import cz.inovatika.vdk.common.VDKJobData;
 import cz.inovatika.vdk.solr.Indexer;
@@ -60,7 +60,7 @@ public class IndexServlet extends HttpServlet {
         }
 
         Actions actionToDo = Actions.valueOf(actionNameParam.toUpperCase());
-        if (LoginController.isLogged(req) || isLocalhost) {
+        if (UsersController.isLogged(req) || isLocalhost) {
           actionToDo.doPerform(req, resp);
         } else {
           resp.setContentType("application/json;charset=UTF-8");
@@ -244,7 +244,7 @@ public class IndexServlet extends HttpServlet {
         PrintWriter out = resp.getWriter();
         JSONObject json = new JSONObject();
         try {
-          Knihovna kn = LoginController.toKnihovna(req);
+          User kn = UsersController.toKnihovna(req);
           if (kn == null) {
             json.put("error", "rights.notlogged");
           } else {
@@ -268,7 +268,7 @@ public class IndexServlet extends HttpServlet {
         PrintWriter out = resp.getWriter();
         JSONObject json = new JSONObject();
         try {
-          Knihovna kn = LoginController.toKnihovna(req);
+          User kn = UsersController.toKnihovna(req);
           if (kn == null) {
             json.put("error", "rights.notlogged");
           } else {
@@ -292,7 +292,7 @@ public class IndexServlet extends HttpServlet {
         PrintWriter out = resp.getWriter();
         JSONObject json = new JSONObject();
         try {
-          Knihovna kn = LoginController.toKnihovna(req);
+          User kn = UsersController.toKnihovna(req);
           if (kn == null) {
             json.put("error", "rights.notlogged");
           } else {
@@ -314,7 +314,7 @@ public class IndexServlet extends HttpServlet {
         PrintWriter out = resp.getWriter();
         JSONObject json = new JSONObject();
         try {
-          Knihovna kn = LoginController.toKnihovna(req);
+          User kn = UsersController.toKnihovna(req);
           if (kn == null) {
             json.put("error", "rights.notlogged");
           } else {
@@ -336,7 +336,7 @@ public class IndexServlet extends HttpServlet {
         PrintWriter out = resp.getWriter();
         JSONObject json = new JSONObject();
         try {
-          Knihovna kn = LoginController.toKnihovna(req);
+          User kn = UsersController.toKnihovna(req);
           if (kn == null) {
             json.put("error", "rights.notlogged");
           } else {
@@ -366,7 +366,7 @@ public class IndexServlet extends HttpServlet {
           
           System.out.println(VDKJobData.class.getResource(VDKJobData.class.getSimpleName() + ".class"));
 
-            Knihovna kn = LoginController.toKnihovna(req);
+            User kn = UsersController.toKnihovna(req);
             if (isLocalhost || kn.hasRole(DbUtils.Roles.ADMIN)) {
               String f = System.getProperty("user.home") + File.separator + ".vdkcr" + File.separator + "jobs" + File.separator + "indexer.json";
               Indexer indexer = new Indexer(f);
@@ -392,7 +392,7 @@ public class IndexServlet extends HttpServlet {
         PrintWriter out = resp.getWriter();
         JSONObject json = new JSONObject();
         try {
-          Knihovna kn = LoginController.toKnihovna(req);
+          User kn = UsersController.toKnihovna(req);
           if (kn == null) {
             json.put("error", "rights.notlogged");
           } else {

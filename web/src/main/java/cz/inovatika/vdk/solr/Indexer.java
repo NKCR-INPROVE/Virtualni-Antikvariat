@@ -20,7 +20,7 @@ import cz.inovatika.vdk.InitServlet;
 import cz.inovatika.vdk.Options;
 import cz.inovatika.vdk.common.Bohemika;
 import cz.inovatika.vdk.common.DbUtils;
-import cz.inovatika.vdk.common.Knihovna;
+import cz.inovatika.vdk.common.User;
 import cz.inovatika.vdk.common.SolrIndexerCommiter;
 import cz.inovatika.vdk.common.VDKJobData;
 import java.io.File;
@@ -57,7 +57,6 @@ import org.apache.commons.io.FileUtils;
 import org.apache.solr.client.solrj.SolrQuery;
 import org.apache.solr.client.solrj.SolrClient;
 import org.apache.solr.client.solrj.SolrServerException;
-import org.apache.solr.client.solrj.request.DirectXmlRequest;
 import org.apache.solr.common.SolrDocument;
 import org.apache.solr.common.SolrDocumentList;
 import org.apache.solr.common.SolrInputDocument;
@@ -70,7 +69,7 @@ import org.w3c.dom.Document;
  */
 public class Indexer {
 
-    static final Logger logger = Logger.getLogger(Indexer.class.getName());
+    static final Logger LOGGER = Logger.getLogger(Indexer.class.getName());
 
     int total = 0;
     int offerIndexed = 0;
@@ -81,7 +80,7 @@ public class Indexer {
     private final String LAST_UPDATE = "last_run";
     private final String LAST_MESSAGE = "last_message";
     private String statusFileName;
-    JSONObject statusJson;
+    JSONObject statusJson = new JSONObject();
 
     private final Options opts;
     private final VDKJobData jobData;
@@ -121,13 +120,13 @@ public class Indexer {
         StreamSource xslt = new StreamSource(new File(InitServlet.CONFIG_DIR + File.separator + opts.getString("indexerXSL", "vdk_md5.xsl")));
         transformer = tfactory.newTransformer(xslt);
         if(transformer == null) {
-          logger.log(Level.SEVERE, "File {0} not found", InitServlet.CONFIG_DIR + File.separator + opts.getString("indexerIdXSL", "vdk_id.xsl"));
+          LOGGER.log(Level.SEVERE, "File {0} not found", InitServlet.CONFIG_DIR + File.separator + opts.getString("indexerIdXSL", "vdk_id.xsl"));
           throw new FileNotFoundException();
         }
         StreamSource xslt2 = new StreamSource(new File(InitServlet.CONFIG_DIR + File.separator + opts.getString("indexerIdXSL", "vdk_id.xsl")));
         trId = tfactory.newTransformer(xslt2);
         if(trId == null) {
-          logger.log(Level.SEVERE, "File {0} not found", InitServlet.CONFIG_DIR + File.separator + opts.getString("indexerIdXSL", "vdk_id.xsl"));
+          LOGGER.log(Level.SEVERE, "File {0} not found", InitServlet.CONFIG_DIR + File.separator + opts.getString("indexerIdXSL", "vdk_id.xsl"));
           throw new FileNotFoundException();
         }
         if (this.jobData == null) {
@@ -142,18 +141,28 @@ public class Indexer {
     }
 
     public void clean() throws Exception {
-        logger.log(Level.FINE, "Cleaning index...");
+        LOGGER.log(Level.FINE, "Cleaning index...");
         SolrIndexerCommiter.getServer().deleteByQuery("*:*");
-        logger.log(Level.INFO, "Index cleaned");
+        LOGGER.log(Level.INFO, "Index cleaned");
     }
 
-    public void reindex() throws Exception {
+    public JSONObject reindex() throws SolrServerException, IOException{
+      JSONObject json = new JSONObject();
+      try {
         jobData.getOpts().put("full_index", true);
         clean();
-        index();
+        json.put("index", index());
         indexAllOffers();
         indexAllDemands();
         indexAllWanted();
+        
+      } catch (Exception ex) {
+        LOGGER.log(Level.SEVERE, null, ex);
+        json.put("error", ex);
+        SolrIndexerCommiter.closeClients();
+        //throw new Exception(ex);
+      }
+      return json;
     }
 
     private SolrInputDocument demandDoc(String knihovna,
@@ -228,7 +237,7 @@ public class Indexer {
     }
 
     public void indexOffer(int id) throws Exception {
-        logger.log(Level.INFO, "indexing offer {0}", id);
+        LOGGER.log(Level.INFO, "indexing offer {0}", id);
         Connection conn = DbUtils.getConnection();
 
         String sql = "SELECT offer.datum, ZaznamOffer.zaznamoffer_id, ZaznamOffer.offer, "
@@ -267,7 +276,7 @@ public class Indexer {
         Iterator<SolrDocument> iter = docs.iterator();
         while (iter.hasNext()) {
             if (jobData.isInterrupted()) {
-                logger.log(Level.INFO, "INDEXER INTERRUPTED");
+                LOGGER.log(Level.INFO, "INDEXER INTERRUPTED");
                 break;
             }
             StringBuilder sb = new StringBuilder();
@@ -293,7 +302,7 @@ public class Indexer {
         iter = docs.iterator();
         while (iter.hasNext()) {
             if (jobData.isInterrupted()) {
-                logger.log(Level.INFO, "INDEXER INTERRUPTED");
+                LOGGER.log(Level.INFO, "INDEXER INTERRUPTED");
                 break;
             }
             StringBuilder sb = new StringBuilder();
@@ -327,7 +336,7 @@ public class Indexer {
         Iterator<SolrDocument> iter = docs.iterator();
         while (iter.hasNext()) {
             if (jobData.isInterrupted()) {
-                logger.log(Level.INFO, "INDEXER INTERRUPTED");
+                LOGGER.log(Level.INFO, "INDEXER INTERRUPTED");
                 break;
             }
             StringBuilder sb = new StringBuilder();
@@ -379,7 +388,7 @@ public class Indexer {
         Iterator<SolrDocument> iter = docs.iterator();
         while (iter.hasNext()) {
             if (jobData.isInterrupted()) {
-                logger.log(Level.INFO, "INDEXER INTERRUPTED");
+                LOGGER.log(Level.INFO, "INDEXER INTERRUPTED");
                 break;
             }
             StringBuilder sb = new StringBuilder();
@@ -399,7 +408,7 @@ public class Indexer {
             sb.append("</doc></add>");
             SolrIndexerCommiter.postData(sb.toString());
             SolrIndexerCommiter.postData("<commit/>");
-            logger.log(Level.INFO, "Demands for {0} removed.", docCode);
+            LOGGER.log(Level.INFO, "Demands for {0} removed.", docCode);
         }
         if (numFound > 0 && !jobData.isInterrupted()) {
             removeAllDemands();
@@ -440,7 +449,7 @@ public class Indexer {
         try (ResultSet rs = ps.executeQuery()) {
             while (rs.next()) {
                 if (jobData.isInterrupted()) {
-                    logger.log(Level.INFO, "INDEXER INTERRUPTED");
+                    LOGGER.log(Level.INFO, "INDEXER INTERRUPTED");
                     break;
                 }
 
@@ -565,7 +574,7 @@ public class Indexer {
         try (ResultSet rs = ps.executeQuery()) {
             while (rs.next()) {
                 if (jobData.isInterrupted()) {
-                    logger.log(Level.INFO, "INDEXER INTERRUPTED");
+                    LOGGER.log(Level.INFO, "INDEXER INTERRUPTED");
                     break;
                 }
                 server.add(offerDoc(rs.getInt("offer"),
@@ -589,7 +598,7 @@ public class Indexer {
     }
 
     public void reindexDocByIdentifier(String identifier) throws Exception {
-        logger.log(Level.INFO, "----- Reindexing doc {0} ...", identifier);
+        LOGGER.log(Level.INFO, "----- Reindexing doc {0} ...", identifier);
 
         SolrQuery query = new SolrQuery("id:\"" + identifier + "\"");
         query.addField("id,code");
@@ -616,7 +625,7 @@ public class Indexer {
             oldUniqueCode = (String) resultDoc.getFieldValue("code");
 
             if (oldUniqueCode != null && !oldUniqueCode.equals(uniqueCode)) {
-                logger.log(Level.INFO, "Cleaning doc {0} from index...", oldUniqueCode);
+                LOGGER.log(Level.INFO, "Cleaning doc {0} from index...", oldUniqueCode);
                 String s = "<delete><query>code:" + oldUniqueCode + "</query></delete>";
                 SolrIndexerCommiter.postData(s);
                 indexDoc(oldUniqueCode);
@@ -624,7 +633,7 @@ public class Indexer {
             }
         }
 
-        logger.log(Level.INFO, "Cleaning doc {0} from index...", uniqueCode);
+        LOGGER.log(Level.INFO, "Cleaning doc {0} from index...", uniqueCode);
         String s = "<delete><query>code:" + uniqueCode + "</query></delete>";
         SolrIndexerCommiter.postData(s);
         SolrIndexerCommiter.postData("<commit/>");
@@ -667,7 +676,7 @@ public class Indexer {
             try (ResultSet rs = ps.executeQuery()) {
                 while (rs.next()) {
                     if (jobData.isInterrupted()) {
-                        logger.log(Level.INFO, "INDEXER INTERRUPTED");
+                        LOGGER.log(Level.INFO, "INDEXER INTERRUPTED");
                         break;
                     }
                     server.add(offerDoc(rs.getInt("offer"),
@@ -695,7 +704,7 @@ public class Indexer {
     public void indexDoc(String uniqueCode) throws Exception {
 
         try {
-            logger.log(Level.INFO, "Indexace doc {0}...", uniqueCode);
+            LOGGER.log(Level.INFO, "Indexace doc {0}...", uniqueCode);
             StringBuilder sb = new StringBuilder();
             sb.append("<add>");
 
@@ -706,7 +715,7 @@ public class Indexer {
             Iterator<SolrDocument> iter = docs.iterator();
             while (iter.hasNext()) {
                 if (jobData.isInterrupted()) {
-                    logger.log(Level.INFO, "INDEXER INTERRUPTED");
+                    LOGGER.log(Level.INFO, "INDEXER INTERRUPTED");
                     break;
                 }
                 SolrDocument resultDoc = iter.next();
@@ -732,9 +741,9 @@ public class Indexer {
             removeDocOffers(uniqueCode);
             indexDocOffers(uniqueCode);
             SolrIndexerCommiter.postData("<commit/>");
-            logger.log(Level.INFO, "REINDEX FINISHED. Total docs: {0}", total);
+            LOGGER.log(Level.INFO, "REINDEX FINISHED. Total docs: {0}", total);
         } catch (Exception ex) {
-            logger.log(Level.SEVERE, "Error in reindex", ex);
+            LOGGER.log(Level.SEVERE, "Error in reindex", ex);
         }
     }
 
@@ -761,7 +770,7 @@ public class Indexer {
 
                 }
             } catch (SolrServerException | IOException ex) {
-                logger.log(Level.SEVERE, null, ex);
+                LOGGER.log(Level.SEVERE, null, ex);
             }
         }
         return demandsCache.containsKey(code);
@@ -771,7 +780,7 @@ public class Indexer {
 
         StringBuilder sb = new StringBuilder();
         try {
-            logger.log(Level.FINE, "Storing document " + id);
+            LOGGER.log(Level.FINE, "Storing document " + id);
             sb.append("<add>");
 
             sb.append(doSorlXML(xml,
@@ -797,7 +806,7 @@ public class Indexer {
             total++;
             checkDemand(code, id);
         } catch (Exception ex) {
-            logger.log(Level.SEVERE, "Error storing doc with " + sb.toString(), ex);
+            LOGGER.log(Level.SEVERE, "Error storing doc with " + sb.toString(), ex);
         }
     }
     
@@ -827,7 +836,7 @@ public class Indexer {
                 JSONObject j = new JSONObject(pop);
                 
             String from = opts.getString("admin.email");
-            Knihovna kn = new Knihovna(j.getString("knihovna"));
+            User kn = User.byCode(j.getString("knihovna"));
             String to = kn.getEmail();
             String zaznam = j.optString("zaznam");
             String code = j.optString("code");
@@ -850,24 +859,26 @@ public class Indexer {
                 message.setText(body);
                 
                 Transport.send(message);
-                logger.fine("Sent message successfully....");
+                LOGGER.fine("Sent message successfully....");
             } catch (MessagingException ex) {
-                logger.log(Level.SEVERE, "Error sending email to: {0}, from {1} ", new Object[]{to, from});
-                logger.log(Level.SEVERE, null, ex);
+                LOGGER.log(Level.SEVERE, "Error sending email to: {0}, from {1} ", new Object[]{to, from});
+                LOGGER.log(Level.SEVERE, null, ex);
             }
-        } catch (NamingException | SQLException ex) {
-            logger.log(Level.SEVERE, null, ex);
+        } catch (Exception ex) {
+            LOGGER.log(Level.SEVERE, null, ex);
         }
     }
 
-    private void index() throws Exception {
-        update(null);
+    private JSONObject index() throws Exception {
+      
+      JSONObject json = update(null);
         Date date = new Date();
 
         String to = sdf.format(date);
 
         statusJson.put(LAST_UPDATE, to);
         writeStatus();
+        return json;
     }
 
     public void run() throws Exception {
@@ -894,7 +905,7 @@ public class Indexer {
                 indexAllWanted();
             }
             if (!"".equals(jobData.getString("identifier", ""))) {
-                logger.log(Level.INFO, "----- Reindexing doc {0} ...", jobData.getString("identifier"));
+                LOGGER.log(Level.INFO, "----- Reindexing doc {0} ...", jobData.getString("identifier"));
 
                 SolrQuery query = new SolrQuery("id:\"" + jobData.getString("identifier") + "\"");
                 query.addField("id,code");
@@ -914,7 +925,7 @@ public class Indexer {
     }
 
     private void readStatus() throws IOException {
-        logger.log(Level.INFO, "reading status file {0}", statusFileName);
+        LOGGER.log(Level.INFO, "reading status file {0}", statusFileName);
         File statusFile = new File(statusFileName);
         if (statusFile.exists()) {
             statusJson = new JSONObject(FileUtils.readFileToString(statusFile, "UTF-8"));
@@ -937,8 +948,8 @@ public class Indexer {
 
     }
 
-    private void update(String fq) throws Exception {
-
+    private JSONObject update(String fq) throws Exception {
+JSONObject json = new JSONObject();
         try {
             StorageBrowser docs = new StorageBrowser();
             docs.setWt("json");
@@ -951,7 +962,7 @@ public class Indexer {
             sb.append("<add>");
             while (it.hasNext()) {
                 if (jobData.isInterrupted()) {
-                    logger.log(Level.INFO, "INDEXER INTERRUPTED");
+                    LOGGER.log(Level.INFO, "INDEXER INTERRUPTED");
                     break;
                 }
                 JSONObject doc = (JSONObject) it.next();
@@ -962,7 +973,7 @@ public class Indexer {
                         statusJson.put(LAST_UPDATE, doc.getString("timestamp"));
                         writeStatus();
                     }else{
-                        logger.log(Level.INFO, "TIMESTAMP MISSING!!!!");
+                        LOGGER.log(Level.INFO, "TIMESTAMP MISSING!!!!");
                         
                     }
                 } else {
@@ -987,7 +998,7 @@ public class Indexer {
                         SolrIndexerCommiter.postData("<commit/>");
                         sb = new StringBuilder();
                         sb.append("<add>");
-                        logger.log(Level.INFO, "Current indexed docs: {0}", total);
+                        LOGGER.log(Level.INFO, "Current indexed docs: {0}", total);
                         writeStatus();
                     }
 
@@ -998,17 +1009,20 @@ public class Indexer {
             SolrIndexerCommiter.postData(sb.toString());
 
             SolrIndexerCommiter.postData("<commit/>");
-            logger.log(Level.INFO, "REINDEX FINISHED. Total docs: {0}", total);
+            LOGGER.log(Level.INFO, "REINDEX FINISHED. Total docs: {0}", total);
+            json.put("total", total);
 
             writeStatus();
         } catch (Exception ex) {
             errorMsg += ex.toString();
-            logger.log(Level.SEVERE, "Error in reindex", ex);
+            json.put("error", errorMsg);
+            LOGGER.log(Level.SEVERE, "Error in reindex", ex);
         }
+        return json;
     }
 
     public void processXML(File file) throws Exception {
-        logger.log(Level.FINE, "Sending {0} to index ...", file.getAbsolutePath());
+        LOGGER.log(Level.FINE, "Sending {0} to index ...", file.getAbsolutePath());
         StreamResult destStream = new StreamResult(new StringWriter());
         transformer.transform(new StreamSource(file), destStream);
         StringWriter sw = (StringWriter) destStream.getWriter();
@@ -1016,7 +1030,7 @@ public class Indexer {
     }
 
     public void processXML(Document doc) throws Exception {
-        logger.log(Level.FINE, "Sending to index ...");
+        LOGGER.log(Level.FINE, "Sending to index ...");
         StreamResult destStream = new StreamResult(new StringWriter());
         transformer.transform(new DOMSource(doc), destStream);
         StringWriter sw = (StringWriter) destStream.getWriter();
@@ -1024,7 +1038,7 @@ public class Indexer {
     }
 
     private String doSorlXML(String xml, String uniqueCode, String codeType, String identifier, boolean bohemika) throws Exception {
-        logger.log(Level.FINE, "Transforming {0} ...", identifier);
+        LOGGER.log(Level.FINE, "Transforming {0} ...", identifier);
         StreamResult destStream = new StreamResult(new StringWriter());
         trId.setParameter("uniqueCode", uniqueCode);
         trId.setParameter("codeType", codeType);
@@ -1036,24 +1050,24 @@ public class Indexer {
     }
 
     private String transformXML(String xml, String uniqueCode, String codeType, String identifier, boolean bohemika) throws Exception {
-        logger.log(Level.FINE, "Transforming {0} ...", identifier);
+        LOGGER.log(Level.FINE, "Transforming {0} ...", identifier);
         StreamResult destStream = new StreamResult(new StringWriter());
         transformer.setParameter("uniqueCode", uniqueCode);
         transformer.setParameter("codeType", codeType);
         transformer.setParameter("bohemika", Boolean.toString(bohemika));
         transformer.transform(new StreamSource(new StringReader(xml)), destStream);
-        logger.log(Level.FINE, "Sending to index ...");
+        LOGGER.log(Level.FINE, "Sending to index ...");
         StringWriter sw = (StringWriter) destStream.getWriter();
         return sw.toString();
     }
 
     public void processXML(String xml, String uniqueCode, String codeType, String identifier, boolean bohemika) throws Exception {
-        logger.log(Level.FINE, "Transforming {0} ...", identifier);
+        LOGGER.log(Level.FINE, "Transforming {0} ...", identifier);
         StreamResult destStream = new StreamResult(new StringWriter());
         transformer.setParameter("uniqueCode", uniqueCode);
         transformer.setParameter("bohemika", Boolean.toString(bohemika));
         transformer.transform(new StreamSource(new StringReader(xml)), destStream);
-        logger.log(Level.FINE, "Sending to index ...");
+        LOGGER.log(Level.FINE, "Sending to index ...");
         StringWriter sw = (StringWriter) destStream.getWriter();
         SolrIndexerCommiter.postData(sw.toString());
     }
@@ -1070,7 +1084,7 @@ public class Indexer {
             //indexer.reindex();
             indexer.removeAllDemands();
         } catch (Exception ex) {
-            logger.log(Level.SEVERE, null, ex);
+            LOGGER.log(Level.SEVERE, null, ex);
         }
     }
 

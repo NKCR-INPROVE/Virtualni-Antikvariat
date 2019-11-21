@@ -2,7 +2,7 @@
 package cz.inovatika.vdk;
 
 import cz.inovatika.vdk.common.DbUtils;
-import cz.inovatika.vdk.common.Knihovna;
+import cz.inovatika.vdk.common.User;
 import cz.inovatika.vdk.common.VDKJobData;
 import cz.inovatika.vdk.oai.HarvesterJob;
 import cz.inovatika.vdk.oai.HarvesterJobData;
@@ -94,7 +94,7 @@ public class HarvestServlet extends HttpServlet {
         
         JSONObject json = new JSONObject();
         try {
-          Knihovna kn = (Knihovna) req.getSession().getAttribute("knihovna");
+          User kn = (User) req.getSession().getAttribute("knihovna");
           if (kn == null && !isLocalhost) {
             json.put("error", "rights.notlogged");
           } else {
