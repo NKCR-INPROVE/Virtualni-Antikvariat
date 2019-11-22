@@ -4,15 +4,14 @@ import java.io.IOException;
 import java.io.PrintWriter;
 import java.net.InetAddress;
 import java.util.HashSet;
-import java.util.Iterator;
 import java.util.Set;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.servlet.ServletException;
+import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
 import org.apache.commons.io.IOUtils;
 import org.json.JSONObject;
 
@@ -20,6 +19,7 @@ import org.json.JSONObject;
  *
  * @author alberto
  */
+@WebServlet(value = "/users/*") 
 public class UsersServlet extends HttpServlet {
 
   public static final Logger LOGGER = Logger.getLogger(UsersServlet.class.getName());
@@ -167,7 +167,6 @@ public class UsersServlet extends HttpServlet {
     TESTLOGIN {
       @Override
       JSONObject doPerform(HttpServletRequest req, HttpServletResponse resp) throws Exception {
-        
         JSONObject jo = new JSONObject();
         try {
           jo = (JSONObject) UsersController.get(req);

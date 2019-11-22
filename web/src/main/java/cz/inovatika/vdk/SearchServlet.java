@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package cz.inovatika.vdk;
 
 import static cz.inovatika.vdk.common.SolrIndexerCommiter.getServer;
@@ -12,6 +7,7 @@ import java.io.PrintWriter;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.servlet.ServletException;
+import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -23,6 +19,7 @@ import org.json.JSONObject;
  *
  * @author alberto
  */
+@WebServlet(value = "/search/*") 
 public class SearchServlet extends HttpServlet {
 
   public static final Logger LOGGER = Logger.getLogger(SearchServlet.class.getName());

@@ -1,6 +1,8 @@
-package cz.inovatika.vdk.common;
+package cz.inovatika.vdk.solr.models;
 
 import cz.inovatika.vdk.Options;
+import cz.inovatika.vdk.common.DbUtils;
+import cz.inovatika.vdk.common.MD5;
 import java.io.IOException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -40,7 +42,7 @@ public class User {
   private String telefon;
   
 
-  public static User fromJSON(JSONObject json) {
+  public static User fromJSONx(JSONObject json) {
     
     User user = new User();
     user.code = json.getString("code");
@@ -82,7 +84,7 @@ public class User {
     }
   }
 
-  public JSONObject getJson() throws JSONException {
+  public JSONObject getJsonx() throws JSONException {
     JSONObject j = new JSONObject();
     j.put("name", nazev);
     j.put("code", code);

@@ -1,6 +1,7 @@
 package cz.inovatika.vdk.common;
 
 import cz.inovatika.vdk.Options;
+import cz.inovatika.vdk.solr.JSONUpdateRequest;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
@@ -8,16 +9,22 @@ import java.io.OutputStream;
 import java.io.OutputStreamWriter;
 import java.io.Reader;
 import java.io.StringReader;
+import java.io.UnsupportedEncodingException;
 import java.io.Writer;
 import java.net.HttpURLConnection;
 import java.net.ProtocolException;
 import java.net.URL;
 import java.util.HashMap;
+import java.util.Map;
+import java.util.Map.Entry;
+import java.util.logging.Level;
 import org.apache.solr.client.solrj.SolrClient;
 import org.apache.solr.client.solrj.SolrServerException;
 import org.apache.solr.client.solrj.impl.HttpSolrClient;
 import org.apache.solr.client.solrj.request.DirectXmlRequest;
 import org.apache.solr.client.solrj.request.json.DirectJsonQueryRequest;
+import org.apache.solr.client.solrj.response.UpdateResponse;
+import org.json.JSONObject;
 
 /**
  *
@@ -53,6 +60,28 @@ public class SolrIndexerCommiter {
       }
       _servers.clear();
       
+    }
+    
+    public static String indexJSON(JSONObject json, String core) throws UnsupportedEncodingException, IOException, SolrServerException {
+      Options opts = Options.getInstance();
+      
+      UpdateResponse response;
+      try (SolrClient client = new HttpSolrClient.Builder(String.format("%s/%s/",
+              opts.getString("solrHost", "http://localhost:8983/solr"),
+              opts.getString(core, core)))
+              .withConnectionTimeout(10000)
+              .withSocketTimeout(60000)
+              .build()) {
+        JSONUpdateRequest request = new JSONUpdateRequest(json);
+        
+//        for(Entry<String, String> e : mappings.entrySet()){
+//          request.addFieldMapping(core, core);
+//          e.getKey()
+//        }
+        response = request.setCommitWithin(100).process(client);
+        client.commit();
+      }
+      return response.jsonStr();
     }
     
     public static void indexXML(String xml, String core) throws Exception{

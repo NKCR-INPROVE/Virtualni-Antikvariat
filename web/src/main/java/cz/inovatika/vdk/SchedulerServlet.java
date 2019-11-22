@@ -14,6 +14,7 @@ import java.util.Set;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.servlet.ServletException;
+import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -33,6 +34,7 @@ import org.quartz.impl.matchers.GroupMatcher;
  *
  * @author alberto
  */
+@WebServlet(value = "/sched/*") 
 public class SchedulerServlet extends HttpServlet {
 
   public static final Logger LOGGER = Logger.getLogger(SchedulerServlet.class.getName());

@@ -16,7 +16,7 @@
  */
 package cz.inovatika.vdk.solr;
 
-import cz.inovatika.vdk.common.User;
+import cz.inovatika.vdk.solr.models.User;
 import cz.inovatika.vdk.UsersController;
 import cz.inovatika.vdk.Options;
 import cz.inovatika.vdk.solr.IndexerQuery;

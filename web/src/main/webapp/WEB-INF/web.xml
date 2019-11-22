@@ -5,22 +5,17 @@
         <servlet-class>cz.inovatika.vdk.InitServlet</servlet-class>
         <load-on-startup>1</load-on-startup>
     </servlet>
+    
     <servlet>
-        <servlet-name>SearchServlet</servlet-name>
-        <servlet-class>cz.inovatika.vdk.SearchServlet</servlet-class>
+        <servlet-name>ApiServlet</servlet-name>
+        <servlet-class>cz.inovatika.vdk.ApiServlet</servlet-class>
     </servlet>
     <servlet-mapping>
-        <servlet-name>SearchServlet</servlet-name>
-        <url-pattern>/search/*</url-pattern>
+        <servlet-name>ApiServlet</servlet-name>
+        <url-pattern>/api/*</url-pattern>
     </servlet-mapping>
-    <servlet>
-        <servlet-name>UsersServlet</servlet-name>
-        <servlet-class>cz.inovatika.vdk.UsersServlet</servlet-class>
-    </servlet>
-    <servlet-mapping>
-        <servlet-name>UsersServlet</servlet-name>
-        <url-pattern>/users/*</url-pattern>
-    </servlet-mapping>
+    
+    <!--
     <servlet>
         <servlet-name>SchedulerServlet</servlet-name>
         <servlet-class>cz.inovatika.vdk.SchedulerServlet</servlet-class>
@@ -33,6 +28,10 @@
         <servlet-name>HarvestServlet</servlet-name>
         <servlet-class>cz.inovatika.vdk.HarvestServlet</servlet-class>
     </servlet>
+    <servlet-mapping>
+        <servlet-name>HarvestServlet</servlet-name>
+        <url-pattern>/harvest/*</url-pattern>
+    </servlet-mapping>
     <servlet>
         <servlet-name>IndexServlet</servlet-name>
         <servlet-class>cz.inovatika.vdk.IndexServlet</servlet-class>
@@ -60,6 +59,7 @@
         <url-pattern>/assets/i18n/*</url-pattern>
         <url-pattern>/i18n/*</url-pattern>
     </servlet-mapping>
+        -->
     <servlet>
         <servlet-name>StaticServlet</servlet-name>
         <jsp-file>/index.jsp</jsp-file>
@@ -71,10 +71,6 @@
         <url-pattern>/registrace</url-pattern>
         <url-pattern>/results/*</url-pattern>
         <url-pattern>/login</url-pattern>
-    </servlet-mapping>
-    <servlet-mapping>
-        <servlet-name>HarvestServlet</servlet-name>
-        <url-pattern>/harvest/*</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>
