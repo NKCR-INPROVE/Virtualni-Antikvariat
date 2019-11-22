@@ -20,7 +20,7 @@ import cz.inovatika.vdk.InitServlet;
 import cz.inovatika.vdk.Options;
 import cz.inovatika.vdk.common.Bohemika;
 import cz.inovatika.vdk.common.DbUtils;
-import cz.inovatika.vdk.common.User;
+import cz.inovatika.vdk.solr.models.User;
 import cz.inovatika.vdk.common.SolrIndexerCommiter;
 import cz.inovatika.vdk.common.VDKJobData;
 import java.io.File;

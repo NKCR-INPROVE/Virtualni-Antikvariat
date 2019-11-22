@@ -2,7 +2,7 @@
 package cz.inovatika.vdk;
 
 import cz.inovatika.vdk.common.DbUtils;
-import cz.inovatika.vdk.common.User;
+import cz.inovatika.vdk.solr.models.User;
 import cz.inovatika.vdk.common.VDKJobData;
 import cz.inovatika.vdk.oai.HarvesterJob;
 import cz.inovatika.vdk.oai.HarvesterJobData;
@@ -14,6 +14,7 @@ import java.util.Set;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.servlet.ServletException;
+import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -23,6 +24,7 @@ import org.json.JSONObject;
  *
  * @author alberto
  */
+@WebServlet(value = "/harvest/*") 
 public class HarvestServlet extends HttpServlet {
 
   public static final Logger LOGGER = Logger.getLogger(HarvestServlet.class.getName());

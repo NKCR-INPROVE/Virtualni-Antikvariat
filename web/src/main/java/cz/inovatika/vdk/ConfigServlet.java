@@ -6,6 +6,7 @@ import java.io.PrintWriter;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.servlet.ServletException;
+import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -16,6 +17,8 @@ import org.json.JSONObject;
  *
  * @author alberto
  */
+
+@WebServlet(name="ConfigServlet", urlPatterns = {"/config/*", "/config", "/assets/config.json"}) 
 public class ConfigServlet extends HttpServlet {
 
   public static final Logger LOGGER = Logger.getLogger(Options.class.getName());

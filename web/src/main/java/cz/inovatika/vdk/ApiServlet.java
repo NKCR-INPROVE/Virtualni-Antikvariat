@@ -1,27 +1,27 @@
+/*
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
+ */
 package cz.inovatika.vdk;
 
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.util.logging.Level;
-import java.util.logging.Logger;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
-import javax.servlet.annotation.WebServlet;
+import javax.servlet.ServletRegistration;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
-import org.json.JSONException;
-import org.json.JSONObject;
+import jdk.nashorn.internal.runtime.regexp.RegExp;
 
 /**
  *
  * @author alberto
  */
-
-@WebServlet(name="ConfigServlet", urlPatterns = {"/i18n/*", "/assets/i18n/*"})
-public class I18nServlet extends HttpServlet {
-
-  public static final Logger LOGGER = Logger.getLogger(I18nServlet.class.getName());
+public class ApiServlet extends HttpServlet {
 
   /**
    * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -34,28 +34,27 @@ public class I18nServlet extends HttpServlet {
    */
   protected void processRequest(HttpServletRequest request, HttpServletResponse response)
           throws ServletException, IOException {
-    try {
-
-      response.setContentType("application/json;charset=UTF-8");
-      HttpSession session = request.getSession();
-
-      //Options.resetInstance();
-      PrintWriter out = response.getWriter();
-      String url = request.getRequestURI();
-      LOGGER.log(Level.FINE, "url is {0}", url);
-      String locale = url.substring(url.lastIndexOf("/")).substring(1, 3);
-      LOGGER.log(Level.FINE, "locale is {0}", locale);
-      if (request.getParameter("reset") != null){
-        I18n.resetInstance();
-      }
-      JSONObject js = I18n.getInstance().getLocale(locale);
+    response.setContentType("text/plain;charset=UTF-8");
+    try (PrintWriter out = response.getWriter()) {
       
-      out.print(js.toString());
-    } catch (IOException ex) {
-      LOGGER.log(Level.SEVERE, null, ex);
-    } catch (JSONException ex) {
-      LOGGER.log(Level.SEVERE, null, ex);
-    } 
+      String path = request.getPathInfo();
+      
+      RequestDispatcher rd=request.getRequestDispatcher(path);  
+      rd.forward(request, response);
+//      
+//      for(ServletRegistration sr: request.getServletContext().getServletRegistrations().values()) {
+//        //out.println(sr.getMappings());
+//        for (String regex : sr.getMappings()) {
+//          out.print(regex + " matches " + path);
+//          //sr.getClass().
+//          out.println(" -> " + Pattern.compile(regex).matcher(path).matches());
+//          if (path.matches(regex)) {
+//            
+//          }
+//        }
+//      }
+      
+    }
   }
 
   // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

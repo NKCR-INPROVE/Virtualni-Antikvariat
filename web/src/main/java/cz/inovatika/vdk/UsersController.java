@@ -1,12 +1,13 @@
 package cz.inovatika.vdk;
 
+import com.alibaba.fastjson.JSON;
 import cz.inovatika.vdk.common.MD5;
-import cz.inovatika.vdk.common.User;
+import cz.inovatika.vdk.common.SolrIndexerCommiter;
+import cz.inovatika.vdk.solr.JSONUpdateRequest;
+import cz.inovatika.vdk.solr.models.User;
 import java.io.IOException;
-import java.sql.SQLException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import javax.naming.NamingException;
 import javax.servlet.http.HttpServletRequest;
 import org.apache.solr.client.solrj.SolrClient;
 import org.apache.solr.client.solrj.SolrQuery;
@@ -15,6 +16,7 @@ import org.apache.solr.client.solrj.impl.HttpSolrClient;
 import org.apache.solr.client.solrj.impl.NoOpResponseParser;
 import org.apache.solr.client.solrj.request.QueryRequest;
 import org.apache.solr.client.solrj.response.QueryResponse;
+import org.apache.solr.client.solrj.response.UpdateResponse;
 import org.apache.solr.common.util.NamedList;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -94,7 +96,7 @@ public class UsersController {
         }
         User user = response.getBeans(User.class).get(0);
         if (user.getHeslo().equals(MD5.generate(pwd))) {
-          req.getSession().setAttribute("login", user.getJson());
+          req.getSession().setAttribute("login", new JSONObject(JSON.toJSONString(user)));
           return true;
         } else {
           LOGGER.log(Level.INFO, "Invalid password");
@@ -119,15 +121,22 @@ public class UsersController {
   public static JSONObject add(JSONObject json) {
     try {
       Options opts = Options.getInstance();
-      SolrClient solr = new HttpSolrClient.Builder(String.format("%s/%s/",
-              opts.getString("solrHost", "http://localhost:8983/solr"),
-              opts.getString("usersCore", "users")))
-              .build();
+      String jsonStr = SolrIndexerCommiter.indexJSON(json, "usersCore");
+      
+//      SolrClient solr = new HttpSolrClient.Builder(String.format("%s/%s/",
+//              opts.getString("solrHost", "http://localhost:8983/solr"),
+//              opts.getString("usersCore", "users")))
+//              .build();
+//
+//      JSONUpdateRequest request = new JSONUpdateRequest(json);
+//      UpdateResponse response = request.setCommitWithin(100).process(solr);
+//      LOGGER.log(Level.INFO, response.jsonStr());
+      
+      // User u = JSON.parseObject(json.toString(), User.class); 
+      // solr.addBean(u, 1000);
 
-      solr.addBean(User.fromJSON(json), 1000);
-
-      solr.close();
-      return new JSONObject().put("msg", "id");
+//      solr.close();
+      return new JSONObject(jsonStr);
     } catch (IOException | JSONException | SolrServerException ex) {
       LOGGER.log(Level.SEVERE, null, ex);
       return new JSONObject().put("error", ex);
