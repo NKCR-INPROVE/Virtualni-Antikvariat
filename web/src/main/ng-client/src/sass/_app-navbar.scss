@@ -1,5 +1,25 @@
 // --- NAVBAR ---
 
 app-navbar {
-  
+  a, .app-link {
+    color: white;
+  }
+
+  .mat-toolbar-row {
+    & > div {
+      & > span {
+        &:not(:first-child) {
+          margin-left: $app-gap;
+        }
+      }
+    }
+  }
+
+  .app-fx-right {
+    text-align: right;
+  }
+
+  .mat-icon {
+    vertical-align: sub;
+  }
 }

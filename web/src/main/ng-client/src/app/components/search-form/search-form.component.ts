@@ -12,12 +12,12 @@ import { AuthenticationService } from 'src/app/shared';
 })
 export class SearchFormComponent implements OnInit {
 
-  isLogged: boolean;
+  // isLogged: boolean;  - pedro - moved to the navbar comp
 
   searchParams: SearchParams = new SearchParams();
   advParams: AdvancedParams = new AdvancedParams();
 
-  views: string[] = ['bohemika', 'ztrata'];
+  // views: string[] = ['bohemika', 'ztrata']; - pedro - moved to the navbar comp
 
   constructor(
     public dialog: MatDialog,
@@ -26,7 +26,7 @@ export class SearchFormComponent implements OnInit {
     private authService: AuthenticationService) { }
 
   ngOnInit() {
-    this.authService.currentUser.subscribe(x => this.isLogged = x !== null);
+    // this.authService.currentUser.subscribe(x => this.isLogged = x !== null); - pedro - moved to the navbar comp
     this.router.events.subscribe(val => {
       if (val instanceof NavigationEnd) {
         Utils.sanitize(this.route.snapshot.queryParams, this.searchParams);

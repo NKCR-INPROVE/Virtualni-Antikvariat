@@ -1,25 +1,13 @@
 <div>
-    <mat-form-field>
-        <input matInput [(ngModel)]="searchParams.q" [placeholder]="'q.placeholder' | translate" />
-        <button mat-icon-button matSuffix (click)="search()" [title]="'Search' | translate" [attr.aria-label]="'Search' | translate">
-            <mat-icon>search</mat-icon>
-        </button>
-    </mat-form-field>
-    <button mat-icon-button matSuffix (click)="openAdvanced()" [title]="'Advanced search' | translate" [attr.aria-label]="'Advanced search' | translate">
-        <mat-icon>reorder</mat-icon>
-    </button>
-
-    <span><a (click)="export()">{{'Export' | translate}}</a></span> &#160;
-    <span><a  *ngIf="isLogged" (click)="demands()">{{'poptávky' | translate}}</a></span> &#160;
-    <span><a *ngIf="isLogged" (click)="offers()">{{'nabídky' | translate}}</a></span> &#160;
-
-    
-    <mat-form-field>
-    <mat-label>{{'pohledy' | translate}}</mat-label>
-    <mat-select>
-            <mat-option *ngFor="let view of views" [value]="view">{{view}}</mat-option>
-    </mat-select>
-    </mat-form-field>
+	<mat-form-field>
+		<input matInput [(ngModel)]="searchParams.q" [placeholder]="'q.placeholder' | translate" />
+		<button mat-icon-button matSuffix (click)="search()" [title]="'Search' | translate" [attr.aria-label]="'Search' | translate">
+			<mat-icon>search</mat-icon>
+		</button>
+	</mat-form-field>
+	<button mat-icon-button matSuffix (click)="openAdvanced()" [title]="'Advanced search' | translate" [attr.aria-label]="'Advanced search' | translate">
+		<mat-icon>reorder</mat-icon>
+	</button>
 </div>
 
 

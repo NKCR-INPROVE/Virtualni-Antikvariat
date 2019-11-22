@@ -17,6 +17,9 @@ export class NavbarComponent implements OnInit {
   currLang: string;
   user: User;
 
+  isLogged: boolean;
+  views: string[] = ['bohemika', 'ztrata'];
+
   constructor(
     public dialog: MatDialog,
     private authService: AuthenticationService,
@@ -27,6 +30,7 @@ export class NavbarComponent implements OnInit {
   }
 
   ngOnInit() {
+    this.authService.currentUser.subscribe(x => this.isLogged = x !== null);
     this.authService.currentUser.subscribe(x => this.user = x);
     this.service.currentLang.subscribe((lang) => {
       this.currLang = lang;
