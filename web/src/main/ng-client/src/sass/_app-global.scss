@@ -20,6 +20,10 @@ a, .app-link {
 	cursor: pointer;
 }
 
+.app-hide {
+	display: none;
+}
+
 .app-container {
 	margin: 0 auto;
 	max-width: $app-container-width-max;

@@ -1,10 +1,6 @@
 // --- NAVBAR ---
 
 app-navbar {
-  a, .app-link {
-    color: white;
-  }
-
   .mat-toolbar-row {
     & > div {
       & > span {
@@ -21,5 +17,18 @@ app-navbar {
 
   .mat-icon {
     vertical-align: sub;
+  }
+
+  .app-row-top {
+    background-color: $app-lightest;
+    a, .app-link {
+      color: #e91e63;
+    }
+  }
+
+  .app-row-bottom {
+    a, .app-link {
+      color: $app-lightest;
+    }
   }
 }

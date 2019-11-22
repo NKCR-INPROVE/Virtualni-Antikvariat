@@ -1,9 +1,9 @@
 <mat-toolbar color="primary">
-  <mat-toolbar-row fxLayout="row" class="app-row-top" fxLayout.lt-sm="column" >
+  <mat-toolbar-row fxLayout="row" class="app-row-top" fxLayout.lt-sm="column">
     <div fxFlex fxFlex.lt-sm="100%" class="app-fx-left">
       <span><a routerLink="home">{{'app.title' | translate}}</a></span>
     </div>
-    <div fxFlex fxFlex.lt-sm="100%" class="app-fx-right">
+    <div fxFlex fxFlex.lt-sm="100%" class="app-fx-right" [ngClass.lt-md]="'app-hide'">
       <span><a routerLink="home">{{'Home' | translate}}</a></span>
       <span><a routerLink="/registrace">{{'Registrace' | translate}}</a></span>
       <span *ngIf="user && user.role === 'admin'"><a routerLink="/admin">{{'admin' | translate}}</a></span>
@@ -18,11 +18,11 @@
     </div>
   </mat-toolbar-row>
 
-  <mat-toolbar-row class="app-row-bottom">
+  <mat-toolbar-row fxLayout="row" class="app-row-bottom">
     <div fxFlex class="app-fx-left">
       <app-search-form *ngIf="!state.isHome"></app-search-form>
     </div>
-    <div fxFlex class="app-fx-right">
+    <div fxFlex class="app-fx-right" [ngClass.lt-md]="'app-hide'">
       <span class="example-fill-remaining-space"></span>
       <span><a (click)="export()">{{'Export' | translate}}</a></span>
       <span><a  *ngIf="isLogged" (click)="demands()">{{'poptávky' | translate}}</a></span>
