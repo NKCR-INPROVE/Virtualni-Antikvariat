@@ -11,6 +11,15 @@ body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
 
 // --- PEDRO ---
 
+a, .app-link {
+	cursor: pointer;
+	color: black;
+}
+
+.app-cursor-pointer {
+	cursor: pointer;
+}
+
 .app-container {
 	margin: 0 auto;
 	max-width: $app-container-width-max;

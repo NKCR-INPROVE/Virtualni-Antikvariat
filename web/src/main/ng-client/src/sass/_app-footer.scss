@@ -1,6 +1,10 @@
 // --- FOOTER ---
 
 app-footer {
+  a, .app-link {
+    color: white;
+  }
+  
   padding: 0 $app-gap;
   align-items: center;
 

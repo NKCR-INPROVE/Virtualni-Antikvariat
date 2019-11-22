@@ -1,31 +1,40 @@
 <mat-toolbar color="primary">
-  <mat-toolbar-row>
-    <span><a routerLink="home">{{'app.title' | translate}}</a></span>
-
-    <!-- This fills the remaining space of the current row -->
-    <span class="example-fill-remaining-space"></span>
-    <span *ngIf="user">{{user.username}}</span>
-    <span><a routerLink="home">{{'Home' | translate}}</a></span>
-    <span>
-      <a *ngIf="!user" (click)="login()">{{'Login' | translate}}</a>
-      <a *ngIf="user" (click)="logout()">{{'Logout' | translate}}</a>
-    </span>
-    <span><a routerLink="/registrace">{{'Registrace' | translate}}</a></span>
-    <span><a (click)="changeLang()">{{currLang}}</a></span> &#160;
-    <span *ngIf="user"><a *ngIf="user.role === 'admin'" routerLink="/admin">{{'admin' | translate}}</a></span>
+  <mat-toolbar-row fxLayout="row" class="app-row-top" fxLayout.lt-sm="column" >
+    <div fxFlex fxFlex.lt-sm="100%" class="app-fx-left">
+      <span><a routerLink="home">{{'app.title' | translate}}</a></span>
+    </div>
+    <div fxFlex fxFlex.lt-sm="100%" class="app-fx-right">
+      <span><a routerLink="home">{{'Home' | translate}}</a></span>
+      <span><a routerLink="/registrace">{{'Registrace' | translate}}</a></span>
+      <span *ngIf="user && user.role === 'admin'"><a routerLink="/admin">{{'admin' | translate}}</a></span>
+      <span><a (click)="changeLang()" class="app-link">{{currLang}}</a></span>
+      <span>
+        <a *ngIf="!user" (click)="login()" class="app-link">{{'navbar.login' | translate}}</a>
+        <ng-container *ngIf="user">
+          {{user.username}}
+          <a (click)="logout()" matTooltip="{{'navbar.logout' | translate}}" class="app-cursor-pointer"><mat-icon>input</mat-icon></a>
+        </ng-container>
+      </span>
+    </div>
   </mat-toolbar-row>
 
-  <mat-toolbar-row>
-    <app-search-form *ngIf="!state.isHome"></app-search-form>
-    <span class="example-fill-remaining-space"></span>
-    <span><a (click)="export()">{{'Export' | translate}}</a></span> &#160;
-    <span><a  *ngIf="isLogged" (click)="demands()">{{'poptávky' | translate}}</a></span> &#160;
-    <span><a *ngIf="isLogged" (click)="offers()">{{'nabídky' | translate}}</a></span> &#160;
-    <mat-form-field>
-      <mat-label>{{'pohledy' | translate}}</mat-label>
-      <mat-select>
-        <mat-option *ngFor="let view of views" [value]="view">{{view}}</mat-option>
-      </mat-select>
-    </mat-form-field>
+  <mat-toolbar-row class="app-row-bottom">
+    <div fxFlex class="app-fx-left">
+      <app-search-form *ngIf="!state.isHome"></app-search-form>
+    </div>
+    <div fxFlex class="app-fx-right">
+      <span class="example-fill-remaining-space"></span>
+      <span><a (click)="export()">{{'Export' | translate}}</a></span>
+      <span><a  *ngIf="isLogged" (click)="demands()">{{'poptávky' | translate}}</a></span>
+      <span><a *ngIf="isLogged" (click)="offers()">{{'nabídky' | translate}}</a></span>
+      <span>
+        <mat-form-field>
+          <mat-label>{{'pohledy' | translate}}</mat-label>
+          <mat-select>
+            <mat-option *ngFor="let view of views" [value]="view">{{view}}</mat-option>
+          </mat-select>
+        </mat-form-field>
+      </span>
+    </div>
   </mat-toolbar-row>
 </mat-toolbar>

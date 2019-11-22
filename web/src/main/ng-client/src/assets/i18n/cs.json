@@ -3,6 +3,10 @@
     "title": "Virtuální depozitní knihovna",
     "desc": "Kooperativní systém pro budování a správu novodobých konzervačních knižních sbírek v České Republice"
   },
+  "navbar": {
+    "logout": "Odhlásit",
+    "login": "Přihlásit"
+  },
   "count": "Počet nalezených položek",
   "q.placeholder": "Hledej ve virtuální depozitní knihovně ...",
   "Search": "Vyhledávání",
