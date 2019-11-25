@@ -88,7 +88,6 @@ public class IndexerQuery {
     
     public static String json(SolrQuery query) throws MalformedURLException, IOException {
         
-        query.set("indent", true);
         query.set("wt", "json");
 
         String urlQueryString =query.toQueryString();
@@ -96,6 +95,20 @@ public class IndexerQuery {
         String solrURL = String.format("%s/%s/select",
                 opts.getString("solrHost", "http://localhost:8983/solr"),
                 opts.getString("solrCore", "vdk_md5"));
+        URL url = new URL(solrURL + urlQueryString);
+
+        return IOUtils.toString(url, "UTF-8");
+    }
+    
+    public static String json(SolrQuery query, String core) throws MalformedURLException, IOException {
+        
+        query.set("wt", "json");
+
+        String urlQueryString =query.toQueryString();
+        Options opts = Options.getInstance();
+        String solrURL = String.format("%s/%s/select",
+                opts.getString("solrHost", "http://localhost:8983/solr"),
+                opts.getString(core, core));
         URL url = new URL(solrURL + urlQueryString);
 
         return IOUtils.toString(url, "UTF-8");

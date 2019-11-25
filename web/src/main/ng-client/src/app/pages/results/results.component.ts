@@ -1,18 +1,20 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 
 import { AppService } from 'src/app/app.service';
 import { AppState } from 'src/app/app.state';
-import { ActivatedRoute, Router, NavigationEnd } from '@angular/router';
+import { ActivatedRoute, Router, NavigationEnd, Params } from '@angular/router';
+import { Subscription } from 'rxjs';
+import { HttpParams } from '@angular/common/http';
 
 @Component({
   selector: 'app-results',
   templateUrl: './results.component.html',
   styleUrls: ['./results.component.scss']
 })
-export class ResultsComponent implements OnInit {
+export class ResultsComponent implements OnInit, OnDestroy {
 
-  params;
-
+  params: Params;
+  subscriptions: Subscription[] = [];
 
   constructor(public state: AppState,
               private service: AppService,
@@ -22,19 +24,24 @@ export class ResultsComponent implements OnInit {
   ngOnInit() {
     this.params = this.route.snapshot.queryParams;
     this.getResults();
-    this.router.events.subscribe(val => {
+    this.subscriptions.push(this.router.events.subscribe(val => {
       if (val instanceof NavigationEnd) {
         this.params = this.route.snapshot.queryParams;
         this.getResults();
       }
+    }));
+
+  }
+
+  ngOnDestroy(): void {
+    this.subscriptions.forEach(s => {
+      s.unsubscribe();
+      s = null;
     });
 
   }
 
   getResults() {
-    console.log(this.params);
-    this.service.search(this.params).subscribe(resp => {
-
-    });
+    this.service.search(this.params as HttpParams).subscribe(resp => {});
   }
 }

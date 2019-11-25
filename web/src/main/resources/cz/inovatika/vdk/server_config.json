@@ -5,6 +5,7 @@
   "usersCore": "users",
   "offersCore": "offers",
   "demandsCore": "demands",
+  "viewsCore": "views",
   "indexerXSL": "OAI/vdk_md5.xsl",
   "indexerIdXSL": "OAI/vdk_id.xsl",
   "facets": ["{!ex=dt}zdroj", 

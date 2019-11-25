@@ -3,6 +3,7 @@ import { TranslateService } from '@ngx-translate/core';
 import { ActivatedRoute, Router, NavigationEnd } from '@angular/router';
 import { AppState } from './app.state';
 import { HomeComponent } from './pages/home/home.component';
+import { AppService } from './app.service';
 
 @Component({
   selector: 'app-root',
@@ -15,7 +16,8 @@ export class AppComponent implements OnInit {
     translate: TranslateService,
     private route: ActivatedRoute,
     private router: Router,
-    private state: AppState) {
+    private state: AppState,
+    private service: AppService) {
     // this language will be used as a fallback when a translation isn't found in the current language
     translate.setDefaultLang('en');
 
@@ -26,9 +28,8 @@ export class AppComponent implements OnInit {
   ngOnInit() {
     this.router.events.subscribe(val => {
       if (val instanceof NavigationEnd) {
-        // console.log(this.route.snapshot);
-        // this.state.isHome = this.route.snapshot.firstChild.routeConfig.component.name === 'HomeComponent';
         this.state.isHome = this.route.snapshot.firstChild.routeConfig.component === HomeComponent;
+        this.service.getViews().subscribe();
       }
     });
 

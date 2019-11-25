@@ -1,5 +1,6 @@
 package cz.inovatika.vdk.common;
 
+import cz.inovatika.vdk.Options;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
@@ -33,7 +34,7 @@ public class UTFSort {
 
     private void loadMapFile() throws IOException {
         
-        InputStream is = UTFSort.class.getResourceAsStream("unicode_map.st");
+        InputStream is = Options.class.getResourceAsStream("unicode_map.st");
         BufferedReader br = new BufferedReader(new InputStreamReader(is));
         String strLine;
         int sp;

@@ -7,6 +7,7 @@ import { AuthenticationService } from 'src/app/shared';
 import { User } from 'src/app/models/user';
 import { MatDialog } from '@angular/material';
 import { LoginComponent } from 'src/app/components/login/login.component';
+import { View } from 'src/app/models/view';
 
 @Component({
   selector: 'app-navbar',
@@ -18,7 +19,8 @@ export class NavbarComponent implements OnInit {
   user: User;
 
   isLogged: boolean;
-  views: string[] = ['bohemika', 'ztrata'];
+  views: View[] = [];
+  selectedView: View;
 
   constructor(
     public dialog: MatDialog,
@@ -35,11 +37,20 @@ export class NavbarComponent implements OnInit {
     this.service.currentLang.subscribe((lang) => {
       this.currLang = lang;
     });
+    this.state.views.subscribe((views) => {
+      this.views = views;
+    });
   }
 
   changeLang() {
     const lang: string = (this.currLang === 'cs' ? 'en' : 'cs');
     this.service.changeLang(lang);
+  }
+
+  changeView() {
+    console.log(this.selectedView);
+    const params = JSON.parse(this.selectedView.params);
+    this.router.navigate(['/results'], {queryParams: params});
   }
 
   demands() {

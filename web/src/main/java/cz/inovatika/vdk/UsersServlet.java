@@ -1,5 +1,10 @@
 package cz.inovatika.vdk;
 
+import com.alibaba.fastjson.JSON;
+import com.alibaba.fastjson.serializer.SerializerFeature;
+import cz.inovatika.vdk.common.SolrIndexerCommiter;
+import cz.inovatika.vdk.solr.IndexerQuery;
+import cz.inovatika.vdk.solr.models.View;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.net.InetAddress;
@@ -13,6 +18,10 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import org.apache.commons.io.IOUtils;
+import org.apache.solr.client.solrj.SolrQuery;
+import org.apache.solr.client.solrj.impl.HttpSolrClient;
+import org.apache.solr.client.solrj.request.QueryRequest;
+import org.json.JSONException;
 import org.json.JSONObject;
 
 /**
@@ -176,6 +185,82 @@ public class UsersServlet extends HttpServlet {
           }
 
         } catch (Exception ex) {
+          jo.put("error", ex.toString());
+        }
+        return jo;
+      }
+    },
+    ADD_VIEW {
+      @Override
+      JSONObject doPerform(HttpServletRequest req, HttpServletResponse response) throws Exception {
+
+        JSONObject jo = new JSONObject();
+        try {
+          JSONObject json;
+          if (req.getMethod().equals("POST")) {
+            String js = IOUtils.toString(req.getInputStream(), "UTF-8");
+            json = new JSONObject(js);
+          } else {
+            json = new JSONObject(req.getParameter("json"));
+          }
+
+          View v = View.fromJSON(json);
+
+          return new JSONObject(SolrIndexerCommiter
+                  .indexJSON(new JSONObject(JSON.toJSONString(v, SerializerFeature.WriteDateUseDateFormat)), "viewsCore"));
+
+        } catch (Exception ex) {
+          jo.put("error", ex.toString());
+        }
+        return jo;
+
+      }
+    },
+    GET_VIEW {
+      @Override
+      JSONObject doPerform(HttpServletRequest req, HttpServletResponse response) throws Exception {
+        JSONObject jo = new JSONObject();
+        try {
+
+          SolrQuery query = new SolrQuery("id:" + req.getParameter("id"));
+          try (HttpSolrClient client = new HttpSolrClient.Builder("http://localhost:8983/solr").build()) {
+            QueryRequest qreq = new QueryRequest(query);
+
+            
+            return new JSONObject(IndexerQuery.json(query, "viewsCore"));
+
+          } catch (IOException ex) {
+            LOGGER.log(Level.SEVERE, null, ex);
+            jo.put("error", ex.toString());
+          }
+
+        } catch (JSONException ex) {
+          LOGGER.log(Level.SEVERE, null, ex);
+          jo.put("error", ex.toString());
+        }
+        return jo;
+      }
+    },
+    VIEWS {
+      @Override
+      JSONObject doPerform(HttpServletRequest req, HttpServletResponse response) throws Exception {
+        JSONObject jo = new JSONObject();
+        try {
+
+          SolrQuery query = new SolrQuery("*");
+          try (HttpSolrClient client = new HttpSolrClient.Builder("http://localhost:8983/solr").build()) {
+            QueryRequest qreq = new QueryRequest(query);
+
+            
+            return new JSONObject(IndexerQuery.json(query, "viewsCore"));
+
+          } catch (IOException ex) {
+            LOGGER.log(Level.SEVERE, null, ex);
+            jo.put("error", ex.toString());
+          }
+
+        } catch (JSONException ex) {
+          LOGGER.log(Level.SEVERE, null, ex);
           jo.put("error", ex.toString());
         }
         return jo;

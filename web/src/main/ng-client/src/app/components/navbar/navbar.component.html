@@ -30,8 +30,8 @@
       <span>
         <mat-form-field>
           <mat-label>{{'pohledy' | translate}}</mat-label>
-          <mat-select>
-            <mat-option *ngFor="let view of views" [value]="view">{{view}}</mat-option>
+          <mat-select (selectionChange)="changeView()" [(ngModel)]="selectedView">
+            <mat-option *ngFor="let view of views" [value]="view">{{view.name}}</mat-option>
           </mat-select>
         </mat-form-field>
       </span>

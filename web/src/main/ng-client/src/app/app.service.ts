@@ -28,7 +28,7 @@ export class AppService {
     private router: Router,
     private datePipe: DatePipe) {
 
-    }
+  }
 
   changeLang(lang: string) {
     // console.log('lang changed to ' + lang);
@@ -41,14 +41,23 @@ export class AppService {
     return this.langSubject.value;
   }
 
-  search(params) {
+  search(params: HttpParams) {
     // const params: HttpParams = new HttpParams().set('wt', 'json');
-    return this.http.get<any>(`/api/search/query`, {params})
-        .pipe(map(resp => {
-          // store response
-          this.state.setResults(resp);
-          return resp;
-        }));
-}
+    return this.http.get<any>(`/api/search/query`, { params })
+      .pipe(map(resp => {
+        // store response
+        this.state.setResults(resp);
+        return resp;
+      }));
+  }
+
+  getViews() {
+    return this.http.get<any>(`/api/users/views`)
+      .pipe(map(resp => {
+        // store response
+        this.state.setViews(resp);
+        return resp;
+      }));
+  }
 
 }

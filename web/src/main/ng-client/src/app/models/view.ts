@@ -1,0 +1,7 @@
+export class View {
+  id: string;
+  name: string;
+  user: string;
+  global: boolean;
+  params: string;
+}
