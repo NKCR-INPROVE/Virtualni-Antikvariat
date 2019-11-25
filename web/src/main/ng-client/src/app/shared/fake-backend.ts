@@ -5,7 +5,16 @@ import { delay, mergeMap, materialize, dematerialize } from 'rxjs/operators';
 
 import { User } from 'src/app/models/user';
 
-const users: User[] = [{ id: 1, username: 'test', role: 'admin', password: 'test' }];
+const users: User[] = [{
+    code: 'MZK',
+    nazev: 'Moravská zemská knihovna v Brně',
+    role: 'KNIHOVNA',
+    priorita: 2,
+    telefon: '541 646 111',
+    email: 'mzk@mzk.cz',
+    sigla: 'qweqwe',
+    adresa: 'Kounicova 65a, 601 87 Brno '
+}];
 
 @Injectable()
 export class FakeBackendInterceptor implements HttpInterceptor {
@@ -37,12 +46,9 @@ export class FakeBackendInterceptor implements HttpInterceptor {
 
         function authenticate() {
             const { username, password } = body;
-            const user = users.find(x => x.username === username && x.password === password);
+            const user = users.find(x => x.code === username && 'test' === password);
             if (!user) { return error('Username or password is incorrect'); }
-            return ok({
-                id: user.id,
-                username: user.username
-            });
+            return ok(user);
         }
 
         function getSearch() {

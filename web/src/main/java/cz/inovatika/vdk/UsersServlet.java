@@ -28,7 +28,7 @@ import org.json.JSONObject;
  *
  * @author alberto
  */
-@WebServlet(value = "/users/*") 
+@WebServlet(value = "/users/*")
 public class UsersServlet extends HttpServlet {
 
   public static final Logger LOGGER = Logger.getLogger(UsersServlet.class.getName());
@@ -51,7 +51,7 @@ public class UsersServlet extends HttpServlet {
     resp.setHeader("Pragma", "no-cache"); // HTTP 1.0
     resp.setDateHeader("Expires", 0); // Proxies.
     PrintWriter out = resp.getWriter();
-    
+
     try {
       String actionNameParam = req.getPathInfo().substring(1);
       if (actionNameParam != null) {
@@ -106,8 +106,6 @@ public class UsersServlet extends HttpServlet {
           } else {
             jo = UsersController.add(new JSONObject(req.getParameter("json")));
           }
-          
-          
 
         } catch (Exception ex) {
           jo.put("logged", false);
@@ -126,9 +124,10 @@ public class UsersServlet extends HttpServlet {
 
           String user = req.getParameter("user");
           if (user != null) {
-
-            if (UsersController.login(req, user, req.getParameter("pwd"))) {
+            JSONObject j = UsersController.login(req, user, req.getParameter("pwd"));
+            if (j != null) {
               jo.put("logged", true);
+              jo.put("user", j);
 
             } else {
               jo.put("logged", false);
@@ -151,7 +150,7 @@ public class UsersServlet extends HttpServlet {
     LOGOUT {
       @Override
       JSONObject doPerform(HttpServletRequest req, HttpServletResponse resp) throws Exception {
-        
+
         JSONObject jo = new JSONObject();
         try {
           req.getSession().invalidate();
@@ -161,16 +160,16 @@ public class UsersServlet extends HttpServlet {
           jo.put("error", ex.toString());
         }
         return jo;
-        
+
       }
     },
     ALL {
       @Override
       JSONObject doPerform(HttpServletRequest req, HttpServletResponse resp) throws Exception {
-        
+
         JSONObject jo = UsersController.getAll();
         return jo;
-        
+
       }
     },
     TESTLOGIN {
@@ -190,7 +189,7 @@ public class UsersServlet extends HttpServlet {
         return jo;
       }
     },
-    ADD_VIEW {
+    SAVE_VIEW {
       @Override
       JSONObject doPerform(HttpServletRequest req, HttpServletResponse response) throws Exception {
 
@@ -203,11 +202,10 @@ public class UsersServlet extends HttpServlet {
           } else {
             json = new JSONObject(req.getParameter("json"));
           }
-
           View v = View.fromJSON(json);
 
           return new JSONObject(SolrIndexerCommiter
-                  .indexJSON(new JSONObject(JSON.toJSONString(v, SerializerFeature.WriteDateUseDateFormat)), "viewsCore"));
+                  .indexJSON(new JSONObject(JSON.toJSONString(v)), "viewsCore"));
 
         } catch (Exception ex) {
           jo.put("error", ex.toString());
@@ -226,7 +224,6 @@ public class UsersServlet extends HttpServlet {
           try (HttpSolrClient client = new HttpSolrClient.Builder("http://localhost:8983/solr").build()) {
             QueryRequest qreq = new QueryRequest(query);
 
-            
             return new JSONObject(IndexerQuery.json(query, "viewsCore"));
 
           } catch (IOException ex) {
@@ -248,17 +245,8 @@ public class UsersServlet extends HttpServlet {
         try {
 
           SolrQuery query = new SolrQuery("*");
-          try (HttpSolrClient client = new HttpSolrClient.Builder("http://localhost:8983/solr").build()) {
-            QueryRequest qreq = new QueryRequest(query);
-
-            
-            return new JSONObject(IndexerQuery.json(query, "viewsCore"));
-
-          } catch (IOException ex) {
-            LOGGER.log(Level.SEVERE, null, ex);
-            jo.put("error", ex.toString());
-          }
-
+          query.setFields("*,params:[json]");
+          return new JSONObject(IndexerQuery.json(query, "viewsCore"));
         } catch (JSONException ex) {
           LOGGER.log(Level.SEVERE, null, ex);
           jo.put("error", ex.toString());

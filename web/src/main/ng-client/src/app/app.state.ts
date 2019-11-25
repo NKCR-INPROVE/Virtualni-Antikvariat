@@ -20,7 +20,6 @@ export class AppState {
     this.facetsSubject.next(resp.facet_counts.facet_fields);
   }
 
-
   setViews(resp) {
     this.viewsSubject.next(resp.response.docs);
   }

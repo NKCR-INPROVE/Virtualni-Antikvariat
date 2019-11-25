@@ -8,6 +8,7 @@ import { User } from 'src/app/models/user';
 import { MatDialog } from '@angular/material';
 import { LoginComponent } from 'src/app/components/login/login.component';
 import { View } from 'src/app/models/view';
+import { ViewComponent } from '../view/view.component';
 
 @Component({
   selector: 'app-navbar',
@@ -32,8 +33,11 @@ export class NavbarComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.authService.currentUser.subscribe(x => this.isLogged = x !== null);
-    this.authService.currentUser.subscribe(x => this.user = x);
+    this.authService.currentUser.subscribe(x => {
+      this.isLogged = x !== null;
+      this.user = x;
+      console.log(this.user);
+    });
     this.service.currentLang.subscribe((lang) => {
       this.currLang = lang;
     });
@@ -49,8 +53,12 @@ export class NavbarComponent implements OnInit {
 
   changeView() {
     console.log(this.selectedView);
-    const params = JSON.parse(this.selectedView.params);
-    this.router.navigate(['/results'], {queryParams: params});
+    this.router.navigate(['/results'], { queryParams: this.selectedView.params });
+  }
+
+  saveCurrentView() {
+    this.selectedView.params = this.route.snapshot.queryParams;
+    this.service.saveView(this.selectedView).subscribe();
   }
 
   demands() {
@@ -62,7 +70,7 @@ export class NavbarComponent implements OnInit {
   }
 
   export() {
-    
+
   }
 
   logout() {
@@ -81,5 +89,27 @@ export class NavbarComponent implements OnInit {
       }
     });
   }
+
+  openViewDialog(): void {
+    const data = new View();
+    data.params = this.route.snapshot.queryParams;
+    data.user = this.user.code;
+    const dialogRef = this.dialog.open(ViewComponent, {
+      width: '350px',
+      data
+    });
+
+    dialogRef.afterClosed().subscribe((v: View) => {
+      console.log(v);
+      if (v) {
+        this.service.saveView(v).subscribe(res => {
+          if (res) {
+            this.views.push(v);
+          }
+        });
+      }
+    });
+  }
+
 
 }

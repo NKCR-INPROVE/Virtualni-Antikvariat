@@ -79,7 +79,7 @@ public class UsersController {
     return null;
   }
 
-  public static boolean login(HttpServletRequest req, String code, String pwd) {
+  public static JSONObject login(HttpServletRequest req, String code, String pwd) {
     try {
 
       Options opts = Options.getInstance();
@@ -92,27 +92,30 @@ public class UsersController {
         final QueryResponse response = client.query(query);
         if (response.getResults().getNumFound() == 0) {
           LOGGER.log(Level.INFO, "Invalid username {0}", code);
-          return false;
+          return null;
         }
         User user = response.getBeans(User.class).get(0);
         if (user.getHeslo().equals(MD5.generate(pwd))) {
-          req.getSession().setAttribute("login", new JSONObject(JSON.toJSONString(user)));
-          return true;
+          JSONObject json = new JSONObject(JSON.toJSONString(user));
+          json.remove("heslo");
+          req.getSession().setAttribute("login", json);
+          return json;
         } else {
           LOGGER.log(Level.INFO, "Invalid password");
         }
 
       } catch (SolrServerException | IOException ex) {
         LOGGER.log(Level.SEVERE, null, ex);
-        return false;
+        return null;
       }
 
-      return false;
+      return null;
     } catch (IOException | JSONException ex) {
       LOGGER.log(Level.SEVERE, null, ex);
-      return false;
+      return null;
     }
   }
+  
 
   public static boolean isLogged(HttpServletRequest req) {
     return req.getSession().getAttribute("login") != null;

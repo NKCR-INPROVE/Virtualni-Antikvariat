@@ -11,6 +11,7 @@ import { HttpClient, HttpParams, HttpHeaders, HttpErrorResponse } from '@angular
 
 import { AppState } from './app.state';
 import { User } from './models/user';
+import { View } from './models/view';
 
 @Injectable({
   providedIn: 'root'
@@ -58,6 +59,11 @@ export class AppService {
         this.state.setViews(resp);
         return resp;
       }));
+  }
+
+
+  saveView(v: View) {
+    return this.http.post<View>(`/api/users/save_view`, v);
   }
 
 }

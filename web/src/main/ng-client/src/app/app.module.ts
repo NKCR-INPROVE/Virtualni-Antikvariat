@@ -37,6 +37,7 @@ import { ResultsHeaderComponent } from './components/results-header/results-head
 import { AdminComponent } from './pages/admin/admin.component';
 import { fakeBackendProvider, FakeBackendInterceptor } from './shared/fake-backend';
 import { environment } from 'src/environments/environment';
+import { ViewComponent } from './components/view/view.component';
 
 
 registerLocaleData(localeCs, 'cs');
@@ -75,7 +76,8 @@ if (!environment.production) {
     FacetsComponent,
     ResultItemComponent,
     ResultsHeaderComponent,
-    AdminComponent
+    AdminComponent,
+    ViewComponent
   ],
   imports: [
     BrowserModule,
@@ -94,7 +96,7 @@ if (!environment.production) {
       }
     }),
   ],
-  entryComponents: [AdvancedSearchDialog, LoginComponent],
+  entryComponents: [AdvancedSearchDialog, LoginComponent, ViewComponent],
   providers,
   bootstrap: [AppComponent]
 })

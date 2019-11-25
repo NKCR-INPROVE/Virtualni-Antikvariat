@@ -11,7 +11,7 @@
       <span>
         <a *ngIf="!user" (click)="login()" class="app-link">{{'navbar.login' | translate}}</a>
         <ng-container *ngIf="user">
-          {{user.username}}
+          {{user.nazev}}
           <a (click)="logout()" matTooltip="{{'navbar.logout' | translate}}" class="app-cursor-pointer"><mat-icon>input</mat-icon></a>
         </ng-container>
       </span>
@@ -35,6 +35,7 @@
           </mat-select>
         </mat-form-field>
       </span>
+      <span><a *ngIf="isLogged" (click)="openViewDialog()">{{'save view' | translate}}</a></span>
     </div>
   </mat-toolbar-row>
 </mat-toolbar>

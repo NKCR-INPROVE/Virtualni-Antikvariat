@@ -17,8 +17,6 @@ export class SearchFormComponent implements OnInit {
   searchParams: SearchParams = new SearchParams();
   advParams: AdvancedParams = new AdvancedParams();
 
-  // views: string[] = ['bohemika', 'ztrata']; - pedro - moved to the navbar comp
-
   constructor(
     public dialog: MatDialog,
     private route: ActivatedRoute,
@@ -26,7 +24,6 @@ export class SearchFormComponent implements OnInit {
     private authService: AuthenticationService) { }
 
   ngOnInit() {
-    // this.authService.currentUser.subscribe(x => this.isLogged = x !== null); - pedro - moved to the navbar comp
     this.router.events.subscribe(val => {
       if (val instanceof NavigationEnd) {
         Utils.sanitize(this.route.snapshot.queryParams, this.searchParams);

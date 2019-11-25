@@ -4,6 +4,7 @@ import { AppState } from 'src/app/app.state';
 import { Filters } from 'src/app/models/filters';
 import { Facet } from 'src/app/models/facet';
 import { Subscription } from 'rxjs';
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-facets',
@@ -18,6 +19,7 @@ export class FacetsComponent implements OnInit, OnDestroy {
   facets: any;
 
   constructor(
+    private route: ActivatedRoute,
     private config: AppConfiguration,
     public state: AppState) { }
 
@@ -48,5 +50,7 @@ export class FacetsComponent implements OnInit, OnDestroy {
   excludeFilter(f: Facet) {
     
   }
+
+  
 
 }

@@ -1,0 +1,14 @@
+<h2 mat-dialog-title>{{'Save view' | translate}}</h2>
+<mat-dialog-content class="mat-typography">
+	<mat-form-field>
+		<input matInput [(ngModel)]="data.name" [placeholder]="'název' | translate" cdkFocusInitial />
+  </mat-form-field>
+  <div>
+    <mat-checkbox [(ngModel)]="data.global">{{'isGlobal' | translate}}</mat-checkbox>
+  </div>
+	
+</mat-dialog-content>
+<mat-dialog-actions align="end">
+  <button mat-button mat-dialog-close>Cancel</button>
+  <button mat-button [mat-dialog-close]="data">OK</button>
+</mat-dialog-actions>

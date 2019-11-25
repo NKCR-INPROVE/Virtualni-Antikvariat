@@ -84,18 +84,18 @@ public class User {
     }
   }
 
-  public JSONObject getJsonx() throws JSONException {
-    JSONObject j = new JSONObject();
-    j.put("name", nazev);
-    j.put("code", code);
-    j.put("priorita", priorita);
-    j.put("role", role);
-    j.put("telefon", telefon);
-    j.put("email", email);
-    j.put("sigla", getSigla());
-    j.put("adresa", getAdresa());
-    return j;
-  }
+//  public JSONObject getJsonx() throws JSONException {
+//    JSONObject j = new JSONObject();
+//    j.put("name", nazev);
+//    j.put("code", code);
+//    j.put("priorita", priorita);
+//    j.put("role", role);
+//    j.put("telefon", telefon);
+//    j.put("email", email);
+//    j.put("sigla", getSigla());
+//    j.put("adresa", getAdresa());
+//    return j;
+//  }
 
   /**
    * @return the code
