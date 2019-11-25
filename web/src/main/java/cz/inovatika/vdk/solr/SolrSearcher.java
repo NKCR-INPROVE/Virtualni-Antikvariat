@@ -103,6 +103,8 @@ public class SolrSearcher {
       query.setQuery(q);
       query.set("q.op", "AND");
       query.setFacet(true);
+      query.set("json.nl", "arrntv"); 
+      
       query.setStart(getStart());
       query.setRows(getRows());
 
@@ -140,7 +142,7 @@ public class SolrSearcher {
     try {
       SolrQuery query = doQuery();
       if (query != null) {
-
+        query.set("wt", "json");
         String jsonResponse;
         try (HttpSolrClient client = new HttpSolrClient.Builder("http://localhost:8983/solr").build()) {
           QueryRequest qreq = new QueryRequest(query);

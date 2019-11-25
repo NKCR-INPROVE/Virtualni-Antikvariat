@@ -78,7 +78,7 @@ public class SearchServlet extends HttpServlet {
     QUERY {
       @Override
       String doPerform(HttpServletRequest req, HttpServletResponse resp) throws Exception {
-        // JSONObject json = new JSONObject();
+        
         SolrSearcher searcher = new SolrSearcher((req));
         return searcher.json();
         

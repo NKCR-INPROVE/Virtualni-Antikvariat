@@ -5,6 +5,7 @@ import { TranslateService } from '@ngx-translate/core';
 
 import { Observable, BehaviorSubject } from 'rxjs';
 import { Subject } from 'rxjs';
+import { map } from 'rxjs/operators';
 
 import { HttpClient, HttpParams, HttpHeaders, HttpErrorResponse } from '@angular/common/http';
 
@@ -25,13 +26,13 @@ export class AppService {
     private translate: TranslateService,
     private http: HttpClient,
     private router: Router,
-    private datePipe: DatePipe) { 
-      
+    private datePipe: DatePipe) {
+
     }
 
   changeLang(lang: string) {
     // console.log('lang changed to ' + lang);
-    
+
     this.translate.use(lang);
     this.langSubject.next(lang);
   }
@@ -39,5 +40,15 @@ export class AppService {
   public get currentLangValue(): string {
     return this.langSubject.value;
   }
+
+  search(params) {
+    // const params: HttpParams = new HttpParams().set('wt', 'json');
+    return this.http.get<any>(`/api/search/query`, {params})
+        .pipe(map(resp => {
+          // store response
+          this.state.setResults(resp);
+          return resp;
+        }));
+}
 
 }

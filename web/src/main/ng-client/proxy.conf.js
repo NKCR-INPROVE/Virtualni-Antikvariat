@@ -18,7 +18,7 @@ const PROXY_CONFIG = {
       if (req.path.indexOf('/search') > -1) {
 
         return "/mock/search.json";
-      } else if (req.path.indexOf('/lg') > -1) {
+      } else if (req.path.indexOf('/users') > -1) {
         return "/mock/pingAuth.json";
       } else {
         return req.url;

@@ -5,6 +5,6 @@
 <div fxLayout="row" fxLayoutAlign="start stretch" fxLayoutGap.gt-xs="16px" fxLayout.xs="column" gdAlignColumns.lt-xs="false">
   <app-facets fxFlex.gt-sm="25%" fxFlex.gt-xs="30%" fxFlex.xs="100%"></app-facets>
   <div class="app-result-items" fxFlex.gt-sm="75%" fxFlex.gt-xs="70%" fxFlex.xs="100%">
-    <app-result-item *ngFor="let _ of [1,2,3]"></app-result-item>
+    <app-result-item *ngFor="let doc of state.results | async" [doc]="doc"></app-result-item>
   </div>
 </div>

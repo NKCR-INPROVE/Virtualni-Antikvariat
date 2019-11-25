@@ -23,10 +23,10 @@ export class FakeBackendInterceptor implements HttpInterceptor {
 
         function handleRoute() {
             switch (true) {
-                case url.endsWith('/lg') && method === 'POST':
+                case url.includes('/users/login') && method === 'POST':
                     return authenticate();
-                case url.endsWith('/users') && method === 'GET':
-                    return getUsers();
+                // case url.includes('/search') && method === 'GET':
+                //     return getSearch();
                 default:
                     // pass through any requests not handled above
                     return next.handle(request);
@@ -43,6 +43,11 @@ export class FakeBackendInterceptor implements HttpInterceptor {
                 id: user.id,
                 username: user.username
             });
+        }
+
+        function getSearch() {
+            if (!isLoggedIn()) { return unauthorized(); }
+            return ok(users);
         }
 
         function getUsers() {

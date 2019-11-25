@@ -13,6 +13,7 @@ export class ResultsComponent implements OnInit {
 
   params;
 
+
   constructor(public state: AppState,
               private service: AppService,
               private route: ActivatedRoute,
@@ -27,9 +28,13 @@ export class ResultsComponent implements OnInit {
         this.getResults();
       }
     });
+
   }
 
   getResults() {
     console.log(this.params);
+    this.service.search(this.params).subscribe(resp => {
+
+    });
   }
 }
