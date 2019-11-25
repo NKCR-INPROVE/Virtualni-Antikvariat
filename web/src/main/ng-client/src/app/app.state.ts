@@ -13,7 +13,6 @@ export class AppState {
 
   setResults(resp) {
     this.resultsSubject.next(resp.response.docs);
-    console.log(resp.facet_counts.facet_fields);
     this.facetsSubject.next(resp.facet_counts.facet_fields);
   }
 

@@ -16,8 +16,9 @@ import { Configuration } from './shared/config';
 
     /**
      * List the files holding section configuration in assets/configs folder
+     * ['search'] will look for /assets/configs/search.json
      */
-    private configs: string[] = ['search'];
+    private configs: string[] = [];
 
     constructor(
         private http: HttpClient) { }
