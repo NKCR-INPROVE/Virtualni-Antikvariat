@@ -6,7 +6,7 @@ import { delay, mergeMap, materialize, dematerialize } from 'rxjs/operators';
 import { User } from 'src/app/models/user';
 
 const users: User[] = [{
-    code: 'MZK',
+    code: 'test',
     nazev: 'Moravská zemská knihovna v Brně',
     role: 'KNIHOVNA',
     priorita: 2,

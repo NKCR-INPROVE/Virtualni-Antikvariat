@@ -3,6 +3,7 @@
 	<mat-form-field>
 		<input matInput [(ngModel)]="data.name" [placeholder]="'název' | translate" cdkFocusInitial />
   </mat-form-field>
+  <mat-checkbox *ngIf="data.id != null" [(ngModel)]="data.overwrite">{{'overwrite' | translate}}</mat-checkbox>
   <div>
     <mat-checkbox [(ngModel)]="data.global">{{'isGlobal' | translate}}</mat-checkbox>
   </div>

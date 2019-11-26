@@ -9,6 +9,7 @@ import { MatDialog } from '@angular/material';
 import { LoginComponent } from 'src/app/components/login/login.component';
 import { View } from 'src/app/models/view';
 import { ViewComponent } from '../view/view.component';
+import { Utils } from 'src/app/shared/utils';
 
 @Component({
   selector: 'app-navbar',
@@ -21,7 +22,7 @@ export class NavbarComponent implements OnInit {
 
   isLogged: boolean;
   views: View[] = [];
-  selectedView: View;
+  selectedView: View = null;
 
   constructor(
     public dialog: MatDialog,
@@ -91,17 +92,34 @@ export class NavbarComponent implements OnInit {
   }
 
   openViewDialog(): void {
-    const data = new View();
-    data.params = this.route.snapshot.queryParams;
-    data.user = this.user.code;
+    const data = {
+      params: this.route.snapshot.queryParams,
+      user: this.user.code,
+      name: '',
+      overwrite: false,
+      global: true,
+      id: null
+    };
+
+    if (this.selectedView) {
+      data.overwrite = true;
+      data.name = this.selectedView.name;
+      data.global = this.selectedView.global;
+      data.id = this.selectedView.id;
+    }
+
     const dialogRef = this.dialog.open(ViewComponent, {
       width: '350px',
       data
     });
 
-    dialogRef.afterClosed().subscribe((v: View) => {
-      console.log(v);
-      if (v) {
+    dialogRef.afterClosed().subscribe(ret => {
+      if (ret) {
+        const v: View = new View();
+        Utils.sanitize(ret, v);
+        if (!ret.overwrite) {
+          v.id = null;
+        }
         this.service.saveView(v).subscribe(res => {
           if (res) {
             this.views.push(v);

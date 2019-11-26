@@ -14,7 +14,7 @@ const PROXY_CONFIG = {
         if (req.method === 'POST') {
           req.method = 'GET';
         }
-        return "/mock/pingAuth.json";
+        return "/mock/user.json";
       }
     },
     "pathRewrite": {

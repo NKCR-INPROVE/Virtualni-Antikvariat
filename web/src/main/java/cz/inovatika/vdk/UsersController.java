@@ -6,6 +6,7 @@ import cz.inovatika.vdk.common.SolrIndexerCommiter;
 import cz.inovatika.vdk.solr.JSONUpdateRequest;
 import cz.inovatika.vdk.solr.models.User;
 import java.io.IOException;
+import java.io.UnsupportedEncodingException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.servlet.http.HttpServletRequest;
@@ -123,9 +124,9 @@ public class UsersController {
 
   public static JSONObject add(JSONObject json) {
     try {
-      Options opts = Options.getInstance();
       String jsonStr = SolrIndexerCommiter.indexJSON(json, "usersCore");
       
+//       Options opts = Options.getInstance();
 //      SolrClient solr = new HttpSolrClient.Builder(String.format("%s/%s/",
 //              opts.getString("solrHost", "http://localhost:8983/solr"),
 //              opts.getString("usersCore", "users")))
@@ -140,7 +141,7 @@ public class UsersController {
 
 //      solr.close();
       return new JSONObject(jsonStr);
-    } catch (IOException | JSONException | SolrServerException ex) {
+    } catch (IOException | SolrServerException ex) {
       LOGGER.log(Level.SEVERE, null, ex);
       return new JSONObject().put("error", ex);
     }
