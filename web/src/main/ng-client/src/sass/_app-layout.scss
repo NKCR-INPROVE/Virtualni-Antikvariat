@@ -1,15 +1,13 @@
 // --- LAYOUT ---
 
 header {
-  //background-color: red;
   min-height: 80px;
 
   @import "app-navbar";
 }
 
 main {
-  //background-color: green;
-  background-color: $app-grey-l-3;
+  background-color: $app-background;
   min-height: calc(100% - 128px - 50px);
 
   @import "app-home";
