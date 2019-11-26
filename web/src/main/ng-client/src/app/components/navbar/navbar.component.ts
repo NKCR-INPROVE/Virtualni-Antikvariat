@@ -37,7 +37,6 @@ export class NavbarComponent implements OnInit {
     this.authService.currentUser.subscribe(x => {
       this.isLogged = x !== null;
       this.user = x;
-      console.log(this.user);
     });
     this.service.currentLang.subscribe((lang) => {
       this.currLang = lang;
@@ -53,7 +52,6 @@ export class NavbarComponent implements OnInit {
   }
 
   changeView() {
-    console.log(this.selectedView);
     this.router.navigate(['/results'], { queryParams: this.selectedView.params });
   }
 

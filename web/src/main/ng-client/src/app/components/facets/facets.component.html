@@ -5,13 +5,13 @@
       <li *ngFor="let f of facets[field]">
         <ng-container [ngSwitch]="field">
           <div *ngSwitchCase="'zdroj'">
-              <mat-icon (click)="addFilter(f)">done</mat-icon>&#160;
-              <mat-icon (click)="excludeFilter(f)">close</mat-icon>&#160; 
-              <a (click)="toggleFilter(f)">{{f.name}}</a>&#160; 
+              <mat-icon (click)="addFilter(field, f)">done</mat-icon>&#160;
+              <mat-icon (click)="excludeFilter(field, f)">close</mat-icon>&#160; 
+              <a (click)="toggleFilter(field, f)">{{f.name}}</a>&#160; 
               <span>{{f.value}}</span>
           </div>
           <div *ngSwitchDefault>
-              <a (click)="toggleFilter(f)">{{f.name}}</a>&#160;
+              <a (click)="toggleFilter(field, f)">{{f.name}}</a>&#160;
               <span>{{f.value}}</span>
           </div>
         </ng-container>

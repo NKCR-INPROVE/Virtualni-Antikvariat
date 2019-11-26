@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Observable, BehaviorSubject } from 'rxjs';
 import { View } from './models/view';
+import { ResultsHeader } from './models/results-header';
 
 @Injectable()
 export class AppState {
@@ -12,11 +13,19 @@ export class AppState {
   private resultsSubject: BehaviorSubject<any> = new BehaviorSubject<any>([]);
   public results: Observable<any[]> = this.resultsSubject.asObservable();
 
+  private resultsHeaderSubject: BehaviorSubject<ResultsHeader> = new BehaviorSubject<ResultsHeader>(new ResultsHeader());
+  public resultsHeader: Observable<ResultsHeader> = this.resultsHeaderSubject.asObservable();
+
   private facetsSubject: BehaviorSubject<any> = new BehaviorSubject<any>({});
   public facets: Observable<any> = this.facetsSubject.asObservable();
 
   setResults(resp) {
     this.resultsSubject.next(resp.response.docs);
+    this.resultsHeaderSubject.next({
+      numFound: resp.response.numFound,
+      start: resp.response.start,
+      rows: resp.responseHeader.params.rows
+    });
     this.facetsSubject.next(resp.facet_counts.facet_fields);
   }
 

@@ -3,7 +3,6 @@ import { MatDialogRef, MAT_DIALOG_DATA, MatDialog } from '@angular/material';
 import { SearchParams, AdvancedParams } from 'src/app/models/search-params';
 import { Router, ActivatedRoute, NavigationEnd } from '@angular/router';
 import { Utils } from 'src/app/shared/utils';
-import { AuthenticationService } from 'src/app/shared';
 
 @Component({
   selector: 'app-search-form',
@@ -12,16 +11,13 @@ import { AuthenticationService } from 'src/app/shared';
 })
 export class SearchFormComponent implements OnInit {
 
-  // isLogged: boolean;  - pedro - moved to the navbar comp
-
   searchParams: SearchParams = new SearchParams();
   advParams: AdvancedParams = new AdvancedParams();
 
   constructor(
     public dialog: MatDialog,
     private route: ActivatedRoute,
-    private router: Router,
-    private authService: AuthenticationService) { }
+    private router: Router) { }
 
   ngOnInit() {
     this.router.events.subscribe(val => {

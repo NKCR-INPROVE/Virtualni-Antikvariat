@@ -1,5 +1,5 @@
 <div fxLayout="row">
-  <app-results-header fxFlex></app-results-header>
+  <app-results-header [resultsHeader]="state.resultsHeader | async" fxFlex></app-results-header>
 </div>
 
 <div fxLayout="row" fxLayoutAlign="start stretch" fxLayoutGap.gt-xs="16px" fxLayout.xs="column" gdAlignColumns.lt-xs="false">

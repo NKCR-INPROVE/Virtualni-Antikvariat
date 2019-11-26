@@ -1,4 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
+import { ResultsHeader } from 'src/app/models/results-header';
 
 @Component({
   selector: 'app-results-header',
@@ -6,6 +7,7 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./results-header.component.scss']
 })
 export class ResultsHeaderComponent implements OnInit {
+  @Input() resultsHeader: ResultsHeader;
 
   constructor() { }
 
