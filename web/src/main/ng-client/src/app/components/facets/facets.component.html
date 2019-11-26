@@ -5,13 +5,14 @@
       <li *ngFor="let f of facets[field]">
         <ng-container [ngSwitch]="field">
           <div *ngSwitchCase="'zdroj'">
-              <mat-icon (click)="addFilter(field, f)">done</mat-icon>&#160;
-              <mat-icon (click)="excludeFilter(field, f)">close</mat-icon>&#160; 
-              <a (click)="toggleFilter(field, f)">{{f.name}}</a>&#160; 
+              <mat-icon (click)="addZdrojFilter(f)" [class.active]="hasZdroj(f, false)">done</mat-icon>&#160;
+              <mat-icon (click)="excludeZdrojFilter(f)" [class.active]="hasZdroj(f, true)">close</mat-icon>&#160; 
+              <a (click)="toggleZdrojFilter(f)">{{f.name}}</a>&#160; 
               <span>{{f.value}}</span>
           </div>
           <div *ngSwitchDefault>
               <a (click)="toggleFilter(field, f)">{{f.name}}</a>&#160;
+              <mat-icon *ngIf="filters[field] === f.name">done</mat-icon>&#160;
               <span>{{f.value}}</span>
           </div>
         </ng-container>

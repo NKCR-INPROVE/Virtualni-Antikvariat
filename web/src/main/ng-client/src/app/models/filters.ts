@@ -1,7 +1,7 @@
 export class Filters {
-    zdroj: string[];
-    bohemika: boolean;
-    pocet_exemplaru: number;
-    rokvydani: {od: string, do: string};
-    status: string;
+    zdroj: string[] = [];
+    bohemika: boolean = null;
+    pocet_exemplaru: number = null;
+    rokvydani: {od: string, do: string} = null;
+    status: string = '';
 }

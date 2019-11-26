@@ -54,12 +54,27 @@ export class FacetsComponent implements OnInit, OnDestroy {
   }
 
   getParams(params: Params) {
-    console.log(params);
     Utils.sanitize(params, this.searchParams);
     Utils.sanitize(params, this.advParams);
+    this.filters = new Filters();
     for (const p in params) {
-      console.log(p, params[p]);
+      if (this.filters.hasOwnProperty(p)) {
+        if (p === 'zdroj') {
+          if (params[p] instanceof Array) {
+            this.filters[p] = params[p];
+          } else {
+            this.filters.zdroj.push(params[p]);
+          }
+        } else {
+          this.filters[p] = params[p];
+        }
+      }
     }
+  }
+
+  hasZdroj(f: Facet, exclude: boolean): boolean {
+    const prefix = exclude ? '-' : '';
+    return this.filters.zdroj.includes(prefix + f.name);
   }
 
   toggleFilter(field: string, f: Facet) {
@@ -69,15 +84,33 @@ export class FacetsComponent implements OnInit, OnDestroy {
       this.filters[field] = f.name;
     }
     this.search();
-    
   }
 
-  addFilter(field: string, f: Facet) {
-    
+  toggleZdrojFilter(f: Facet) {
+    if (this.filters.zdroj.includes(f.name)) {
+      this.filters.zdroj = this.filters.zdroj.filter(z => z !== f.name);
+    } else {
+      this.filters.zdroj.push(f.name);
+    }
+    this.search();
   }
 
-  excludeFilter(field: string, f: Facet) {
-    
+  addZdrojFilter(f: Facet) {
+    if (this.filters.zdroj.includes(f.name)) {
+      this.filters.zdroj = this.filters.zdroj.filter(z => z !== f.name);
+    } else {
+      this.filters.zdroj.push(f.name);
+    }
+    this.search();
+  }
+
+  excludeZdrojFilter(f: Facet) {
+    if (this.filters.zdroj.includes(f.name)) {
+      this.filters.zdroj = this.filters.zdroj.filter(z => z !== '-' + f.name);
+    } else {
+      this.filters.zdroj.push('-' + f.name);
+    }
+    this.search();
   }
 
   search() {
@@ -86,6 +119,5 @@ export class FacetsComponent implements OnInit, OnDestroy {
     this.router.navigate(['/results'], {queryParams: params});
   }
 
-  
 
 }
