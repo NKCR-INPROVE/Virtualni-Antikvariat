@@ -1,0 +1,49 @@
+{
+  "response": {
+    "docs": [
+      {
+        "_version_": 1651188351782354944,
+        "name": "asdasd",
+        "global": true,
+        "id": "4dd9e4150a7b5615cc0f5d464adf4e06",
+        "params": {
+          "q": "praha"
+        },
+        "timestamp": "2019-11-25T15:32:02.643Z"
+      },
+      {
+        "_version_": 1651188389160943616,
+        "name": "qwerty",
+        "global": false,
+        "id": "0cdb50857e2d88ed14a9c3b65a1b84d9",
+        "params": {
+          "q": "praha",
+          "autor": "jan"
+        },
+        "timestamp": "2019-11-25T15:32:38.290Z"
+      },
+      {
+        "_version_": 1651188869714935808,
+        "name": "JAN",
+        "global": true,
+        "id": "90aefaf36fd5b015a603e5707dc70402",
+        "params": {
+          "q": "jan"
+        },
+        "user": "MZK",
+        "timestamp": "2019-11-25T15:40:16.583Z"
+      }
+    ],
+    "numFound": 3,
+    "start": 0
+  },
+  "responseHeader": {
+    "QTime": 115,
+    "params": {
+      "q": "*",
+      "fl": "*,params:[json]",
+      "wt": "json"
+    },
+    "status": 0
+  }
+}

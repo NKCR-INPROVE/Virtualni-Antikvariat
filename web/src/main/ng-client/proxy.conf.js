@@ -9,12 +9,14 @@ const PROXY_CONFIG = {
         return req.url;
       }
       if (req.path.indexOf('/search') > -1) {
-        // return "/mock/search.json";
+        return "/mock/search.json";
       } else if (req.path.indexOf('/users/login') > -1) {
         if (req.method === 'POST') {
           req.method = 'GET';
         }
         return "/mock/user.json";
+      } else if (req.path.indexOf('/users/views') > -1) {
+        return "/mock/views.json";
       }
     },
     "pathRewrite": {
