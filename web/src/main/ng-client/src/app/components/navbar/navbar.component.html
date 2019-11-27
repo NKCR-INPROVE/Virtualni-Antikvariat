@@ -4,9 +4,9 @@
       <span><a routerLink="home">{{'app.title' | translate}}</a></span>
     </div>
     <div fxFlex fxFlex.lt-sm="100%" class="app-fx-right" [ngClass.lt-md]="'app-hide'">
-      <span><a routerLink="home">{{'Home' | translate}}</a></span>
-      <span><a routerLink="/registrace">{{'Registrace' | translate}}</a></span>
-      <span *ngIf="user && user.role === 'admin'"><a routerLink="/admin">{{'admin' | translate}}</a></span>
+      <span><a routerLink="home">{{'navbar.home' | translate}}</a></span>
+      <span><a routerLink="/registrace">{{'navbar.registration' | translate}}</a></span>
+      <span *ngIf="user && user.role === 'admin'"><a routerLink="/admin">{{'navbar.administration' | translate}}</a></span>
       <span><a (click)="changeLang()" class="app-link">{{currLang}}</a></span>
       <span>
         <a *ngIf="!user" (click)="login()" class="app-link">{{'navbar.login' | translate}}</a>
@@ -24,18 +24,18 @@
     </div>
     <div fxFlex class="app-fx-right" [ngClass.lt-md]="'app-hide'">
       <span class="example-fill-remaining-space"></span>
-      <span><a (click)="export()">{{'Export' | translate}}</a></span>
-      <span><a  *ngIf="isLogged" (click)="demands()">{{'poptávky' | translate}}</a></span>
-      <span><a *ngIf="isLogged" (click)="offers()">{{'nabídky' | translate}}</a></span>
+      <span><a (click)="export()">{{'navbar.export' | translate}}</a></span>
+      <span><a  *ngIf="isLogged" (click)="demands()">{{'navbar.demands' | translate}}</a></span>
+      <span><a *ngIf="isLogged" (click)="offers()">{{'navbar.offers' | translate}}</a></span>
       <span>
         <mat-form-field>
-          <mat-label>{{'pohledy' | translate}}</mat-label>
+          <mat-label>{{'navbar.views' | translate}}</mat-label>
           <mat-select (selectionChange)="changeView()" [(ngModel)]="selectedView">
             <mat-option *ngFor="let view of views" [value]="view">{{view.name}}</mat-option>
           </mat-select>
         </mat-form-field>
       </span>
-      <span><a *ngIf="isLogged" (click)="openViewDialog()">{{'save view' | translate}}</a></span>
+      <span><a *ngIf="isLogged" (click)="openViewDialog()">{{'navbar.save_view' | translate}}</a></span>
     </div>
   </mat-toolbar-row>
 </mat-toolbar>
