@@ -1,38 +1,13 @@
 // --- RESULTS ---
 
 app-results {
+  @import "app-results-header";
+  @import "app-facets";
+
   display: block;
   padding: $app-gap $app-gap 0 $app-gap;
 
-  app-results-header {
-    //background-color: greenyellow;
-    background-color: $app-lightest;
-    margin-bottom: $app-gap;
-    padding: calc(#{$app-gap} / 2) $app-gap;
-  }
-
-  app-facets {
-    //background-color: indigo;
-    background-color: $app-lightest;
-    padding: calc(#{$app-gap} / 2) $app-gap;
-    margin-bottom: $app-gap;
-  }
-
   .app-result-items {
-    //background-color: lightblue;
-
-    app-result-item {
-      display: block;
-      margin-bottom: $app-gap;
-      
-      .mat-card {
-        .mat-card-header {
-          .app-header-image {
-            background-image: url('https://material.angular.io/assets/img/examples/shiba1.jpg');
-            background-size: cover;
-          }
-        }
-      }
-    }
+    @import "app-results-item";
   }
 }

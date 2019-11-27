@@ -3,14 +3,8 @@
 html, body { height: 100%; }
 body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
 
-.example-fill-remaining-space {
-   /* This fills the remaining space, by using flexbox. 
-      Every toolbar row uses a flexbox row layout. */
-   flex: 1 1 auto;
-}
 
 // --- PEDRO ---
-
 a, .app-link {
 	cursor: pointer;
 	color: black;
@@ -28,4 +22,22 @@ a, .app-link {
 	margin: 0 auto;
 	max-width: $app-container-width-max;
 	width: $app-container-width;
+}
+
+
+// cleaners
+.app-clean-pd {
+	padding: 0 !important;
+}
+
+.app-clean-mg {
+	margin: 0 !important;
+}
+
+
+// icons
+.mat-icon {
+  font-size: $app-mat-icon-size;
+	width: $app-mat-icon-size !important;
+	height: $app-mat-icon-size !important;
 }

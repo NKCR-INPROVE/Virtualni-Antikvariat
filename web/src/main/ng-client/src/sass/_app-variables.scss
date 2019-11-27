@@ -20,8 +20,19 @@ $app-gray-9: mat-color($mat-gray, 900) !default;
 
 // grid behavior
 $app-gap: 16px !default;
-
 $app-container-width-max: 1280px !default;
 $app-container-width: 90% !default;
+
+// global behavior
+$app-mat-icon-size: 18px !default; 
+
+// facets
+$app-facet-list-item-height: 30px !default;
+$app-facet-list-item-val-mg-right: 10px !default;
+$app-facet-list-item-val-font-size: .9rem !default;
+$app-facet-list-item-val-color: $app-gray-5 !default;
+$app-facet-icon-color: $app-gray-5 !default;
+$app-facet-icon-active-color: mat-color($mat-pink, 500) !default;
+
 
 @debug "Debug:" $app-gray-0

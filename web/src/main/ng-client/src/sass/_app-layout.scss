@@ -15,8 +15,8 @@ main {
 }
 
 footer {
-  background-color: black;
-  color: white;
+  background-color: $app-darkest;
+  color: $app-lightest;
   min-height: 50px;
 
   @import "app-footer";

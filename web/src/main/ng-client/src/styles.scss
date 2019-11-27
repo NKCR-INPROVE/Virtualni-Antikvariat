@@ -12,10 +12,11 @@ $app-theme:   mat-light-theme($app-primary, $app-accent, $app-warn);
 
 //@include mat-core-theme($app-theme);
 @include mat-toolbar-theme($app-theme);
-/* @include mat-core-theme($app-theme);
-@include mat-table-theme($app-theme);
-@include mat-select-theme($app-theme);
-@include mat-checkbox-theme($app-theme); */
+//@include mat-icon-theme($app-theme);
+//@include mat-core-theme($app-theme);
+//@include mat-table-theme($app-theme);
+//@include mat-select-theme($app-theme);
+//@include mat-checkbox-theme($app-theme);
 
 
 // custom variables
