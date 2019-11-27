@@ -4,8 +4,30 @@
     "desc": "Kooperativní systém pro budování a správu novodobých konzervačních knižních sbírek v České Republice"
   },
   "navbar": {
+    "home": "Home",
+    "registration": "Registrace",
+    "administration": "Administrace",
     "logout": "Odhlásit",
-    "login": "Přihlásit"
+    "login": "Přihlásit",
+    "export": "Export",
+    "demands": "Poptávky",
+    "offers": "Nabídky",
+    "views": "Pohledy",
+    "save_view": "Uložit pohled"
+  },
+  "searchform": {
+    "search": "Hledej",
+    "advanced_search": "Rozšířené vyhledávání"
+  },
+  "result_header": {
+    "found_count": "Nalezeno: <strong>{{number}}</strong> položek"
+  },
+  "fields": {
+    "zdroj": "Zdroj",
+    "nabidka": "Nabídka",
+    "bohemika": "Bohemika",
+    "status": "Stav",
+    "pocet_exemplaru": "Počet exemplářů"
   },
   "count": "Počet nalezených položek",
   "q.placeholder": "Hledej ve virtuální depozitní knihovně ...",

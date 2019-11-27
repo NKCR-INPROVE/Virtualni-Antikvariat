@@ -1,1 +1,3 @@
-<p>Found: {{resultsHeader.numFound}}</p>
+<p>
+  <span [innerHTML]="'result_header.found_count' | translate:{number:resultsHeader.numFound}"></span>
+</p>
