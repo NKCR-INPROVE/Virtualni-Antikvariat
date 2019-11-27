@@ -1,0 +1,30 @@
+// --- RESULTS ITEM ---
+
+app-result-item {
+  display: block;
+  margin-bottom: $app-gap;
+  
+  .mat-card {
+    .mat-card-header {
+      .app-header-image {
+        background-image: url('https://material.angular.io/assets/img/examples/shiba1.jpg');
+        background-size: cover;
+      }
+
+      .mat-card-header-text {
+        @extend .app-clean-mg;
+      }
+    }
+
+    .mat-card-content {
+      .app-mat-table-container {
+        height: 200px;
+        overflow: auto;
+        
+        .mat-table {
+          width: 100%;
+        }
+      }
+    }
+  }
+}

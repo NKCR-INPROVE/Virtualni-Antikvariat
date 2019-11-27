@@ -1,0 +1,43 @@
+// --- FACETS ---
+
+app-facets {
+  //background-color: $app-lightest;
+  //padding: calc(#{$app-gap} / 2) $app-gap;
+  padding: 0 $app-gap 0 0;
+  margin-bottom: $app-gap;
+
+  .mat-list-base {
+    .mat-subheader {
+      height: $app-facet-list-item-height;
+    }
+
+    .mat-list-item {
+      height: $app-facet-list-item-height;
+
+      .mat-list-item-content {
+        .mat-line {
+          margin-left: 5px;
+        }
+
+        .mat-icon {
+          margin-right: 2px;
+          color: $app-facet-icon-color;
+          
+          &.active {
+            color: $app-facet-icon-active-color;
+          }
+        }
+
+        span {
+          margin-left: $app-facet-list-item-val-mg-right;
+          font-size: $app-facet-list-item-val-font-size;
+          color: $app-facet-list-item-val-color;
+        }
+      }
+    }
+
+    .mat-divider {
+      margin: calc(#{$app-facet-list-item-height} / 2) 0;
+    }
+  }
+}
