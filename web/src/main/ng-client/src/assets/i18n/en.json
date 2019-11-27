@@ -15,6 +15,10 @@
     "views": "Views",
     "save_view": "Save view"
   },
+  "searchform": {
+    "search": "Search",
+    "advanced_search": "Advanced search"
+  },
   "count": "Count of search results",
   "q.placeholder": "Search in virtual depoiste library ...",
   "dummy": ""

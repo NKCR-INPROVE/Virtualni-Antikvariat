@@ -1,13 +1,11 @@
 <div>
 	<mat-form-field>
 		<input matInput [(ngModel)]="searchParams.q" [placeholder]="'q.placeholder' | translate" (keyup.enter)="search()" />
-		<button mat-icon-button matSuffix (click)="search()" [title]="'Search' | translate" [attr.aria-label]="'Search' | translate" >
+		<button mat-icon-button matSuffix (click)="search()" matTooltip="{{'searchform.search' | translate}}" [attr.aria-label]="'searchform.search' | translate" >
 			<mat-icon>search</mat-icon>
 		</button>
 	</mat-form-field>
-	<button mat-icon-button matSuffix (click)="openAdvanced()" [title]="'Advanced search' | translate" [attr.aria-label]="'Advanced search' | translate">
+	<button mat-icon-button matSuffix (click)="openAdvanced()" matTooltip="{{'searchform.advanced_search' | translate}}" [attr.aria-label]="'searchform.advanced_search' | translate">
 		<mat-icon>reorder</mat-icon>
 	</button>
 </div>
-
-

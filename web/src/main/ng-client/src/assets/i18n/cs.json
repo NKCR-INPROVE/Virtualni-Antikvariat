@@ -15,6 +15,10 @@
     "views": "Pohledy",
     "save_view": "Uložit pohled"
   },
+  "searchform": {
+    "search": "Hledej",
+    "advanced_search": "Rozšířené vyhledávání"
+  },
   "count": "Počet nalezených položek",
   "q.placeholder": "Hledej ve virtuální depozitní knihovně ...",
   "Search": "Vyhledávání",
