@@ -19,6 +19,13 @@
     "search": "Hledej",
     "advanced_search": "Rozšířené vyhledávání"
   },
+  "fields": {
+    "zdroj": "Zdroj",
+    "nabidka": "Nabídka",
+    "bohemika": "Bohemika",
+    "status": "Stav",
+    "pocet_exemplaru": "Počet exemplářů"
+  },
   "count": "Počet nalezených položek",
   "q.placeholder": "Hledej ve virtuální depozitní knihovně ...",
   "Search": "Vyhledávání",

@@ -19,6 +19,13 @@
     "search": "Search",
     "advanced_search": "Advanced search"
   },
+  "fields": {
+    "zdroj": "Source",
+    "nabidka": "Offer",
+    "bohemika": "Bohemika",
+    "status": "Status",
+    "pocet_exemplaru": "Number of exeplars"
+  },
   "count": "Count of search results",
   "q.placeholder": "Search in virtual depoiste library ...",
   "dummy": ""

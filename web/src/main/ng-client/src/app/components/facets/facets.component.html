@@ -1,6 +1,6 @@
 <ul *ngFor="let field of fields">
   <li>
-    <h3>{{field | translate}}</h3>
+    <h3>{{ 'fields.' + field | translate }}</h3>
     <ul>
       <li *ngFor="let f of facets[field]">
         <ng-container [ngSwitch]="field">
@@ -15,8 +15,7 @@
               <mat-icon *ngIf="filters[field] === f.name">done</mat-icon>&#160;
               <span>{{f.value}}</span>
           </div>
-        </ng-container>
-        
+        </ng-container>        
       </li>
     </ul>
   </li>
