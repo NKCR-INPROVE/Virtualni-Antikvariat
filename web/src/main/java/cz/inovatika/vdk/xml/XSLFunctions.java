@@ -7,6 +7,9 @@ package cz.inovatika.vdk.xml;
 import cz.inovatika.vdk.common.MD5;
 import cz.inovatika.vdk.common.UTFSort;
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import org.apache.commons.httpclient.URIException;
 import org.apache.commons.httpclient.util.URIUtil;
 import org.w3c.dom.Node;
@@ -16,6 +19,7 @@ import org.w3c.dom.Node;
  * @author alberto
  */
 public class XSLFunctions {
+  final static Logger LOGGER = Logger.getLogger(XSLFunctions.class.getName());
     
     UTFSort utf_sort;
     
@@ -71,6 +75,32 @@ public class XSLFunctions {
         s = utf_sort.translate(s).toLowerCase().replaceAll("[| ]", "");
         return MD5.generate(s);
     }
+    
+    public String join(org.w3c.dom.NodeList n1, org.w3c.dom.NodeList n2, org.w3c.dom.NodeList n3, org.w3c.dom.NodeList n4) {
+      
+      return joinM(n1, n2, n3, n4);
+    }
+    
+    public String joinM(org.w3c.dom.NodeList... nodesList) {
+      
+      ArrayList<String> sb = new ArrayList<>();
+      for(org.w3c.dom.NodeList nodes : nodesList) {
+        
+        for(int i = 0; i<nodes.getLength(); i++){
+            Node node = nodes.item(i);
+            String val = node.getTextContent();
+            if (val != null) {
+              val = val.trim();
+              if (val.endsWith(",")) {
+                val = val.substring(0, val.length()-1);
+              }
+              sb.add("\""+val+"\"");
+            }
+        }
+      }
+      return sb.toString();
+    }
+    
 
     /*
     

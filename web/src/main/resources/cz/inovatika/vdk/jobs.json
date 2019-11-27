@@ -1,0 +1,109 @@
+[
+  {
+    "name": "admin",
+    "type": "admin",
+    "cron": "0 04 * * * ?",
+    "settings": {
+    }
+  },
+
+  {
+    "name": "indexer",
+    "type": "index",
+    "cron": "0 45 04 * * ?",
+    "settings": {
+      "full_index": false,
+      "reindex_offers": false,
+      "reindex_demands": false,
+      "reindex_wanted": false,
+      "identifier": ""
+    }
+  },
+  {
+    "name": "nkp_vdk",
+    "type": "harvest",
+    "cron": "0 45 01 * * ?",
+    "knihovna": "NKP",
+    "indexDirectory": "c:/Users/alberto/Projects/VDK/VA/data/OAI/harvest/NKC",
+    "oaiDir": "c:/Users/alberto/Projects/VDK/VA/data/OAI",
+    "statusFile": "nkp_vdk.status",
+    "dateFormat": "yyyy-MM-dd",
+    "filePathFormat": "yyyy/MM/dd/HH/mm/ss",
+
+    "baseUrl": "http://aleph.nkp.cz/OAI",
+    "set": "NKC-VDK",
+    "verb": "ListRecords",
+    "identifierPrefix": "oai:aleph-nkp.cz:",
+    "interval": "day",
+
+    "zdroj": "Národní knihovna České republiky",
+    "base": "NKC-VDK",
+    "saveToDisk": false,
+    "fullIndex": false,
+    "continueOnDocError": false
+  },
+  {
+    "name": "mzk01",
+    "type": "harvest",
+    "cron": "0 45 03 * * ?",
+    "knihovna": "MZK",
+    "indexDirectory": "/home/alberto/.vdkcr/OAI/harvest/MZK",
+    "oaiDir": "/home/alberto/.vdkcr/OAI",
+    "statusFile": "mzk01.status",
+    "filePathFormat": "yyyy/MM/dd/HH/mm/ss",
+
+    "baseUrl": "http://aleph.mzk.cz/OAI",
+    "set": "MZK01-VDK",
+    "identifierPrefix": "oai:aleph.mzk.cz:",
+    "comment": "year|month|day|hour|minute|second",
+    "interval": "day",
+
+    "zdroj": "Moravská zemská knihovna v Brně",
+    "base": "MZK01-VDK"
+  },
+  {
+    "name": "mzk03",
+    "type": "harvest",
+    "cron": "0 45 02 * * ?", 
+    "knihovna": "MZK",
+    "indexDirectory": "c:/Users/alberto/Projects/VDK/VA/data/OAI/harvest/MZK03",
+    "oaiDir": "c:/Users/alberto/Projects/VDK/VA/data/OAI",
+    "statusFile": "mzk03.status",
+    "filePathFormat": "yyyy/MM/dd/HH/mm/ss",
+
+    "baseUrl": "http://aleph.mzk.cz/OAI",
+    "set": "MZK03-VDK",
+    "identifierPrefix": "oai:aleph.mzk.cz:",
+    "comment": "year|month|day|hour|minute|second",
+    "interval": "day",
+
+    "zdroj": "Moravská zemská knihovna v Brně",
+    "base": "MZK03-VDK",
+    "saveToDisk": false,
+    "fullIndex": true,
+    "continueOnDocError": false
+  },
+  {
+    "name": "vkol",
+    "type": "harvest",
+    "cron": "0 33 0 * * ?",
+    "knihovna": "VKOL",
+    "indexDirectory": "c:/Users/alberto/Projects/VDK/VA/data/OAI/harvest/VKOL",
+    "oaiDir": "c:/Users/alberto/Projects/VDK/VA/data/OAI",
+    "statusFile": "vkol.status",
+    "oaiDateFormat": "yyyy-MM-dd'T'HH:mm:ss'Z'",
+    "filePathFormat": "yyyy/MM/dd/HH",
+
+    "baseUrl": "http://aleph.vkol.cz/OAI",
+    "set": "VKOLOAI",
+    "identifierPrefix": "oai:aleph.vkol.cz:",
+    "comment": "year|month|day|hour|minute|second",
+    "interval": "day",
+
+    "zdroj": "Vědecká knihovna v Olomouci",
+    "base": "VKOLOAI",
+    "saveToDisk": false,
+    "fullIndex": true,
+    "continueOnDocError": false
+  }
+]

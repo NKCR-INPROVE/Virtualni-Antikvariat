@@ -200,7 +200,7 @@ public class IndexServlet extends HttpServlet {
         try {
           String f = System.getProperty("user.home") + File.separator + ".vdkcr" + File.separator + "jobs" + File.separator + "indexer.json";
           Indexer indexer = new Indexer(f);
-          indexer.indexOffer(Integer.parseInt(req.getParameter("id")));
+          indexer.indexOffer(req.getParameter("id"));
         } catch (Exception ex) {
           json.put("error", ex.toString());
         }
@@ -294,14 +294,14 @@ public class IndexServlet extends HttpServlet {
         PrintWriter out = resp.getWriter();
         JSONObject json = new JSONObject();
         try {
-          User kn = UsersController.toKnihovna(req);
-          if (kn == null) {
-            json.put("error", "rights.notlogged");
-          } else {
-            String f = System.getProperty("user.home") + File.separator + ".vdkcr" + File.separator + "jobs" + File.separator + "indexer.json";
-            Indexer indexer = new Indexer(f);
-            indexer.indexAllDemands();
-          }
+            User kn = UsersController.toKnihovna(req);
+            if (isLocalhost || kn.hasRole(DbUtils.Roles.ADMIN)) {
+              String f = System.getProperty("user.home") + File.separator + ".vdkcr" + File.separator + "jobs" + File.separator + "indexer.json";
+              Indexer indexer = new Indexer(f);
+              indexer.indexAllDemands();
+          }else {
+              json.put("error", "rights.insuficient");
+            }
         } catch (Exception ex) {
           LOGGER.log(Level.SEVERE, null, ex);
           json.put("error", ex.toString());
@@ -365,9 +365,6 @@ public class IndexServlet extends HttpServlet {
         PrintWriter out = resp.getWriter();
         JSONObject json = new JSONObject();
         try {
-          
-          System.out.println(VDKJobData.class.getResource(VDKJobData.class.getSimpleName() + ".class"));
-
             User kn = UsersController.toKnihovna(req);
             if (isLocalhost || kn.hasRole(DbUtils.Roles.ADMIN)) {
               String f = System.getProperty("user.home") + File.separator + ".vdkcr" + File.separator + "jobs" + File.separator + "indexer.json";
@@ -395,19 +392,17 @@ public class IndexServlet extends HttpServlet {
         JSONObject json = new JSONObject();
         try {
           User kn = UsersController.toKnihovna(req);
-          if (kn == null) {
-            json.put("error", "rights.notlogged");
-          } else {
+            if (isLocalhost || kn.hasRole(DbUtils.Roles.ADMIN)) {
 
-            if (kn.hasRole(DbUtils.Roles.ADMIN)) {
               String f = System.getProperty("user.home") + File.separator + ".vdkcr" + File.separator + "jobs" + File.separator + "indexer.json";
               Indexer indexer = new Indexer(f);
 
               indexer.reindexDocByIdentifier(req.getParameter("code"));
+              SolrIndexerCommiter.closeClients();
             } else {
               json.put("error", "rights.insuficient");
             }
-          }
+          
         } catch (Exception ex) {
           LOGGER.log(Level.SEVERE, null, ex);
           json.put("error", ex.toString());

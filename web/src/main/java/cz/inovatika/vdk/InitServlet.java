@@ -15,6 +15,9 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import org.apache.commons.io.FileUtils;
+import org.json.JSONArray;
+import org.json.JSONObject;
 import org.quartz.Scheduler;
 import org.quartz.SchedulerException;
 
@@ -102,6 +105,16 @@ public class InitServlet extends HttpServlet {
 
     try {
 
+      //Load default admin, indexer, NKP, MZK, VKOL
+      File fserver = FileUtils.toFile(Options.class.getResource("/cz/inovatika/vdk/jobs.json"));
+      String sjson = FileUtils.readFileToString(fserver, "UTF-8");
+      JSONArray jaJobs = new JSONArray(sjson);
+      for (int i =0; i<jaJobs.length(); i++){
+        JSONObject jo = jaJobs.getJSONObject(i);
+        VDKScheduler.addJob(jo.getString("name"), jo);
+      }
+      
+      // Load from file
       File dir = new File(CONFIG_DIR + File.separator + "jobs" + File.separator);
       if(!dir.exists()) {
         return;

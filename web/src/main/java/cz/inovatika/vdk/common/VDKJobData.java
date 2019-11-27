@@ -31,25 +31,42 @@ public class VDKJobData {
     
     private boolean interrupted = false;
     private JSONObject runtimeOptions;
+    private JSONObject initConfig;
     private String name;
     
     public VDKJobData(String conf, JSONObject runtime) throws Exception{
         this.configFile = conf;
         this.runtimeOptions = runtime;
+        String json = IOUtils.toString(Options.class.getResourceAsStream("job.json"), "UTF-8");
+        this.initConfig = new JSONObject(json);
+    }
+    
+    public VDKJobData(JSONObject initConfig) throws Exception{
+        this.configFile = null;
+        this.runtimeOptions = new JSONObject();
+        
+     
+        String json = IOUtils.toString(Options.class.getResourceAsStream("job.json"), "UTF-8");
+        this.initConfig = new JSONObject(json);
+        
+        Iterator keys = initConfig.keys();
+        while (keys.hasNext()) {
+            String key = (String) keys.next();
+            this.initConfig.put(key, initConfig.get(key));
+        }
     }
     
    public void load() throws Exception {
      
-        String json = IOUtils.toString(Options.class.getResourceAsStream("job.json"), "UTF-8");
-        opts = new JSONObject(json);
+     opts = new JSONObject(initConfig.toString());
         
         File f = new File(this.configFile);
         this.configDir = f.getParent();
         this.configSimpleName = f.getName().split("\\.")[0];
         this.statusFile = this.configDir + File.separator + "status" + File.separator + this.configSimpleName + ".status";
         if (f.exists() && f.canRead()) {
-            json = FileUtils.readFileToString(f, "UTF-8");
-            JSONObject confCustom = new JSONObject(json);
+          
+            JSONObject confCustom = new JSONObject(FileUtils.readFileToString(f, "UTF-8"));
             Iterator keys = confCustom.keys();
             while (keys.hasNext()) {
                 String key = (String) keys.next();
