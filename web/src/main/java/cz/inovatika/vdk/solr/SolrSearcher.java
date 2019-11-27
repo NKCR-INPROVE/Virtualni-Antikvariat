@@ -185,7 +185,7 @@ public class SolrSearcher {
         if (zdroj.startsWith("-")) {
           query.addFilterQuery("-zdroj:\"" + zdroj.substring(1) + "\"");
         } else {
-          query.addFilterQuery("zdroj:\"" + zdroj + "\"");
+          query.addFilterQuery("{!tag=zdr}zdroj:\"" + zdroj + "\"");
         }
       }
       hasFilters = true;

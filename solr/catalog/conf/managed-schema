@@ -141,14 +141,14 @@
    <field name="carkod" type="string" indexed="true" stored="false" multiValued="true" /> 
    
    <field name="ldr19" type="string" indexed="true" stored="true" multiValued="true" docValues="true" /> 
-   <field name="export" type="string" indexed="false" stored="true" multiValued="true" /> 
-   <field name="export_json" type="string" indexed="false" stored="true" multiValued="true" /> 
+   <field name="export" type="string_big" indexed="false" stored="true" multiValued="true" /> 
+   <field name="export_json" type="string_big" indexed="false" stored="true" multiValued="true" /> 
    
    <field name="format" type="string" indexed="true" stored="true" multiValued="true" />
    <field name="leader" type="string" indexed="false" stored="true" multiValued="true" />
    <field name="leader_format" type="string" indexed="true" stored="true" multiValued="true" />
    
-   <field name="ex" type="string" indexed="false" stored="true" multiValued="true" />
+   <field name="ex" type="string_big" indexed="false" stored="true" multiValued="true" />
    <field name="status" type="string" indexed="true" stored="true" multiValued="true" docValues="true" />
    <field name="dilciKnih" type="string" indexed="true" stored="true" multiValued="true" />
    <field name="pocet_exemplaru" type="pint" indexed="true" stored="true" multiValued="true" docValues="true" />
@@ -614,6 +614,13 @@
         <filter class="solr.DelimitedPayloadTokenFilterFactory" encoder="identity"/>
       </analyzer>
     </fieldType>
+	
+	<fieldtype name="string_big" class="solr.TextField" sortMissingLast="true" omitNorms="true">
+	  <analyzer>
+		<tokenizer class="solr.KeywordTokenizerFactory"/>
+	  </analyzer>
+	</fieldtype>
+	
 	
 
     <!-- Czech -->

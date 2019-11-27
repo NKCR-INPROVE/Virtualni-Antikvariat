@@ -8,7 +8,7 @@
   "viewsCore": "views",
   "indexerXSL": "OAI/vdk_md5.xsl",
   "indexerIdXSL": "OAI/vdk_id.xsl",
-  "facets": ["{!ex=dt}zdroj", 
+  "facets": ["{!ex=zdr}zdroj", 
   "nabidka",
               "bohemika",
               "status",

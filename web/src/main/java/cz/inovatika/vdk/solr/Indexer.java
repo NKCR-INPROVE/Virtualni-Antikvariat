@@ -122,13 +122,26 @@ public class Indexer {
   private void init() throws Exception {
     sdf = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss'Z'");
     TransformerFactory tfactory = TransformerFactory.newInstance();
-    StreamSource xslt = new StreamSource(new File(InitServlet.CONFIG_DIR + File.separator + opts.getString("indexerXSL", "vdk_md5.xsl")));
+    StreamSource xslt;
+    File f = new File(InitServlet.CONFIG_DIR + File.separator + opts.getString("indexerXSL", "vdk_md5.xsl"));
+    if (f.exists()) {
+      xslt = new StreamSource(f);
+    } else {
+      xslt = new StreamSource(Options.class.getResourceAsStream("/cz/inovatika/vdk/vdk_md5.xsl"));
+    }
     transformer = tfactory.newTransformer(xslt);
     if (transformer == null) {
-      LOGGER.log(Level.SEVERE, "File {0} not found", InitServlet.CONFIG_DIR + File.separator + opts.getString("indexerIdXSL", "vdk_id.xsl"));
+      LOGGER.log(Level.SEVERE, "File {0} not found", InitServlet.CONFIG_DIR + File.separator + opts.getString("indexerXSL", "vdk_md5.xsl"));
       throw new FileNotFoundException();
     }
-    StreamSource xslt2 = new StreamSource(new File(InitServlet.CONFIG_DIR + File.separator + opts.getString("indexerIdXSL", "vdk_id.xsl")));
+    
+    StreamSource xslt2;
+    f = new File(InitServlet.CONFIG_DIR + File.separator + opts.getString("indexerIdXSL", "vdk_id.xsl"));
+    if (f.exists()) {
+      xslt2 = new StreamSource(f);
+    } else {
+      xslt2 = new StreamSource(Options.class.getResourceAsStream("/cz/inovatika/vdk/vdk_id.xsl"));
+    }
     trId = tfactory.newTransformer(xslt2);
     if (trId == null) {
       LOGGER.log(Level.SEVERE, "File {0} not found", InitServlet.CONFIG_DIR + File.separator + opts.getString("indexerIdXSL", "vdk_id.xsl"));

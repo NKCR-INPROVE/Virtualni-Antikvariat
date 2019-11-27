@@ -120,7 +120,7 @@
     <field name="zdroj" type="string" indexed="true" stored="true" multiValued="false" /> 
     <field name="bohemika" type="boolean" indexed="true" stored="true" />
    
-    <field name="xml" type="string" indexed="false" stored="true" multiValued="false" />
+    <field name="xml" type="string_big" indexed="false" stored="true" multiValued="false" />
     <field name="title" type="text_general" indexed="true" stored="true" multiValued="false" />
     <field name="text" type="text_general" indexed="true" stored="true" multiValued="true" />
      
@@ -560,6 +560,12 @@
         <filter class="solr.DelimitedPayloadTokenFilterFactory" encoder="identity"/>
       </analyzer>
     </fieldType>
+	
+	<fieldtype name="string_big" class="solr.TextField" sortMissingLast="true" omitNorms="true">
+	  <analyzer>
+		<tokenizer class="solr.KeywordTokenizerFactory"/>
+	  </analyzer>
+	</fieldtype>
 	
 
     <!-- Czech -->
