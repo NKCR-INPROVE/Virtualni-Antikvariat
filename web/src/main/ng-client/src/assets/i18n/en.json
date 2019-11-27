@@ -19,6 +19,9 @@
     "search": "Search",
     "advanced_search": "Advanced search"
   },
+  "result_header": {
+    "found_count": "Found: <strong>{{number}}</strong> items"
+  },
   "fields": {
     "zdroj": "Source",
     "nabidka": "Offer",

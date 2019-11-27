@@ -19,6 +19,9 @@
     "search": "Hledej",
     "advanced_search": "Rozšířené vyhledávání"
   },
+  "result_header": {
+    "found_count": "Nalezeno: <strong>{{number}}</strong> položek"
+  },
   "fields": {
     "zdroj": "Zdroj",
     "nabidka": "Nabídka",
