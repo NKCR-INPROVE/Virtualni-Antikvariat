@@ -34,5 +34,8 @@ $app-facet-list-item-val-color: $app-gray-5 !default;
 $app-facet-icon-color: $app-gray-5 !default;
 $app-facet-icon-active-color: mat-color($mat-pink, 500) !default;
 
+// result item
+$app-table-icon-size: 32px !default;
+
 
 @debug "Debug:" $app-gray-0

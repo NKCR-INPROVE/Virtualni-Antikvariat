@@ -27,7 +27,12 @@
     "nabidka": "Nabídka",
     "bohemika": "Bohemika",
     "status": "Stav",
-    "pocet_exemplaru": "Počet exemplářů"
+    "pocet_exemplaru": "Počet exemplářů",
+    "signatura": "Signatura",
+    "dilciKnih": "Dilčí Kniha",
+    "rocnik_svazek": "Ročník/Svazek",
+    "cislo": "Číslo",
+    "rok": "Rok"
   },
   "count": "Počet nalezených položek",
   "q.placeholder": "Hledej ve virtuální depozitní knihovně ...",

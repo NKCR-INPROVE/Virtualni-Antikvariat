@@ -27,7 +27,12 @@
     "nabidka": "Offer",
     "bohemika": "Bohemika",
     "status": "Status",
-    "pocet_exemplaru": "Number of exeplars"
+    "pocet_exemplaru": "Number of exeplars",
+    "signatura": "Signatura",
+    "dilciKnih": "DilcniKnih",
+    "rocnik_svazek": "Vintage/Volume",
+    "cislo": "Number",
+    "rok": "Year"
   },
   "count": "Count of search results",
   "q.placeholder": "Search in virtual depoiste library ...",

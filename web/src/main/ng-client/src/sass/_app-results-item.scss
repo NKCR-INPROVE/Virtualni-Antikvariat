@@ -23,6 +23,34 @@ app-result-item {
         
         .mat-table {
           width: 100%;
+
+          tbody {
+            .mat-row {
+              .mat-cell {
+                img {
+                  max-height: 20px;
+                }
+
+                &:last-child {
+                  text-align: right;
+
+                  .mat-button-base {
+                    @extend .app-clean-shadow;
+                    margin-right: 5px;
+                  }
+
+                  .mat-mini-fab {
+                    width: $app-table-icon-size;
+                    height: $app-table-icon-size;
+
+                    .mat-icon {
+                      vertical-align: unset;
+                    }
+                  }
+                }
+              }
+            }
+          }
         }
       }
     }
