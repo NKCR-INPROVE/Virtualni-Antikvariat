@@ -36,5 +36,13 @@
   },
   "count": "Count of search results",
   "q.placeholder": "Search in virtual depoiste library ...",
-  "dummy": ""
+  "route": {
+    "demands" : "Demands",
+    "offers" : "Offers"
+  },
+  "demands": {
+    "add": "Add demandd",
+    "remove": "Remove demandd",
+    "refresh": "Refresh"
+  }
 }

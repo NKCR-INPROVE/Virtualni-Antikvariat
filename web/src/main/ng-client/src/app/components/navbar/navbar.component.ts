@@ -10,6 +10,9 @@ import { LoginComponent } from 'src/app/components/login/login.component';
 import { View } from 'src/app/models/view';
 import { ViewComponent } from '../view/view.component';
 import { Utils } from 'src/app/shared/utils';
+import { TranslateService } from '@ngx-translate/core';
+import { DemandsComponent } from 'src/app/pages/demands/demands.component';
+import { OffersComponent } from 'src/app/pages/offers/offers.component';
 
 @Component({
   selector: 'app-navbar',
@@ -17,6 +20,8 @@ import { Utils } from 'src/app/shared/utils';
   styleUrls: ['./navbar.component.scss']
 })
 export class NavbarComponent implements OnInit {
+  // Keep loaded langs, so we don't add duplicated routes
+  loadedLangs: string[] = [];
   currLang: string;
   user: User;
 
@@ -29,6 +34,7 @@ export class NavbarComponent implements OnInit {
     private authService: AuthenticationService,
     private route: ActivatedRoute,
     private router: Router,
+    private translate: TranslateService,
     public state: AppState,
     private service: AppService) {
   }
@@ -40,6 +46,13 @@ export class NavbarComponent implements OnInit {
     });
     this.service.currentLang.subscribe((lang) => {
       this.currLang = lang;
+      if (!this.loadedLangs.includes(lang)) {
+        const l = this.router.config.length - 1;
+        this.router.config.splice(l, 0, {path: this.translate.instant('route.demands'), component: DemandsComponent });
+        this.router.config.splice(l, 0, {path: this.translate.instant('route.offers'), component: OffersComponent });
+        this.loadedLangs.push(lang);
+      }
+
     });
     this.state.views.subscribe((views) => {
       this.views = views;
@@ -61,11 +74,14 @@ export class NavbarComponent implements OnInit {
   }
 
   demands() {
-
+    const r = this.translate.instant('route.demands');
+    console.log(r, this.router.config);
+    this.router.navigate([r]);
   }
 
   offers() {
-
+    const r = this.translate.instant('route.offers');
+    this.router.navigate([r]);
   }
 
   export() {

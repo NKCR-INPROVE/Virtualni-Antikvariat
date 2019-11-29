@@ -7,6 +7,7 @@ package cz.inovatika.vdk.solr.models;
 
 import com.alibaba.fastjson.JSON;
 import cz.inovatika.vdk.common.MD5;
+import java.util.Date;
 import java.util.logging.Logger;
 import org.apache.solr.client.solrj.beans.Field;
 import org.json.JSONObject;
@@ -22,6 +23,8 @@ public class Demand {
   @Field
   public String id;
   @Field
+  public String title;
+  @Field
   public String knihovna;
   @Field
   public String zaznam;
@@ -29,11 +32,13 @@ public class Demand {
   public String exemplar;
   @Field
   public String comment;
+  @Field
+  public Date date;
   
   public static Demand fromJSON(JSONObject json) {
     Demand ofr = JSON.parseObject(json.toString(), Demand.class);
     if (ofr.id == null || ofr.id.isBlank()) {
-      ofr.id = MD5.generate(new String[]{ofr.knihovna, ofr.zaznam, ofr.exemplar, ofr.comment});
+      ofr.id = MD5.generate(new String[]{ofr.knihovna, ofr.zaznam, ofr.exemplar, ofr.comment, ofr.date.toString()});
     }
     return ofr;
   }
