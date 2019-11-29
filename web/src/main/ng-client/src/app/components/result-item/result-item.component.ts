@@ -1,6 +1,9 @@
 import { Component, OnInit, Input, OnDestroy, ViewContainerRef, TemplateRef } from '@angular/core';
 import { Overlay, OverlayRef } from '@angular/cdk/overlay';
 import { TemplatePortal } from '@angular/cdk/portal';
+import { AppService } from 'src/app/app.service';
+import { OfferRecord } from 'src/app/models/offer-record';
+import { AppState } from 'src/app/app.state';
 
 @Component({
   selector: 'app-result-item',
@@ -26,7 +29,9 @@ export class ResultItemComponent implements OnInit, OnDestroy {
 
   constructor(
     private overlay: Overlay,
-    private viewContainerRef: ViewContainerRef
+    private viewContainerRef: ViewContainerRef,
+    private service: AppService,
+    public state: AppState
   ) { }
 
   ngOnInit() {
@@ -84,6 +89,27 @@ export class ResultItemComponent implements OnInit, OnDestroy {
       this.overlayRef.dispose();
       this.overlayRef = null;
     }
+  }
+
+  openLink() {
+    window.open('/api/original/' + this.doc.id);
+  }
+
+  addToOffer() {
+    const of = new OfferRecord();
+    of.knihovna = this.state.user.code;
+    of.offer_id = this.state.activeOffer.id;
+    of.doc_code = this.doc.code;
+    of.title = this.doc.title[0];
+    this.service.addToOffer(of).subscribe();
+  }
+
+  addToDemands() {
+    this.service.addToDemands(this.doc).subscribe();
+  }
+
+  csv() {
+    window.open('/api/csv/' + this.doc.id);
   }
 
 

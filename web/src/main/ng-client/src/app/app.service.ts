@@ -13,6 +13,7 @@ import { AppState } from './app.state';
 import { User } from './models/user';
 import { View } from './models/view';
 import { Demand } from './models/demand';
+import { OfferRecord } from './models/offer-record';
 
 @Injectable({
   providedIn: 'root'
@@ -71,9 +72,17 @@ export class AppService {
     }));
   }
 
+  addToDemands(doc) {
+    return this.http.post<any>(`/api/demands/add`, {doc})
+    .pipe(map(resp => {
+      return resp.docs;
+    }));
+  }
+
   getOffers() {
     return this.http.get<any>(`/api/offers/all`)
     .pipe(map(resp => {
+      this.state.setOffers(resp.docs);
       return resp.docs;
     }));
   }
@@ -81,6 +90,13 @@ export class AppService {
   getOffer(id: string) {
     const params: HttpParams = new HttpParams().set('id', id);
     return this.http.get<any>(`/api/offers/byid`, {params})
+    .pipe(map(resp => {
+      return resp.docs;
+    }));
+  }
+
+  addToOffer(offer: OfferRecord) {
+    return this.http.post<any>(`/api/offers/add`, offer)
     .pipe(map(resp => {
       return resp.docs;
     }));

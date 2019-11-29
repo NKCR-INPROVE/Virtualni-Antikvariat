@@ -5,6 +5,7 @@ import com.alibaba.fastjson.serializer.SerializerFeature;
 import cz.inovatika.vdk.common.SolrIndexerCommiter;
 import cz.inovatika.vdk.solr.models.Offer;
 import cz.inovatika.vdk.solr.models.OfferRecord;
+import cz.inovatika.vdk.solr.models.User;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.net.InetAddress;
@@ -154,6 +155,10 @@ public class OffersServlet extends HttpServlet {
 
           Options opts = Options.getInstance();
           SolrQuery query = new SolrQuery("*");
+          User user = UsersController.toKnihovna(req);
+          if(user != null) {
+            query.addFilterQuery("knihovna:" + user.getCode());
+          }
           query.set("wt", "json");
           query.setFields("*,fields:[json]");
           try (HttpSolrClient client = new HttpSolrClient.Builder("http://localhost:8983/solr").build()) {

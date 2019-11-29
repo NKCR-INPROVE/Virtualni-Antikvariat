@@ -43,6 +43,8 @@ export class NavbarComponent implements OnInit {
     this.authService.currentUser.subscribe(x => {
       this.isLogged = x !== null;
       this.user = x;
+      this.state.user = x;
+      this.service.getOffers().subscribe();
     });
     this.service.currentLang.subscribe((lang) => {
       this.currLang = lang;
