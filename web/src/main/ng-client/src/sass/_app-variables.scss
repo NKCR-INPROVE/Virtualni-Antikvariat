@@ -20,6 +20,7 @@ $app-gray-9: mat-color($mat-gray, 900) !default;
 
 // grid behavior
 $app-gap: 16px !default;
+$app-gap-icon: 5px !default;
 $app-container-width-max: 1280px !default;
 $app-container-width: 90% !default;
 
@@ -34,7 +35,10 @@ $app-facet-list-item-val-color: $app-gray-5 !default;
 $app-facet-icon-color: $app-gray-5 !default;
 $app-facet-icon-active-color: mat-color($mat-pink, 500) !default;
 
-// result item
+// result item card
+$app-card-title-font-size: 1.1rem !default;
+
+// result item table
 $app-table-icon-size: 32px !default;
 
 

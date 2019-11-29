@@ -6,13 +6,17 @@ app-result-item {
   
   .mat-card {
     .mat-card-header {
-      .app-header-image {
-        background-image: url('https://material.angular.io/assets/img/examples/shiba1.jpg');
-        background-size: cover;
-      }
-
       .mat-card-header-text {
         @extend .app-clean-mg;
+
+        .mat-card-title {
+          font-size: $app-card-title-font-size;
+          scroll-margin-bottom: $app-gap;
+        }
+  
+        .mat-card-subtitle {
+          margin-bottom: 0;
+        }
       }
     }
 
@@ -27,8 +31,21 @@ app-result-item {
           tbody {
             .mat-row {
               .mat-cell {
+                .mat-icon {
+                  font-size: calc(#{$app-mat-icon-size} - 3px);
+                  width: calc(#{$app-mat-icon-size} - 3px) !important;
+                  height: calc(#{$app-mat-icon-size} - 3px) !important;
+                }
+
+                &:not(.mat-column-buttons) {
+                  .mat-icon {
+                    color:$app-facet-icon-active-color;
+                  }
+                }
+
                 img {
                   max-height: 20px;
+                  margin-right: calc(#{$app-gap-icon} * 3);
                 }
 
                 &:last-child {
@@ -36,7 +53,7 @@ app-result-item {
 
                   .mat-button-base {
                     @extend .app-clean-shadow;
-                    margin-right: 5px;
+                    margin-right: $app-gap-icon;
                   }
 
                   .mat-mini-fab {
@@ -52,6 +69,23 @@ app-result-item {
             }
           }
         }
+      }
+    }
+
+    .mat-card-actions {
+      padding-top: 0;
+      margin-top: -5px;
+
+      &.app-card-actions-top {
+        border-bottom: 1px solid $app-gray-3;
+        padding-left: 8px;
+        padding-right: 8px;
+        margin-left: -#{$app-gap};
+        margin-right: -#{$app-gap};
+      }
+
+      .mat-icon {
+        margin-right: 5px;
       }
     }
   }

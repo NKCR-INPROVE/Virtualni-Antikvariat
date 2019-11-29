@@ -34,6 +34,16 @@
     "cislo": "Číslo",
     "rok": "Rok"
   },
+  "desc": {
+    "view_oringal_metadata": "Zobrazit originální metadata",
+    "add_to_offer": "Přidat do nabídky",
+    "add_to_demand": "Přidat do poptávky",
+    "csv_format": "CSV formát",
+    "filter_source": "Filtruj zdroj",
+    "filter_status": "Filtruj stav",
+    "differences_in": "Rozdíl v",
+    "author": "autorech"
+  },
   "count": "Počet nalezených položek",
   "q.placeholder": "Hledej ve virtuální depozitní knihovně ...",
   "Search": "Vyhledávání",

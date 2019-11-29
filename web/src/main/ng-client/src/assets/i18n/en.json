@@ -34,6 +34,16 @@
     "cislo": "Number",
     "rok": "Year"
   },
+  "desc": {
+    "view_original_metadata": "View original metadata",
+    "add_to_offer": "Add to offer",
+    "add_to_demand": "Add to demand",
+    "csv_format": "CSV format",
+    "filter_source": "Filter source",
+    "filter_status": "Filter status",
+    "differences_in": "Differences in",
+    "author": "author"
+  },
   "count": "Count of search results",
   "q.placeholder": "Search in virtual depoiste library ...",
   "dummy": ""

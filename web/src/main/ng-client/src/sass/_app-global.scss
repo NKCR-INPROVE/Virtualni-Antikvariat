@@ -44,4 +44,30 @@ a, .app-link {
   font-size: $app-mat-icon-size;
 	width: $app-mat-icon-size !important;
 	height: $app-mat-icon-size !important;
+	
+	&:not(:last-child) {
+		margin-right: $app-gap-icon;
+	}
+
+	&.app-icon-left-mg {
+		margin-left: $app-gap-icon;
+	}
+
+	&.app-icon-valign-text-bottom {
+		vertical-align: text-bottom;
+	}
+}
+
+// popover card
+.app-popover-card {
+	background-color: $app-gray-1;
+
+	.mat-card-header-text {
+		@extend .app-clean-mg;
+
+		.mat-card-title {
+			margin-bottom: 6px;
+			font-size: 1rem;
+		}
+	}
 }
