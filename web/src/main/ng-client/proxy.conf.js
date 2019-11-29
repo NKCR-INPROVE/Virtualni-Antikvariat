@@ -19,6 +19,10 @@ const PROXY_CONFIG = {
         return "/mock/views.json";
       } else if (req.path.indexOf('/demands/all') > -1) {
         return "/mock/demands.json";
+      } else if (req.path.indexOf('/offers/all') > -1) {
+        return "/mock/offers.json";
+      } else if (req.path.indexOf('/offers/byid') > -1) {
+        return "/mock/offer.json";
       }
     },
     "pathRewrite": {

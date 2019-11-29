@@ -75,7 +75,6 @@ export class NavbarComponent implements OnInit {
 
   demands() {
     const r = this.translate.instant('route.demands');
-    console.log(r, this.router.config);
     this.router.navigate([r]);
   }
 

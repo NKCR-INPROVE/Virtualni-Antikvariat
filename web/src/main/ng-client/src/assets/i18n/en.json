@@ -42,7 +42,13 @@
   },
   "demands": {
     "add": "Add demandd",
-    "remove": "Remove demandd",
+    "remove": "Remove demand",
+    "refresh": "Refresh"
+  },
+  "offers": {
+    "add": "Add offer",
+    "remove": "Remove offer",
+    "removeFrom": "Remove from offer",
     "refresh": "Refresh"
   }
 }

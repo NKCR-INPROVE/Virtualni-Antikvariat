@@ -64,11 +64,25 @@ export class AppService {
       }));
   }
 
-
   getDemands() {
-    return this.http.get<Demand[]>(`/api/demands/all`)
+    return this.http.get<any>(`/api/demands/all`)
     .pipe(map(resp => {
-      return resp['docs'];
+      return resp.docs;
+    }));
+  }
+
+  getOffers() {
+    return this.http.get<any>(`/api/offers/all`)
+    .pipe(map(resp => {
+      return resp.docs;
+    }));
+  }
+
+  getOffer(id: string) {
+    const params: HttpParams = new HttpParams().set('id', id);
+    return this.http.get<any>(`/api/offers/byid`, {params})
+    .pipe(map(resp => {
+      return resp.docs;
     }));
   }
 

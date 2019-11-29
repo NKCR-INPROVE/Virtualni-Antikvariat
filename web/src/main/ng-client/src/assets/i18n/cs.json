@@ -46,5 +46,11 @@
     "add": "Přídat poptavku",
     "remove": "Odstranit poptavku",
     "refresh": "Aktualizovat"
+  },
+  "offers": {
+    "add": "Přídat nabídku",
+    "remove": "Odstranit nabídku",
+    "removeFrom": "Odstranit z nabídky",
+    "refresh": "Aktualizovat"
   }
 }

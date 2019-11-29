@@ -1,1 +1,29 @@
-<p>offers works!</p>
+<h2 mat-dialog-title>{{'Offers' | translate}}</h2>
+
+<div fxLayout="row" fxLayoutAlign="start stretch" fxLayoutGap.gt-xs="16px" fxLayout.xs="column" gdAlignColumns.lt-xs="false">
+
+  <div fxFlex.gt-sm="25%" fxFlex.gt-xs="30%" fxFlex.xs="100%">
+<button mat-button (click)="add()">{{'offers.add' | translate}}</button>
+<button mat-button (click)="refresh()">{{'offers.refresh' | translate}}</button>
+      <ul>
+        <li *ngFor="let offer of offers; let idx = index;">
+            <a (click)="load(offer)">{{offer.nazev}}</a>
+            <div>{{offer.created}}</div>
+          <button mat-button (click)="remove(idx)">{{'offers.remove' | translate}}</button>
+        </li>
+      </ul>
+    </div>
+
+
+  <div class="app-offer-items" fxFlex.gt-sm="75%" fxFlex.gt-xs="70%" fxFlex.xs="100%">
+      <h3 >{{currentOffer.nazev}}</h3>
+      <ul>
+          <li *ngFor="let row of records; let idx = index;">
+              <div>{{row.title}}</div>
+            <button mat-button (click)="remove(idx)">{{'offers.removeFrom' | translate}}</button>
+          </li>
+        </ul>
+
+  </div>
+</div>
+
