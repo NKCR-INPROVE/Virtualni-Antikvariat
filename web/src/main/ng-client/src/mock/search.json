@@ -22,7 +22,7 @@
       "facet":"true",
       "wt":"json",
       "stats.field":"rokvydani"}},
-  "response":{"numFound":1346,"start":0,"docs":[
+  "response":{"numFound":1334546,"start":0,"docs":[
       {
         "code":"22b4bba39731d9bc19e93a953028f684",
         "md5":"f45a4119c3f6d18063ac22ad5ef7ead9",

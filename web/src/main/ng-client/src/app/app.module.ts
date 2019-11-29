@@ -38,6 +38,8 @@ import { AdminComponent } from './pages/admin/admin.component';
 import { fakeBackendProvider, FakeBackendInterceptor } from './shared/fake-backend';
 import { environment } from 'src/environments/environment';
 import { ViewComponent } from './components/view/view.component';
+import { OffersComponent } from './pages/offers/offers.component';
+import { DemandsComponent } from './pages/demands/demands.component';
 
 
 registerLocaleData(localeCs, 'cs');
@@ -77,7 +79,9 @@ if (!environment.production) {
     ResultItemComponent,
     ResultsHeaderComponent,
     AdminComponent,
-    ViewComponent
+    ViewComponent,
+    OffersComponent,
+    DemandsComponent
   ],
   imports: [
     BrowserModule,

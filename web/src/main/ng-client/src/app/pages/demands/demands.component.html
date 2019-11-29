@@ -1,0 +1,13 @@
+<h2 mat-dialog-title>{{'Demands' | translate}}</h2>
+<button mat-button (click)="add()">{{'demands.add' | translate}}</button>
+<button mat-button (click)="refresh()">{{'demands.refresh' | translate}}</button>
+
+<div>
+  <ul>
+    <li *ngFor="let demand of demands; let idx = index;">
+        <div>{{demand.title}}</div>
+        <div>{{demand.comment}}</div>
+      <button mat-button (click)="remove(idx)">{{'demands.remove' | translate}}</button>
+    </li>
+  </ul>
+</div>

@@ -5,12 +5,18 @@ import { HomeComponent } from './pages/home/home.component';
 import { RegistrationComponent } from './pages/registration/registration.component';
 import { AdminComponent } from './pages/admin/admin.component';
 import { AuthGuard } from './auth-guard';
+import { DemandsComponent } from './pages/demands/demands.component';
+import { OffersComponent } from './pages/offers/offers.component';
 
 
 const routes: Routes = [
   { path: 'registrace', component: RegistrationComponent },
   { path: 'results', component: ResultsComponent },
   { path: 'home', component: HomeComponent },
+  { path: 'demands', component: DemandsComponent },
+  { path: 'offers', component: OffersComponent },
+  // { path: 'Poptávky', component: DemandsComponent },
+  // { path: 'Nabídky', component: OffersComponent },
   { path: 'admin', component: AdminComponent, canActivate: [AuthGuard]},
   { path: '', component: HomeComponent },
   { path: 'login', component: HomeComponent },

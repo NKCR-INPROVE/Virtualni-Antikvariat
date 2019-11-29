@@ -48,6 +48,19 @@
   "q.placeholder": "Hledej ve virtuální depozitní knihovně ...",
   "Search": "Vyhledávání",
   "Advanced search": "Rozšířené hledání",
-  "dummy": ""
+  "route": {
+    "demands": "Poptávky",
+    "offers": "Nabídky"
+  },
+  "demands": {
+    "add": "Přídat poptavku",
+    "remove": "Odstranit poptavku",
+    "refresh": "Aktualizovat"
+  },
+  "offers": {
+    "add": "Přídat nabídku",
+    "remove": "Odstranit nabídku",
+    "removeFrom": "Odstranit z nabídky",
+    "refresh": "Aktualizovat"
+  }
 }
- 

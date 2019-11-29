@@ -3,7 +3,7 @@ import { Router, ActivatedRoute } from '@angular/router';
 import { DatePipe } from '@angular/common';
 import { TranslateService } from '@ngx-translate/core';
 
-import { Observable, BehaviorSubject } from 'rxjs';
+import { Observable, BehaviorSubject, ReplaySubject } from 'rxjs';
 import { Subject } from 'rxjs';
 import { map } from 'rxjs/operators';
 
@@ -12,14 +12,16 @@ import { HttpClient, HttpParams, HttpHeaders, HttpErrorResponse } from '@angular
 import { AppState } from './app.state';
 import { User } from './models/user';
 import { View } from './models/view';
+import { Demand } from './models/demand';
 
 @Injectable({
   providedIn: 'root'
 })
 export class AppService {
 
+
   // Observe language
-  private langSubject: BehaviorSubject<string> = new BehaviorSubject('cs');
+  private langSubject: ReplaySubject<string> = new ReplaySubject(3);
   public currentLang: Observable<string> = this.langSubject.asObservable();
 
   constructor(
@@ -34,13 +36,14 @@ export class AppService {
   changeLang(lang: string) {
     // console.log('lang changed to ' + lang);
 
-    this.translate.use(lang);
-    this.langSubject.next(lang);
+    this.translate.use(lang).subscribe(val => {
+      this.langSubject.next(lang);
+    });
   }
 
-  public get currentLangValue(): string {
-    return this.langSubject.value;
-  }
+  // public get currentLangValue(): string {
+  //   return this.langSubject.;
+  // }
 
   search(params: HttpParams) {
     // const params: HttpParams = new HttpParams().set('wt', 'json');
@@ -59,6 +62,28 @@ export class AppService {
         this.state.setViews(resp);
         return resp;
       }));
+  }
+
+  getDemands() {
+    return this.http.get<any>(`/api/demands/all`)
+    .pipe(map(resp => {
+      return resp.docs;
+    }));
+  }
+
+  getOffers() {
+    return this.http.get<any>(`/api/offers/all`)
+    .pipe(map(resp => {
+      return resp.docs;
+    }));
+  }
+
+  getOffer(id: string) {
+    const params: HttpParams = new HttpParams().set('id', id);
+    return this.http.get<any>(`/api/offers/byid`, {params})
+    .pipe(map(resp => {
+      return resp.docs;
+    }));
   }
 
 
