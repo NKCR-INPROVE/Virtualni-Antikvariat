@@ -31,7 +31,7 @@ export class AuthenticationService {
                 // password hashed
                     const md5 = new Md5();
                     const user = resp.user;
-                    user.authdata = window.btoa(username + ':' + md5.appendStr(password).end());
+                    user.authdata = window.btoa(username + ':' + password);
                     localStorage.setItem('currentUser', JSON.stringify(user));
                     this.currentUserSubject.next(user);
 

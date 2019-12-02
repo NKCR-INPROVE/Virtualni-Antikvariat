@@ -4,8 +4,6 @@ import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.serializer.SerializerFeature;
 import cz.inovatika.vdk.common.SolrIndexerCommiter;
 import cz.inovatika.vdk.solr.models.Demand;
-import cz.inovatika.vdk.solr.models.Offer;
-import cz.inovatika.vdk.solr.models.OfferRecord;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.net.InetAddress;

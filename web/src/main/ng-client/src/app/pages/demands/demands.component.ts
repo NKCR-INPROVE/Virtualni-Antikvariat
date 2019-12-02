@@ -28,7 +28,9 @@ export class DemandsComponent implements OnInit {
   }
 
   refresh() {
-    this.service.getDemands().subscribe(resp => { this.demands = resp; });
+    this.service.getDemands().subscribe(resp => { 
+      this.demands = resp; 
+    });
   }
 
 }

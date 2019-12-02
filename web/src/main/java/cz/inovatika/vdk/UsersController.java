@@ -44,7 +44,7 @@ public class UsersController {
   public static User toKnihovna(HttpServletRequest req) {
     JSONObject jo = get(req);
     if (jo != null) {
-      User kn = User.byCode(jo.getString("name"));
+      User kn = User.byCode(jo.getString("code"));
       return kn;
     }
     return null;
@@ -159,10 +159,11 @@ public class UsersController {
 
     // Get encoded user and password, comes after "BASIC "  
     String userpassEncoded = auth.substring(6);
+    
     // Decode it, using any base 64 decoder  
     byte[] decoded = Base64.getDecoder().decode(userpassEncoded);
 
-    String userpassDecoded = new String(decoded, "UTF-8");
+    String userpassDecoded = new String(decoded);
 
     String account[] = userpassDecoded.split(":");
     

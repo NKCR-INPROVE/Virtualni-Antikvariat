@@ -5,6 +5,7 @@ import { AppService } from 'src/app/app.service';
 import { OfferRecord } from 'src/app/models/offer-record';
 import { AppState } from 'src/app/app.state';
 import { Exemplar, ExemplarZdroj } from 'src/app/models/exempplar';
+import { Demand } from 'src/app/models/demand';
 
 @Component({
   selector: 'app-result-item',
@@ -15,11 +16,11 @@ export class ResultItemComponent implements OnInit, OnDestroy {
   private overlayRef: OverlayRef;
   @Input() doc;
 
-  
+
   displayedColumns = ['zdroj', 'signatura', 'status', 'dilciKnih', 'rocnik_svazek', 'cislo', 'rok', 'buttons'];
-  
+
   exemplars: Exemplar[];
-  
+
   public tooltip: {
     field: string,
     text: string
@@ -40,16 +41,20 @@ export class ResultItemComponent implements OnInit, OnDestroy {
   }
 
   setExemplars() {
-    const exs: ExemplarZdroj[] = this.doc.ex;
     this.exemplars = [];
-    exs.forEach(exZdroj => {
-      exZdroj.ex.forEach(ex => {
-        
-        ex.zdroj = exZdroj.zdroj;
-        ex.id = exZdroj.id;
-        this.exemplars.push(ex);
+    if (this.doc.ex) {
+      const exs: ExemplarZdroj[] = this.doc.ex;
+      exs.forEach(exZdroj => {
+        exZdroj.ex.forEach(ex => {
+          ex.zdroj = exZdroj.zdroj;
+          if (ex.isNKF) {
+            ex.zdroj = 'NKF';
+          }
+          ex.id = exZdroj.id;
+          this.exemplars.push(ex);
+        });
       });
-    });
+    }
   }
 
   ngOnDestroy() {
@@ -57,17 +62,26 @@ export class ResultItemComponent implements OnInit, OnDestroy {
   }
 
   hasDifferences(field: string): boolean {
-    const arr: Array<string> = this.doc[field];
-    return !arr.every(v => v === arr[0]);
+    const arr: Array<any> = this.doc[field];
+    if (!arr) {
+      return false;
+    }
+    return !arr.every(v => {
+      if (v instanceof Array) {
+        return JSON.stringify(v) === JSON.stringify(arr[0]);
+      } else {
+        return v === arr[0];
+      }
+      
+    });
   }
 
   openPop(field: string, relative: any, template: TemplateRef<any>) {
     const arr: Array<string> = this.doc[field];
     this.tooltip = {
-      field: field,
+      field,
       text: arr.join('<br/>')
     };
-    console.log(this.tooltip);
     this.closeInfoOverlay();
     setTimeout(() => {
       this.openInfoOverlay(relative, template);
@@ -111,16 +125,24 @@ export class ResultItemComponent implements OnInit, OnDestroy {
   }
 
   addToOffer() {
-    const of = new OfferRecord();
-    of.knihovna = this.state.user.code;
-    of.offer_id = this.state.activeOffer.id;
-    of.doc_code = this.doc.code;
-    of.title = this.doc.title[0];
-    this.service.addToOffer(of).subscribe();
+    const record = new OfferRecord();
+    record.knihovna = this.state.user.code;
+    record.offer_id = this.state.activeOffer.id;
+    record.doc_code = this.doc.code;
+    record.title = this.doc.title[0];
+    this.service.addToOffer(record).subscribe();
   }
 
-  addToDemands() {
-    this.service.addToDemands(this.doc).subscribe();
+  addToDemands(ex?: Exemplar) {
+    const demand = new Demand();
+    demand.knihovna = this.state.user.code;
+    demand.zaznam = this.doc.code;
+    demand.title = this.doc.titlemd5[0];
+    if (ex) {
+      demand.zaznam = ex.id;
+      demand.exemplar = ex.md5;
+    }
+    this.service.addToDemands(demand).subscribe();
   }
 
   csv() {
@@ -129,4 +151,3 @@ export class ResultItemComponent implements OnInit, OnDestroy {
 
 
 }
-
