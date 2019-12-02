@@ -24,6 +24,7 @@ import javax.xml.xpath.XPathConstants;
 import javax.xml.xpath.XPathExpression;
 import javax.xml.xpath.XPathExpressionException;
 import javax.xml.xpath.XPathFactory;
+import org.apache.commons.io.IOUtils;
 
 import org.w3c.dom.Document;
 import org.w3c.dom.Node;
@@ -67,7 +68,6 @@ public class XMLReader {
 
     public void loadXmlFromFile(File file) {
         try {
-
             InputSource source = new InputSource(new FileInputStream(file));
             doc = builder.parse(source);
 
@@ -81,6 +81,9 @@ public class XMLReader {
             URL url = new URL(urlString);
             InputStream stream = url.openStream();
             doc = builder.parse(stream);
+//            String s = IOUtils.toString(url, "UTF-8");
+//            System.out.println(s);
+//            doc = builder.parse(s);
     }
 
     public NodeList getListOfNodes(String xPath)

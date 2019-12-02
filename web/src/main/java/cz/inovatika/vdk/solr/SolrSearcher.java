@@ -184,7 +184,7 @@ public class SolrSearcher {
     if (req.getParameterValues("zdroj") != null) {
       for (String zdroj : req.getParameterValues("zdroj")) {
         if (zdroj.startsWith("-")) {
-          query.addFilterQuery("-zdroj:\"" + zdroj.substring(1) + "\"");
+          query.addFilterQuery("{!tag=zdr}-zdroj:\"" + zdroj.substring(1) + "\"");
         } else {
           query.addFilterQuery("{!tag=zdr}zdroj:\"" + zdroj + "\"");
         }

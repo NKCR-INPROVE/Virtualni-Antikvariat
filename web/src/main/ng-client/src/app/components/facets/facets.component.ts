@@ -90,6 +90,8 @@ export class FacetsComponent implements OnInit, OnDestroy {
     console.log(this.filters, f);
     if (this.filters.zdroj.includes(f.name)) {
       this.filters.zdroj = this.filters.zdroj.filter(z => z !== f.name);
+    } else if (this.filters.zdroj.includes('-' + f.name)) {
+      this.filters.zdroj = this.filters.zdroj.filter(z => z !== '-' + f.name);
     } else {
       this.filters.zdroj = [f.name, ...this.filters.zdroj];
     }
@@ -99,6 +101,9 @@ export class FacetsComponent implements OnInit, OnDestroy {
   addZdrojFilter(f: Facet) {
     if (this.filters.zdroj.includes(f.name)) {
       this.filters.zdroj = this.filters.zdroj.filter(z => z !== f.name);
+    } else if (this.filters.zdroj.includes('-' + f.name)) {
+      this.filters.zdroj = this.filters.zdroj.filter(z => z !== '-' + f.name);
+      this.filters.zdroj = [f.name, ...this.filters.zdroj];
     } else {
       this.filters.zdroj = [f.name, ...this.filters.zdroj];
     }
@@ -106,10 +111,13 @@ export class FacetsComponent implements OnInit, OnDestroy {
   }
 
   excludeZdrojFilter(f: Facet) {
-    if (this.filters.zdroj.includes(f.name)) {
+    if (this.filters.zdroj.includes('-' + f.name)) {
       this.filters.zdroj = this.filters.zdroj.filter(z => z !== '-' + f.name);
+    } else if (this.filters.zdroj.includes( f.name)) {
+      this.filters.zdroj = this.filters.zdroj.filter(z => z !== f.name);
+      this.filters.zdroj = ['-' + f.name, ...this.filters.zdroj];
     } else {
-      this.filters.zdroj = [f.name, ...this.filters.zdroj];
+      this.filters.zdroj = ['-' + f.name, ...this.filters.zdroj];
     }
     this.search();
   }
