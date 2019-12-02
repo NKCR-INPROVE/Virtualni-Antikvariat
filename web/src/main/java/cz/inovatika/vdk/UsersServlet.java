@@ -129,8 +129,6 @@ public class UsersServlet extends HttpServlet {
             pwd = js.getString("password");
           } 
 
-          
-        System.out.println(user);
           if (user != null) {
             JSONObject j = UsersController.login(req, user, pwd);
             if (j != null) {

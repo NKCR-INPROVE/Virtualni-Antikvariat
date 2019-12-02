@@ -18,12 +18,12 @@
   </mat-card-header>
   <mat-card-content>
     <div class="app-mat-table-container">
-      <table mat-table [dataSource]="dataSource">
+      <table mat-table [dataSource]="exemplars">
     
         <ng-container matColumnDef="zdroj">
           <th mat-header-cell *matHeaderCellDef>{{ 'fields.zdroj' | translate }}</th>
           <td mat-cell *matCellDef="let element">
-            <img src="{{ element.zdroj }}" title="" />
+            <img src="{{ 'assets/img/zdroj/' + element.zdroj + '.png' }}" title="" />
             <mat-icon matTooltip="{{ 'desc.filter_source' | translate }}" class="app-cursor-pointer">filter_list</mat-icon>
             <mat-icon matTooltip="{{ 'desc.filter_source' | translate }}" class="app-cursor-pointer">open_in_new</mat-icon>
           </td>

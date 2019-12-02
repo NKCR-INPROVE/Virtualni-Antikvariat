@@ -101,6 +101,7 @@ public class SolrSearcher {
       query.set("q.op", "AND");
       query.setFacet(true);
       query.set("json.nl", "arrntv"); 
+      query.setFields("*", "ex:[json]"); 
       
       query.setStart(getStart());
       query.setRows(getRows());

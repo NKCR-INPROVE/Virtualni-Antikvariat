@@ -4,6 +4,7 @@ import { TemplatePortal } from '@angular/cdk/portal';
 import { AppService } from 'src/app/app.service';
 import { OfferRecord } from 'src/app/models/offer-record';
 import { AppState } from 'src/app/app.state';
+import { Exemplar, ExemplarZdroj } from 'src/app/models/exempplar';
 
 @Component({
   selector: 'app-result-item',
@@ -14,11 +15,11 @@ export class ResultItemComponent implements OnInit, OnDestroy {
   private overlayRef: OverlayRef;
   @Input() doc;
 
-  // demo - petr
+  
   displayedColumns = ['zdroj', 'signatura', 'status', 'dilciKnih', 'rocnik_svazek', 'cislo', 'rok', 'buttons'];
-  dataSource = ELEMENT_DATA;
-  // end demo - petr
-
+  
+  exemplars: Exemplar[];
+  
   public tooltip: {
     field: string,
     text: string
@@ -35,6 +36,20 @@ export class ResultItemComponent implements OnInit, OnDestroy {
   ) { }
 
   ngOnInit() {
+    this.setExemplars();
+  }
+
+  setExemplars() {
+    const exs: ExemplarZdroj[] = this.doc.ex;
+    this.exemplars = [];
+    exs.forEach(exZdroj => {
+      exZdroj.ex.forEach(ex => {
+        
+        ex.zdroj = exZdroj.zdroj;
+        ex.id = exZdroj.id;
+        this.exemplars.push(ex);
+      });
+    });
   }
 
   ngOnDestroy() {

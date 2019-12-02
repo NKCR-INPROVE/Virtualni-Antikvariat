@@ -83,7 +83,7 @@ public class UsersController {
 
   public static JSONObject login(HttpServletRequest req, String code, String pwd) {
     try {
-System.out.println("JJJJJJ " + code);
+      
       Options opts = Options.getInstance();
       SolrQuery query = new SolrQuery("code:\"" + code + "\"");
       try (SolrClient client = new HttpSolrClient.Builder(String.format("%s/%s/",
@@ -165,8 +165,7 @@ System.out.println("JJJJJJ " + code);
     String userpassDecoded = new String(decoded, "UTF-8");
 
     String account[] = userpassDecoded.split(":");
-    System.out.println("User = " + account[0]);
-    System.out.println("Pass = " + account[1]);
+    
     return login(req, account[0], account[1]) != null;
   }
 

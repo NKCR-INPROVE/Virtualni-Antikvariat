@@ -16,6 +16,8 @@ export class ResultsComponent implements OnInit, OnDestroy {
   params: Params;
   subscriptions: Subscription[] = [];
 
+  loading: boolean;
+
   constructor(public state: AppState,
               private service: AppService,
               private route: ActivatedRoute,
@@ -42,6 +44,10 @@ export class ResultsComponent implements OnInit, OnDestroy {
   }
 
   getResults() {
-    this.service.search(this.params as HttpParams).subscribe(resp => {});
+    this.loading = true;
+    this.service.search(this.params as HttpParams).subscribe(resp => {
+      this.loading = false;
+    });
+
   }
 }
