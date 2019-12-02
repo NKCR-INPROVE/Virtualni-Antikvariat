@@ -53,12 +53,12 @@
     "offers": "Nabídky"
   },
   "demands": {
-    "add": "Přídat poptavku",
-    "remove": "Odstranit poptavku",
+    "add": "Přidat poptávku",
+    "remove": "Odstranit poptávku",
     "refresh": "Aktualizovat"
   },
   "offers": {
-    "add": "Přídat nabídku",
+    "add": "Přidat nabídku",
     "remove": "Odstranit nabídku",
     "removeFrom": "Odstranit z nabídky",
     "refresh": "Aktualizovat"

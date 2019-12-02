@@ -9,6 +9,7 @@ import { AppService } from 'src/app/app.service';
 })
 export class DemandsComponent implements OnInit {
 
+  displayedColumns = ['text', 'button'];
   demands: Demand[] = [];
 
   constructor(private service: AppService) { }

@@ -1,0 +1,11 @@
+// --- DEMANDS ---
+
+app-demands {
+  display: block;
+  padding: $app-gap;
+
+  .app-mat-table-container {
+    height: 500px;
+    overflow: auto;
+  }
+}
