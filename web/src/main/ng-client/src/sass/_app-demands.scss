@@ -1,0 +1,31 @@
+// --- DEMANDS ---
+
+app-demands {
+  display: block;
+  padding: $app-gap;
+
+  .app-mat-table-container {
+    height: 700px;
+    overflow: auto;
+
+    .mat-table {
+      thead {
+        .mat-header-cell {
+          &.mat-column-button {
+            width: 20px;
+          }
+        }
+      }
+
+      tbody {
+        .mat-cell {
+          span {
+            color: $app-gray-6;
+            font-size: .8rem;
+            font-style: italic;
+          }
+        }
+      }
+    }
+  }
+}
