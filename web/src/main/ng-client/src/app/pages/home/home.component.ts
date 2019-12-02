@@ -30,11 +30,12 @@ export class HomeComponent implements OnInit {
   ngOnInit() {
     this.loading = true;
     this.authService.currentUser.subscribe(x => this.user = x);
-    console.log(this.route.snapshot.queryParams);
+    
     if (this.route.snapshot.queryParams['login'])  {
       this.login();
     }
   }
+  
 
   login() {
 

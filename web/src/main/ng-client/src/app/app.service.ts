@@ -72,8 +72,8 @@ export class AppService {
     }));
   }
 
-  addToDemands(doc) {
-    return this.http.post<any>(`/api/demands/add`, {doc})
+  addToDemands(demand: Demand) {
+    return this.http.post<any>(`/api/demands/add`, demand)
     .pipe(map(resp => {
       return resp.docs;
     }));

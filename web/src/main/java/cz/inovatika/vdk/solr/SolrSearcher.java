@@ -101,7 +101,7 @@ public class SolrSearcher {
       query.set("q.op", "AND");
       query.setFacet(true);
       query.set("json.nl", "arrntv"); 
-      query.setFields("*", "ex:[json]"); 
+      query.setFields("*", "ex:[json]", "author:[json]"); 
       
       query.setStart(getStart());
       query.setRows(getRows());
@@ -240,8 +240,8 @@ public class SolrSearcher {
       hasFilters = true;
     }
 
-    if (req.getParameterValues("offer") != null) {
-      for (String offer : req.getParameterValues("offer")) {
+    if (req.getParameterValues("nabidka") != null) {
+      for (String offer : req.getParameterValues("nabidka")) {
         query.addFilterQuery("nabidka:" + offer);
       }
       hasFilters = true;

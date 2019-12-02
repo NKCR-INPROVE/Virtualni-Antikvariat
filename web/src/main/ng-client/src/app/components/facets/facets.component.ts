@@ -87,10 +87,11 @@ export class FacetsComponent implements OnInit, OnDestroy {
   }
 
   toggleZdrojFilter(f: Facet) {
+    console.log(this.filters, f);
     if (this.filters.zdroj.includes(f.name)) {
       this.filters.zdroj = this.filters.zdroj.filter(z => z !== f.name);
     } else {
-      this.filters.zdroj.push(f.name);
+      this.filters.zdroj = [f.name, ...this.filters.zdroj];
     }
     this.search();
   }
@@ -99,7 +100,7 @@ export class FacetsComponent implements OnInit, OnDestroy {
     if (this.filters.zdroj.includes(f.name)) {
       this.filters.zdroj = this.filters.zdroj.filter(z => z !== f.name);
     } else {
-      this.filters.zdroj.push(f.name);
+      this.filters.zdroj = [f.name, ...this.filters.zdroj];
     }
     this.search();
   }
@@ -108,15 +109,15 @@ export class FacetsComponent implements OnInit, OnDestroy {
     if (this.filters.zdroj.includes(f.name)) {
       this.filters.zdroj = this.filters.zdroj.filter(z => z !== '-' + f.name);
     } else {
-      this.filters.zdroj.push('-' + f.name);
+      this.filters.zdroj = [f.name, ...this.filters.zdroj];
     }
     this.search();
   }
 
   search() {
-    const params = {...this.searchParams, ...this.advParams, ...this.filters};
-    console.log(params);
-    this.router.navigate(['/results'], {queryParams: params});
+    const queryParams = Object.assign({}, {...this.searchParams, ...this.advParams, ...this.filters});
+    console.log(queryParams);
+    this.router.navigate(['/results'], {queryParams});
   }
 
 

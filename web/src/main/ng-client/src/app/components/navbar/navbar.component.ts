@@ -13,6 +13,7 @@ import { Utils } from 'src/app/shared/utils';
 import { TranslateService } from '@ngx-translate/core';
 import { DemandsComponent } from 'src/app/pages/demands/demands.component';
 import { OffersComponent } from 'src/app/pages/offers/offers.component';
+import { Md5 } from 'ts-md5';
 
 @Component({
   selector: 'app-navbar',
@@ -40,6 +41,12 @@ export class NavbarComponent implements OnInit {
   }
 
   ngOnInit() {
+
+    
+    const md5 = new Md5();
+    console.log('' + md5.appendStr('test').end());
+    console.log('' + Md5.hashStr('test'));
+    
     this.authService.currentUser.subscribe(x => {
       this.isLogged = x !== null;
       this.user = x;
