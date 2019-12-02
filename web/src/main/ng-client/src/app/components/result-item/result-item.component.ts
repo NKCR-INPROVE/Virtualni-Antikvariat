@@ -130,31 +130,3 @@ export class ResultItemComponent implements OnInit, OnDestroy {
 
 }
 
-// demo petr
-export interface PeriodicElement {
-  zdroj: string;
-  signatura: string;
-  status: string;
-  dilciKnih: string;
-  rocnik_svazek: number;
-  cislo: string;
-  rok: string;
-  buttons: string;
-}
-
-const ELEMENT_DATA: PeriodicElement[] = [
-  {zdroj: "https://registr.digitalniknihovna.cz/system/libraries/logos/000/000/001/thumb/logo_mzk.png?1477230761", signatura: "4 D 000370/Abt.1", status: "prezenčně", dilciKnih: "", rocnik_svazek: 1, cislo: "", rok: "", buttons: ""},
-  {zdroj: "https://registr.digitalniknihovna.cz/system/libraries/logos/000/000/018/thumb/Bez_na%CC%81zvu.png?1554386313", signatura: "4 E 000163/Abt.1", status: "prezenčně", dilciKnih: "", rocnik_svazek: 1, cislo: "", rok: "", buttons: ""},
-  {zdroj: "https://registr.digitalniknihovna.cz/system/libraries/logos/000/000/008/thumb/logo_mlp.png?1477230940", signatura: "4 E 000163/Abt.2	", status: "absenčně", dilciKnih: "", rocnik_svazek: 1, cislo: "", rok: "", buttons: ""},
-  {zdroj: "https://registr.digitalniknihovna.cz/system/libraries/logos/000/000/001/thumb/logo_mzk.png?1477230761", signatura: "4 D 000370/Abt.1", status: "prezenčně", dilciKnih: "", rocnik_svazek: 1, cislo: "", rok: "", buttons: ""},
-  {zdroj: "https://registr.digitalniknihovna.cz/system/libraries/logos/000/000/018/thumb/Bez_na%CC%81zvu.png?1554386313", signatura: "4 E 000163/Abt.1", status: "prezenčně", dilciKnih: "", rocnik_svazek: 1, cislo: "", rok: "", buttons: ""},
-  {zdroj: "https://registr.digitalniknihovna.cz/system/libraries/logos/000/000/008/thumb/logo_mlp.png?1477230940", signatura: "4 E 000163/Abt.2	", status: "absenčně", dilciKnih: "", rocnik_svazek: 1, cislo: "", rok: "", buttons: ""},
-  {zdroj: "https://registr.digitalniknihovna.cz/system/libraries/logos/000/000/001/thumb/logo_mzk.png?1477230761", signatura: "4 D 000370/Abt.1", status: "prezenčně", dilciKnih: "", rocnik_svazek: 1, cislo: "", rok: "", buttons: ""},
-  {zdroj: "https://registr.digitalniknihovna.cz/system/libraries/logos/000/000/018/thumb/Bez_na%CC%81zvu.png?1554386313", signatura: "4 E 000163/Abt.1", status: "prezenčně", dilciKnih: "", rocnik_svazek: 1, cislo: "", rok: "", buttons: ""},
-  {zdroj: "https://registr.digitalniknihovna.cz/system/libraries/logos/000/000/008/thumb/logo_mlp.png?1477230940", signatura: "4 E 000163/Abt.2	", status: "absenčně", dilciKnih: "", rocnik_svazek: 1, cislo: "", rok: "", buttons: ""},
-  {zdroj: "https://registr.digitalniknihovna.cz/system/libraries/logos/000/000/001/thumb/logo_mzk.png?1477230761", signatura: "4 D 000370/Abt.1", status: "prezenčně", dilciKnih: "", rocnik_svazek: 1, cislo: "", rok: "", buttons: ""},
-  {zdroj: "https://registr.digitalniknihovna.cz/system/libraries/logos/000/000/018/thumb/Bez_na%CC%81zvu.png?1554386313", signatura: "4 E 000163/Abt.1", status: "prezenčně", dilciKnih: "", rocnik_svazek: 1, cislo: "", rok: "", buttons: ""},
-  {zdroj: "https://registr.digitalniknihovna.cz/system/libraries/logos/000/000/008/thumb/logo_mlp.png?1477230940", signatura: "4 E 000163/Abt.2	", status: "absenčně", dilciKnih: "", rocnik_svazek: 1, cislo: "", rok: "", buttons: ""}
-];
-// end demo petr
-
