@@ -8,20 +8,21 @@
             <mat-icon>add_circle</mat-icon>
             {{ 'demands.add' | translate }}
           </button>
-          <button mat-button (click)="refresh()" [color]="'primary'">
+          <button mat-button (click)="refresh()" color="primary">
             <mat-icon>refresh</mat-icon>
             {{ 'demands.refresh' | translate }}
           </button>
         </th>
         <td mat-cell *matCellDef="let element">
-          {{ element.title }} | {{ element.comment }}
+          {{ element.title }}
+          <span>{{ element.comment }}</span>
         </td>
       </ng-container>
   
       <ng-container matColumnDef="button">
         <th mat-header-cell *matHeaderCellDef></th>
         <td mat-cell *matCellDef="let element; let idx = index;">
-          <mat-icon (click)="remove(idx)" matTooltip="{{ 'demands.remove' | translate }}" class="app-cursor-pointer" [color]="'warn'">cancel</mat-icon>
+          <mat-icon (click)="remove(idx)" matTooltip="{{ 'demands.remove' | translate }}" class="app-cursor-pointer app-icon-valign-text-bottom" [color]="'warn'">cancel</mat-icon>
         </td>
       </ng-container>
   
