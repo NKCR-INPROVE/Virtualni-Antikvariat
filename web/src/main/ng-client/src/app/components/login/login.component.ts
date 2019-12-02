@@ -4,6 +4,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { first } from 'rxjs/operators';
 import { AuthenticationService } from 'src/app/shared/authentication.service';
 import { MatDialogRef } from '@angular/material';
+import { Md5 } from 'ts-md5';
 
 
 
@@ -51,17 +52,24 @@ export class LoginComponent implements OnInit {
         }
 
         this.loading = true;
-        this.authenticationService.login(this.f.username.value, this.f.password.value)
+        const md5 = new Md5();
+        const pwd = '' + Md5.hashStr(this.f.password.value);
+        this.authenticationService.login(this.f.username.value, pwd)
             .pipe(first())
             .subscribe(
                 data => {
-                    console.log(data);
-                    this.dialogRef.close(data);
-                    if (this.returnUrl) {
-                        this.router.navigate([this.returnUrl]);
+                    if (data.error) {
+                        this.error = data.error;
+                    } else {
+                        this.dialogRef.close(data);
+                        if (this.returnUrl) {
+                            this.router.navigate([this.returnUrl]);
+                        }
                     }
+                    this.loading = false;
                 },
                 error => {
+                    console.log(error);
                     this.error = error;
                     this.loading = false;
                 });

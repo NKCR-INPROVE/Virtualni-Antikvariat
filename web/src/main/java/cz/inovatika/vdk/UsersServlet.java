@@ -66,13 +66,13 @@ public class UsersServlet extends HttpServlet {
         }
 
         Actions actionToDo = Actions.valueOf(actionNameParam.toUpperCase());
-        if (UsersController.isLogged(req) || isLocalhost) {
+        //if (UsersController.isLogged(req) || isLocalhost) {
           out.print(actionToDo.doPerform(req, resp));
-        } else {
-          JSONObject json = new JSONObject();
-          json.put("error", "not logged");
-          out.print(json.toString());
-        }
+//        } else {
+//          JSONObject json = new JSONObject();
+//          json.put("error", "not logged");
+//          out.print(json.toString());
+//        }
 
       } else {
         out.print("actionNameParam -> " + actionNameParam);
@@ -121,25 +121,36 @@ public class UsersServlet extends HttpServlet {
 
         JSONObject jo = new JSONObject();
         try {
+          String user = req.getParameter("username");
+          String pwd = req.getParameter("password");
+          if (req.getMethod().equals("POST")) {
+            JSONObject js = new JSONObject(IOUtils.toString(req.getInputStream(), "UTF-8"));
+            user = js.getString("username");
+            pwd = js.getString("password");
+          } 
 
-          String user = req.getParameter("user");
+          
+        System.out.println(user);
           if (user != null) {
-            JSONObject j = UsersController.login(req, user, req.getParameter("pwd"));
+            JSONObject j = UsersController.login(req, user, pwd);
             if (j != null) {
               jo.put("logged", true);
               jo.put("user", j);
 
             } else {
+              //resp.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
               jo.put("logged", false);
               jo.put("error", "invalid user name or password");
             }
 
           } else {
+              //resp.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
             jo.put("logged", false);
             jo.put("error", "invalid user name or password");
           }
 
         } catch (Exception ex) {
+              //resp.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
           jo.put("logged", false);
           jo.put("error", ex.toString());
         }
@@ -150,7 +161,6 @@ public class UsersServlet extends HttpServlet {
     LOGOUT {
       @Override
       JSONObject doPerform(HttpServletRequest req, HttpServletResponse resp) throws Exception {
-
         JSONObject jo = new JSONObject();
         try {
           req.getSession().invalidate();

@@ -5,6 +5,7 @@ import { map } from 'rxjs/operators';
 
 import { User } from 'src/app/models/user';
 import { AppState } from '../app.state';
+import { Md5 } from 'ts-md5/dist/md5';
 
 @Injectable({ providedIn: 'root' })
 export class AuthenticationService {
@@ -24,12 +25,20 @@ export class AuthenticationService {
 
     login(username: string, password: string) {
         return this.http.post<any>(`/api/users/login`, { username, password })
-            .pipe(map(user => {
+            .pipe(map(resp => {
+                if (resp.logged) {
                 // store user details and basic auth credentials in local storage to keep user logged in between page refreshes
-                user.authdata = window.btoa(username + ':' + password);
-                localStorage.setItem('currentUser', JSON.stringify(user));
-                this.currentUserSubject.next(user);
-                return user;
+                // password hashed
+                    const md5 = new Md5();
+                    const user = resp.user;
+                    user.authdata = window.btoa(username + ':' + md5.appendStr(password).end());
+                    localStorage.setItem('currentUser', JSON.stringify(user));
+                    this.currentUserSubject.next(user);
+
+                    return user;
+                } else {
+                    return resp;
+                }
             }));
     }
 

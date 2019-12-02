@@ -58,7 +58,7 @@ const providers: any[] = [
   { provide: APP_INITIALIZER, useFactory: (config: AppConfiguration) => () => config.load(), deps: [AppConfiguration], multi: true },
   HttpClient, DatePipe, AppConfiguration, AppState, AppService, AuthGuard];
 
-if (!environment.production) {
+if (environment.mocked) {
   console.log('Enabling mocked services.');
   providers.push(fakeBackendProvider);
 }

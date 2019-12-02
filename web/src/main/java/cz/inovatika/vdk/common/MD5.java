@@ -62,6 +62,7 @@ public class MD5 {
 
         try {
             algorithm = MessageDigest.getInstance("MD5");
+            // SHA-256
         } catch (NoSuchAlgorithmException nsae) {
             return null;
         }
