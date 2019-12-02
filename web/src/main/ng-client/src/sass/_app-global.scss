@@ -76,3 +76,14 @@ a, .app-link {
 .mat-table {
 	width: 100%;
 }
+
+// customize mat-button
+.app-button {
+	min-width: unset !important;
+	padding: 0 $app-btn-pd !important;
+	line-height: $app-btn-line-height !important;
+
+	&:not(:last-child) {
+		margin-right: $app-gap-icon;
+	}
+}

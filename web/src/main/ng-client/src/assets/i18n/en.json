@@ -42,7 +42,12 @@
     "filter_source": "Filter source",
     "filter_status": "Filter status",
     "differences_in": "Differences in",
-    "author": "author"
+    "author": "author",
+    "refresh": "Refresh",
+    "view_report": "View report",
+    "import_to_offer": "Import to offer",
+    "add_to_offer_from_template": "Add to offer from template",
+    "add_to_offer_by_searching": "Add to offer by searching"
   },
   "count": "Count of search results",
   "q.placeholder": "Search in virtual depoiste library ...",
@@ -52,13 +57,11 @@
   },
   "demands": {
     "add": "Add demandd",
-    "remove": "Remove demand",
-    "refresh": "Refresh"
+    "remove": "Remove demand"
   },
   "offers": {
     "add": "Add offer",
     "remove": "Remove offer",
     "removeFrom": "Remove from offer",
-    "refresh": "Refresh"
   }
 }

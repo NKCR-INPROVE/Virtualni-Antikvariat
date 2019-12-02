@@ -1,18 +1,33 @@
-// --- DEMANDS ---
+// --- OFFERS ---
 
-app-demands {
+app-offers {
   display: block;
   padding: $app-gap;
 
+  .mat-list {
+    .mat-list-item {
+      &.mat-2-line {
+        height: 48px;
+
+        .mat-list-text {
+          .mat-line {
+            font-size: $app-facet-list-item-val-font-size;
+            color: $app-facet-list-item-val-color;
+          }
+        }
+      }
+    }
+  }
+
   .app-mat-table-container {
-    height: 700px;
+    max-height: 700px;
     overflow: auto;
 
     .mat-table {
       thead {
         .mat-header-cell {
           &.mat-column-button {
-            width: 30px;
+            width: 300px;
             text-align: right;
           }
         }
@@ -22,12 +37,6 @@ app-demands {
         .mat-cell {
           &.mat-column-button {
             text-align: right;
-          }
-
-          span {
-            color: $app-gray-6;
-            font-size: .8rem;
-            font-style: italic;
           }
         }
       }

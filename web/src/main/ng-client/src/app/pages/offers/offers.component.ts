@@ -11,6 +11,7 @@ import { OfferRecord } from 'src/app/models/offer-record';
 })
 export class OffersComponent implements OnInit {
 
+  displayedColumns = ['text', 'button'];
   offers: Offer[] = [];
   records: OfferRecord[];
   currentOffer: Offer;

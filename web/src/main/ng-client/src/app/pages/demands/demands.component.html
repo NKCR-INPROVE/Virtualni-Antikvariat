@@ -10,7 +10,7 @@
           </button>
           <button mat-button (click)="refresh()" color="primary">
             <mat-icon>refresh</mat-icon>
-            {{ 'demands.refresh' | translate }}
+            {{ 'desc.refresh' | translate }}
           </button>
         </th>
         <td mat-cell *matCellDef="let element">
@@ -32,11 +32,7 @@
   </div>
 </div>
 
-
-
-
-<!-- 
-
+<!-- old code
 <h2 mat-dialog-title>{{'Demands' | translate}}</h2>
 
 <button mat-button (click)="add()">{{'demands.add' | translate}}</button>

@@ -42,7 +42,12 @@
     "filter_source": "Filtruj zdroj",
     "filter_status": "Filtruj stav",
     "differences_in": "Rozdíl v",
-    "author": "autorech"
+    "author": "autorech",
+    "refresh": "Aktualizovat",
+    "view_report": "Zobrazit report",
+    "import_to_offer": "Importovat do nabídky",
+    "add_to_offer_from_template": "Založit nabídku ze šablony",
+    "add_to_offer_by_searching": "Založit nabídku z vyhledávání"
   },
   "count": "Počet nalezených položek",
   "q.placeholder": "Hledej ve virtuální depozitní knihovně ...",
@@ -54,13 +59,11 @@
   },
   "demands": {
     "add": "Přidat poptávku",
-    "remove": "Odstranit poptávku",
-    "refresh": "Aktualizovat"
+    "remove": "Odstranit poptávku"
   },
   "offers": {
     "add": "Přidat nabídku",
     "remove": "Odstranit nabídku",
-    "removeFrom": "Odstranit z nabídky",
-    "refresh": "Aktualizovat"
+    "removeFrom": "Odstranit z nabídky"
   }
 }
