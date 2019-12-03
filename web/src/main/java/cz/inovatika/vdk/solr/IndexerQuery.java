@@ -5,11 +5,14 @@ import cz.inovatika.vdk.common.SolrIndexerCommiter;
 import java.io.IOException;
 import java.net.MalformedURLException;
 import java.net.URL;
+import java.sql.SQLException;
+import java.util.Iterator;
 import org.apache.commons.io.IOUtils;
 import org.apache.solr.client.solrj.SolrQuery;
 import org.apache.solr.client.solrj.SolrClient;
 import org.apache.solr.client.solrj.SolrServerException;
 import org.apache.solr.client.solrj.response.QueryResponse;
+import org.apache.solr.common.SolrDocument;
 import org.apache.solr.common.SolrDocumentList;
 
 /**
@@ -112,6 +115,27 @@ public class IndexerQuery {
         URL url = new URL(solrURL + urlQueryString);
 
         return IOUtils.toString(url, "UTF-8");
+    }
+    
+    public static String getOriginalXml(String id) throws SQLException {
+        
+        try {
+            Options opts = Options.getInstance();
+            SolrQuery query = new SolrQuery("id:\"" + id + "\"");
+            query.addField("xml");
+            query.setRows(1);
+            SolrDocumentList docs = IndexerQuery.query(opts.getString("solrIdCore", "vdk_id"), query);
+            Iterator<SolrDocument> iter = docs.iterator();
+            if (iter.hasNext()) {
+                SolrDocument resultDoc = iter.next();
+                return (String) resultDoc.getFieldValue("xml");
+            }else {
+                return "<xml/>";
+            }
+
+        } catch (Exception ex) {
+            return ex.toString();
+        } 
     }
 
 }

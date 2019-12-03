@@ -40,6 +40,7 @@ import { environment } from 'src/environments/environment';
 import { ViewComponent } from './components/view/view.component';
 import { OffersComponent } from './pages/offers/offers.component';
 import { DemandsComponent } from './pages/demands/demands.component';
+import { CsvComponent } from './components/csv/csv.component';
 
 
 registerLocaleData(localeCs, 'cs');
@@ -81,7 +82,8 @@ if (environment.mocked) {
     AdminComponent,
     ViewComponent,
     OffersComponent,
-    DemandsComponent
+    DemandsComponent,
+    CsvComponent
   ],
   imports: [
     BrowserModule,
@@ -100,7 +102,7 @@ if (environment.mocked) {
       }
     }),
   ],
-  entryComponents: [AdvancedSearchDialog, LoginComponent, ViewComponent],
+  entryComponents: [AdvancedSearchDialog, LoginComponent, ViewComponent, CsvComponent],
   providers,
   bootstrap: [AppComponent]
 })

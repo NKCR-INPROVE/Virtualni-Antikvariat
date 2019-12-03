@@ -6,6 +6,8 @@ import { OfferRecord } from 'src/app/models/offer-record';
 import { AppState } from 'src/app/app.state';
 import { Exemplar, ExemplarZdroj } from 'src/app/models/exempplar';
 import { Demand } from 'src/app/models/demand';
+import { CsvComponent } from '../csv/csv.component';
+import { MatDialog } from '@angular/material';
 
 @Component({
   selector: 'app-result-item',
@@ -30,6 +32,7 @@ export class ResultItemComponent implements OnInit, OnDestroy {
     };
 
   constructor(
+    public dialog: MatDialog,
     private overlay: Overlay,
     private viewContainerRef: ViewContainerRef,
     private service: AppService,
@@ -120,8 +123,13 @@ export class ResultItemComponent implements OnInit, OnDestroy {
     }
   }
 
-  openLink() {
-    window.open('/api/original/' + this.doc.id);
+  openLink(id?: string) {
+    if (id) {
+      window.open('/api/original?id=' + id);
+    } else {
+      window.open('/api/original?id=' + this.doc.id);
+    }
+    
   }
 
   addToOffer() {
@@ -146,7 +154,14 @@ export class ResultItemComponent implements OnInit, OnDestroy {
   }
 
   csv() {
-    window.open('/api/csv/' + this.doc.id);
+
+    const data = this.doc.export;
+    const dialogRef = this.dialog.open(CsvComponent, {
+      width: '500px',
+      data
+    });
+
+
   }
 
 

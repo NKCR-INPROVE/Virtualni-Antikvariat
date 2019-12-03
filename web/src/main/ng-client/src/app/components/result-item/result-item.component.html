@@ -25,7 +25,7 @@
           <td mat-cell *matCellDef="let element">
             <img src="{{ 'assets/img/zdroj/' + element.zdroj + '.png' }}" title="" [alt]="element.zdroj" />
             <mat-icon matTooltip="{{ 'desc.filter_source' | translate }}" class="app-cursor-pointer">filter_list</mat-icon>
-            <mat-icon matTooltip="{{ 'desc.filter_source' | translate }}" class="app-cursor-pointer">open_in_new</mat-icon>
+            <mat-icon matTooltip="{{ 'desc.view_original_metadata' | translate }}" class="app-cursor-pointer" (click)="openLink(element.id)">open_in_new</mat-icon>
           </td>
         </ng-container>
     
@@ -76,10 +76,10 @@
     </div>
   </mat-card-content>
   <mat-card-actions class="app-card-actions-bottom">
-    <button mat-button class="primary" (click)="openLink()"><mat-icon>pageview</mat-icon>{{ 'desc.view_original_metadata' | translate }}</button>
-    <button mat-button class="primary" (click)="addToOffer()"><mat-icon>local_offer</mat-icon>{{ 'desc.add_to_offer' | translate }}</button>
-    <button mat-button (click)="addToDemands()"><mat-icon>shopping_cart</mat-icon>{{ 'desc.add_to_demand' | translate }}</button>
-    <button mat-button (click)="csv()"><mat-icon>text_format</mat-icon>{{ 'desc.csv_format' | translate }}</button>
+    <button mat-button matTooltip="{{ 'desc.view_original_metadata' | translate }}" (click)="openLink()"><mat-icon>pageview</mat-icon>{{ 'desc.view_original_metadata' | translate }}</button>
+    <button mat-button matTooltip="{{ 'desc.add_to_offer' | translate }}" (click)="addToOffer()"><mat-icon>local_offer</mat-icon>{{ 'desc.add_to_offer' | translate }}</button>
+    <button mat-button matTooltip="{{ 'desc.add_to_demand' | translate }}" (click)="addToDemands()"><mat-icon>shopping_cart</mat-icon>{{ 'desc.add_to_demand' | translate }}</button>
+    <button mat-button matTooltip="{{ 'desc.csv_format' | translate }}" (click)="csv()"><mat-icon>text_format</mat-icon>{{ 'desc.csv_format' | translate }}</button>
   </mat-card-actions>
 </mat-card>
 

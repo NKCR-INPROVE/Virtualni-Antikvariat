@@ -1,0 +1,9 @@
+<h2 mat-dialog-title>{{'CSV' | translate}}</h2>
+<mat-dialog-content class="mat-typography">
+	<mat-form-field appearance="fill">
+		<input matInput [value]="data" cdkFocusInitial (focus)="$event.target.select()" />
+	</mat-form-field>
+</mat-dialog-content>
+<mat-dialog-actions align="end">
+  <button mat-button mat-dialog-close>Cancel</button>
+</mat-dialog-actions>
