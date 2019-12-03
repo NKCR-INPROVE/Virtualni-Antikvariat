@@ -42,11 +42,6 @@ export class NavbarComponent implements OnInit {
 
   ngOnInit() {
 
-    
-    const md5 = new Md5();
-    console.log('' + md5.appendStr('test').end());
-    console.log('' + Md5.hashStr('test'));
-    
     this.authService.currentUser.subscribe(x => {
       this.isLogged = x !== null;
       this.user = x;

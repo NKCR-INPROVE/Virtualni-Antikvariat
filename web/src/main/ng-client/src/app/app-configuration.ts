@@ -14,6 +14,10 @@ import { Configuration } from './shared/config';
         return this.config.facets;
     }
 
+    public get standardSources() {
+        return this.config.standardSources;
+    }
+
     /**
      * List the files holding section configuration in assets/configs folder
      * ['search'] will look for /assets/configs/search.json

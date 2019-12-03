@@ -7,7 +7,8 @@ import { AppState } from 'src/app/app.state';
 import { Exemplar, ExemplarZdroj } from 'src/app/models/exempplar';
 import { Demand } from 'src/app/models/demand';
 import { CsvComponent } from '../csv/csv.component';
-import { MatDialog } from '@angular/material';
+import { MatDialog, MatSnackBar } from '@angular/material';
+import { AppConfiguration } from 'src/app/app-configuration';
 
 @Component({
   selector: 'app-result-item',
@@ -33,8 +34,10 @@ export class ResultItemComponent implements OnInit, OnDestroy {
 
   constructor(
     public dialog: MatDialog,
+    private snackBar: MatSnackBar,
     private overlay: Overlay,
     private viewContainerRef: ViewContainerRef,
+    private config: AppConfiguration,
     private service: AppService,
     public state: AppState
   ) { }
@@ -75,7 +78,6 @@ export class ResultItemComponent implements OnInit, OnDestroy {
       } else {
         return v === arr[0];
       }
-      
     });
   }
 
@@ -129,7 +131,6 @@ export class ResultItemComponent implements OnInit, OnDestroy {
     } else {
       window.open('/api/original?id=' + this.doc.id);
     }
-    
   }
 
   addToOffer() {
@@ -150,7 +151,9 @@ export class ResultItemComponent implements OnInit, OnDestroy {
       demand.zaznam = ex.id;
       demand.exemplar = ex.md5;
     }
-    this.service.addToDemands(demand).subscribe();
+    this.service.addToDemands(demand).subscribe(resp => {
+      this.snackBar.open('Doc added to demands');
+    });
   }
 
   csv() {
@@ -164,5 +167,7 @@ export class ResultItemComponent implements OnInit, OnDestroy {
 
   }
 
-
+  hasIcon(zdroj: string) {
+    return this.config.standardSources.includes(zdroj);
+  }
 }

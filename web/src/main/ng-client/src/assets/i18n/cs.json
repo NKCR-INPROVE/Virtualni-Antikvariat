@@ -29,7 +29,7 @@
     "status": "Stav",
     "pocet_exemplaru": "Počet exemplářů",
     "signatura": "Signatura",
-    "dilciKnih": "Dilčí Kniha",
+    "dilciKnih": "Dilčí Knihovna",
     "rocnik_svazek": "Ročník/Svazek",
     "cislo": "Číslo",
     "rok": "Rok"
@@ -43,6 +43,7 @@
     "filter_status": "Filtruj stav",
     "differences_in": "Rozdíl v",
     "author": "autorech",
+    "publisher": "Vydavatel",
     "refresh": "Aktualizovat",
     "view_report": "Zobrazit report",
     "import_to_offer": "Importovat do nabídky",

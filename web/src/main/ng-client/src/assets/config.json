@@ -1,4 +1,5 @@
 {
     "defaultLang": "cs",
-    "facets": ["zdroj", "bohemika", "pocet_exemplaru", "rokvydani", "status"]
+    "facets": ["zdroj", "bohemika", "pocet_exemplaru", "rokvydani", "status"],
+    "standardSources": ["NKZ", "VKOL", "MZK", "UKF"]
 }
