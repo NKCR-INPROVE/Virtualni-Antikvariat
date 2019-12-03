@@ -138,7 +138,6 @@ public class OffersServlet extends HttpServlet {
             json = new JSONObject(req.getParameter("json"));
           }
           OfferRecord or = OfferRecord.fromJSON(json);
-          System.out.println(JSON.toJSONString(or));
           return new JSONObject(SolrIndexerCommiter.indexJSON(new JSONObject(JSON.toJSONString(or)), "offersCore"));
 
         } catch (Exception ex) {
