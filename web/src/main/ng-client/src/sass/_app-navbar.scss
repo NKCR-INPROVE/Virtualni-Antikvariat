@@ -1,11 +1,15 @@
 // --- NAVBAR ---
 
 app-navbar {
-  .mat-toolbar-row {
-    & > div {
-      & > span {
-        &:not(:first-child) {
-          margin-left: $app-gap;
+  .mat-toolbar {
+    font-size: 16px;
+
+    .mat-toolbar-row {
+      & > div {
+        & > span {
+          &:not(:first-child) {
+            margin-left: $app-gap;
+          }
         }
       }
     }

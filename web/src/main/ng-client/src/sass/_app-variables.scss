@@ -28,6 +28,14 @@ $app-container-width: 90% !default;
 $app-mat-icon-size: 18px !default; 
 $app-btn-pd: 8px !default;
 $app-btn-line-height: 30px !default;
+$app-border-radius: 4px !default;
+
+// search form
+$app-search-form-bg: $app-lightest !default;
+$app-search-form-height: 46px !default;
+$app-search-form-color: $app-darkest !default;
+$app-search-form-font-size: inherit !default;
+$app-search-form-icon-gap: calc(#{$app-gap-icon} * 2) !default;
 
 // facets
 $app-facet-list-item-height: 30px !default;

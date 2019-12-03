@@ -17,7 +17,8 @@
   },
   "searchform": {
     "search": "Hledej",
-    "advanced_search": "Rozšířené vyhledávání"
+    "advanced_search": "Rozšířené vyhledávání",
+    "delete_query": "Vymazat dotaz"
   },
   "result_header": {
     "found_count": "Nalezeno: <strong>{{number}}</strong> položek"

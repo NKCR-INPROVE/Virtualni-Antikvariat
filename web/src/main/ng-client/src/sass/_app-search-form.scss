@@ -1,0 +1,30 @@
+// --- SEARCH FORM ---
+
+app-search-form {
+  .app-search-form-container {
+    background-color: $app-search-form-bg;
+    border-radius: $app-border-radius;
+    height: $app-search-form-height;
+    color: $app-search-form-color;
+
+    .mat-icon {
+      margin-left: $app-search-form-icon-gap;
+      margin-right: $app-search-form-icon-gap;
+
+      &.app-icon-clear {
+        margin-right: 0 !important;
+      }
+    }
+
+    input {
+      @extend .app-clean-border, .app-clean-pd, .app-clean-bg;
+      width: calc(100% - (72px + 50px));
+      height: 100%;
+      font-size: $app-search-form-font-size;
+
+      &:focus {
+        outline: none;
+      }
+    }
+  }
+}

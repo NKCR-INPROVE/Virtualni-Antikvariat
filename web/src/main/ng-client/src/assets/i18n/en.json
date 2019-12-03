@@ -17,7 +17,8 @@
   },
   "searchform": {
     "search": "Search",
-    "advanced_search": "Advanced search"
+    "advanced_search": "Advanced search",
+    "delete_query": "Delete query"
   },
   "result_header": {
     "found_count": "Found: <strong>{{number}}</strong> items"

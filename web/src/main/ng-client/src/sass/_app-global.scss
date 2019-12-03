@@ -1,7 +1,10 @@
 // --- GLOBAL ---
 
 html, body { height: 100%; }
-body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+body { 
+	margin: 0;
+	font-family: Roboto,"Helvetica Neue",sans-serif;
+}
 
 
 // --- PEDRO ---
@@ -38,17 +41,28 @@ a, .app-link {
 	box-shadow: none !important;
 }
 
+.app-clean-border {
+	border: none !important;
+}
+
+.app-clean-bg {
+	background-color: transparent !important;
+}
 
 // icons
-.mat-icon {
-  font-size: $app-mat-icon-size;
-	width: $app-mat-icon-size !important;
-	height: $app-mat-icon-size !important;
-	
-	&:not(:last-child) {
-		margin-right: $app-gap-icon;
-	}
+main {
+	.mat-icon {
+		font-size: $app-mat-icon-size;
+		width: $app-mat-icon-size !important;
+		height: $app-mat-icon-size !important;
 
+		&:not(:last-child) {
+			margin-right: $app-gap-icon;
+		}	
+	}
+}
+
+.mat-icon {
 	&.app-icon-left-mg {
 		margin-left: $app-gap-icon;
 	}
