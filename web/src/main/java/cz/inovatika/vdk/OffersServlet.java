@@ -64,7 +64,7 @@ public class OffersServlet extends HttpServlet {
           localAddresses.add(inetAddress.getHostAddress());
         }
         if (localAddresses.contains(request.getRemoteAddr())) {
-          LOGGER.log(Level.INFO, "running from local address");
+          LOGGER.log(Level.FINE, "running from local address");
           isLocalhost = true;
         }
 
@@ -138,6 +138,7 @@ public class OffersServlet extends HttpServlet {
             json = new JSONObject(req.getParameter("json"));
           }
           OfferRecord or = OfferRecord.fromJSON(json);
+          System.out.println(JSON.toJSONString(or));
           return new JSONObject(SolrIndexerCommiter.indexJSON(new JSONObject(JSON.toJSONString(or)), "offersCore"));
 
         } catch (Exception ex) {
