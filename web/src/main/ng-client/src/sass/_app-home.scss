@@ -2,7 +2,14 @@
 
 app-home {
   height: 100%;
-  //background-color: silver;
   align-items: center;
   text-align: center;
+
+  app-search-form {
+    justify-content: center;
+
+    .app-search-form-container {
+      border: 1px solid $app-gray-3;
+    }
+  }
 }

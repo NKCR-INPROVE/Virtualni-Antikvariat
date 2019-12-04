@@ -6,11 +6,17 @@ app-search-form {
     border-radius: $app-border-radius;
     height: $app-search-form-height;
     color: $app-search-form-color;
+    max-width: $app-search-form-max-width;
+    display: flex;
+    align-items: center;
+
+    &:focus-within {
+      box-shadow: 0 1px 6px 0 rgba(32,33,36,0.28);
+    }
 
     .mat-icon {
       margin-left: $app-search-form-icon-gap;
       margin-right: $app-search-form-icon-gap;
-      vertical-align: sub;
 
       &.app-icon-clear {
         margin-right: 0 !important;

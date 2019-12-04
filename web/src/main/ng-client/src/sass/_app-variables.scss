@@ -33,6 +33,7 @@ $app-border-radius: 4px !default;
 // search form
 $app-search-form-bg: $app-lightest !default;
 $app-search-form-height: 46px !default;
+$app-search-form-max-width: 640px !default;
 $app-search-form-color: $app-darkest !default;
 $app-search-form-font-size: inherit !default;
 $app-search-form-icon-gap: calc(#{$app-gap-icon} * 2) !default;
