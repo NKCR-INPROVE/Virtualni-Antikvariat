@@ -64,7 +64,7 @@ public class OffersServlet extends HttpServlet {
           localAddresses.add(inetAddress.getHostAddress());
         }
         if (localAddresses.contains(request.getRemoteAddr())) {
-          LOGGER.log(Level.INFO, "running from local address");
+          LOGGER.log(Level.FINE, "running from local address");
           isLocalhost = true;
         }
 

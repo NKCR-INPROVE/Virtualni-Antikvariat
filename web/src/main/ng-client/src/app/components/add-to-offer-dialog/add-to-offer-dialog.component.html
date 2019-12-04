@@ -1,0 +1,11 @@
+<h2 mat-dialog-title>{{'desc.add_to_offer' | translate}}</h2>
+<mat-dialog-content class="mat-typography">
+    <mat-list>
+        <mat-list-item *ngFor="let offer of state.offers" [class.active]="offer.id === state.activeOffer.id">
+          <a (click)="ok(offer.id, offer.nazev)">{{offer.nazev}}</a>
+        </mat-list-item>
+    </mat-list>
+</mat-dialog-content>
+<mat-dialog-actions align="end">
+  <button mat-button mat-dialog-close>Close</button>
+</mat-dialog-actions>

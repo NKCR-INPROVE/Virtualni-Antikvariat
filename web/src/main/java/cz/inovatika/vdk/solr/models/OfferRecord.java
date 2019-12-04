@@ -25,6 +25,8 @@ public class OfferRecord {
   @Field
   public String offer_id;
   @Field
+  public String title;
+  @Field
   public String doc_code;
   @Field
   public String zaznam;

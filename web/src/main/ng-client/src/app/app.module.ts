@@ -41,6 +41,12 @@ import { ViewComponent } from './components/view/view.component';
 import { OffersComponent } from './pages/offers/offers.component';
 import { DemandsComponent } from './pages/demands/demands.component';
 import { CsvComponent } from './components/csv/csv.component';
+import { AddToOfferDialogComponent } from './components/add-to-offer-dialog/add-to-offer-dialog.component';
+import { NewOfferDialogComponent } from './components/new-offer-dialog/new-offer-dialog.component';
+import { PromptDialogComponent } from './components/prompt-dialog/prompt-dialog.component';
+import { TemplateToOfferDialogComponent } from './components/template-to-offer-dialog/template-to-offer-dialog.component';
+import { UploadToOfferDialogComponent } from './components/upload-to-offer-dialog/upload-to-offer-dialog.component';
+import { SearchToOfferDialogComponent } from './components/search-to-offer-dialog/search-to-offer-dialog.component';
 
 
 registerLocaleData(localeCs, 'cs');
@@ -83,7 +89,13 @@ if (environment.mocked) {
     ViewComponent,
     OffersComponent,
     DemandsComponent,
-    CsvComponent
+    CsvComponent,
+    AddToOfferDialogComponent,
+    NewOfferDialogComponent,
+    PromptDialogComponent,
+    TemplateToOfferDialogComponent,
+    UploadToOfferDialogComponent,
+    SearchToOfferDialogComponent
   ],
   imports: [
     BrowserModule,
@@ -102,7 +114,11 @@ if (environment.mocked) {
       }
     }),
   ],
-  entryComponents: [AdvancedSearchDialog, LoginComponent, ViewComponent, CsvComponent],
+  entryComponents: [AdvancedSearchDialog, LoginComponent, ViewComponent, CsvComponent, 
+    AddToOfferDialogComponent, PromptDialogComponent,
+    TemplateToOfferDialogComponent,
+    UploadToOfferDialogComponent,
+    SearchToOfferDialogComponent],
   providers,
   bootstrap: [AppComponent]
 })

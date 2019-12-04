@@ -9,6 +9,7 @@ import { Demand } from 'src/app/models/demand';
 import { CsvComponent } from '../csv/csv.component';
 import { MatDialog, MatSnackBar } from '@angular/material';
 import { AppConfiguration } from 'src/app/app-configuration';
+import { AddToOfferDialogComponent } from '../add-to-offer-dialog/add-to-offer-dialog.component';
 
 @Component({
   selector: 'app-result-item',
@@ -133,13 +134,23 @@ export class ResultItemComponent implements OnInit, OnDestroy {
     }
   }
 
-  addToOffer() {
+  addToOffer(ex?: Exemplar) {
     const record = new OfferRecord();
     record.knihovna = this.state.user.code;
-    record.offer_id = this.state.activeOffer.id;
     record.doc_code = this.doc.code;
     record.title = this.doc.title[0];
-    this.service.addToOffer(record).subscribe();
+    const dialogRef = this.dialog.open(AddToOfferDialogComponent, {
+      width: '500px',
+      data: record
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      if (result) {
+        this.service.addToOffer(record).subscribe();
+      }
+    });
+
+
   }
 
   addToDemands(ex?: Exemplar) {
@@ -152,19 +163,19 @@ export class ResultItemComponent implements OnInit, OnDestroy {
       demand.exemplar = ex.md5;
     }
     this.service.addToDemands(demand).subscribe(resp => {
-      this.snackBar.open('Doc added to demands');
+      this.snackBar.open('Doc added to demands', '', {
+        duration: 2000,
+        verticalPosition : 'top'
+      });
     });
   }
 
   csv() {
-
     const data = this.doc.export;
     const dialogRef = this.dialog.open(CsvComponent, {
       width: '500px',
       data
     });
-
-
   }
 
   hasIcon(zdroj: string) {

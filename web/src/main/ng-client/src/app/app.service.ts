@@ -96,7 +96,7 @@ export class AppService {
   }
 
   addToOffer(offer: OfferRecord) {
-    return this.http.post<any>(`/api/offers/add`, offer)
+    return this.http.post<any>(`/api/offers/addrecord`, offer)
     .pipe(map(resp => {
       return resp.docs;
     }));
