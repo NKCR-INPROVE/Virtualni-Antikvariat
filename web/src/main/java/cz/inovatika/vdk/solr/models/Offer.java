@@ -35,7 +35,7 @@ public class Offer {
   
   public static Offer fromJSON(JSONObject json) {
     Offer offer = JSON.parseObject(json.toString(), Offer.class);
-    if (offer.id == null || offer.id.isBlank()) {
+    if (offer.id == null || offer.id.trim().isEmpty()) {
       offer.id = MD5.generate(new String[]{offer.nazev, offer.knihovna, offer.created.toString()});
     }
     return offer;

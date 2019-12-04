@@ -37,7 +37,7 @@ public class Demand {
   
   public static Demand fromJSON(JSONObject json) {
     Demand ofr = JSON.parseObject(json.toString(), Demand.class);
-    if (ofr.id == null || ofr.id.isBlank()) {
+    if (ofr.id == null || ofr.id.trim().isEmpty()) {
       ofr.id = MD5.generate(new String[]{ofr.knihovna, ofr.zaznam, ofr.exemplar, ofr.comment});
     }
     return ofr;

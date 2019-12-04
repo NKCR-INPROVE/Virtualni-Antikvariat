@@ -29,7 +29,7 @@ public class View {
   
   public static View fromJSON(JSONObject json) {
     View obj = JSON.parseObject(json.toString(), View.class);
-    if (obj.id == null || obj.id.isBlank()) {
+    if (obj.id == null || obj.id.trim().isEmpty()) {
       obj.id = MD5.generate(new String[]{obj.name, obj.user, obj.global+""});
     }
     return obj;

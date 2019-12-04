@@ -37,7 +37,7 @@ public class OfferRecord {
   
   public static OfferRecord fromJSON(JSONObject json) {
     OfferRecord ofr = JSON.parseObject(json.toString(), OfferRecord.class);
-    if (ofr.id == null || ofr.id.isBlank()) {
+    if (ofr.id == null || ofr.id.trim().isEmpty()) {
       ofr.id = MD5.generate(new String[]{ofr.offer_id, ofr.doc_code, ofr.zaznam, ofr.exemplar, ofr.fields});
     }
     return ofr;
