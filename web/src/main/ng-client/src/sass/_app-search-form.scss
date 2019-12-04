@@ -10,6 +10,7 @@ app-search-form {
     .mat-icon {
       margin-left: $app-search-form-icon-gap;
       margin-right: $app-search-form-icon-gap;
+      vertical-align: sub;
 
       &.app-icon-clear {
         margin-right: 0 !important;
