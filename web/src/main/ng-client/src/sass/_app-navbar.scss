@@ -17,6 +17,10 @@ app-navbar {
 
   .app-fx-right {
     text-align: right;
+
+    .mat-form-field {
+      max-height: 58px;
+    }
   }
 
   .mat-icon {
