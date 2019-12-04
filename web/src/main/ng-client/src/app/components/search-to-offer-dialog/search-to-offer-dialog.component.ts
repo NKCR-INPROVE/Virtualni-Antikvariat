@@ -15,4 +15,8 @@ export class SearchToOfferDialogComponent implements OnInit {
   ngOnInit() {
   }
 
+  add() {
+    
+  }
+
 }

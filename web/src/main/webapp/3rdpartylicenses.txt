@@ -120,11 +120,25 @@ THE SOFTWARE.
 
 @angular/material/dialog
 
+@angular/material/divider
+
 @angular/material/form-field
 
 @angular/material/icon
 
+@angular/material/list
+
+@angular/material/paginator
+
+@angular/material/progress-bar
+
+@angular/material/radio
+
 @angular/material/select
+
+@angular/material/snack-bar
+
+@angular/material/table
 
 @angular/material/toolbar
 
@@ -132,6 +146,8 @@ THE SOFTWARE.
 
 @angular/platform-browser
 MIT
+
+undefined
 
 @angular/router
 MIT
@@ -396,6 +412,9 @@ Apache-2.0
  
 
 
+ts-md5
+MIT
+
 tslib
 Apache-2.0
 Apache License
@@ -454,8 +473,6 @@ If the Work includes a "NOTICE" text file as part of its distribution, then any 
 
 END OF TERMS AND CONDITIONS
 
-
-undefined
 
 zone.js
 MIT

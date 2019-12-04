@@ -39,7 +39,7 @@ export class UploadToOfferDialogComponent implements OnInit {
 
   format: string;
 
-  private files: Array<FileUploadModel> = [];
+  public files: Array<FileUploadModel> = [];
 
 
   constructor(
@@ -110,7 +110,7 @@ export class UploadToOfferDialogComponent implements OnInit {
     );
   }
 
-  private uploadFiles() {
+  public uploadFiles() {
     const fileUpload = document.getElementById('fileUpload') as HTMLInputElement;
     fileUpload.value = '';
 

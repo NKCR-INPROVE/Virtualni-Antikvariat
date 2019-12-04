@@ -22,24 +22,33 @@ export class SearchFormComponent implements OnInit {
   ngOnInit() {
     this.router.events.subscribe(val => {
       if (val instanceof NavigationEnd) {
-        Utils.sanitize(this.route.snapshot.queryParams, this.searchParams);
-        Utils.sanitize(this.route.snapshot.queryParams, this.advParams);
+        this.setParams();
       }
     });
+    this.setParams();
+  }
+
+  setParams() {
+    Utils.sanitize(this.route.snapshot.queryParams, this.searchParams);
+    Utils.sanitize(this.route.snapshot.queryParams, this.advParams);
   }
 
   search() {
-    const params = {...this.searchParams, ...this.advParams};
-    this.router.navigate(['/results'], {queryParams: params});
+    const params = { ...this.searchParams, ...this.advParams };
+    this.router.navigate(['/results'], { queryParams: params });
+  }
+
+  deleteQuery() {
+
   }
 
   export() {
-    
+
   }
 
-  offers() {}
+  offers() { }
 
-  demands() {}
+  demands() { }
 
   openAdvanced(): void {
     const data = Object.assign({}, this.advParams);
@@ -69,7 +78,7 @@ export class AdvancedSearchDialog {
 
   constructor(
     public dialogRef: MatDialogRef<AdvancedSearchDialog>,
-    @Inject(MAT_DIALOG_DATA) public data: AdvancedParams) {}
+    @Inject(MAT_DIALOG_DATA) public data: AdvancedParams) { }
 
   onNoClick(): void {
     this.dialogRef.close();
