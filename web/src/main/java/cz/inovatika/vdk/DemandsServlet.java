@@ -3,6 +3,7 @@ package cz.inovatika.vdk;
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.serializer.SerializerFeature;
 import cz.inovatika.vdk.common.SolrIndexerCommiter;
+import cz.inovatika.vdk.solr.Indexer;
 import cz.inovatika.vdk.solr.models.Demand;
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -112,8 +113,12 @@ public class DemandsServlet extends HttpServlet {
           JSON.DEFFAULT_DATE_FORMAT = "yyyy-MM-dd'T'HH:mm:ss.SSS'Z'";
           Demand d = Demand.fromJSON(json);
 
-          return new JSONObject(SolrIndexerCommiter
+          JSONObject ret = new JSONObject(SolrIndexerCommiter
                   .indexJSON(new JSONObject(JSON.toJSONString(d, SerializerFeature.WriteDateUseDateFormat)), "demandsCore"));
+          
+          Indexer indexer = new Indexer();
+          indexer.indexDemand(d.knihovna, d.doc_code, d.zaznam, d.exemplar);
+          return ret;
 
         } catch (Exception ex) {
           jo.put("error", ex.toString());

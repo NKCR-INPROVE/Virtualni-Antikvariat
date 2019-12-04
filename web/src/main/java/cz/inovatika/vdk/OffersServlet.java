@@ -3,9 +3,11 @@ package cz.inovatika.vdk;
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.serializer.SerializerFeature;
 import cz.inovatika.vdk.common.SolrIndexerCommiter;
+import cz.inovatika.vdk.solr.Indexer;
 import cz.inovatika.vdk.solr.models.Offer;
 import cz.inovatika.vdk.solr.models.OfferRecord;
 import cz.inovatika.vdk.solr.models.User;
+import java.io.File;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.net.InetAddress;
@@ -138,9 +140,15 @@ public class OffersServlet extends HttpServlet {
             json = new JSONObject(req.getParameter("json"));
           }
           OfferRecord or = OfferRecord.fromJSON(json);
-          return new JSONObject(SolrIndexerCommiter.indexJSON(new JSONObject(JSON.toJSONString(or)), "offersCore"));
-
+          JSONObject ret = new JSONObject(SolrIndexerCommiter.indexJSON(new JSONObject(JSON.toJSONString(or)), "offersCore"));
+          
+          Indexer indexer = new Indexer();
+          indexer.indexDocOffers(or.doc_code);
+          return ret;
+          
+          
         } catch (Exception ex) {
+          LOGGER.log(Level.SEVERE, null, ex);
           jo.put("error", ex.toString());
         }
         return jo;

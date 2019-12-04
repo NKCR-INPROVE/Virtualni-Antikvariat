@@ -25,6 +25,8 @@ public class Demand {
   @Field
   public String title;
   @Field
+  public String doc_code;
+  @Field
   public String knihovna;
   @Field
   public String zaznam;
@@ -38,7 +40,7 @@ public class Demand {
   public static Demand fromJSON(JSONObject json) {
     Demand ofr = JSON.parseObject(json.toString(), Demand.class);
     if (ofr.id == null || ofr.id.trim().isEmpty()) {
-      ofr.id = MD5.generate(new String[]{ofr.knihovna, ofr.zaznam, ofr.exemplar, ofr.comment});
+      ofr.id = MD5.generate(new String[]{ofr.doc_code, ofr.knihovna, ofr.zaznam, ofr.exemplar, ofr.comment});
     }
     return ofr;
   }

@@ -128,5 +128,10 @@ export class FacetsComponent implements OnInit, OnDestroy {
     this.router.navigate(['/results'], {queryParams});
   }
 
+  getOfferName(id: string): string {
+    const o = this.state.offers.find(offer => offer.id === id);
+    return o ? o.nazev : id;
+  }
+
 
 }

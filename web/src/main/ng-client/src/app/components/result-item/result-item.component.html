@@ -6,6 +6,12 @@
     <button mat-button><mat-icon>text_format</mat-icon>{{ 'desc.csv_format' | translate }}</button>
   </mat-card-actions> -->
   <mat-card-header>
+    <ng-container *ngIf="doc.nabidka">
+        <span>{{'nabizi' | translate}}: <span *ngFor="let id of getOfferUser()">{{id}}; </span></span>
+    </ng-container>
+    <ng-container *ngIf="doc.poptavka">
+        <span>{{'poptava' | translate}}: <span *ngFor="let id of doc.poptavka">{{id}}; </span></span>
+      </ng-container>
     <mat-card-title>
       {{doc.titlemd5[0]}}
       <mat-icon *ngIf="hasDifferences('title')" #wTitle (click)="openPop('title', wTitle, infoPopup)">warning</mat-icon>
@@ -98,8 +104,11 @@
     <button mat-button matTooltip="{{ 'desc.add_to_offer' | translate }}" (click)="addToOffer()">
       <mat-icon>local_offer</mat-icon>{{ 'desc.add_to_offer' | translate }}
     </button>
-    <button mat-button matTooltip="{{ 'desc.add_to_demand' | translate }}" (click)="addToDemands()">
+    <button *ngIf="!hasDemand()" mat-button matTooltip="{{ 'desc.add_to_demand' | translate }}" (click)="addToDemands()">
       <mat-icon>shopping_cart</mat-icon>{{ 'desc.add_to_demand' | translate }}
+    </button>
+    <button *ngIf="hasDemand()" mat-button matTooltip="{{ 'desc.remove_from_demand' | translate }}" (click)="addToDemands()">
+      <mat-icon>remove_shopping_cart</mat-icon>{{ 'demands.remove' | translate }}
     </button>
     <button mat-button matTooltip="{{ 'desc.csv_format' | translate }}" (click)="csv()">
       <mat-icon>text_format</mat-icon>{{ 'desc.csv_format' | translate }}

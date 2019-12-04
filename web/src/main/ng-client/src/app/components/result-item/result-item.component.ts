@@ -24,6 +24,8 @@ export class ResultItemComponent implements OnInit, OnDestroy {
   displayedColumns = ['zdroj', 'signatura', 'status', 'dilciKnih', 'rocnik_svazek', 'cislo', 'rok', 'buttons'];
 
   exemplars: Exemplar[];
+  offers: string[];
+  demands: string[];
 
   public tooltip: {
     field: string,
@@ -156,7 +158,8 @@ export class ResultItemComponent implements OnInit, OnDestroy {
   addToDemands(ex?: Exemplar) {
     const demand = new Demand();
     demand.knihovna = this.state.user.code;
-    demand.zaznam = this.doc.code;
+    demand.doc_code = this.doc.code;
+    demand.zaznam = this.doc.id[0];
     demand.title = this.doc.titlemd5[0];
     if (ex) {
       demand.zaznam = ex.id;
@@ -165,7 +168,7 @@ export class ResultItemComponent implements OnInit, OnDestroy {
     this.service.addToDemands(demand).subscribe(resp => {
       this.snackBar.open('Doc added to demands', '', {
         duration: 2000,
-        verticalPosition : 'top'
+        verticalPosition: 'top'
       });
     });
   }
@@ -181,4 +184,20 @@ export class ResultItemComponent implements OnInit, OnDestroy {
   hasIcon(zdroj: string) {
     return this.config.standardSources.includes(zdroj);
   }
+
+  getOfferUser(): string[] {
+    const ids: string[] = this.doc.nabidka;
+    const rets = [];
+    ids.forEach(id => {
+      const o = this.state.offers.find(offer => offer.id === id);
+      rets.push(o ? o.knihovna : id);
+    });
+    return rets;
+  }
+
+  hasDemand(): boolean {
+    return this.doc.poptavka && this.doc.poptavka.includes(this.state.user.code);
+  }
+
+  
 }

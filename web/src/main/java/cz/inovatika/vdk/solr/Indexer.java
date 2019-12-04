@@ -596,7 +596,9 @@ public class Indexer {
     nabidka_ext_n.put("pr_knihovna", pr_knihovna);
     nabidka_ext_n.put("ex", exemplar);
     nabidka_ext_n.put("datum", datum);
-    nabidka_ext_n.put("fields", new JSONObject(fields));
+    if (fields != null) {
+      nabidka_ext_n.put("fields", new JSONObject(fields));
+    }
     nabidka_ext.put("" + offerid, nabidka_ext_n);
 
     addField(doc, "nabidka_ext", nabidka_ext.toString(), "add");
@@ -613,6 +615,7 @@ public class Indexer {
   }
   
   public void indexDocOffers(String uniqueCode) throws Exception {
+    removeDocOffers(uniqueCode);
     indexOffers("doc_code:" + uniqueCode);
   }
 
@@ -633,7 +636,7 @@ public class Indexer {
       boolean done = false;
       while (!done) {
 
-        if (jobData.isInterrupted()) {
+        if (jobData != null && jobData.isInterrupted()) {
           LOGGER.log(Level.INFO, "INDEXER INTERRUPTED");
           break;
         }

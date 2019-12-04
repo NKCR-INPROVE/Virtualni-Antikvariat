@@ -7,10 +7,11 @@ import { AdminComponent } from './pages/admin/admin.component';
 import { AuthGuard } from './auth-guard';
 import { DemandsComponent } from './pages/demands/demands.component';
 import { OffersComponent } from './pages/offers/offers.component';
+import { VaRegistrationComponent } from './pages/va-registration/va-registration.component';
 
 
 const routes: Routes = [
-  { path: 'registrace', component: RegistrationComponent },
+  { path: 'registrace', component: VaRegistrationComponent },
   { path: 'results', component: ResultsComponent },
   { path: 'home', component: HomeComponent },
   { path: 'demands', component: DemandsComponent },

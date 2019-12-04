@@ -47,6 +47,7 @@ import { PromptDialogComponent } from './components/prompt-dialog/prompt-dialog.
 import { TemplateToOfferDialogComponent } from './components/template-to-offer-dialog/template-to-offer-dialog.component';
 import { UploadToOfferDialogComponent } from './components/upload-to-offer-dialog/upload-to-offer-dialog.component';
 import { SearchToOfferDialogComponent } from './components/search-to-offer-dialog/search-to-offer-dialog.component';
+import { VaRegistrationComponent } from './pages/va-registration/va-registration.component';
 
 
 registerLocaleData(localeCs, 'cs');
@@ -95,7 +96,8 @@ if (environment.mocked) {
     PromptDialogComponent,
     TemplateToOfferDialogComponent,
     UploadToOfferDialogComponent,
-    SearchToOfferDialogComponent
+    SearchToOfferDialogComponent,
+    VaRegistrationComponent
   ],
   imports: [
     BrowserModule,

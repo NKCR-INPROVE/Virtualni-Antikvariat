@@ -12,10 +12,11 @@
             </h4>
             <span>({{ f.value }})</span>
           </ng-container>
+          
           <ng-container *ngSwitchDefault>
             <mat-icon [class.active]="filters[field] === f.name" *ngIf="filters[field] === f.name">check_circle</mat-icon>
             <h4 mat-line>
-              <a (click)="toggleFilter(field, f)">{{f.name}}</a>
+              <a (click)="toggleFilter(field, f)">{{field==='nabidka' ? getOfferName(f.name) : f.name}}</a>
             </h4>
             <span>({{ f.value }})</span>
           </ng-container>
