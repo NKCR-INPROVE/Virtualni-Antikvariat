@@ -49,7 +49,10 @@
     "view_report": "View report",
     "import_to_offer": "Import to offer",
     "add_to_offer_from_template": "Add to offer from template",
-    "add_to_offer_by_searching": "Add to offer by searching"
+    "add_to_offer_by_searching": "Add to offer by searching",
+    "add_to_secondhand": "Add to secondhand",
+    "respond_to_offer_yes": "Respond to the offer \"I want to fund\"",
+    "respond_to_offer_no": "Respond to the offer \"I do not want to fund\""
   },
   "count": "Count of search results",
   "q.placeholder": "Search in virtual depoiste library ...",

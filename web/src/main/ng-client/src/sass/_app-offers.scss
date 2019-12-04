@@ -26,6 +26,8 @@ app-offers {
     .mat-table {
       thead {
         .mat-header-cell {
+          color: $app-darkest;
+
           &.mat-column-button {
             width: 300px;
             text-align: right;

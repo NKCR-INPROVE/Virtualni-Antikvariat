@@ -17,13 +17,17 @@
     
         <ng-container matColumnDef="text">
           <th mat-header-cell *matHeaderCellDef>
-            <button mat-button (click)="add()"[color]="'primary'">
-              <mat-icon>add_circle</mat-icon>
+            <button mat-button (click)="add()">
+              <mat-icon class="app-icon-small app-icon-valign-text-top">add_circle</mat-icon>
               {{ 'offers.add' | translate }}
             </button>
-            <button mat-button (click)="refresh()" color="primary">
-              <mat-icon>refresh</mat-icon>
+            <button mat-button (click)="refresh()">
+              <mat-icon class="app-icon-small app-icon-valign-text-top">refresh</mat-icon>
               {{ 'desc.refresh' | translate }}
+            </button>
+            <button mat-button>
+              <mat-icon class="app-icon-small app-icon-valign-text-top">archive</mat-icon>
+              {{ 'desc.add_to_secondhand' | translate }}
             </button>
           </th>
           <td mat-cell *matCellDef="let element">
@@ -33,13 +37,14 @@
     
         <ng-container matColumnDef="button">
           <th mat-header-cell *matHeaderCellDef>
-            <button mat-flat-button color="primary" class="app-button" (click)="refreshOffer()" matTooltip="{{ 'desc.refresh' | translate }}"><mat-icon>refresh</mat-icon></button>
-            <button mat-flat-button color="primary" class="app-button" (click)="viewReport()" matTooltip="{{ 'desc.view_report' | translate }}"><mat-icon>pageview</mat-icon></button>
-            <button mat-flat-button color="primary" class="app-button" (click)="uploadToOffer()" matTooltip="{{ 'desc.import_to_offer' | translate }}"><mat-icon>file_upload</mat-icon></button>
-            <button mat-flat-button color="primary" class="app-button" (click)="templateToOffer()" matTooltip="{{ 'desc.add_to_offer_from_template' | translate }}"><mat-icon>library_add</mat-icon></button>
-            <button mat-flat-button color="primary" class="app-button" (click)="searchToOffer()" matTooltip="{{ 'desc.add_to_offer_by_searching' | translate }}"><mat-icon>search</mat-icon></button>
+            <button mat-flat-button class="app-button app-button-gray" (click)="refreshOffer()" matTooltip="{{ 'desc.refresh' | translate }}"><mat-icon>refresh</mat-icon></button>
+            <button mat-flat-button class="app-button app-button-gray" (click)="viewReport()" matTooltip="{{ 'desc.view_report' | translate }}"><mat-icon>pageview</mat-icon></button>
+            <button mat-flat-button class="app-button app-button-gray" (click)="uploadToOffer()" matTooltip="{{ 'desc.import_to_offer' | translate }}"><mat-icon>file_upload</mat-icon></button>
+            <button mat-flat-button class="app-button app-button-gray" (click)="templateToOffer()" matTooltip="{{ 'desc.add_to_offer_from_template' | translate }}"><mat-icon>library_add</mat-icon></button>
+            <button mat-flat-button class="app-button app-button-gray" (click)="searchToOffer()" matTooltip="{{ 'desc.add_to_offer_by_searching' | translate }}"><mat-icon>search</mat-icon></button>
           </th>
           <td mat-cell *matCellDef="let element; let idx = index;">
+            <mat-icon matTooltip="{{ 'desc.add_to_secondhand' | translate }}" class="app-cursor-pointer app-icon-valign-text-bottom app-icon-right-mg">archive</mat-icon>
             <mat-icon (click)="removeFromOffer(idx)" matTooltip="{{ 'offers.remove' | translate }}" class="app-cursor-pointer app-icon-valign-text-bottom" [color]="'warn'">cancel</mat-icon>
           </td>
         </ng-container>
@@ -51,33 +56,4 @@
   </div>
 </div>
 
-
-<!-- <h2 mat-dialog-title>{{'Offers' | translate}}</h2>
-
-<div fxLayout="row" fxLayoutAlign="start stretch" fxLayoutGap.gt-xs="16px" fxLayout.xs="column" gdAlignColumns.lt-xs="false">
-
-  <div fxFlex.gt-sm="25%" fxFlex.gt-xs="30%" fxFlex.xs="100%">
-    <button mat-button (click)="add()">{{'offers.add' | translate}}</button>
-    <button mat-button (click)="refresh()">{{'offers.refresh' | translate}}</button>
-      <ul>
-        <li *ngFor="let offer of offers; let idx = index;">
-            <a (click)="load(offer)">{{offer.nazev}}</a>
-            <div>{{offer.created}}</div>
-          <button mat-button (click)="remove(idx)">{{'offers.remove' | translate}}</button>
-        </li>
-      </ul>
-    </div>
-
-
-  <div class="app-offer-items" fxFlex.gt-sm="75%" fxFlex.gt-xs="70%" fxFlex.xs="100%">
-      <h3 >{{currentOffer.nazev}}</h3>
-      <ul>
-          <li *ngFor="let row of records; let idx = index;">
-              <div>{{row.title}}</div>
-            <button mat-button (click)="remove(idx)">{{'offers.removeFrom' | translate}}</button>
-          </li>
-        </ul>
-
-  </div>
-</div> -->
 

@@ -29,15 +29,21 @@ app-result-item {
           tbody {
             .mat-row {
               .mat-cell {
-                .mat-icon {
+               /*  .mat-icon {
                   font-size: calc(#{$app-mat-icon-size} - 3px);
                   width: calc(#{$app-mat-icon-size} - 3px) !important;
                   height: calc(#{$app-mat-icon-size} - 3px) !important;
+                } */
+                .mat-icon {
+                  color: $app-primary-color;
                 }
 
                 &:not(.mat-column-buttons) {
                   .mat-icon {
-                    color:$app-facet-icon-active-color;
+                    font-size: calc(#{$app-mat-icon-size} - 3px);
+                    width: calc(#{$app-mat-icon-size} - 3px) !important;
+                    height: calc(#{$app-mat-icon-size} - 3px) !important;
+                    color: $app-primary-color;
                   }
                 }
 
@@ -46,10 +52,16 @@ app-result-item {
                   margin-right: calc(#{$app-gap-icon} * 3);
                 }
 
+                .app-no-logo {
+                  font-weight: bold;
+                  color: $app-gray-5;
+                  margin-right: calc(#{$app-gap-icon} * 3);
+                }
+
                 &:last-child {
                   text-align: right;
 
-                  .mat-button-base {
+                 /*  .mat-button-base {
                     @extend .app-clean-shadow;
                     margin-right: $app-gap-icon;
                   }
@@ -61,7 +73,7 @@ app-result-item {
                     .mat-icon {
                       vertical-align: unset;
                     }
-                  }
+                  } */
                 }
               }
             }
@@ -76,10 +88,21 @@ app-result-item {
 
       &.app-card-actions-top {
         border-bottom: 1px solid $app-gray-3;
-        padding-left: 8px;
-        padding-right: 8px;
+        padding-left: $app-gap;
+        padding-right: $app-gap;
         margin-left: -#{$app-gap};
         margin-right: -#{$app-gap};
+
+        .app-info-text {
+          font-size: .9rem;
+          margin-left: $app-gap-icon;
+          color: $app-gray-7;
+
+          label {
+            color: $app-darkest;
+            font-weight: bold;
+          }
+        }
       }
 
       .mat-icon {

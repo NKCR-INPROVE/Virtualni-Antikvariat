@@ -5,16 +5,26 @@
     <button mat-button><mat-icon>shopping_cart</mat-icon>{{ 'desc.add_to_demand' | translate }}</button>
     <button mat-button><mat-icon>text_format</mat-icon>{{ 'desc.csv_format' | translate }}</button>
   </mat-card-actions> -->
-  <mat-card-header>
-    <ng-container *ngIf="doc.nabidka">
-        <span>{{'nabizi' | translate}}: <span *ngFor="let id of getOfferUser()">{{id}}; </span></span>
-    </ng-container>
-    <ng-container *ngIf="doc.poptavka">
-        <span>{{'poptava' | translate}}: <span *ngFor="let id of doc.poptavka">{{id}}; </span></span>
+  <mat-card-actions *ngIf="doc.nabidka || doc.poptavka" class="app-card-actions-top">
+    <button mat-flat-button class="app-button app-button-gray" matTooltip="{{ 'desc.respond_to_offer_yes' | translate }}">
+      <mat-icon color="primary">thumb_up</mat-icon>
+    </button>
+    <button mat-flat-button class="app-button app-button-gray" matTooltip="{{ 'desc.respond_to_offer_no' | translate }}">
+      <mat-icon color="primary">thumb_down</mat-icon>
+    </button>
+    <span class="app-info-text">
+      <ng-container *ngIf="doc.nabidka">
+        <label>{{'nabizi' | translate}}: </label><ng-container *ngFor="let id of getOfferUser()">{{id}};</ng-container>
       </ng-container>
+      <ng-container *ngIf="doc.poptavka">
+        <label>{{'poptava' | translate}}: </label><ng-container *ngFor="let id of doc.poptavka">{{id}};</ng-container>
+      </ng-container>
+    </span>
+  </mat-card-actions>
+  <mat-card-header>
     <mat-card-title>
       {{doc.titlemd5[0]}}
-      <mat-icon *ngIf="hasDifferences('title')" #wTitle (click)="openPop('title', wTitle, infoPopup)">warning</mat-icon>
+      <mat-icon *ngIf="hasDifferences('title')" #wTitle (click)="openPop('title', wTitle, infoPopup)" class="app-cursor-pointer app-icon-left-mg app-icon-valign-text-top">warning</mat-icon>
     </mat-card-title>
     <mat-card-subtitle>
       <div>
@@ -37,12 +47,10 @@
         <ng-container matColumnDef="zdroj">
           <th mat-header-cell *matHeaderCellDef>{{ 'fields.zdroj' | translate }}</th>
           <td mat-cell *matCellDef="let element">
-              <img *ngIf="hasIcon(element.zdroj)" matTooltip="{{ element.zdroj }}" src="{{ 'assets/img/zdroj/' + element.zdroj + '.png' }}" title=""/>
-              <span *ngIf="!hasIcon(element.zdroj)">{{ element.zdroj }}</span>
-            <mat-icon matTooltip="{{ 'desc.filter_source' | translate }}" class="app-cursor-pointer">filter_list
-            </mat-icon>
-            <mat-icon matTooltip="{{ 'desc.view_original_metadata' | translate }}" class="app-cursor-pointer"
-              (click)="openLink(element.id)">open_in_new</mat-icon>
+            <img *ngIf="hasIcon(element.zdroj)" matTooltip="{{ element.zdroj }}" src="{{ 'assets/img/zdroj/' + element.zdroj + '.png' }}" title=""/>
+            <span *ngIf="!hasIcon(element.zdroj)" class="app-no-logo">{{ element.zdroj }}</span>
+            <mat-icon matTooltip="{{ 'desc.filter_source' | translate }}" class="app-cursor-pointer" [class.app-icon-valign-text-bottom]="!hasIcon(element.zdroj)">filter_list</mat-icon>
+            <mat-icon matTooltip="{{ 'desc.view_original_metadata' | translate }}" class="app-cursor-pointer" [class.app-icon-valign-text-bottom]="!hasIcon(element.zdroj)" (click)="openLink(element.id)">open_in_new</mat-icon>
           </td>
         </ng-container>
 
@@ -83,12 +91,14 @@
         <ng-container matColumnDef="buttons">
           <th mat-header-cell *matHeaderCellDef></th>
           <td mat-cell *matCellDef="let element">
-            <button mat-mini-fab color="primary" (click)="addToOffer(element)">
+            <mat-icon matTooltip="{{ 'desc.add_to_offer' | translate }}" class="app-cursor-pointer app-icon-right-mg" (click)="addToOffer(element)">local_offer</mat-icon>
+            <mat-icon matTooltip="{{ 'desc.add_to_demand' | translate }}" class="app-cursor-pointer app-icon-right-mg" (click)="addToDemands(element)">shopping_cart</mat-icon>
+            <!-- <button mat-flat-button class="app-button" (click)="addToOffer(element)">
               <mat-icon matTooltip="{{ 'desc.add_to_offer' | translate }}">local_offer</mat-icon>
             </button>
-            <button mat-mini-fab color="primary" (click)="addToDemands(element)">
+            <button mat-flat-button class="app-button" (click)="addToDemands(element)">
               <mat-icon matTooltip="{{ 'desc.add_to_demand' | translate }}">shopping_cart</mat-icon>
-            </button>
+            </button> -->
           </td>
         </ng-container>
 

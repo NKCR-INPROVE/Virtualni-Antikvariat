@@ -49,7 +49,10 @@
     "view_report": "Zobrazit report",
     "import_to_offer": "Importovat do nabídky",
     "add_to_offer_from_template": "Založit nabídku ze šablony",
-    "add_to_offer_by_searching": "Založit nabídku z vyhledávání"
+    "add_to_offer_by_searching": "Založit nabídku z vyhledávání",
+    "add_to_secondhand": "Vložit do antikvariátu",
+    "respond_to_offer_yes": "Reagovat na nabídku \"chci do fondu\"",
+    "respond_to_offer_no": "Reagovat na nabídku \"nechci do fondu\""
   },
   "count": "Počet nalezených položek",
   "q.placeholder": "Hledej ve virtuální depozitní knihovně ...",

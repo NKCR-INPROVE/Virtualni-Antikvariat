@@ -66,12 +66,28 @@ app-results {
 }
 
 .mat-icon {
+	&.app-icon-small {
+		font-size: calc(#{$app-mat-icon-size} - 3px);
+		width: calc(#{$app-mat-icon-size} - 3px) !important;
+		height: calc(#{$app-mat-icon-size} - 3px) !important;
+	}
+
 	&.app-icon-left-mg {
 		margin-left: $app-gap-icon;
 	}
 
+	&.app-icon-right-mg {
+		&:not(:last-child) {
+			margin-right: $app-gap-icon;
+		}
+	}
+
 	&.app-icon-valign-text-bottom {
-		vertical-align: text-bottom;
+		vertical-align: text-bottom !important;
+	}
+
+	&.app-icon-valign-text-top {
+		vertical-align: text-top !important;
 	}
 }
 
@@ -102,5 +118,9 @@ app-results {
 
 	&:not(:last-child) {
 		margin-right: $app-gap-icon;
+	}
+
+	&.app-button-gray {
+		background-color: $app-gray-2;
 	}
 }

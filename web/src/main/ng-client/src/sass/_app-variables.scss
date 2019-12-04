@@ -3,6 +3,7 @@
 
 // colors
 $app-primary-color: mat-color($app-primary);
+$app-secondary-color: mat-color($app-accent, 800);
 
 $app-darkest: #000000 !default;
 $app-lightest: #ffffff !default;
@@ -28,7 +29,7 @@ $app-container-width: 90% !default;
 
 // global behavior
 $app-mat-icon-size: 18px !default; 
-$app-btn-pd: 8px !default;
+$app-btn-pd: 4px !default;
 $app-btn-line-height: 30px !default;
 $app-border-radius: 4px !default;
 
