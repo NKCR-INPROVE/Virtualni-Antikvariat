@@ -2,6 +2,8 @@
 
 
 // colors
+$app-primary-color: mat-color($app-primary);
+
 $app-darkest: #000000 !default;
 $app-lightest: #ffffff !default;
 
@@ -44,7 +46,7 @@ $app-facet-list-item-val-mg-right: 10px !default;
 $app-facet-list-item-val-font-size: .9rem !default;
 $app-facet-list-item-val-color: $app-gray-5 !default;
 $app-facet-icon-color: $app-gray-5 !default;
-$app-facet-icon-active-color: mat-color($mat-pink, 500) !default;
+$app-facet-icon-active-color: $app-primary-color !default;
 
 // result item card
 $app-card-title-font-size: 1.1rem !default;

@@ -1,8 +1,6 @@
 // --- FACETS ---
 
 app-facets {
-  //background-color: $app-lightest;
-  //padding: calc(#{$app-gap} / 2) $app-gap;
   padding: 0 $app-gap 0 0;
   margin-bottom: $app-gap;
 
@@ -17,6 +15,10 @@ app-facets {
       .mat-list-item-content {
         .mat-line {
           margin-left: 5px;
+
+          a {
+            @include setLinkColor($app-darkest, .7);
+          }
         }
 
         .mat-icon {

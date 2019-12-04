@@ -9,8 +9,10 @@ body {
 
 // --- PEDRO ---
 a, .app-link {
-	cursor: pointer;
-	color: black;
+	text-decoration: none;
+	cursor: pointer !important;
+
+	@include setLinkColor($app-primary-color, .7);
 }
 
 .app-cursor-pointer {

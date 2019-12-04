@@ -25,15 +25,18 @@ app-navbar {
 
   .mat-icon {
     vertical-align: sub;
+    margin-left: $app-gap-icon;
   }
 
   .app-row-top {
     background-color: $app-lightest;
-    color: #e91e63;
-    
-    a, .app-link {
-      color: #e91e63;
-    }
+    color: $app-gray-6;
+
+    .app-fx-left {
+      img {
+        max-height: 30px;
+      }
+    } 
   }
 
   .app-row-bottom {

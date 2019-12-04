@@ -1,7 +1,7 @@
 <mat-toolbar color="primary">
   <mat-toolbar-row fxLayout="row" class="app-row-top" fxLayout.lt-sm="column">
     <div fxFlex fxFlex.lt-sm="100%" class="app-fx-left">
-      <span><a routerLink="home">{{'app.title' | translate}}</a></span>
+      <span><a routerLink="home" matTooltip="{{'app.title' | translate}}"><img src="../../../assets/img/logo_vdk_gray.png" alt="{{'app.title' | translate}}" /></a></span>
     </div>
     <div fxFlex fxFlex.lt-sm="100%" class="app-fx-right" [ngClass.lt-md]="'app-hide'">
       <span><a routerLink="home">{{'navbar.home' | translate}}</a></span>
@@ -12,7 +12,7 @@
         <a *ngIf="!user" (click)="login()" class="app-link">{{'navbar.login' | translate}}</a>
         <ng-container *ngIf="user">
           {{user.nazev}}
-          <a (click)="logout()" matTooltip="{{'navbar.logout' | translate}}" class="app-cursor-pointer"><mat-icon>input</mat-icon></a>
+          <a (click)="logout()" matTooltip="{{'navbar.logout' | translate}}"><mat-icon>input</mat-icon></a>
         </ng-container>
       </span>
     </div>

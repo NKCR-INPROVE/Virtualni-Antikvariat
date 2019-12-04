@@ -1,0 +1,10 @@
+// --- MIXINS ---
+
+// set state
+@mixin setLinkColor($color, $percent) {
+  color: $color;
+  
+  &:hover {
+    color: rgba($color, $percent);
+  }
+}
