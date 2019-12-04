@@ -5,15 +5,15 @@
       <mat-list-item *ngFor="let f of facets[field]">
         <ng-container [ngSwitch]="field">
           <ng-container *ngSwitchCase="'zdroj'">
-            <mat-icon (click)="addZdrojFilter(f)" [class.active]="hasZdroj(f, false)">check_circle</mat-icon>
-            <mat-icon (click)="excludeZdrojFilter(f)" [class.active]="hasZdroj(f, true)">remove_circle</mat-icon>
+            <mat-icon (click)="addZdrojFilter(f)" [class.active]="hasZdroj(f, false)" class="app-cursor-pointer">check_circle</mat-icon>
+            <mat-icon (click)="excludeZdrojFilter(f)" [class.active]="hasZdroj(f, true)" class="app-cursor-pointer">remove_circle</mat-icon>
             <h4 mat-line>
               <a (click)="toggleZdrojFilter(f)">{{ f.name }}</a>
             </h4>
             <span>({{ f.value }})</span>
           </ng-container>
           <ng-container *ngSwitchDefault>
-            <mat-icon [class.active]="filters[field] === f.name" *ngIf="filters[field] === f.name">check_circle</mat-icon>
+            <mat-icon [class.active]="filters[field] === f.name" *ngIf="filters[field] === f.name" class="app-cursor-pointer">check_circle</mat-icon>
             <h4 mat-line>
               <a (click)="toggleFilter(field, f)">{{f.name}}</a>
             </h4>
