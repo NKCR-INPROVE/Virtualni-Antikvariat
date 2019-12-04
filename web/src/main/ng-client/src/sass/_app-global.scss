@@ -50,7 +50,8 @@ a, .app-link {
 }
 
 // icons
-main {
+app-facets,
+app-results {
 	.mat-icon {
 		font-size: $app-mat-icon-size;
 		width: $app-mat-icon-size !important;
