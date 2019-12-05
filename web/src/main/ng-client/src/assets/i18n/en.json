@@ -50,6 +50,8 @@
     "view_original_metadata": "View original metadata",
     "add_to_offer": "Add to offer",
     "add_to_demand": "Add to demand",
+    "demands" : "Demands",
+    "offers" : "Offers",
     "csv_format": "CSV format",
     "filter_source": "Filter source",
     "filter_status": "Filter status",
@@ -62,8 +64,11 @@
     "add_to_offer_from_template": "Add to offer from template",
     "add_to_offer_by_searching": "Add to offer by searching",
     "add_to_secondhand": "Add to secondhand",
+    "offer_yes": "\"I want to fund\"",
     "respond_to_offer_yes": "Respond to the offer \"I want to fund\"",
-    "respond_to_offer_no": "Respond to the offer \"I do not want to fund\""
+    "respond_to_offer_no": "Respond to the offer \"I do not want to fund\"",
+    "used_filters": "Used filters",
+    "complying": "Complying"
   },
   "count": "Count of search results",
   "q.placeholder": "Search in virtual depoiste library ...",

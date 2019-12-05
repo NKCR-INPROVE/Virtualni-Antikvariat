@@ -50,6 +50,8 @@
     "view_original_metadata": "Zobrazit originální metadata",
     "add_to_offer": "Přidat do nabídky",
     "add_to_demand": "Přidat do poptávky",
+    "demands": "Poptávky",
+    "offers": "Nabídky",
     "csv_format": "CSV formát",
     "filter_source": "Filtruj zdroj",
     "filter_status": "Filtruj stav",
@@ -62,8 +64,11 @@
     "add_to_offer_from_template": "Založit nabídku ze šablony",
     "add_to_offer_by_searching": "Založit nabídku z vyhledávání",
     "add_to_secondhand": "Vložit do antikvariátu",
+    "offer_yes": "\"chci do fondu\"",
     "respond_to_offer_yes": "Reagovat na nabídku \"chci do fondu\"",
-    "respond_to_offer_no": "Reagovat na nabídku \"nechci do fondu\""
+    "respond_to_offer_no": "Reagovat na nabídku \"nechci do fondu\"",
+    "used_filters": "Nastavení filtru",
+    "complying": "Vyhovující"
   },
   "count": "Počet nalezených položek",
   "q.placeholder": "Hledej ve virtuální depozitní knihovně ...",

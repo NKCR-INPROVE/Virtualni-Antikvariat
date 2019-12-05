@@ -23,6 +23,7 @@ export class FacetsComponent implements OnInit, OnDestroy {
   fields: string[];
   facets: any;
   filters: Filters = new Filters();
+  usedFilters: string[] = [];
 
   constructor(
     private route: ActivatedRoute,
@@ -59,6 +60,7 @@ export class FacetsComponent implements OnInit, OnDestroy {
     Utils.sanitize(params, this.searchParams);
     Utils.sanitize(params, this.advParams);
     this.filters = new Filters();
+
     for (const p in params) {
       if (this.filters.hasOwnProperty(p)) {
         if (p === 'zdroj') {
@@ -72,6 +74,15 @@ export class FacetsComponent implements OnInit, OnDestroy {
         }
       }
     }
+    this.usedFilters = [];
+    
+    // Object.keys(this.filters).forEach(key => {
+    //   console.log(key, this.filters[key]);
+    //   if (this.filters[key] && this.filters[key] !== '') {
+    //     this.usedFilters.push(key);
+    //   }
+    // });
+
   }
 
   hasZdroj(f: Facet, exclude: boolean): boolean {
@@ -115,7 +126,7 @@ export class FacetsComponent implements OnInit, OnDestroy {
   excludeZdrojFilter(f: Facet) {
     if (this.filters.zdroj.includes('-' + f.name)) {
       this.filters.zdroj = this.filters.zdroj.filter(z => z !== '-' + f.name);
-    } else if (this.filters.zdroj.includes( f.name)) {
+    } else if (this.filters.zdroj.includes(f.name)) {
       this.filters.zdroj = this.filters.zdroj.filter(z => z !== f.name);
       this.filters.zdroj = ['-' + f.name, ...this.filters.zdroj];
     } else {
@@ -125,15 +136,34 @@ export class FacetsComponent implements OnInit, OnDestroy {
   }
 
   search() {
-    const queryParams = Object.assign({}, {...this.searchParams, ...this.advParams, ...this.filters});
+    const queryParams = Object.assign({}, { ...this.searchParams, ...this.advParams, ...this.filters });
     console.log(queryParams);
-    this.router.navigate(['/results'], {queryParams});
+    this.router.navigate(['/results'], { queryParams });
   }
 
   getOfferName(id: string): string {
     const o = this.state.offers.find(offer => offer.id === id);
     return o ? o.nazev : id;
   }
+
+  toggleOffers() {
+
+  }
+
+  togglDemands() {
+
+  }
+
+
+  togglWanted() {
+
+  }
+
+
+  toggleComplying() {
+
+  }
+
 
 
 }
