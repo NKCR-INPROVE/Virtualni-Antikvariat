@@ -47,8 +47,10 @@
         <ng-container matColumnDef="zdroj">
           <th mat-header-cell *matHeaderCellDef>{{ 'fields.zdroj' | translate }}</th>
           <td mat-cell *matCellDef="let element">
-            <img *ngIf="hasIcon(element.zdroj)" matTooltip="{{ element.zdroj }}" src="{{ 'assets/img/zdroj/' + element.zdroj + '.png' }}" title=""/>
-            <span *ngIf="!hasIcon(element.zdroj)" class="app-no-logo">{{ element.zdroj }}</span>
+            <span *ngIf="hasIcon(element.zdroj)" class="app-logo">
+              <img matTooltip="{{ element.zdroj }}" src="{{ 'assets/img/zdroj/' + element.zdroj + '.png' }}" title=""/>
+            </span>
+            <span *ngIf="!hasIcon(element.zdroj)" class="app-logo app-no-logo">{{ element.zdroj }}</span>
             <mat-icon matTooltip="{{ 'desc.filter_source' | translate }}" class="app-cursor-pointer" [class.app-icon-valign-text-bottom]="!hasIcon(element.zdroj)">filter_list</mat-icon>
             <mat-icon matTooltip="{{ 'desc.view_original_metadata' | translate }}" class="app-cursor-pointer" [class.app-icon-valign-text-bottom]="!hasIcon(element.zdroj)" (click)="openLink(element.id)">open_in_new</mat-icon>
           </td>
