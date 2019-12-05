@@ -1,6 +1,6 @@
 <mat-list>
   <!-- Used filters -->
-  <ng-container *ngIf="usedFilters.length > 0">
+  <!--   <ng-container *ngIf="usedFilters.length > 0">
     <h3 mat-subheader>
       {{ 'desc.used_filters' | translate }}
     </h3>
@@ -9,39 +9,47 @@
         <a (click)="toggleUsedFilter(f)">{{ f }}</a>
       </h4>
     </mat-list-item>
-  </ng-container>
-    <!-- /Used filters -->
+  </ng-container> -->
+  <!-- /Used filters -->
 
-  <!-- vyhovující -->
   <ng-container *ngIf="state.user">
-  <h3 mat-subheader>
-    {{ 'desc.complying' | translate }}
-  </h3>
-  <mat-list-item>
-    <mat-icon *ngIf="filters.offers" class="app-cursor-pointer active">check_circle</mat-icon>
-      <h4 mat-line>
-        <a (click)="toggleOffers()">{{ 'desc.offers' | translate }}</a>
-      </h4>
-  </mat-list-item>
-  <mat-list-item>
-      <mat-icon *ngIf="1>0" class="app-cursor-pointer active">check_circle</mat-icon>
-      <h4 mat-line>
-        <a (click)="toggleDemands()">{{ 'desc.demands' | translate }}</a>
-      </h4>
-      <span>(hovno)</span>
-  </mat-list-item>
-  <mat-list-item>
-      <h4 mat-line>
-        <a (click)="toggleWanted()">{{ 'desc.offer_yes' | translate }}</a>
-      </h4>
-  </mat-list-item>
-  <mat-list-item>
-      <h4 mat-line>
-        <a (click)="toggleComplying()">{{ 'desc.complying' | translate }}</a>
-      </h4>
+    <h3 mat-subheader>
+      {{ 'desc.complying' | translate }}
+    </h3>
+    <mat-list-item>
+      <ng-container>
+        <mat-icon *ngIf="filters.offers" class="app-cursor-pointer active">check_circle</mat-icon>
+        <h4 mat-line>
+          <a (click)="toggleOffers()">{{ 'desc.offers' | translate }}</a>
+        </h4>
+      </ng-container>
     </mat-list-item>
-</ng-container>
-  <!-- /vyhovující -->
+    <mat-list-item>
+      <ng-container>
+        <mat-icon *ngIf="1>0" class="app-cursor-pointer active">check_circle</mat-icon>
+        <h4 mat-line>
+          <a (click)="toggleDemands()">{{ 'desc.demands' | translate }}</a>
+        </h4>
+      </ng-container>
+    </mat-list-item>
+    <mat-list-item>
+      <ng-container>
+        <mat-icon *ngIf="filters.offers" class="app-cursor-pointer active">check_circle</mat-icon>
+        <h4 mat-line>
+          <a (click)="toggleWanted()">{{ 'desc.offer_yes' | translate }}</a>
+        </h4>
+      </ng-container>
+    </mat-list-item>
+    <mat-list-item>
+      <ng-container>
+        <mat-icon *ngIf="filters.offers" class="app-cursor-pointer active">check_circle</mat-icon>
+        <h4 mat-line>
+          <a (click)="toggleComplying()">{{ 'desc.complying' | translate }}</a>
+        </h4>
+      </ng-container>
+    </mat-list-item>
+    <mat-divider></mat-divider>
+  </ng-container><!--/vyhovujici -->
 
   <ng-container *ngFor="let field of fields">
     <ng-container *ngIf="facets[field]?.length">
@@ -62,8 +70,7 @@
           </ng-container>
 
           <ng-container *ngSwitchDefault>
-            <mat-icon *ngIf="filters[field] === f.name"
-              class="app-cursor-pointer active">check_circle</mat-icon>
+            <mat-icon *ngIf="filters[field] === f.name" class="app-cursor-pointer active">check_circle</mat-icon>
             <h4 mat-line>
               <a (click)="toggleFilter(field, f)">
                 <ng-container [ngSwitch]="field">
