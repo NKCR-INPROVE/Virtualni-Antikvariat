@@ -33,18 +33,18 @@
     "rocnik_svazek": "Ročník/Svazek",
     "cislo": "Číslo",
     "rok": "Rok",
-    "status": {
-      "label": "Stav",
-      "AR": "Archivní exemplář",
-      "P": "Prezenčně",
-      "A": "Absenčně",
-      "Z": "Ztráta",
-      "ZP": "Ve zpracování",
-      "V": "Vyřazeno",
-      "PK": "Poškozeno",
-      "N": "Nespecifikováno",
-      "RZ": "Rezervní exemplář"
-    }
+    "status":"Stav"
+  },
+  "status": {
+    "AR": "Archivní exemplář",
+    "P": "Prezenčně",
+    "A": "Absenčně",
+    "Z": "Ztráta",
+    "ZP": "Ve zpracování",
+    "V": "Vyřazeno",
+    "PK": "Poškozeno",
+    "N": "Nespecifikováno",
+    "RZ": "Rezervní exemplář"
   },
   "desc": {
     "view_original_metadata": "Zobrazit originální metadata",

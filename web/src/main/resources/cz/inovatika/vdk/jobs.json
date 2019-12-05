@@ -2,7 +2,7 @@
   {
     "name": "admin",
     "type": "admin",
-    "cron": "0 04 * * * ?",
+    "cron": "0 04 04 * * ?",
     "settings": {
     }
   },
@@ -22,7 +22,7 @@
   {
     "name": "nkp_vdk",
     "type": "harvest",
-    "cron": "0 45 01 * * ?",
+    "cron": "0 01 01 * * ?",
     "knihovna": "NKP",
     "indexDirectory": "c:/Users/alberto/Projects/VDK/VA/data/OAI/harvest/NKC",
     "oaiDir": "c:/Users/alberto/Projects/VDK/VA/data/OAI",

@@ -1,0 +1,404 @@
+[
+  {
+    "knihovna": "ADMIN",
+    "wanted_id": 221,
+    "zaznamoffer": 5,
+    "date": "2015-04-23 11:19:58",
+    "priorita": "1",
+    "wanted": true
+  },
+  {
+    "knihovna": "NKP",
+    "wanted_id": 281,
+    "zaznamoffer": 19,
+    "date": "2015-12-17 00:00:00",
+    "priorita": "2",
+    "wanted": false
+  },
+  {
+    "knihovna": "MZK",
+    "wanted_id": 162,
+    "zaznamoffer": 50,
+    "date": "2014-12-11 13:35:56",
+    "priorita": "2",
+    "wanted": true
+  },
+  {
+    "knihovna": "VKOL",
+    "wanted_id": 161,
+    "zaznamoffer": 50,
+    "date": "2014-12-11 13:33:19",
+    "priorita": "2",
+    "wanted": true
+  },
+  {
+    "knihovna": "VKOL",
+    "wanted_id": 186,
+    "zaznamoffer": 231,
+    "date": "2015-04-14 13:24:29",
+    "priorita": "2",
+    "wanted": true
+  },
+  {
+    "knihovna": "MZK",
+    "wanted_id": 182,
+    "zaznamoffer": 231,
+    "date": "2015-04-14 13:22:35",
+    "priorita": "2",
+    "wanted": false
+  },
+  {
+    "knihovna": "MZK",
+    "wanted_id": 181,
+    "zaznamoffer": 232,
+    "date": "2015-04-14 13:22:32",
+    "priorita": "2",
+    "wanted": true
+  },
+  {
+    "knihovna": "VKOL",
+    "wanted_id": 185,
+    "zaznamoffer": 232,
+    "date": "2015-04-14 13:24:27",
+    "priorita": "2",
+    "wanted": true
+  },
+  {
+    "knihovna": "MZK",
+    "wanted_id": 195,
+    "zaznamoffer": 236,
+    "date": "2015-04-14 14:16:47",
+    "priorita": "2",
+    "wanted": true
+  },
+  {
+    "knihovna": "NKP",
+    "wanted_id": 194,
+    "zaznamoffer": 236,
+    "date": "2015-04-14 14:14:56",
+    "priorita": "2",
+    "wanted": false
+  },
+  {
+    "knihovna": "MZK",
+    "wanted_id": 196,
+    "zaznamoffer": 238,
+    "date": "2015-04-14 14:16:50",
+    "priorita": "2",
+    "wanted": true
+  },
+  {
+    "knihovna": "NKP",
+    "wanted_id": 193,
+    "zaznamoffer": 238,
+    "date": "2015-04-14 14:14:53",
+    "priorita": "2",
+    "wanted": true
+  },
+  {
+    "knihovna": "MZK",
+    "wanted_id": 197,
+    "zaznamoffer": 239,
+    "date": "2015-04-14 14:17:03",
+    "priorita": "2",
+    "wanted": true
+  },
+  {
+    "knihovna": "NKP",
+    "wanted_id": 192,
+    "zaznamoffer": 239,
+    "date": "2015-04-14 14:14:46",
+    "priorita": "2",
+    "wanted": true
+  },
+  {
+    "knihovna": "VKOL",
+    "wanted_id": 263,
+    "zaznamoffer": 582,
+    "date": "2015-08-31 10:22:53",
+    "priorita": "2",
+    "wanted": true
+  },
+  {
+    "knihovna": "MZK",
+    "wanted_id": 261,
+    "zaznamoffer": 584,
+    "date": "2015-08-31 10:15:58",
+    "priorita": "2",
+    "wanted": true
+  },
+  {
+    "knihovna": "MZK",
+    "wanted_id": 262,
+    "zaznamoffer": 582,
+    "date": "2015-08-31 10:16:06",
+    "priorita": "2",
+    "wanted": false
+  },
+  {
+    "knihovna": "NKP",
+    "wanted_id": 301,
+    "zaznamoffer": 625,
+    "date": "2016-11-07 13:49:36",
+    "priorita": "2",
+    "wanted": true
+  },
+  {
+    "knihovna": "VKOL",
+    "wanted_id": 321,
+    "zaznamoffer": 649,
+    "date": "2017-01-02 00:00:00",
+    "priorita": "2",
+    "wanted": false
+  },
+  {
+    "knihovna": "NKP",
+    "wanted_id": 341,
+    "zaznamoffer": 698,
+    "date": "2017-01-19 09:43:34",
+    "priorita": "2",
+    "wanted": true
+  },
+  {
+    "knihovna": "VKOL",
+    "wanted_id": 365,
+    "zaznamoffer": 1722,
+    "date": "2018-06-20 13:42:09",
+    "priorita": "2",
+    "wanted": true
+  },
+  {
+    "knihovna": "VKOL",
+    "wanted_id": 363,
+    "zaznamoffer": 1721,
+    "date": "2018-06-20 13:40:04",
+    "priorita": "2",
+    "wanted": false
+  },
+  {
+    "knihovna": "VKOL",
+    "wanted_id": 361,
+    "zaznamoffer": 1718,
+    "date": "2018-06-20 13:38:22",
+    "priorita": "2",
+    "wanted": true
+  },
+  {
+    "knihovna": "MZK",
+    "wanted_id": 366,
+    "zaznamoffer": 1708,
+    "date": "2018-06-21 09:36:31",
+    "priorita": "2",
+    "wanted": true
+  },
+  {
+    "knihovna": "MZK",
+    "wanted_id": 373,
+    "zaznamoffer": 1786,
+    "date": "2018-06-21 00:00:00",
+    "priorita": "2",
+    "wanted": true
+  },
+  {
+    "knihovna": "MZK",
+    "wanted_id": 372,
+    "zaznamoffer": 1787,
+    "date": "2018-06-21 12:22:56",
+    "priorita": "2",
+    "wanted": true
+  },
+  {
+    "knihovna": "MZK",
+    "wanted_id": 371,
+    "zaznamoffer": 1788,
+    "date": "2018-06-21 12:22:49",
+    "priorita": "2",
+    "wanted": true
+  },
+  {
+    "knihovna": "MZK",
+    "wanted_id": 370,
+    "zaznamoffer": 1789,
+    "date": "2018-06-21 00:00:00",
+    "priorita": "2",
+    "wanted": true
+  },
+  {
+    "knihovna": "MZK",
+    "wanted_id": 369,
+    "zaznamoffer": 1790,
+    "date": "2018-06-21 12:22:37",
+    "priorita": "2",
+    "wanted": true
+  },
+  {
+    "knihovna": "MZK",
+    "wanted_id": 368,
+    "zaznamoffer": 1791,
+    "date": "2018-06-21 12:22:32",
+    "priorita": "2",
+    "wanted": true
+  },
+  {
+    "knihovna": "MZK",
+    "wanted_id": 367,
+    "zaznamoffer": 1792,
+    "date": "2018-06-21 12:22:27",
+    "priorita": "2",
+    "wanted": true
+  },
+  {
+    "knihovna": "MZK",
+    "wanted_id": 375,
+    "zaznamoffer": 1784,
+    "date": "2018-06-21 00:00:00",
+    "priorita": "2",
+    "wanted": true
+  },
+  {
+    "knihovna": "MZK",
+    "wanted_id": 374,
+    "zaznamoffer": 1785,
+    "date": "2018-06-21 00:00:00",
+    "priorita": "2",
+    "wanted": true
+  },
+  {
+    "knihovna": "MZK",
+    "wanted_id": 377,
+    "zaznamoffer": 1783,
+    "date": "2018-06-22 00:00:00",
+    "priorita": "2",
+    "wanted": true
+  },
+  {
+    "knihovna": "MZK",
+    "wanted_id": 380,
+    "zaznamoffer": 1793,
+    "date": "2018-06-22 10:27:49",
+    "priorita": "2",
+    "wanted": false
+  },
+  {
+    "knihovna": "MZK",
+    "wanted_id": 382,
+    "zaznamoffer": 1794,
+    "date": "2018-06-28 00:00:00",
+    "priorita": "2",
+    "wanted": true
+  },
+  {
+    "knihovna": "NKP",
+    "wanted_id": 402,
+    "zaznamoffer": 1848,
+    "date": "2018-08-15 12:33:47",
+    "priorita": "2",
+    "wanted": true
+  },
+  {
+    "knihovna": "NKP",
+    "wanted_id": 401,
+    "zaznamoffer": 1849,
+    "date": "2018-08-15 12:33:44",
+    "priorita": "2",
+    "wanted": true
+  },
+  {
+    "knihovna": "NKP",
+    "wanted_id": 403,
+    "zaznamoffer": 1847,
+    "date": "2018-08-15 12:33:55",
+    "priorita": "2",
+    "wanted": true
+  },
+  {
+    "knihovna": "VKOL",
+    "wanted_id": 404,
+    "zaznamoffer": 1846,
+    "date": "2018-08-15 12:34:41",
+    "priorita": "2",
+    "wanted": true
+  },
+  {
+    "knihovna": "VKOL",
+    "wanted_id": 405,
+    "zaznamoffer": 1845,
+    "date": "2018-08-15 12:34:45",
+    "priorita": "2",
+    "wanted": true
+  },
+  {
+    "knihovna": "VKOL",
+    "wanted_id": 187,
+    "zaznamoffer": 5,
+    "date": "2015-04-14 13:42:57",
+    "priorita": "2",
+    "wanted": true
+  },
+  {
+    "knihovna": "VKOL",
+    "wanted_id": 188,
+    "zaznamoffer": 4,
+    "date": "2015-04-14 13:43:03",
+    "priorita": "2",
+    "wanted": true
+  },
+  {
+    "knihovna": "NKP",
+    "wanted_id": 144,
+    "zaznamoffer": 2,
+    "date": "2014-10-17 12:12:18",
+    "priorita": "2",
+    "wanted": true
+  },
+  {
+    "knihovna": "NKP",
+    "wanted_id": 145,
+    "zaznamoffer": 1,
+    "date": "2014-10-17 12:12:22",
+    "priorita": "2",
+    "wanted": false
+  },
+  {
+    "knihovna": "TEST",
+    "wanted_id": 242,
+    "zaznamoffer": 161,
+    "date": "2015-06-18 17:02:40",
+    "wanted": true
+  },
+  {
+    "knihovna": "TEST",
+    "wanted_id": 241,
+    "zaznamoffer": 162,
+    "date": "2015-06-18 00:00:00",
+    "wanted": false
+  },
+  {
+    "knihovna": "TEST",
+    "wanted_id": 183,
+    "zaznamoffer": 231,
+    "date": "2015-04-14 13:23:32",
+    "wanted": true
+  },
+  {
+    "knihovna": "TEST",
+    "wanted_id": 184,
+    "zaznamoffer": 232,
+    "date": "2015-04-14 13:24:01",
+    "wanted": true
+  },
+  {
+    "knihovna": "TEST",
+    "wanted_id": 200,
+    "zaznamoffer": 233,
+    "date": "2015-04-14 18:05:47",
+    "wanted": false
+  },
+  {
+    "knihovna": "TEST",
+    "wanted_id": 406,
+    "zaznamoffer": 1844,
+    "date": "2018-08-16 14:19:55",
+    "wanted": true
+  }
+]

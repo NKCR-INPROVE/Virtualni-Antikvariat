@@ -6,12 +6,16 @@
     <button mat-button><mat-icon>text_format</mat-icon>{{ 'desc.csv_format' | translate }}</button>
   </mat-card-actions> -->
   <mat-card-actions *ngIf="doc.nabidka || doc.poptavka" class="app-card-actions-top">
-    <button mat-flat-button class="app-button app-button-gray" matTooltip="{{ 'desc.respond_to_offer_yes' | translate }}">
-      <mat-icon color="primary">thumb_up</mat-icon>
-    </button>
-    <button mat-flat-button class="app-button app-button-gray" matTooltip="{{ 'desc.respond_to_offer_no' | translate }}">
-      <mat-icon color="primary">thumb_down</mat-icon>
-    </button>
+    <ng-container *ngIf="doc.nabidka">
+      <button mat-flat-button class="app-button app-button-gray" matTooltip="{{ 'desc.respond_to_offer_yes' | translate }}"
+        (click)="addWanted(true)">
+        <mat-icon color="primary">thumb_up</mat-icon>
+      </button>
+      <button mat-flat-button class="app-button app-button-gray" matTooltip="{{ 'desc.respond_to_offer_no' | translate }}"
+      (click)="addWanted(false)">
+        <mat-icon color="primary">thumb_down</mat-icon>
+      </button>
+    </ng-container>
     <span class="app-info-text">
       <ng-container *ngIf="doc.nabidka">
         <label>{{'nabizi' | translate}}: </label><ng-container *ngFor="let id of getOfferUser()">{{id}};</ng-container>
@@ -51,7 +55,7 @@
               <img matTooltip="{{ element.zdroj }}" src="{{ 'assets/img/zdroj/' + element.zdroj + '.png' }}" title=""/>
             </span>
             <span *ngIf="!hasIcon(element.zdroj)" class="app-logo app-no-logo">{{ element.zdroj }}</span>
-            <mat-icon matTooltip="{{ 'desc.filter_source' | translate }}" class="app-cursor-pointer" [class.app-icon-valign-text-bottom]="!hasIcon(element.zdroj)">filter_list</mat-icon>
+            <mat-icon (click)="toggleZdroj(element.zdroj)" matTooltip="{{ 'desc.filter_source' | translate }}" class="app-cursor-pointer" [class.app-icon-valign-text-bottom]="!hasIcon(element.zdroj)">filter_list</mat-icon>
             <mat-icon matTooltip="{{ 'desc.view_original_metadata' | translate }}" class="app-cursor-pointer" [class.app-icon-valign-text-bottom]="!hasIcon(element.zdroj)" (click)="openLink(element.id)">open_in_new</mat-icon>
           </td>
         </ng-container>
@@ -62,11 +66,11 @@
         </ng-container>
 
         <ng-container matColumnDef="status">
-          <th mat-header-cell *matHeaderCellDef>{{ 'fields.status.label' | translate }}</th>
+          <th mat-header-cell *matHeaderCellDef>{{ 'fields.status' | translate }}</th>
           <td mat-cell *matCellDef="let element" [ngClass]="'app-status-' + element.status">
             <ng-container *ngIf="element.status">
-              {{ 'fields.status.' + element.status | translate }}
-              <mat-icon matTooltip="{{ 'desc.filter_source' | translate }}" class="app-cursor-pointer app-icon-left-mg app-icon-valign-text-bottom">filter_list</mat-icon>
+              {{ 'status.' + element.status | translate }}
+              <mat-icon (click)="toggleStatus(element.status)" matTooltip="{{ 'desc.filter_source' | translate }}" class="app-cursor-pointer app-icon-left-mg app-icon-valign-text-bottom">filter_list</mat-icon>
             </ng-container>
           </td>
         </ng-container>
@@ -108,7 +112,8 @@
         </ng-container>
 
         <tr mat-header-row *matHeaderRowDef="displayedColumns; sticky: true"></tr>
-        <tr mat-row [ngClass]="{'app-even': index%2 == 1}" *matRowDef="let row; columns: displayedColumns; let index = index"></tr>
+        <tr mat-row [ngClass]="{'app-even': index%2 == 1}" *matRowDef="let row; columns: displayedColumns; let index = index"
+          [hidden]="isRowHidden(row)"></tr>
       </table>
     </div>
   </mat-card-content>
@@ -116,7 +121,7 @@
     <button mat-button matTooltip="{{ 'desc.view_original_metadata' | translate }}" (click)="openLink()">
       <mat-icon>pageview</mat-icon>{{ 'desc.view_original_metadata' | translate }}
     </button>
-    <button mat-button matTooltip="{{ 'desc.add_to_offer' | translate }}" (click)="addToOffer()">
+    <button *ngIf="userHasDoc()" mat-button matTooltip="{{ 'desc.add_to_offer' | translate }}" (click)="addToOffer()">
       <mat-icon>local_offer</mat-icon>{{ 'desc.add_to_offer' | translate }}
     </button>
     <button *ngIf="!hasDemand()" mat-button matTooltip="{{ 'desc.add_to_demand' | translate }}" (click)="addToDemands()">

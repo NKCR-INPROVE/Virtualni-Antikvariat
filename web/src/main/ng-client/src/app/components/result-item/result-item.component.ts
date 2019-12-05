@@ -4,7 +4,7 @@ import { TemplatePortal } from '@angular/cdk/portal';
 import { AppService } from 'src/app/app.service';
 import { OfferRecord } from 'src/app/models/offer-record';
 import { AppState } from 'src/app/app.state';
-import { Exemplar, ExemplarZdroj } from 'src/app/models/exempplar';
+import { Exemplar, ExemplarZdroj } from 'src/app/models/exemplar';
 import { Demand } from 'src/app/models/demand';
 import { CsvComponent } from '../csv/csv.component';
 import { MatDialog, MatSnackBar } from '@angular/material';
@@ -26,6 +26,9 @@ export class ResultItemComponent implements OnInit, OnDestroy {
   exemplars: Exemplar[];
   offers: string[];
   demands: string[];
+
+  activeStatus: string = null;
+  activeZdroj: string = null;
 
   public tooltip: {
     field: string,
@@ -217,9 +220,41 @@ export class ResultItemComponent implements OnInit, OnDestroy {
     return o;
   }
 
+  userHasDoc(): boolean {
+    const kn = this.state.user.code === 'NKP' ? 'UKF' : this.state.user.code;
+
+    return this.doc.zdroj.includes(kn);
+
+  }
+
   hasDemand(): boolean {
     return this.doc.poptavka && this.doc.poptavka.includes(this.state.user.code);
   }
 
-  
+  addWanted(want: boolean) {
+
+  }
+
+  toggleStatus(status: string) {
+    if (this.activeStatus !== null) {
+      this.activeStatus = null;
+    } else {
+      this.activeStatus = status;
+    }
+  }
+
+  toggleZdroj(zdroj: string) {
+    if (this.activeZdroj !== null) {
+      this.activeZdroj = null;
+    } else {
+      this.activeZdroj = zdroj;
+    }
+  }
+
+  isRowHidden(row): boolean {
+    return (this.activeStatus !== null && row.status !== this.activeStatus) ||
+      (this.activeZdroj !== null && row.zdroj !== this.activeZdroj);
+  }
+
+
 }

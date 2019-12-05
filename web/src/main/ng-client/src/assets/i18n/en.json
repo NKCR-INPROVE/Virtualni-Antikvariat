@@ -33,8 +33,9 @@
     "rocnik_svazek": "Vintage/Volume",
     "cislo": "Number",
     "rok": "Year",
+    "status":"Status"
+  },
     "status": {
-      "label": "Status",
       "AR": "Archive specimen",
       "P": "Presence",
       "A": "Absolutely",
@@ -44,8 +45,7 @@
       "PK": "Damaged",
       "N": "Unspecified",
       "RZ": "Reserve specimen"
-    }
-  },
+    },
   "desc": {
     "view_original_metadata": "View original metadata",
     "add_to_offer": "Add to offer",

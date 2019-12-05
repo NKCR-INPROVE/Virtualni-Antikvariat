@@ -38,8 +38,9 @@ export class SearchFormComponent implements OnInit {
     this.router.navigate(['/results'], { queryParams: params });
   }
 
-  deleteQuery() {
-
+  clearQuery() {
+    this.searchParams.q = null;
+    this.search();
   }
 
   export() {
@@ -83,5 +84,6 @@ export class AdvancedSearchDialog {
   onNoClick(): void {
     this.dialogRef.close();
   }
+
 
 }

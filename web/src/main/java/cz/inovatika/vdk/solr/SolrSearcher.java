@@ -220,6 +220,18 @@ public class SolrSearcher {
       hasFilters = true;
     }
 
+    if (req.getParameter("pocet_exemplaru") != null && !req.getParameter("pocet_exemplaru").isBlank()) {
+      query.addFilterQuery("pocet_exemplaru:" + req.getParameter("pocet_exemplaru"));
+    }
+
+    if (req.getParameter("status") != null && !req.getParameter("status").isBlank()) {
+      query.addFilterQuery("status:" + req.getParameter("status"));
+    }
+
+    if (req.getParameter("bohemika") != null) {
+      query.addFilterQuery("bohemika:" + req.getParameter("bohemika"));
+    }
+
     if (req.getParameter("onlyMatches") != null) {
       query.addFilterQuery("nabidka:[* TO *]");
       query.addFilterQuery("poptavka:" + UsersController.toKnihovna(req).getCode());

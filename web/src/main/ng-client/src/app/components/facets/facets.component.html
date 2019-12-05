@@ -2,12 +2,7 @@
   <ng-container *ngFor="let field of fields">
     <ng-container *ngIf="facets[field]?.length">
       <h3 mat-subheader>
-        <ng-container *ngIf="field !== 'status'">
           {{ 'fields.' + field | translate }}
-        </ng-container>
-        <ng-container *ngIf="field === 'status'">
-          {{ 'fields.' + field + '.label' | translate }}
-        </ng-container>
       </h3>
       <mat-list-item *ngFor="let f of facets[field]">
         <ng-container [ngSwitch]="field">
@@ -24,11 +19,16 @@
             <mat-icon [class.active]="filters[field] === f.name" *ngIf="filters[field] === f.name" class="app-cursor-pointer">check_circle</mat-icon>
             <h4 mat-line>
               <a (click)="toggleFilter(field, f)">
-                <ng-container *ngIf="field !== 'status'">
-                  {{ field==='nabidka' ? getOfferName(f.name) : f.name }}
-                </ng-container>
-                <ng-container *ngIf="field === 'status'">
-                  {{ 'fields.' + field + '.' + f.name | translate }}
+                <ng-container [ngSwitch]="field">
+                  <ng-container *ngSwitchCase="'nabidka'">
+                    {{ getOfferName(f.name) }}
+                  </ng-container>
+                  <ng-container *ngSwitchCase="'status'">
+                    {{ 'status.' + f.name | translate }}
+                  </ng-container>
+                  <ng-container *ngSwitchDefault>
+                    {{ f.name }}
+                  </ng-container>
                 </ng-container>
               </a>
             </h4>

@@ -54,6 +54,8 @@ export class FacetsComponent implements OnInit, OnDestroy {
   }
 
   getParams(params: Params) {
+    this.searchParams = new SearchParams();
+    this.advParams = new AdvancedParams();
     Utils.sanitize(params, this.searchParams);
     Utils.sanitize(params, this.advParams);
     this.filters = new Filters();
