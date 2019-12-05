@@ -27,13 +27,24 @@
     "zdroj": "Source",
     "nabidka": "Offer",
     "bohemika": "Bohemika",
-    "status": "Status",
     "pocet_exemplaru": "Number of exeplars",
     "signatura": "Signatura",
     "dilciKnih": "DilcniKnih",
     "rocnik_svazek": "Vintage/Volume",
     "cislo": "Number",
-    "rok": "Year"
+    "rok": "Year",
+    "status": {
+      "label": "Status",
+      "AR": "Archive specimen",
+      "P": "Presence",
+      "A": "Absolutely",
+      "Z": "Loss",
+      "ZP": "Processing",
+      "V": "Discarded",
+      "P": "Damaged",
+      "N": "Unspecified",
+      "RZ": "Reserve specimen"
+    }
   },
   "desc": {
     "view_original_metadata": "View original metadata",

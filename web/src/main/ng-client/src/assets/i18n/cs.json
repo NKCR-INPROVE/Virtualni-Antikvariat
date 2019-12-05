@@ -27,13 +27,24 @@
     "zdroj": "Zdroj",
     "nabidka": "Nabídka",
     "bohemika": "Bohemika",
-    "status": "Stav",
     "pocet_exemplaru": "Počet exemplářů",
     "signatura": "Signatura",
     "dilciKnih": "Dilčí Knihovna",
     "rocnik_svazek": "Ročník/Svazek",
     "cislo": "Číslo",
-    "rok": "Rok"
+    "rok": "Rok",
+    "status": {
+      "label": "Stav",
+      "AR": "Archivní exemplář",
+      "P": "Prezenčně",
+      "A": "Absenčně",
+      "Z": "Ztráta",
+      "ZP": "Ve zpracování",
+      "V": "Vyřazeno",
+      "P": "Poškozeno",
+      "N": "Nespecifikováno",
+      "RZ": "Rezervní exemplář"
+    }
   },
   "desc": {
     "view_original_metadata": "Zobrazit originální metadata",
