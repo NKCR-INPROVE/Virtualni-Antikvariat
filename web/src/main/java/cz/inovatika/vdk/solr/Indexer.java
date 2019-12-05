@@ -183,15 +183,18 @@ public class Indexer {
     return json;
   }
 
-  private SolrInputDocument demandDoc(String knihovna,
+  private SolrInputDocument demandDoc(
+          String id, 
+          String knihovna,
           String docCode,
           String zaznam,
           String exemplar,
           String update) {
 
     JSONObject j = new JSONObject();
+    j.put("id", id);
     j.put("knihovna", knihovna);
-    j.put("code", docCode);
+    j.put("doc_code", docCode);
     j.put("zaznam", zaznam);
     j.put("exemplar", exemplar);
 
@@ -199,7 +202,7 @@ public class Indexer {
     doc.addField("code", docCode);
     doc.addField("md5", docCode);
     addField(doc, "poptavka", knihovna, update);
-    addField(doc, "poptavka_ext", j, update);
+    addField(doc, "poptavka_ext", j.toString(), update);
 
     return doc;
   }
@@ -230,7 +233,9 @@ public class Indexer {
         QueryResponse rsp = client.query(query);
         String nextCursorMark = rsp.getNextCursorMark();
         for (SolrDocument doc : rsp.getResults()) {
-          idocs.add(demandDoc((String) doc.getFirstValue("id"),
+          idocs.add(demandDoc(
+                (String) doc.getFirstValue("id"),
+                (String) doc.getFirstValue("knihovna"),
                 (String) doc.getFirstValue("doc_code"),
                 (String) doc.getFirstValue("zaznam"),
                 (String) doc.getFirstValue("exemplar"),
@@ -411,12 +416,16 @@ public class Indexer {
     }
   }
 
-  public void indexDemand(String knihovna,
+  public void indexDemand(
+          String id,
+          String knihovna,
           String docCode,
           String zaznam,
           String exemplar) throws Exception {
 
-    server.add(demandDoc(knihovna,
+    server.add(demandDoc(
+            id, 
+            knihovna,
             docCode,
             zaznam,
             exemplar,
@@ -461,17 +470,20 @@ public class Indexer {
     }
   }
 
-  public void removeDemand(String knihovna,
+  public void removeDemand(
+          String id,
+          String knihovna,
           String docCode,
           String zaznam,
           String exemplar) throws Exception {
-
-    server.add(demandDoc(knihovna,
+    
+    server.add(demandDoc(
+            id, 
+            knihovna,
             docCode,
             zaznam,
             exemplar,
             "remove"));
-    demandIndexed++;
     server.commit();
   }
 
@@ -836,14 +848,14 @@ public class Indexer {
     if (demandsCache == null) {
       try {
         SolrQuery query = new SolrQuery("poptavka_ext:[* TO *]");
-        query.addField("id,code,poptavka_ext,title");
+        query.addField("id,doc_code,poptavka_ext,title");
         query.setRows(1000);
         demandsCache = new HashMap<>();
         SolrDocumentList docs = IndexerQuery.query(query);
         Iterator<SolrDocument> iter = docs.iterator();
         while (iter.hasNext()) {
           SolrDocument doc = iter.next();
-          demandsCache.put((String) doc.getFieldValue("code"), doc);
+          demandsCache.put((String) doc.getFieldValue("doc_code"), doc);
 
         }
       } catch (SolrServerException | IOException ex) {

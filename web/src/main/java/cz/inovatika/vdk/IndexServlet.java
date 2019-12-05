@@ -252,7 +252,9 @@ public class IndexServlet extends HttpServlet {
           } else {
             String f = System.getProperty("user.home") + File.separator + ".vdkcr" + File.separator + "jobs" + File.separator + "indexer.json";
             Indexer indexer = new Indexer(f);
-            indexer.indexDemand(kn.getCode(),
+            indexer.indexDemand(
+                    req.getParameter("id"),
+                    kn.getCode(),
                     req.getParameter("docCode"),
                     req.getParameter("zaznam"),
                     req.getParameter("ex"));
@@ -276,7 +278,9 @@ public class IndexServlet extends HttpServlet {
           } else {
             String f = System.getProperty("user.home") + File.separator + ".vdkcr" + File.separator + "jobs" + File.separator + "indexer.json";
             Indexer indexer = new Indexer(f);
-            indexer.removeDemand(kn.getCode(),
+            indexer.removeDemand(
+                    req.getParameter("id"),
+                    kn.getCode(),
                     req.getParameter("docCode"),
                     req.getParameter("zaznam"),
                     req.getParameter("ex"));

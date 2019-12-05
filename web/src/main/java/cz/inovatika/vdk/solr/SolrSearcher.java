@@ -101,7 +101,7 @@ public class SolrSearcher {
       query.set("q.op", "AND");
       query.setFacet(true);
       query.set("json.nl", "arrntv"); 
-      query.setFields("*", "ex:[json]", "author:[json]"); 
+      query.setFields("*", "ex:[json]", "author:[json]", "poptavka_ext:[json]"  ); 
       
       query.setStart(getStart());
       query.setRows(getRows());

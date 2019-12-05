@@ -1,6 +1,7 @@
 export class Exemplar {
   id: string;
   zdroj: string;
+  knihovna: string;
   isNKF: boolean;
   signatura: string;
   status: string;

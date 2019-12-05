@@ -56,6 +56,11 @@ export class ResultItemComponent implements OnInit, OnDestroy {
       exs.forEach(exZdroj => {
         exZdroj.ex.forEach(ex => {
           ex.zdroj = exZdroj.zdroj;
+          if (exZdroj.zdroj === 'UKF') {
+            ex.knihovna = 'NKP';
+          } else {
+            ex.knihovna = exZdroj.zdroj;
+          }
           if (ex.isNKF) {
             ex.zdroj = 'NKF';
           }
@@ -173,6 +178,18 @@ export class ResultItemComponent implements OnInit, OnDestroy {
     });
   }
 
+  removeFromDemands() {
+    const demand: Demand = this.doc.poptavka_ext.find(d => this.state.user.code === d.knihovna);
+    console.log(demand);
+
+    this.service.removeFromDemands(demand).subscribe(resp => {
+      this.snackBar.open('Doc removed from demands', '', {
+        duration: 2000,
+        verticalPosition: 'top'
+      });
+    });
+  }
+
   csv() {
     const data = this.doc.export;
     const dialogRef = this.dialog.open(CsvComponent, {
@@ -193,6 +210,11 @@ export class ResultItemComponent implements OnInit, OnDestroy {
       rets.push(o ? o.knihovna : id);
     });
     return rets;
+  }
+
+  belongUser(ex: Exemplar): boolean {
+    const o = this.doc.ex.find(exe => ex.id === exe.id && ex.knihovna === this.state.user.code);
+    return o;
   }
 
   hasDemand(): boolean {

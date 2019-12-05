@@ -63,7 +63,7 @@ public class DemandsServlet extends HttpServlet {
           localAddresses.add(inetAddress.getHostAddress());
         }
         if (localAddresses.contains(request.getRemoteAddr())) {
-          LOGGER.log(Level.INFO, "running from local address");
+          LOGGER.log(Level.FINE, "running from local address");
           isLocalhost = true;
         }
 
@@ -115,10 +115,48 @@ public class DemandsServlet extends HttpServlet {
 
           JSONObject ret = new JSONObject(SolrIndexerCommiter
                   .indexJSON(new JSONObject(JSON.toJSONString(d, SerializerFeature.WriteDateUseDateFormat)), "demandsCore"));
-          
+
           Indexer indexer = new Indexer();
-          indexer.indexDemand(d.knihovna, d.doc_code, d.zaznam, d.exemplar);
+          indexer.indexDemand(d.id, d.knihovna, d.doc_code, d.zaznam, d.exemplar);
           return ret;
+
+        } catch (Exception ex) {
+          jo.put("error", ex.toString());
+        }
+        return jo;
+
+      }
+    },
+    REMOVE {
+      @Override
+      JSONObject doPerform(HttpServletRequest req, HttpServletResponse response) throws Exception {
+
+        JSONObject jo = new JSONObject();
+        try {
+          Options opts = Options.getInstance();
+          try (HttpSolrClient client = new HttpSolrClient.Builder("http://localhost:8983/solr").build()) {
+            
+            JSONObject json;
+            if (req.getMethod().equals("POST")) {
+              String js = IOUtils.toString(req.getInputStream(), "UTF-8");
+              json = new JSONObject(js);
+            } else {
+              json = new JSONObject(req.getParameter("json"));
+            }
+            System.out.println(json);
+            JSON.DEFFAULT_DATE_FORMAT = "yyyy-MM-dd'T'HH:mm:ss.SSS'Z'";
+            Demand d = Demand.fromJSON(json);
+            client.deleteById(opts.getString("demandsCore", "demands"), d.id);
+            client.commit(opts.getString("demandsCore", "demands"));
+            System.out.println("KKKK");
+            Indexer indexer = new Indexer();
+            indexer.removeDemand(d.id, d.knihovna, d.doc_code, d.zaznam, d.exemplar);
+            
+            jo.put("msg", "removed");
+          } catch (SolrServerException | IOException ex) {
+            LOGGER.log(Level.SEVERE, null, ex);
+            jo.put("error", ex.toString());
+          }
 
         } catch (Exception ex) {
           jo.put("error", ex.toString());

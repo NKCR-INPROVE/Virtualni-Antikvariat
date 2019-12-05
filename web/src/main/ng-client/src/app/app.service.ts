@@ -43,7 +43,7 @@ export class AppService {
   }
 
   // public get currentLangValue(): string {
-  //   return this.langSubject.;
+  //   return this.langSubject.last();
   // }
 
   search(params: HttpParams) {
@@ -76,6 +76,13 @@ export class AppService {
     return this.http.post<any>(`/api/demands/add`, demand)
     .pipe(map(resp => {
       return resp.docs;
+    }));
+  }
+
+  removeFromDemands(demand: Demand) {
+    return this.http.post<any>(`/api/demands/remove`, demand)
+    .pipe(map(resp => {
+      return resp;
     }));
   }
 
