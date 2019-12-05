@@ -26,9 +26,15 @@ app-result-item {
         overflow: auto;
         
         .mat-table {
+          thead {
+            .mat-header-row {
+              height: $app-table-head-row-height;
+            }
+          }
+
           tbody {
             .mat-row {
-              height: $app-table-row-height;
+              height: $app-table-body-row-height;
 
               .mat-cell {
                /*  .mat-icon {
