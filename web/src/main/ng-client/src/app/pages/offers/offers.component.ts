@@ -17,7 +17,7 @@ import { TemplateToOfferDialogComponent } from 'src/app/components/template-to-o
 })
 export class OffersComponent implements OnInit {
 
-  displayedColumns = ['text', 'button'];
+  displayedColumns = ['text', 'price', 'button'];
   offers: Offer[] = [];
   records: OfferRecord[];
   currentOffer: Offer;

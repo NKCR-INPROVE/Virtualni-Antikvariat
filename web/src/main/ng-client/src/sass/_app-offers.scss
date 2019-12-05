@@ -29,14 +29,40 @@ app-offers {
           color: $app-darkest;
 
           &.mat-column-button {
-            width: 300px;
-            text-align: right;
+            position: relative;
+            width: 100px;
+
+            & > div {
+              position: absolute;
+              display: block;
+              text-align: right;
+              width: 200px;
+              top: 13px;
+              right: 30px;
+            }
           }
         }
       }
 
       tbody {
         .mat-cell {
+          &.mat-column-price {
+            padding-left: calc(#{$app-gap-icon} * 2);
+
+            input {
+              @extend .app-clean-border, .app-clean-bg;
+              font-size: inherit;
+
+              &:focus {
+                outline: none;
+                background-color: $app-darkest !important;
+                color: $app-lightest;
+                padding: 2px 5px 3px 5px;
+                width: 50px;
+              }
+            }
+          }
+
           &.mat-column-button {
             text-align: right;
           }
