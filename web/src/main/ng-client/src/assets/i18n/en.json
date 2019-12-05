@@ -78,6 +78,6 @@
   "offers": {
     "add": "Add offer",
     "remove": "Remove offer",
-    "removeFrom": "Remove from offer",
+    "removeFrom": "Remove from offer"
   }
 }

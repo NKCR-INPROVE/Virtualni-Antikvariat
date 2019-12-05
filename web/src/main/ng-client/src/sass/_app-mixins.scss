@@ -8,3 +8,26 @@
     color: rgba($color, $percent);
   }
 }
+
+// set status color
+$colors-list:(
+  AR: $app-table-cell-status-AR,
+  P: $app-table-cell-status-P,
+  A: $app-table-cell-status-A,
+  Z: $app-table-cell-status-Z,
+  ZP: $app-table-cell-status-ZP,
+  V: $app-table-cell-status-V,
+  PK: $app-table-cell-status-PK,
+  N: $app-table-cell-status-N,
+  RZ: $app-table-cell-status-RZ,
+);
+
+@mixin setStatusColor() {
+  @each $key,$val in $colors-list{
+    &.app-status-#{$key} {
+      background-color: #{$val};
+    }
+  }
+}
+
+

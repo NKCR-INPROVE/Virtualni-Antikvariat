@@ -29,6 +29,24 @@ app-result-item {
           thead {
             .mat-header-row {
               height: $app-table-head-row-height;
+
+              .mat-header-cell {
+                &.mat-column-zdroj {
+                  width: 100px;
+                }
+
+                &.mat-column-signatura {
+                  width: 135px;
+                }
+
+                &.mat-column-status {
+                  width: 155px;
+                }
+  
+                &.mat-column-dilciKnih {
+                  padding-left: $app-gap-icon;
+                }
+              }
             }
           }
 
@@ -50,6 +68,17 @@ app-result-item {
                   width: calc(#{$app-mat-icon-size} - 3px) !important;
                   height: calc(#{$app-mat-icon-size} - 3px) !important;
                 } */
+
+                &.mat-column-status {
+                  padding: 0 $app-gap-icon 0 8px;
+                }
+
+                &.mat-column-dilciKnih {
+                  padding-left: $app-gap-icon;
+                }
+
+                @include setStatusColor();
+
                 .mat-icon {
                   color: $app-primary-color;
                 }
