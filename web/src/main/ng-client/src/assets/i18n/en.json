@@ -41,7 +41,7 @@
       "Z": "Loss",
       "ZP": "Processing",
       "V": "Discarded",
-      "P": "Damaged",
+      "PK": "Damaged",
       "N": "Unspecified",
       "RZ": "Reserve specimen"
     }

@@ -54,14 +54,6 @@ app-result-item {
             .mat-row {
               height: $app-table-body-row-height;
 
-              &.app-even {
-                background-color: $app-table-body-row-even;
-              }
-
-              &:hover {
-                background-color: $app-table-body-row-highlight;
-              }
-
               .mat-cell {
                /*  .mat-icon {
                   font-size: calc(#{$app-mat-icon-size} - 3px);

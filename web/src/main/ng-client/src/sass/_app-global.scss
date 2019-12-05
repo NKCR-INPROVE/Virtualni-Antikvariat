@@ -108,6 +108,18 @@ app-results {
 // angular material table
 .mat-table {
 	width: 100%;
+
+	tbody {
+		.mat-row {
+			&.app-even {
+				background-color: $app-table-body-row-even;
+			}
+
+			&:hover {
+				background-color: $app-table-body-row-highlight;
+			}
+		}
+	}
 }
 
 // customize mat-button
