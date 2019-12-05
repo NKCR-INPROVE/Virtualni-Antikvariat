@@ -105,7 +105,7 @@
         </ng-container>
 
         <tr mat-header-row *matHeaderRowDef="displayedColumns; sticky: true"></tr>
-        <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+        <tr mat-row [ngClass]="{'app-even': index%2 == 1}" *matRowDef="let row; columns: displayedColumns; let index = index"></tr>
       </table>
     </div>
   </mat-card-content>
