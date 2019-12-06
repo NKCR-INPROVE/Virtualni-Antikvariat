@@ -207,6 +207,23 @@ public class IndexServlet extends HttpServlet {
         out.println(json.toString());
       }
     },
+    INDEXDOCOFFERS {
+      @Override
+      void doPerform(HttpServletRequest req, HttpServletResponse resp) throws Exception {
+        resp.setContentType("application/json");
+        PrintWriter out = resp.getWriter();
+        JSONObject json = new JSONObject();
+        try {
+          
+          Indexer indexer = new Indexer();
+          indexer.indexDocOffers(req.getParameter("code"));
+        } catch (Exception ex) {
+          LOGGER.log(Level.SEVERE, null, ex);
+          json.put("error", ex.toString());
+        }
+        out.println(json.toString());
+      }
+    },
     REMOVEOFFER {
       @Override
       void doPerform(HttpServletRequest req, HttpServletResponse resp) throws Exception {

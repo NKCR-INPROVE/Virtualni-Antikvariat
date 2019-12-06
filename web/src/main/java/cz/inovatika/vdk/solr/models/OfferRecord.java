@@ -29,16 +29,22 @@ public class OfferRecord {
   @Field
   public String doc_code;
   @Field
+  public String knihovna;
+  @Field
   public String zaznam;
   @Field
   public String exemplar;
   @Field
   public String fields;
+  @Field
+  public String[] chci;
+  @Field
+  public String[] nechci;
   
   public static OfferRecord fromJSON(JSONObject json) {
     OfferRecord ofr = JSON.parseObject(json.toString(), OfferRecord.class);
     if (ofr.id == null || ofr.id.trim().isEmpty()) {
-      ofr.id = MD5.generate(new String[]{ofr.offer_id, ofr.doc_code, ofr.zaznam, ofr.exemplar, ofr.fields});
+      ofr.id = MD5.generate(new String[]{ofr.offer_id, ofr.doc_code, ofr.knihovna, ofr.zaznam, ofr.exemplar, ofr.fields});
     }
     return ofr;
   }

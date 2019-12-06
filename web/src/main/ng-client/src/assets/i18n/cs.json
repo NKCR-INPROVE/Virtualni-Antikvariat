@@ -68,7 +68,9 @@
     "respond_to_offer_yes": "Reagovat na nabídku \"chci do fondu\"",
     "respond_to_offer_no": "Reagovat na nabídku \"nechci do fondu\"",
     "used_filters": "Nastavení filtru",
-    "complying": "Vyhovující"
+    "matches": "Vyhovující",
+    "filter_chci" : "Dokumenty označené jako \"chci do fondu\"",
+    "filter_matches" : "Dokumenty, které poptávám a nekdo nabízí"
   },
   "count": "Počet nalezených položek",
   "q.placeholder": "Hledej ve virtuální depozitní knihovně ...",

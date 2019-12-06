@@ -7,6 +7,6 @@ export class Filters {
     offers: boolean = null;
     demands: boolean = null;
     wanted: boolean = null;
-    complying: boolean = null;
+    matches: boolean = null;
 
 }

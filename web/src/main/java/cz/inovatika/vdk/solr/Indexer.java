@@ -34,6 +34,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Iterator;
@@ -134,7 +135,7 @@ public class Indexer {
       LOGGER.log(Level.SEVERE, "File {0} not found", InitServlet.CONFIG_DIR + File.separator + opts.getString("indexerXSL", "vdk_md5.xsl"));
       throw new FileNotFoundException();
     }
-    
+
     StreamSource xslt2;
     f = new File(InitServlet.CONFIG_DIR + File.separator + opts.getString("indexerIdXSL", "vdk_id.xsl"));
     if (f.exists()) {
@@ -184,7 +185,7 @@ public class Indexer {
   }
 
   private SolrInputDocument demandDoc(
-          String id, 
+          String id,
           String knihovna,
           String docCode,
           String zaznam,
@@ -206,12 +207,11 @@ public class Indexer {
 
     return doc;
   }
-  
-  public void indexAllDemands() throws Exception{
+
+  public void indexAllDemands() throws Exception {
     indexDemands("*");
   }
-  
-  
+
   private void indexDemands(String q) throws Exception {
 
     try (SolrClient client = new HttpSolrClient.Builder(String.format("%s/%s/",
@@ -234,13 +234,13 @@ public class Indexer {
         String nextCursorMark = rsp.getNextCursorMark();
         for (SolrDocument doc : rsp.getResults()) {
           idocs.add(demandDoc(
-                (String) doc.getFirstValue("id"),
-                (String) doc.getFirstValue("knihovna"),
-                (String) doc.getFirstValue("doc_code"),
-                (String) doc.getFirstValue("zaznam"),
-                (String) doc.getFirstValue("exemplar"),
-                "add"));
-        demandIndexed++;
+                  (String) doc.getFirstValue("id"),
+                  (String) doc.getFirstValue("knihovna"),
+                  (String) doc.getFirstValue("doc_code"),
+                  (String) doc.getFirstValue("zaznam"),
+                  (String) doc.getFirstValue("exemplar"),
+                  "add"));
+          demandIndexed++;
         }
         if (cursorMark.equals(nextCursorMark)) {
           done = true;
@@ -284,6 +284,21 @@ public class Indexer {
         server.add(doc);
       }
     }
+    server.commit();
+  }
+
+  public void indexWanted(String code, String knihovna, boolean wanted) throws Exception {
+
+    SolrInputDocument doc = new SolrInputDocument();
+    doc.addField("code", code);
+
+    if (wanted) {
+      addField(doc, "chci", knihovna, "add");
+    } else {
+      addField(doc, "nechci", knihovna, "add");
+    }
+    server.add(doc);
+
     server.commit();
   }
 
@@ -424,7 +439,7 @@ public class Indexer {
           String exemplar) throws Exception {
 
     server.add(demandDoc(
-            id, 
+            id,
             knihovna,
             docCode,
             zaznam,
@@ -476,9 +491,9 @@ public class Indexer {
           String docCode,
           String zaznam,
           String exemplar) throws Exception {
-    
+
     server.add(demandDoc(
-            id, 
+            id,
             knihovna,
             docCode,
             zaznam,
@@ -588,7 +603,7 @@ public class Indexer {
           String zaznamoffer_id,
           String zaznam,
           String knihovna,
-          String pr_knihovna,
+          Collection<Object> chci,
           String exemplar,
           String fields) {
     SolrInputDocument doc = new SolrInputDocument();
@@ -599,33 +614,35 @@ public class Indexer {
     addField(doc, "nabidka", offerid, "add");
     addField(doc, "nabidka_datum", datum, "add");
 
-    JSONObject nabidka_ext = new JSONObject();
     JSONObject nabidka_ext_n = new JSONObject();
-    nabidka_ext_n.put("zaznamOffer", zaznamoffer_id);
-    nabidka_ext_n.put("code", docCode);
+    nabidka_ext_n.put("id", zaznamoffer_id);
+    nabidka_ext_n.put("offer_id", offerid);
+    nabidka_ext_n.put("doc_code", docCode);
     nabidka_ext_n.put("zaznam", zaznam);
     nabidka_ext_n.put("knihovna", knihovna);
-    nabidka_ext_n.put("pr_knihovna", pr_knihovna);
+    // nabidka_ext_n.put("pr_knihovna", pr_knihovna);
     nabidka_ext_n.put("ex", exemplar);
     nabidka_ext_n.put("datum", datum);
     if (fields != null) {
       nabidka_ext_n.put("fields", new JSONObject(fields));
     }
-    nabidka_ext.put("" + offerid, nabidka_ext_n);
+    if (fields != null) {
+      nabidka_ext_n.put("chci", new JSONObject(fields));
+    }
 
-    addField(doc, "nabidka_ext", nabidka_ext.toString(), "add");
+    addField(doc, "nabidka_ext", nabidka_ext_n.toString(), "add");
 
-    if (pr_knihovna != null) {
-      addField(doc, "chci", pr_knihovna, "add");
+    if (chci != null) {
+      addField(doc, "chci", chci.toArray(), "add");
     }
 
     return doc;
   }
-  
+
   public void indexOffer(String id) throws Exception {
     indexOffers("offer_id:" + id);
   }
-  
+
   public void indexDocOffers(String uniqueCode) throws Exception {
     removeDocOffers(uniqueCode);
     indexOffers("doc_code:" + uniqueCode);
@@ -657,14 +674,14 @@ public class Indexer {
         String nextCursorMark = rsp.getNextCursorMark();
         for (SolrDocument doc : rsp.getResults()) {
           idocs.add(offerDoc((String) doc.getFirstValue("offer_id"),
-                (String) doc.getFirstValue("datum"),
-                (String) doc.getFirstValue("doc_code"),
-                (String) doc.getFirstValue("id"),
-                (String) doc.getFirstValue("zaznam"),
-                (String) doc.getFirstValue("knihovna"),
-                (String) doc.getFirstValue("pr_knihovna"),
-                (String) doc.getFirstValue("exemplar"),
-                (String) doc.getFirstValue("fields")));
+                  (String) doc.getFirstValue("datum"),
+                  (String) doc.getFirstValue("doc_code"),
+                  (String) doc.getFirstValue("id"),
+                  (String) doc.getFirstValue("zaznam"),
+                  (String) doc.getFirstValue("knihovna"),
+                  doc.getFieldValues("chci"),
+                  (String) doc.getFirstValue("exemplar"),
+                  (String) doc.getFirstValue("fields")));
           offerIndexed++;
         }
         if (cursorMark.equals(nextCursorMark)) {

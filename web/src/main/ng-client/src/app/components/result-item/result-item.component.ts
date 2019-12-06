@@ -10,6 +10,7 @@ import { CsvComponent } from '../csv/csv.component';
 import { MatDialog, MatSnackBar } from '@angular/material';
 import { AppConfiguration } from 'src/app/app-configuration';
 import { AddToOfferDialogComponent } from '../add-to-offer-dialog/add-to-offer-dialog.component';
+import { Offer } from 'src/app/models/offer';
 
 @Component({
   selector: 'app-result-item',
@@ -149,6 +150,11 @@ export class ResultItemComponent implements OnInit, OnDestroy {
     record.knihovna = this.state.user.code;
     record.doc_code = this.doc.code;
     record.title = this.doc.title[0];
+    if (ex) {
+      record.exemplar = ex.md5;
+      record.zaznam = ex.id;
+      // record.fields = ex.
+    }
     const dialogRef = this.dialog.open(AddToOfferDialogComponent, {
       width: '500px',
       data: record
@@ -205,14 +211,15 @@ export class ResultItemComponent implements OnInit, OnDestroy {
     return this.config.standardSources.includes(zdroj);
   }
 
-  getOfferUser(): string[] {
-    const ids: string[] = this.doc.nabidka;
-    const rets = [];
-    ids.forEach(id => {
-      const o = this.state.offers.find(offer => offer.id === id);
-      rets.push(o ? o.knihovna : id);
+  getOfferUser(id: string): string {
+    let code = id;
+
+    this.doc.nabidka_ext.forEach((offer: OfferRecord) => {
+      if (offer.offer_id === id) {
+        code = offer.knihovna;
+      }
     });
-    return rets;
+    return code;
   }
 
   belongUser(ex: Exemplar): boolean {
@@ -239,10 +246,26 @@ export class ResultItemComponent implements OnInit, OnDestroy {
     return this.doc.poptavka && this.doc.poptavka.includes(this.state.user.code);
   }
 
-  addWanted(want: boolean) {
+  addWanted(offer: OfferRecord, want: boolean) {
+    
     if (want) {
-      
+      if (!offer.chci) {
+        offer.chci = [];
+      }
+      offer.chci.push(this.state.user.code);
+    } else {
+      if (!offer.nechci) {
+        offer.nechci = [];
+      }
+      offer.nechci.push(this.state.user.code);
+
     }
+    this.service.addToOffer(offer).subscribe(resp => {
+      this.snackBar.open(this.service.getTranslation('reaction'), '', {
+        duration: 2000,
+        verticalPosition: 'top'
+      });
+    })
   }
 
   toggleStatus(status: string) {

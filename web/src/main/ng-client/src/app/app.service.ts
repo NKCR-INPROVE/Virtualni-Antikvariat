@@ -14,6 +14,7 @@ import { User } from './models/user';
 import { View } from './models/view';
 import { Demand } from './models/demand';
 import { OfferRecord } from './models/offer-record';
+import { Offer } from './models/offer';
 
 @Injectable({
   providedIn: 'root'
@@ -40,6 +41,10 @@ export class AppService {
     this.translate.use(lang).subscribe(val => {
       this.langSubject.next(lang);
     });
+  }
+
+  getTranslation(s: string): string {
+    return this.translate.instant(s);
   }
 
   // public get currentLangValue(): string {
@@ -105,7 +110,14 @@ export class AppService {
   addToOffer(offer: OfferRecord) {
     return this.http.post<any>(`/api/offers/addrecord`, offer)
     .pipe(map(resp => {
-      return resp.docs;
+      return resp;
+    }));
+  }
+
+  addOffer(offer: Offer) {
+    return this.http.post<any>(`/api/offers/add`, offer)
+    .pipe(map(resp => {
+      return resp;
     }));
   }
 

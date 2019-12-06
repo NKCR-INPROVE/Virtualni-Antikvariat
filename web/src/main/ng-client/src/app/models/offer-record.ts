@@ -4,5 +4,9 @@ export class OfferRecord {
   title: string;
   doc_code: string;
   knihovna: string;
+  exemplar: string;
+  zaznam: string;
   fields: string;
+  chci: string[];
+  nechci: string[];
 }

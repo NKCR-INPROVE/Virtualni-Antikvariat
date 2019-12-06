@@ -68,7 +68,9 @@
     "respond_to_offer_yes": "Respond to the offer \"I want to fund\"",
     "respond_to_offer_no": "Respond to the offer \"I do not want to fund\"",
     "used_filters": "Used filters",
-    "complying": "Complying"
+    "matches": "Complying",
+    "filter_chci" : "Dokumenty označené jako \"chci do fondu\"",
+    "filter_matches" : "Dokumenty, které poptávám a nekdo nabízí"
   },
   "count": "Count of search results",
   "q.placeholder": "Search in virtual depoiste library ...",

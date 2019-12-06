@@ -101,7 +101,7 @@ public class SolrSearcher {
       query.set("q.op", "AND");
       query.setFacet(true);
       query.set("json.nl", "arrntv"); 
-      query.setFields("*", "ex:[json]", "author:[json]", "poptavka_ext:[json]"  ); 
+      query.setFields("*", "ex:[json]", "author:[json]", "poptavka_ext:[json]", "nabidka_ext:[json]" ); 
       
       query.setStart(getStart());
       query.setRows(getRows());
@@ -232,7 +232,7 @@ public class SolrSearcher {
       query.addFilterQuery("bohemika:" + req.getParameter("bohemika"));
     }
 
-    if (req.getParameter("onlyMatches") != null) {
+    if (req.getParameter("matches") != null) {
       query.addFilterQuery("nabidka:[* TO *]");
       query.addFilterQuery("poptavka:" + UsersController.toKnihovna(req).getCode());
       hasFilters = true;

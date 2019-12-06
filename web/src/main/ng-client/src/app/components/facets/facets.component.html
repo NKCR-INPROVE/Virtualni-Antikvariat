@@ -14,7 +14,7 @@
 
   <ng-container *ngIf="state.user">
     <h3 mat-subheader>
-      {{ 'desc.complying' | translate }}
+      {{ 'desc.matches' | translate }}
     </h3>
     <mat-list-item>
       <ng-container>
@@ -35,16 +35,16 @@
     <mat-list-item>
       <ng-container>
         <mat-icon *ngIf="filters.wanted" class="app-cursor-pointer active">check_circle</mat-icon>
-        <h4 mat-line>
+        <h4 mat-line [matTooltip]="'desc.filter_chci' | translate">
           <a (click)="toggleWanted()">{{ 'desc.offer_yes' | translate }}</a>
         </h4>
       </ng-container>
     </mat-list-item>
     <mat-list-item>
       <ng-container>
-        <mat-icon *ngIf="filters.complying" class="app-cursor-pointer active">check_circle</mat-icon>
-        <h4 mat-line>
-          <a (click)="toggleComplying()">{{ 'desc.complying' | translate }}</a>
+        <mat-icon *ngIf="filters.matches" class="app-cursor-pointer active">check_circle</mat-icon>
+        <h4 mat-line [matTooltip]="'desc.filter_matches' | translate">
+          <a (click)="toggleMatches()">{{ 'desc.matches' | translate }}</a>
         </h4>
       </ng-container>
     </mat-list-item>

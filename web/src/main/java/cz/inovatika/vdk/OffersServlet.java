@@ -115,11 +115,12 @@ public class OffersServlet extends HttpServlet {
 
           JSON.DEFFAULT_DATE_FORMAT = "yyyy-MM-dd'T'HH:mm:ss.SSS'Z'";
           Offer offer = Offer.fromJSON(json);
-
-          return new JSONObject(SolrIndexerCommiter
-                  .indexJSON(new JSONObject(JSON.toJSONString(offer, SerializerFeature.WriteDateUseDateFormat)), "offersCore"));
+          jo = new JSONObject(JSON.toJSONString(offer, SerializerFeature.WriteDateUseDateFormat));
+          SolrIndexerCommiter
+                  .indexJSON(jo, "offersCore");
 
         } catch (Exception ex) {
+          LOGGER.log(Level.SEVERE, null, ex);
           jo.put("error", ex.toString());
         }
         return jo;
@@ -155,6 +156,43 @@ public class OffersServlet extends HttpServlet {
 
       }
     },
+    ADDWANTED {
+      @Override
+      JSONObject doPerform(HttpServletRequest req, HttpServletResponse response) throws Exception {
+        
+        /*
+        Add to offers record field wanted new code
+        req.getParameter("id") id of the offerrecord
+        req.getParameter("knihovna") the library code who wants
+        */   
+
+        JSONObject jo = new JSONObject();
+        try {
+          JSONObject json;
+          if (req.getMethod().equals("POST")) {
+            String js = IOUtils.toString(req.getInputStream(), "UTF-8");
+            json = new JSONObject(js);
+          } else {
+            json = new JSONObject(req.getParameter("json"));
+          }
+          OfferRecord or = OfferRecord.fromJSON(json);
+          JSONObject ret = new JSONObject(SolrIndexerCommiter.indexJSON(new JSONObject(JSON.toJSONString(or)), "offersCore"));
+          
+//          Indexer indexer = new Indexer();
+//          indexer.indexWanted(or.doc_code,
+//                  UsersController.toKnihovna(req).getCode(),
+//                  or.chci);
+          return ret;
+          
+          
+        } catch (Exception ex) {
+          LOGGER.log(Level.SEVERE, null, ex);
+          jo.put("error", ex.toString());
+        }
+        return jo;
+
+      }
+    },
     ALL {
       @Override
       JSONObject doPerform(HttpServletRequest req, HttpServletResponse response) throws Exception {
@@ -164,9 +202,9 @@ public class OffersServlet extends HttpServlet {
           Options opts = Options.getInstance();
           SolrQuery query = new SolrQuery("*");
           User user = UsersController.toKnihovna(req);
-          if(user != null) {
-            query.addFilterQuery("knihovna:" + user.getCode());
-          }
+//          if(user != null) {
+//            query.addFilterQuery("knihovna:" + user.getCode());
+//          }
           query.addFilterQuery("content_type:offer");
           query.setRows(1000);
           query.set("wt", "json");

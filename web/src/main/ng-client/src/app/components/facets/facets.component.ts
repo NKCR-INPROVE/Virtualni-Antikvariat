@@ -160,8 +160,8 @@ this.search();
   }
 
 
-  toggleComplying() {
-    this.filters.complying ? this.filters.complying = null : this.filters.complying = true;
+  toggleMatches() {
+    this.filters.matches ? this.filters.matches = null : this.filters.matches = true;
     this.search();
   }
 
