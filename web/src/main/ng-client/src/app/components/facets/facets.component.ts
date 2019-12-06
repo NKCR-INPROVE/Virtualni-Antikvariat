@@ -32,7 +32,6 @@ export class FacetsComponent implements OnInit, OnDestroy {
     public state: AppState) { }
 
   ngOnInit() {
-    // console.log(this.config.facets);
     this.subscriptions.push(this.state.facets.subscribe(f => {
       this.fields = Object.keys(f);
       this.facets = Object.assign({}, f);
@@ -100,7 +99,6 @@ export class FacetsComponent implements OnInit, OnDestroy {
   }
 
   toggleZdrojFilter(f: Facet) {
-    console.log(this.filters, f);
     if (this.filters.zdroj.includes(f.name)) {
       this.filters.zdroj = this.filters.zdroj.filter(z => z !== f.name);
     } else if (this.filters.zdroj.includes('-' + f.name)) {
@@ -137,7 +135,6 @@ export class FacetsComponent implements OnInit, OnDestroy {
 
   search() {
     const queryParams = Object.assign({}, { ...this.searchParams, ...this.advParams, ...this.filters });
-    console.log(queryParams);
     this.router.navigate(['/results'], { queryParams });
   }
 
@@ -147,21 +144,25 @@ export class FacetsComponent implements OnInit, OnDestroy {
   }
 
   toggleOffers() {
-
+this.filters.offers ? this.filters.offers = null : this.filters.offers = true;
+this.search();
   }
 
-  togglDemands() {
-
+  toggleDemands() {
+    this.filters.demands ? this.filters.demands = null : this.filters.demands = true;
+    this.search();
   }
 
 
-  togglWanted() {
-
+  toggleWanted() {
+    this.filters.wanted ? this.filters.wanted = null : this.filters.wanted = true;
+    this.search();
   }
 
 
   toggleComplying() {
-
+    this.filters.complying ? this.filters.complying = null : this.filters.complying = true;
+    this.search();
   }
 
 

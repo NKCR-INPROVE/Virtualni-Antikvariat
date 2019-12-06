@@ -238,16 +238,16 @@ public class SolrSearcher {
       hasFilters = true;
     }
 
-    if (req.getParameter("onlyOffers") != null) {
-      if (UsersController.isLogged(req)) {
-        Date d = new Date();
-        User kn = UsersController.toKnihovna(req);
-        int exp = Options.getInstance().getInt("expirationDays", 7);
-        int from_days = kn.getPriorita() * exp;
-        int to_days = (kn.getPriorita() - 1) * exp;
-        query.addFilterQuery("nabidka_datum:[NOW-" + from_days + "DAYS TO NOW-" + to_days + "DAYS]");
-
-      }
+    if (req.getParameter("offers") != null) {
+//      if (UsersController.isLogged(req)) {
+//        Date d = new Date();
+//        User kn = UsersController.toKnihovna(req);
+//        int exp = Options.getInstance().getInt("expirationDays", 7);
+//        int from_days = kn.getPriorita() * exp;
+//        int to_days = (kn.getPriorita() - 1) * exp;
+//        query.addFilterQuery("nabidka_datum:[NOW-" + from_days + "DAYS TO NOW-" + to_days + "DAYS]");
+//
+//      }
       query.addFilterQuery("nabidka:[* TO *]");
       hasFilters = true;
     }
@@ -259,7 +259,7 @@ public class SolrSearcher {
       hasFilters = true;
     }
 
-    if (req.getParameter("onlyDemands") != null) {
+    if (req.getParameter("demands") != null) {
       query.addFilterQuery("poptavka:[* TO *]");
       hasFilters = true;
     }

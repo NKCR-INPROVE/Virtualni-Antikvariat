@@ -167,6 +167,8 @@ public class OffersServlet extends HttpServlet {
           if(user != null) {
             query.addFilterQuery("knihovna:" + user.getCode());
           }
+          query.addFilterQuery("content_type:offer");
+          query.setRows(1000);
           query.set("wt", "json");
           query.setFields("*,fields:[json]");
           try (HttpSolrClient client = new HttpSolrClient.Builder("http://localhost:8983/solr").build()) {

@@ -216,23 +216,33 @@ export class ResultItemComponent implements OnInit, OnDestroy {
   }
 
   belongUser(ex: Exemplar): boolean {
+    if (!this.state.user) {
+      return false;
+    }
     const o = this.doc.ex.find(exe => ex.id === exe.id && ex.knihovna === this.state.user.code);
     return o;
   }
 
   userHasDoc(): boolean {
+    if (!this.state.user) {
+      return false;
+    }
     const kn = this.state.user.code === 'NKP' ? 'UKF' : this.state.user.code;
-
     return this.doc.zdroj.includes(kn);
 
   }
 
   hasDemand(): boolean {
+    if (!this.state.user) {
+      return false;
+    }
     return this.doc.poptavka && this.doc.poptavka.includes(this.state.user.code);
   }
 
   addWanted(want: boolean) {
-
+    if (want) {
+      
+    }
   }
 
   toggleStatus(status: string) {

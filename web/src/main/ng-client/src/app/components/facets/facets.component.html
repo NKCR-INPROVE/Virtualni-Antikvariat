@@ -26,7 +26,7 @@
     </mat-list-item>
     <mat-list-item>
       <ng-container>
-        <mat-icon *ngIf="1>0" class="app-cursor-pointer active">check_circle</mat-icon>
+        <mat-icon *ngIf="filters.demands" class="app-cursor-pointer active">check_circle</mat-icon>
         <h4 mat-line>
           <a (click)="toggleDemands()">{{ 'desc.demands' | translate }}</a>
         </h4>
@@ -34,7 +34,7 @@
     </mat-list-item>
     <mat-list-item>
       <ng-container>
-        <mat-icon *ngIf="filters.offers" class="app-cursor-pointer active">check_circle</mat-icon>
+        <mat-icon *ngIf="filters.wanted" class="app-cursor-pointer active">check_circle</mat-icon>
         <h4 mat-line>
           <a (click)="toggleWanted()">{{ 'desc.offer_yes' | translate }}</a>
         </h4>
@@ -42,7 +42,7 @@
     </mat-list-item>
     <mat-list-item>
       <ng-container>
-        <mat-icon *ngIf="filters.offers" class="app-cursor-pointer active">check_circle</mat-icon>
+        <mat-icon *ngIf="filters.complying" class="app-cursor-pointer active">check_circle</mat-icon>
         <h4 mat-line>
           <a (click)="toggleComplying()">{{ 'desc.complying' | translate }}</a>
         </h4>
