@@ -21,7 +21,6 @@ export class ResultItemComponent implements OnInit, OnDestroy {
   private overlayRef: OverlayRef;
   @Input() doc;
 
-
   displayedColumns = ['zdroj', 'signatura', 'status', 'dilciKnih', 'rocnik_svazek', 'cislo', 'rok', 'buttons'];
 
   exemplars: Exemplar[];
@@ -41,7 +40,6 @@ export class ResultItemComponent implements OnInit, OnDestroy {
 
   constructor(
     public dialog: MatDialog,
-    private snackBar: MatSnackBar,
     private overlay: Overlay,
     private viewContainerRef: ViewContainerRef,
     private config: AppConfiguration,
@@ -180,10 +178,7 @@ export class ResultItemComponent implements OnInit, OnDestroy {
       demand.exemplar = ex.md5;
     }
     this.service.addToDemands(demand).subscribe(resp => {
-      this.snackBar.open('Doc added to demands', '', {
-        duration: 2000,
-        verticalPosition: 'top'
-      });
+      this.service.showSnackBar('demands.doc_added_success');
     });
   }
 
@@ -192,10 +187,7 @@ export class ResultItemComponent implements OnInit, OnDestroy {
     console.log(demand);
 
     this.service.removeFromDemands(demand).subscribe(resp => {
-      this.snackBar.open('Doc removed from demands', '', {
-        duration: 2000,
-        verticalPosition: 'top'
-      });
+      this.service.showSnackBar('demands.doc_removed_success');
     });
   }
 
@@ -247,7 +239,7 @@ export class ResultItemComponent implements OnInit, OnDestroy {
   }
 
   addWanted(offer: OfferRecord, want: boolean) {
-    
+
     if (want) {
       if (!offer.chci) {
         offer.chci = [];
@@ -258,14 +250,11 @@ export class ResultItemComponent implements OnInit, OnDestroy {
         offer.nechci = [];
       }
       offer.nechci.push(this.state.user.code);
-
     }
+
     this.service.addToOffer(offer).subscribe(resp => {
-      this.snackBar.open(this.service.getTranslation('reaction'), '', {
-        duration: 2000,
-        verticalPosition: 'top'
-      });
-    })
+      this.service.showSnackBar('reaction', '');
+    });
   }
 
   toggleStatus(status: string) {

@@ -15,6 +15,7 @@ import { View } from './models/view';
 import { Demand } from './models/demand';
 import { OfferRecord } from './models/offer-record';
 import { Offer } from './models/offer';
+import { MatSnackBar } from '@angular/material';
 
 @Injectable({
   providedIn: 'root'
@@ -31,8 +32,18 @@ export class AppService {
     private translate: TranslateService,
     private http: HttpClient,
     private router: Router,
+    private snackBar: MatSnackBar,
     private datePipe: DatePipe) {
 
+  }
+
+  showSnackBar(s: string, r: string = '', p: string = '') {
+
+    this.snackBar.open(this.getTranslation(s), r, {
+      duration: 2000,
+      verticalPosition: 'top',
+      panelClass: p
+    });
   }
 
   changeLang(lang: string) {
@@ -72,53 +83,53 @@ export class AppService {
 
   getDemands() {
     return this.http.get<any>(`/api/demands/all`)
-    .pipe(map(resp => {
-      return resp.docs;
-    }));
+      .pipe(map(resp => {
+        return resp.docs;
+      }));
   }
 
   addToDemands(demand: Demand) {
     return this.http.post<any>(`/api/demands/add`, demand)
-    .pipe(map(resp => {
-      return resp.docs;
-    }));
+      .pipe(map(resp => {
+        return resp.docs;
+      }));
   }
 
   removeFromDemands(demand: Demand) {
     return this.http.post<any>(`/api/demands/remove`, demand)
-    .pipe(map(resp => {
-      return resp;
-    }));
+      .pipe(map(resp => {
+        return resp;
+      }));
   }
 
   getOffers() {
     return this.http.get<any>(`/api/offers/all`)
-    .pipe(map(resp => {
-      this.state.setOffers(resp.docs);
-      return resp.docs;
-    }));
+      .pipe(map(resp => {
+        this.state.setOffers(resp.docs);
+        return resp.docs;
+      }));
   }
 
   getOffer(id: string) {
     const params: HttpParams = new HttpParams().set('id', id);
-    return this.http.get<any>(`/api/offers/byid`, {params})
-    .pipe(map(resp => {
-      return resp.docs;
-    }));
+    return this.http.get<any>(`/api/offers/byid`, { params })
+      .pipe(map(resp => {
+        return resp.docs;
+      }));
   }
 
   addToOffer(offer: OfferRecord) {
     return this.http.post<any>(`/api/offers/addrecord`, offer)
-    .pipe(map(resp => {
-      return resp;
-    }));
+      .pipe(map(resp => {
+        return resp;
+      }));
   }
 
   addOffer(offer: Offer) {
     return this.http.post<any>(`/api/offers/add`, offer)
-    .pipe(map(resp => {
-      return resp;
-    }));
+      .pipe(map(resp => {
+        return resp;
+      }));
   }
 
 

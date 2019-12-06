@@ -15,7 +15,6 @@ export class AddToOfferDialogComponent implements OnInit {
   constructor(
     public dialogRef: MatDialogRef<AddToOfferDialogComponent>,
     @Inject(MAT_DIALOG_DATA) public data: OfferRecord,
-    private snackBar: MatSnackBar,
     public state: AppState,
     private service: AppService
   ) { }
@@ -27,10 +26,12 @@ export class AddToOfferDialogComponent implements OnInit {
 
     this.data.offer_id = id;
     this.service.addToOffer(this.data).subscribe(resp => {
-      this.snackBar.open('Doc added to offer', title, {
-        duration: 2000,
-        verticalPosition : 'top'
-      });
+      if (resp.error) {
+        this.service.showSnackBar('offer.add_error', '', 'app-color-red');
+      } else {
+        this.state.offers.push(resp);
+        this.service.showSnackBar('offer.add_success', '', 'app-color-green');
+      }
       this.dialogRef.close('');
     });
   }

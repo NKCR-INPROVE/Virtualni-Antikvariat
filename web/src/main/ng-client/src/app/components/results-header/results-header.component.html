@@ -2,5 +2,6 @@
 <!--   <span [innerHTML]="'result_header.found_count' | translate:{number:resultsHeader.numFound}"></span> -->
 <mat-paginator [length]="resultsHeader.numFound"
   [pageSize]="resultsHeader.rows"
-  [pageSizeOptions]="[5, 10, 25, 100]">
+  [pageSizeOptions]="[5, 10, 25, 100]"
+  (page)="onPage($event)">
 </mat-paginator>

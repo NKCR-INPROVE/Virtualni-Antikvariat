@@ -16,12 +16,10 @@
  */
 package cz.inovatika.vdk.solr;
 
-import cz.inovatika.vdk.solr.models.User;
 import cz.inovatika.vdk.UsersController;
 import cz.inovatika.vdk.Options;
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;
-import java.util.Date;
 import java.util.Iterator;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -346,7 +344,7 @@ public class SolrSearcher {
       }
       return Integer.parseInt(rows);
     } else {
-      String rows = req.getParameter("hits");
+      String rows = req.getParameter("rows");
       if (rows == null || rows.equals("")) {
         rows = "40";
       }

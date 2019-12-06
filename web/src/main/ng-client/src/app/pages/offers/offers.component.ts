@@ -26,7 +26,6 @@ export class OffersComponent implements OnInit {
 
   constructor(
     public dialog: MatDialog,
-    private snackBar: MatSnackBar,
     private service: AppService,
     private state: AppState) { }
 
@@ -68,19 +67,11 @@ export class OffersComponent implements OnInit {
         offer.created = formatDate(new Date(), 'yyyy-MM-dd\'T\'HH:mm:ss.SSS\'Z\'', 'cs');
         this.service.addOffer(offer).subscribe(resp => {
           if (resp.error) {
-            this.snackBar.open(this.service.getTranslation('Error_adding_offer'), '', {
-              duration: 2000,
-              verticalPosition: 'top',
-              panelClass: 'app-color-red'
-            });
+            this.service.showSnackBar('offer.add_error', '', 'app-color-red');
           } else {
             this.state.offers.push(resp);
             this.offers.push(resp);
-            this.snackBar.open(this.service.getTranslation('offer_added'), '', {
-              duration: 2000,
-              verticalPosition: 'top',
-              panelClass: 'app-color-green'
-            });
+            this.service.showSnackBar('offer.add_success', '', 'app-color-green');
           }
         });
       }
