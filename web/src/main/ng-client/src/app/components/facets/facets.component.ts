@@ -134,6 +134,7 @@ export class FacetsComponent implements OnInit, OnDestroy {
   }
 
   search() {
+    this.searchParams.offset = 0;
     const queryParams = Object.assign({}, { ...this.searchParams, ...this.advParams, ...this.filters });
     this.router.navigate(['/results'], { queryParams });
   }

@@ -13,6 +13,7 @@ export class SearchFormComponent implements OnInit {
 
   searchParams: SearchParams = new SearchParams();
   advParams: AdvancedParams = new AdvancedParams();
+  hasAdvanced: boolean;
 
   constructor(
     public dialog: MatDialog,
@@ -31,15 +32,20 @@ export class SearchFormComponent implements OnInit {
   setParams() {
     Utils.sanitize(this.route.snapshot.queryParams, this.searchParams);
     Utils.sanitize(this.route.snapshot.queryParams, this.advParams);
+    console.log(Object.values(this.advParams));
+    this.hasAdvanced = ! (Object.values(this.advParams).every(k => k === null));
+    console.log(this.hasAdvanced);
   }
 
   search() {
+    this.searchParams.offset = 0;
     const params = { ...this.searchParams, ...this.advParams };
     this.router.navigate(['/results'], { queryParams: params });
   }
 
   clearQuery() {
     this.searchParams.q = null;
+    this.advParams = new AdvancedParams();
     this.search();
   }
 
@@ -59,9 +65,10 @@ export class SearchFormComponent implements OnInit {
     });
 
     dialogRef.afterClosed().subscribe(result => {
-      console.log('The dialog was closed');
       if (result) {
+        this.advParams = new AdvancedParams();
         Utils.sanitize(result, this.advParams);
+        this.search();
       }
     });
   }
@@ -81,9 +88,13 @@ export class AdvancedSearchDialog {
     public dialogRef: MatDialogRef<AdvancedSearchDialog>,
     @Inject(MAT_DIALOG_DATA) public data: AdvancedParams) { }
 
-  onNoClick(): void {
-    this.dialogRef.close();
-  }
+    onNoClick(): void {
+      this.dialogRef.close();
+    }
+
+    reset(): void {
+      this.data = new AdvancedParams();
+    }
 
 
 }

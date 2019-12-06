@@ -1,13 +1,13 @@
 <h2 mat-dialog-title>{{'Advanced search' | translate}}</h2>
 <mat-dialog-content class="mat-typography">
 	<mat-form-field>
-		<input matInput [(ngModel)]="data.nazev" [placeholder]="'název' | translate" cdkFocusInitial />
+		<input matInput [(ngModel)]="data.title" [placeholder]="'název' | translate" cdkFocusInitial />
 	</mat-form-field>
 	<mat-form-field>
-		<input matInput [(ngModel)]="data.autor" [placeholder]="'autor' | translate" />
+		<input matInput [(ngModel)]="data.author" [placeholder]="'autor' | translate" />
 	</mat-form-field>
 	<mat-form-field>
-		<input matInput [(ngModel)]="data.rokVydani" [placeholder]="'rok vydání' | translate" />
+		<input matInput [(ngModel)]="data.rok" [placeholder]="'rok vydání' | translate" />
 	</mat-form-field>
 	<mat-form-field>
 		<input matInput [(ngModel)]="data.isbn" [placeholder]="'isbn' | translate" />
@@ -23,6 +23,7 @@
 	</mat-form-field>
 </mat-dialog-content>
 <mat-dialog-actions align="end">
-  <button mat-button mat-dialog-close>Cancel</button>
+		<button mat-button (click)="reset()">Reset</button>
+		<button mat-button mat-dialog-close>Cancel</button>
   <button mat-button [mat-dialog-close]="data">OK</button>
 </mat-dialog-actions>

@@ -5,9 +5,9 @@ export class SearchParams {
 }
 
 export class AdvancedParams {
-  nazev: string = null;
-  autor: string = null;
-  rokVydani: string = null;
+  title: string = null;
+  author: string = null;
+  rok: string = null;
   isbn: string = null;
   issn: string = null;
   ccnb: string = null;

@@ -182,7 +182,7 @@ export class ResultItemComponent implements OnInit, OnDestroy {
     });
   }
 
-  removeFromDemands() {
+  removeFromDemands(ex?: Exemplar) {
     const demand: Demand = this.doc.poptavka_ext.find(d => this.state.user.code === d.knihovna);
     console.log(demand);
 

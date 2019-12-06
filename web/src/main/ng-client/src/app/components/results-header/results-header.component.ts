@@ -9,7 +9,7 @@ import { Params, Router, ActivatedRoute } from '@angular/router';
   styleUrls: ['./results-header.component.scss']
 })
 export class ResultsHeaderComponent implements OnInit {
-  
+
   @Input() resultsHeader: ResultsHeader;
   @Input() params: Params;
 
@@ -24,7 +24,7 @@ export class ResultsHeaderComponent implements OnInit {
   }
 
   onPage(e: PageEvent) {
-    const queryParams = {rows: e.pageSize, offset: e.pageIndex};
+    const queryParams = { rows: e.pageSize, offset: e.pageIndex * e.pageSize };
     this.router.navigate([],
       {
         relativeTo: this.route,

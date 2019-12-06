@@ -56,6 +56,7 @@ import javax.xml.transform.dom.DOMSource;
 import javax.xml.transform.stream.StreamResult;
 import javax.xml.transform.stream.StreamSource;
 import org.apache.commons.io.FileUtils;
+import org.apache.commons.io.IOUtils;
 import org.apache.solr.client.solrj.SolrQuery;
 import org.apache.solr.client.solrj.SolrClient;
 import org.apache.solr.client.solrj.SolrQuery.SortClause;
@@ -92,6 +93,7 @@ public class Indexer {
   private final VDKJobData jobData;
   String configFile;
   Transformer transformer;
+  Transformer trRemove;
   Transformer trId;
 
   SimpleDateFormat sdf;
@@ -135,7 +137,19 @@ public class Indexer {
       LOGGER.log(Level.SEVERE, "File {0} not found", InitServlet.CONFIG_DIR + File.separator + opts.getString("indexerXSL", "vdk_md5.xsl"));
       throw new FileNotFoundException();
     }
-
+    
+    f = new File(InitServlet.CONFIG_DIR + File.separator + opts.getString("indexerRemoveXSL", "vdk_md5_remove.xsl"));
+    if (f.exists()) {
+      xslt = new StreamSource(f);
+    } else {
+      xslt = new StreamSource(Options.class.getResourceAsStream("vdk_md5_remove.xsl"));
+    }
+    trRemove = tfactory.newTransformer(xslt);
+    if (trRemove == null) {
+      LOGGER.log(Level.SEVERE, "File {0} not found", "vdk_md5_remove.xsl");
+      throw new FileNotFoundException();
+    }
+    
     StreamSource xslt2;
     f = new File(InitServlet.CONFIG_DIR + File.separator + opts.getString("indexerIdXSL", "vdk_id.xsl"));
     if (f.exists()) {
@@ -718,6 +732,19 @@ public class Indexer {
     }
   }
 
+  public void reindexDocByCode(String code) throws Exception {
+    LOGGER.log(Level.INFO, "----- Reindexing doc {0} ...", code);
+    
+    
+        LOGGER.log(Level.INFO, "Cleaning doc {0} from index...", code);
+        String s = "<delete><query>code:" + code + "</query></delete>";
+        SolrIndexerCommiter.postData(s);
+        indexDoc(code);
+        SolrIndexerCommiter.postData("<commit/>");
+        
+
+  }
+
   public void reindexDoc(String uniqueCode, String identifier) throws Exception {
 
     String oldUniqueCode;
@@ -820,7 +847,7 @@ public class Indexer {
       SolrDocumentList docs = IndexerQuery.query(opts.getString("solrIdCore", "vdk_id"), query);
       Iterator<SolrDocument> iter = docs.iterator();
       while (iter.hasNext()) {
-        if (jobData.isInterrupted()) {
+        if (jobData != null && jobData.isInterrupted()) {
           LOGGER.log(Level.INFO, "INDEXER INTERRUPTED");
           break;
         }
@@ -832,6 +859,9 @@ public class Indexer {
         } else {
           bohemika = Bohemika.isBohemika((String) resultDoc.getFieldValue("xml"));
         }
+
+        sb.append(removeXML((String) resultDoc.getFieldValue("xml"),
+                uniqueCode));
 
         sb.append(transformXML((String) resultDoc.getFieldValue("xml"),
                 uniqueCode,
@@ -1089,6 +1119,9 @@ public class Indexer {
             bohemika = Bohemika.isBohemika(doc.getString("xml"));
           }
 
+          sb.append(removeXML((String) doc.optString("xml", ""),
+                  doc.getString("code")));
+
           sb.append(transformXML((String) doc.optString("xml", ""),
                   doc.getString("code"),
                   (String) doc.getString("code_type"),
@@ -1134,13 +1167,13 @@ public class Indexer {
     SolrIndexerCommiter.postData(sw.toString());
   }
 
-  public void processXML(Document doc) throws Exception {
-    LOGGER.log(Level.FINE, "Sending to index ...");
-    StreamResult destStream = new StreamResult(new StringWriter());
-    transformer.transform(new DOMSource(doc), destStream);
-    StringWriter sw = (StringWriter) destStream.getWriter();
-    SolrIndexerCommiter.postData(sw.toString());
-  }
+//  public void processXML(Document doc) throws Exception {
+//    LOGGER.log(Level.FINE, "Sending to index ...");
+//    StreamResult destStream = new StreamResult(new StringWriter());
+//    transformer.transform(new DOMSource(doc), destStream);
+//    StringWriter sw = (StringWriter) destStream.getWriter();
+//    SolrIndexerCommiter.postData(sw.toString());
+//  }
 
   private String doSorlXML(String xml, String uniqueCode, String codeType, String identifier, boolean bohemika) throws Exception {
     LOGGER.log(Level.FINE, "Transforming {0} ...", identifier);
@@ -1166,16 +1199,27 @@ public class Indexer {
     return sw.toString();
   }
 
-  public void processXML(String xml, String uniqueCode, String codeType, String identifier, boolean bohemika) throws Exception {
-    LOGGER.log(Level.FINE, "Transforming {0} ...", identifier);
+  private String removeXML(String xml, String uniqueCode) throws Exception {
+    LOGGER.log(Level.INFO, "Transforming for remove {0} ...", uniqueCode);
     StreamResult destStream = new StreamResult(new StringWriter());
-    transformer.setParameter("uniqueCode", uniqueCode);
-    transformer.setParameter("bohemika", Boolean.toString(bohemika));
-    transformer.transform(new StreamSource(new StringReader(xml)), destStream);
+    trRemove.setParameter("uniqueCode", uniqueCode);
+    trRemove.transform(new StreamSource(new StringReader(xml)), destStream);
     LOGGER.log(Level.FINE, "Sending to index ...");
     StringWriter sw = (StringWriter) destStream.getWriter();
-    SolrIndexerCommiter.postData(sw.toString());
+    System.out.println(sw.toString());
+    return sw.toString();
   }
+
+//  public void processXMLs(String xml, String uniqueCode, String codeType, String identifier, boolean bohemika) throws Exception {
+//    LOGGER.log(Level.FINE, "Transforming {0} ...", identifier);
+//    StreamResult destStream = new StreamResult(new StringWriter());
+//    transformer.setParameter("uniqueCode", uniqueCode);
+//    transformer.setParameter("bohemika", Boolean.toString(bohemika));
+//    transformer.transform(new StreamSource(new StringReader(xml)), destStream);
+//    LOGGER.log(Level.FINE, "Sending to index ...");
+//    StringWriter sw = (StringWriter) destStream.getWriter();
+//    SolrIndexerCommiter.postData(sw.toString());
+//  }
 
   public static void main(String[] args) throws SQLException {
     Connection conn = null;

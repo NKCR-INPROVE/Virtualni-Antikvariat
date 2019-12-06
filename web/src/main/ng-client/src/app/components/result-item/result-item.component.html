@@ -108,9 +108,9 @@
           <td mat-cell *matCellDef="let element">
             <mat-icon *ngIf="belongUser(element)" matTooltip="{{ 'desc.add_to_offer' | translate }}"
               class="app-cursor-pointer app-icon-right-mg" (click)="addToOffer(element)">local_offer</mat-icon>
-            <mat-icon *ngIf="!hasDemand(element)" matTooltip="{{ 'desc.add_to_demand' | translate }}"
+            <mat-icon *ngIf="!hasDemand()" matTooltip="{{ 'desc.add_to_demand' | translate }}"
               class="app-cursor-pointer app-icon-right-mg" (click)="addToDemands(element)">shopping_cart</mat-icon>
-            <mat-icon *ngIf="hasDemand(element)" matTooltip="{{ 'desc.remove_from_demand' | translate }}"
+            <mat-icon *ngIf="hasDemand()" matTooltip="{{ 'desc.remove_from_demand' | translate }}"
               class="app-cursor-pointer app-icon-right-mg" (click)="removeFromDemands(element)">remove_shopping_cart
             </mat-icon>
 

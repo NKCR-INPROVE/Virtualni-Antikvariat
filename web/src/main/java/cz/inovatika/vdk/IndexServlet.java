@@ -430,6 +430,29 @@ public class IndexServlet extends HttpServlet {
         }
         out.println(json.toString());
       }
+    },
+    REINDEXDOCBYCODE {
+      @Override
+      void doPerform(HttpServletRequest req, HttpServletResponse resp) throws Exception {
+        resp.setContentType("application/json");
+        PrintWriter out = resp.getWriter();
+        JSONObject json = new JSONObject();
+        try {
+          User kn = UsersController.toKnihovna(req);
+            if (isLocalhost || kn.hasRole(DbUtils.Roles.ADMIN)) {
+              Indexer indexer = new Indexer();
+              indexer.reindexDocByCode(req.getParameter("code"));
+              SolrIndexerCommiter.closeClients();
+            } else {
+              json.put("error", "rights.insuficient");
+            }
+          
+        } catch (Exception ex) {
+          LOGGER.log(Level.SEVERE, null, ex);
+          json.put("error", ex.toString());
+        }
+        out.println(json.toString());
+      }
     };
 
     abstract void doPerform(HttpServletRequest req, HttpServletResponse resp) throws Exception;

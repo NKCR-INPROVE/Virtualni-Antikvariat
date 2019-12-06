@@ -2,5 +2,6 @@
 	<mat-icon (click)="search()" matTooltip="{{'searchform.search' | translate}}" class="app-cursor-pointer">search</mat-icon>
 	<input type="text" [(ngModel)]="searchParams.q" [placeholder]="'q.placeholder' | translate" (keyup.enter)="search()" [placeholder]="'q.placeholder' | translate" />
 	<mat-icon matTooltip="{{'searchform.delete_query' | translate}}" class="app-cursor-pointer app-icon-clear" (click)="clearQuery()">clear</mat-icon>
-	<mat-icon (click)="openAdvanced()" matTooltip="{{'searchform.advanced_search' | translate}}" class="app-cursor-pointer">reorder</mat-icon>
+	<mat-icon (click)="openAdvanced()" matTooltip="{{'searchform.advanced_search' | translate}}" 
+		[color]="hasAdvanced ? 'accent' : ''" class="app-cursor-pointer">reorder</mat-icon>
 </div>

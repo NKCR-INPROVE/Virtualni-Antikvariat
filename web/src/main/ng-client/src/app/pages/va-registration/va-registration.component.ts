@@ -12,4 +12,8 @@ export class VaRegistrationComponent implements OnInit {
   ngOnInit() {
   }
 
+  send() {
+    
+  }
+
 }
