@@ -4,6 +4,7 @@ import { ActivatedRoute, Router, NavigationEnd } from '@angular/router';
 import { AppState } from './app.state';
 import { HomeComponent } from './pages/home/home.component';
 import { AppService } from './app.service';
+import { ReportComponent } from './pages/report/report.component';
 
 @Component({
   selector: 'app-root',
@@ -27,6 +28,7 @@ export class AppComponent implements OnInit {
     this.router.events.subscribe(val => {
       if (val instanceof NavigationEnd) {
         this.state.isHome = this.route.snapshot.firstChild.routeConfig.component === HomeComponent;
+        this.state.isReport = this.route.snapshot.firstChild.routeConfig.component === ReportComponent;
         this.service.getViews().subscribe();
       }
     });

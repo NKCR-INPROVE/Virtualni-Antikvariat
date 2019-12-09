@@ -8,6 +8,7 @@ import { User } from './models/user';
 @Injectable()
 export class AppState {
   public isHome: boolean;
+  public isReport: boolean;
 
   public user: User;
 

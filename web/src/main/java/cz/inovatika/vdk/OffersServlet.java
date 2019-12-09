@@ -137,8 +137,9 @@ public class OffersServlet extends HttpServlet {
           Options opts = Options.getInstance();
           try (HttpSolrClient client = new HttpSolrClient.Builder("http://localhost:8983/solr").build()) {
             client.deleteById(opts.getString("offersCore", "offers"), req.getParameter("id"));
-
-            client.deleteByQuery("offer_id:" + req.getParameter("id"));
+            client.commit(opts.getString("offersCore", "offers"));
+            
+            client.deleteByQuery(opts.getString("offersCore", "offers"), "offer_id:" + req.getParameter("id"));
             client.commit(opts.getString("offersCore", "offers"));
             Indexer indexer = new Indexer();
             indexer.removeOffer(req.getParameter("id"));

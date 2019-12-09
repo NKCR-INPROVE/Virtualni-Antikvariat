@@ -40,7 +40,7 @@ export class AppService {
   showSnackBar(s: string, r: string = '', p: string = '') {
 
     this.snackBar.open(this.getTranslation(s), r, {
-      duration: 2000,
+      duration: 20000,
       verticalPosition: 'top',
       panelClass: p
     });
