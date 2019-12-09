@@ -33,6 +33,9 @@ $app-btn-pd: 4px !default;
 $app-btn-line-height: 30px !default;
 $app-border-radius: 4px !default;
 
+// navbar 
+$app-navbar-logo-height: 32px !default;
+
 // search form
 $app-search-form-bg: $app-lightest !default;
 $app-search-form-height: 46px !default;
@@ -68,3 +71,6 @@ $app-table-cell-status-V: mat-color($mat-red, 50) !default;
 $app-table-cell-status-PK: mat-color($mat-blue-gray, 50) !default;
 $app-table-cell-status-N: mat-color($mat-gray, 50) !default;
 $app-table-cell-status-RZ: mat-color($mat-lime, 50) !default;
+
+// footer
+$app-footer-logo-height: 18px !default;

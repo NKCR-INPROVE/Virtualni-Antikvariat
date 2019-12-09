@@ -1,9 +1,11 @@
 // --- HOME ---
 
 app-home {
-  height: 100%;
+  //height: 100%;
+  padding-top: calc(#{$app-gap} * 6);
   align-items: center;
   text-align: center;
+  padding-bottom: calc(#{$app-gap} * 2);
 
   app-search-form {
     justify-content: center;

@@ -34,7 +34,8 @@ app-navbar {
 
     .app-fx-left {
       img {
-        max-height: 30px;
+        max-height: $app-navbar-logo-height;
+        vertical-align: top;
       }
     } 
   }

@@ -10,5 +10,10 @@ app-footer {
 
   .app-fx-right {
     text-align: right;
+
+    img {
+      max-height: $app-footer-logo-height;
+      vertical-align: text-top;
+    }
   }
 }
