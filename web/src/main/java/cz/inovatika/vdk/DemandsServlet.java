@@ -143,12 +143,11 @@ public class DemandsServlet extends HttpServlet {
             } else {
               json = new JSONObject(req.getParameter("json"));
             }
-            System.out.println(json);
+            
             JSON.DEFFAULT_DATE_FORMAT = "yyyy-MM-dd'T'HH:mm:ss.SSS'Z'";
             Demand d = Demand.fromJSON(json);
             client.deleteById(opts.getString("demandsCore", "demands"), d.id);
             client.commit(opts.getString("demandsCore", "demands"));
-            System.out.println("KKKK");
             Indexer indexer = new Indexer();
             indexer.removeDemand(d.id, d.knihovna, d.doc_code, d.zaznam, d.exemplar);
             

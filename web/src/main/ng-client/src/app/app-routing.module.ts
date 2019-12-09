@@ -8,6 +8,7 @@ import { AuthGuard } from './auth-guard';
 import { DemandsComponent } from './pages/demands/demands.component';
 import { OffersComponent } from './pages/offers/offers.component';
 import { VaRegistrationComponent } from './pages/va-registration/va-registration.component';
+import { ReportComponent } from './pages/report/report.component';
 
 
 const routes: Routes = [
@@ -21,6 +22,7 @@ const routes: Routes = [
   { path: 'admin', component: AdminComponent, canActivate: [AuthGuard]},
   { path: '', component: HomeComponent },
   { path: 'login', component: HomeComponent },
+  { path: 'protocol', component: ReportComponent},
 
   // otherwise redirect to home
   { path: '**', redirectTo: '' }

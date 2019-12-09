@@ -127,6 +127,36 @@ public class OffersServlet extends HttpServlet {
 
       }
     },
+    REMOVE {
+      @Override
+      JSONObject doPerform(HttpServletRequest req, HttpServletResponse response) throws Exception {
+
+        JSONObject jo = new JSONObject();
+        try {
+          
+          Options opts = Options.getInstance();
+          try (HttpSolrClient client = new HttpSolrClient.Builder("http://localhost:8983/solr").build()) {
+            client.deleteById(opts.getString("offersCore", "offers"), req.getParameter("id"));
+
+            client.deleteByQuery("offer_id:" + req.getParameter("id"));
+            client.commit(opts.getString("offersCore", "offers"));
+            Indexer indexer = new Indexer();
+            indexer.removeOffer(req.getParameter("id"));
+
+            jo.put("msg", "removed");
+          } catch (SolrServerException | IOException ex) {
+            LOGGER.log(Level.SEVERE, null, ex);
+            jo.put("error", ex.toString());
+          }
+
+        } catch (Exception ex) {
+          LOGGER.log(Level.SEVERE, null, ex);
+          jo.put("error", ex.toString());
+        }
+        return jo;
+
+      }
+    },
     ADDRECORD {
       @Override
       JSONObject doPerform(HttpServletRequest req, HttpServletResponse response) throws Exception {
@@ -142,12 +172,37 @@ public class OffersServlet extends HttpServlet {
           }
           OfferRecord or = OfferRecord.fromJSON(json);
           JSONObject ret = new JSONObject(SolrIndexerCommiter.indexJSON(new JSONObject(JSON.toJSONString(or)), "offersCore"));
-          
+
           Indexer indexer = new Indexer();
           indexer.indexDocOffers(or.doc_code);
           return ret;
+
+        } catch (Exception ex) {
+          LOGGER.log(Level.SEVERE, null, ex);
+          jo.put("error", ex.toString());
+        }
+        return jo;
+
+      }
+    },
+    REMOVERECORD {
+      @Override
+      JSONObject doPerform(HttpServletRequest req, HttpServletResponse response) throws Exception {
+
+        JSONObject jo = new JSONObject();
+        try {
           
-          
+          Options opts = Options.getInstance();
+          try (HttpSolrClient client = new HttpSolrClient.Builder("http://localhost:8983/solr").build()) {
+            client.deleteById(opts.getString("offersCore", "offers"), req.getParameter("id"));
+            client.commit(opts.getString("offersCore", "offers"));
+
+            jo.put("msg", "removed");
+          } catch (SolrServerException | IOException ex) {
+            LOGGER.log(Level.SEVERE, null, ex);
+            jo.put("error", ex.toString());
+          }
+
         } catch (Exception ex) {
           LOGGER.log(Level.SEVERE, null, ex);
           jo.put("error", ex.toString());
@@ -159,13 +214,12 @@ public class OffersServlet extends HttpServlet {
     ADDWANTED {
       @Override
       JSONObject doPerform(HttpServletRequest req, HttpServletResponse response) throws Exception {
-        
+
         /*
         Add to offers record field wanted new code
         req.getParameter("id") id of the offerrecord
         req.getParameter("knihovna") the library code who wants
-        */   
-
+         */
         JSONObject jo = new JSONObject();
         try {
           JSONObject json;
@@ -177,14 +231,13 @@ public class OffersServlet extends HttpServlet {
           }
           OfferRecord or = OfferRecord.fromJSON(json);
           JSONObject ret = new JSONObject(SolrIndexerCommiter.indexJSON(new JSONObject(JSON.toJSONString(or)), "offersCore"));
-          
+
 //          Indexer indexer = new Indexer();
 //          indexer.indexWanted(or.doc_code,
 //                  UsersController.toKnihovna(req).getCode(),
 //                  or.chci);
           return ret;
-          
-          
+
         } catch (Exception ex) {
           LOGGER.log(Level.SEVERE, null, ex);
           jo.put("error", ex.toString());
@@ -234,6 +287,40 @@ public class OffersServlet extends HttpServlet {
       }
     },
     BYID {
+      @Override
+      JSONObject doPerform(HttpServletRequest req, HttpServletResponse response) throws Exception {
+        JSONObject jo = new JSONObject();
+        try {
+
+          Options opts = Options.getInstance();
+          SolrQuery query = new SolrQuery("id:" + req.getParameter("id"));
+          query.set("wt", "json");
+          query.setFields("*");
+          try (HttpSolrClient client = new HttpSolrClient.Builder("http://localhost:8983/solr").build()) {
+            QueryRequest qreq = new QueryRequest(query);
+
+            NoOpResponseParser dontMessWithSolr = new NoOpResponseParser();
+            dontMessWithSolr.setWriterType("json");
+            client.setParser(dontMessWithSolr);
+            NamedList<Object> qresp = client.request(qreq, opts.getString("offersCore", "offers"));
+            JSONObject r = new JSONObject((String) qresp.get("response"));
+            return r.getJSONObject("response");
+
+          } catch (SolrServerException | IOException ex) {
+            LOGGER.log(Level.SEVERE, null, ex);
+            jo.put("error", ex.toString());
+          }
+
+        } catch (IOException | JSONException ex) {
+          LOGGER.log(Level.SEVERE, null, ex);
+          jo.put("error", ex.toString());
+        }
+
+        return jo;
+
+      }
+    },
+    RECORDS {
       @Override
       JSONObject doPerform(HttpServletRequest req, HttpServletResponse response) throws Exception {
         JSONObject jo = new JSONObject();

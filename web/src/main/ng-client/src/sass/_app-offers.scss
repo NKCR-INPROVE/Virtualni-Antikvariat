@@ -15,6 +15,10 @@ app-offers {
             color: $app-facet-list-item-val-color;
           }
         }
+
+        &.active .mat-list-text .mat-line a{
+          font-weight: bold;
+        }
       }
     }
   }
@@ -65,6 +69,20 @@ app-offers {
 
           &.mat-column-button {
             text-align: right;
+          }
+
+          .app-logo {
+            min-width: 34px;
+            display: inline-block;
+
+            img {
+              max-height: 20px;
+            }
+          }
+
+          .app-no-logo {
+            font-weight: bold;
+            color: $app-gray-5;
           }
         }
       }

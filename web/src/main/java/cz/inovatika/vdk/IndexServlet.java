@@ -233,7 +233,7 @@ public class IndexServlet extends HttpServlet {
         try {
           String f = System.getProperty("user.home") + File.separator + ".vdkcr" + File.separator + "jobs" + File.separator + "indexer.json";
           Indexer indexer = new Indexer(f);
-          indexer.removeOffer(Integer.parseInt(req.getParameter("id")));
+          indexer.removeOffer(req.getParameter("id"));
         } catch (Exception ex) {
           json.put("error", ex.toString());
         }

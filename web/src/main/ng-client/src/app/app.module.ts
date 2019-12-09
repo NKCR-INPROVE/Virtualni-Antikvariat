@@ -48,6 +48,8 @@ import { TemplateToOfferDialogComponent } from './components/template-to-offer-d
 import { UploadToOfferDialogComponent } from './components/upload-to-offer-dialog/upload-to-offer-dialog.component';
 import { SearchToOfferDialogComponent } from './components/search-to-offer-dialog/search-to-offer-dialog.component';
 import { VaRegistrationComponent } from './pages/va-registration/va-registration.component';
+import { ConfirmDialogComponent } from './components/confirm-dialog/confirm-dialog.component';
+import { ReportComponent } from './pages/report/report.component';
 
 
 registerLocaleData(localeCs, 'cs');
@@ -97,7 +99,9 @@ if (environment.mocked) {
     TemplateToOfferDialogComponent,
     UploadToOfferDialogComponent,
     SearchToOfferDialogComponent,
-    VaRegistrationComponent
+    VaRegistrationComponent,
+    ConfirmDialogComponent,
+    ReportComponent
   ],
   imports: [
     BrowserModule,
@@ -116,8 +120,8 @@ if (environment.mocked) {
       }
     }),
   ],
-  entryComponents: [AdvancedSearchDialog, LoginComponent, ViewComponent, CsvComponent, 
-    AddToOfferDialogComponent, PromptDialogComponent,
+  entryComponents: [AdvancedSearchDialog, LoginComponent, ViewComponent, CsvComponent,
+    AddToOfferDialogComponent, PromptDialogComponent, ConfirmDialogComponent,
     TemplateToOfferDialogComponent,
     UploadToOfferDialogComponent,
     SearchToOfferDialogComponent],

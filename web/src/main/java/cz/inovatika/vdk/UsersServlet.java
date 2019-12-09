@@ -246,6 +246,30 @@ public class UsersServlet extends HttpServlet {
         return jo;
       }
     },
+    INFO {
+      @Override
+      JSONObject doPerform(HttpServletRequest req, HttpServletResponse response) throws Exception {
+        JSONObject jo = new JSONObject();
+        try {
+
+          SolrQuery query = new SolrQuery("code:" + req.getParameter("code"));
+          try (HttpSolrClient client = new HttpSolrClient.Builder("http://localhost:8983/solr").build()) {
+            QueryRequest qreq = new QueryRequest(query);
+
+            return new JSONObject(IndexerQuery.json(query, "usersCore"));
+
+          } catch (IOException ex) {
+            LOGGER.log(Level.SEVERE, null, ex);
+            jo.put("error", ex.toString());
+          }
+
+        } catch (JSONException ex) {
+          LOGGER.log(Level.SEVERE, null, ex);
+          jo.put("error", ex.toString());
+        }
+        return jo;
+      }
+    },
     VIEWS {
       @Override
       JSONObject doPerform(HttpServletRequest req, HttpServletResponse response) throws Exception {

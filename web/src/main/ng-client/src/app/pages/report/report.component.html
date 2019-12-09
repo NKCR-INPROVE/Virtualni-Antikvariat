@@ -1,0 +1,60 @@
+
+<div *ngFor="let receiving of receivers">
+<div class="header">
+<h2>Předávací protokol vybraných knih na základě nabídky {{offer.nazev}}</h2>
+
+<h3>Nabízející knihovna:</h3>
+<div>Název knihovny {{ offering.nazev }}</div>
+<div>Adresa knihovny {{ offering.adresa}}</div>
+<div>Sigla {{ offering.sigla }}</div>
+
+<h3>Přejímající knihovna:</h3>
+<div>Název knihovny {{ receiving.nazev }}</div>
+<div>Adresa knihovny {{ receiving.adresa}}</div>
+<div>Sigla {{ receiving.sigla }}</div>
+
+<h3>Nabídka:</h3>
+<div>Název nabídky {{offer.nazev}}</div>
+##<div>Datum zveřejnění nabídky{{offer.created}} </div>
+##<div>Datum ukončení nabídky {{offer.closed}}</div>
+<br/>
+<br/>
+<br/>
+<br/>
+<br/>
+<br/>
+<div style="width:100%">
+    <div style="float:left;width:40%;">
+        ..............................
+        <br/>
+        Podpis za nabízející knihovnu
+    </div>
+    <div style="float:right;width:40%;">
+        ................................
+        <br/>
+        Podpis za přejímající knihovnu
+    </div>
+</div>
+
+</div>
+<div class="page-break"></div>
+<div class="content" style="clear:both;">
+
+<h3>Seznam</h3>
+<ul>
+  
+    <li *ngFor="let record of records">
+    <div>{{ record.title }}</div>
+    <div>cena: {{ record.cena }}</div>
+    <div>comment: {{ record.fields?.comment }}</div>
+    
+    <div *ngIf="record.zaznam_asoc">zaznam v katalogu: ({{record.zaznam_asoc}})</div>
+    
+
+    </li>
+    
+</ul>
+</div>
+<div class="page-break"></div>
+</div>
+

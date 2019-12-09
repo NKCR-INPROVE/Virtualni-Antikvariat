@@ -16,6 +16,7 @@
  */
 package cz.inovatika.vdk.solr;
 
+import com.alibaba.fastjson.JSON;
 import cz.inovatika.vdk.InitServlet;
 import cz.inovatika.vdk.Options;
 import cz.inovatika.vdk.common.Bohemika;
@@ -23,6 +24,8 @@ import cz.inovatika.vdk.common.DbUtils;
 import cz.inovatika.vdk.solr.models.User;
 import cz.inovatika.vdk.common.SolrIndexerCommiter;
 import cz.inovatika.vdk.common.VDKJobData;
+import cz.inovatika.vdk.solr.models.Offer;
+import cz.inovatika.vdk.solr.models.OfferRecord;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
@@ -67,6 +70,7 @@ import org.apache.solr.common.SolrDocument;
 import org.apache.solr.common.SolrDocumentList;
 import org.apache.solr.common.SolrInputDocument;
 import org.apache.solr.common.params.CursorMarkParams;
+import org.json.JSONArray;
 import org.json.JSONObject;
 import org.w3c.dom.Document;
 
@@ -557,53 +561,6 @@ public class Indexer {
     server.commit();
   }
 
-  public void removeOffer(int id) throws Exception {
-    Connection conn = DbUtils.getConnection();
-    String sql = "SELECT ZaznamOffer.uniqueCode, ZaznamOffer.zaznam, ZaznamOffer.exemplar, "
-            + "ZaznamOffer.fields, offer.datum "
-            + "FROM zaznamOffer, Offer "
-            + "where ZaznamOffer.offer=Offer.offer_id AND ZaznamOffer.offer=?";
-    PreparedStatement ps = conn.prepareStatement(sql);
-    ps.setInt(1, id);
-
-    ResultSet rs = ps.executeQuery();
-
-    StringBuilder sb = new StringBuilder();
-    sb.append("<add>");
-    while (rs.next()) {
-      String docCode = rs.getString("uniqueCode");
-      String datum = sdf.format(rs.getDate("datum"));
-      sb.append("<doc>");
-      sb.append("<field name=\"code\">")
-              .append(docCode)
-              .append("</field>");
-      sb.append("<field name=\"md5\">")
-              .append(docCode)
-              .append("</field>");
-      sb.append("<field name=\"nabidka\" update=\"remove\">")
-              .append(id)
-              .append("</field>");
-      sb.append("<field name=\"nabidka_datum\" update=\"remove\">")
-              .append(datum)
-              .append("</field>");
-      JSONObject nabidka_ext = new JSONObject();
-      JSONObject nabidka_ext_n = new JSONObject();
-      nabidka_ext_n.put("zaznam", rs.getString("zaznam"));
-      nabidka_ext_n.put("ex", rs.getString("exemplar"));
-      nabidka_ext_n.put("fields", rs.getString("fields"));
-      nabidka_ext.put("" + id, nabidka_ext_n);
-      sb.append("<field name=\"nabidka_ext\" update=\"remove\">")
-              .append(nabidka_ext)
-              .append("</field>");
-
-      sb.append("</doc>");
-    }
-    rs.close();
-    sb.append("</add>");
-    SolrIndexerCommiter.postData(sb.toString());
-    SolrIndexerCommiter.postData("<commit/>");
-  }
-
   private void addField(SolrInputDocument doc, String name, Object value, String modifier) {
     Map<String, Object> map = new HashMap();
     map.put(modifier, value);
@@ -611,6 +568,44 @@ public class Indexer {
   }
 
   private SolrInputDocument offerDoc(
+          OfferRecord record) {
+    SolrInputDocument doc = new SolrInputDocument();
+
+    doc.addField("code", record.doc_code);
+    doc.addField("md5", record.doc_code);
+
+    addField(doc, "nabidka", record.offer_id, "add");
+    // addField(doc, "nabidka_datum", offer.created, "add");
+
+//    JSONObject nabidka_ext_n = new JSONObject();
+//    nabidka_ext_n.put("id", record.id);
+//    nabidka_ext_n.put("offer_id", record.offer_id);
+//    nabidka_ext_n.put("doc_code", record.doc_code);
+//    nabidka_ext_n.put("zaznam", record.zaznam);
+//    nabidka_ext_n.put("knihovna", record.knihovna);
+//    // nabidka_ext_n.put("pr_knihovna", pr_knihovna);
+//    nabidka_ext_n.put("ex", record.exemplar);
+//    // nabidka_ext_n.put("datum", offer.created);
+//    
+//    if (record.fields != null) {
+//      nabidka_ext_n.put("fields", new JSONObject(record.fields).toString());
+//    }
+//    if (record.chci != null) {
+//      nabidka_ext_n.put("chci", new JSONArray(record.chci).toString());
+//    }
+//
+//    addField(doc, "nabidka_ext", nabidka_ext_n.toString(), "add");
+    
+    addField(doc, "nabidka_ext", JSON.toJSONString(record), "add");
+
+    if (record.chci != null) {
+      addField(doc, "chci", record.chci, "add");
+    }
+
+    return doc;
+  }
+
+  private SolrInputDocument offerDocOld(
           String offerid,
           String datum,
           String docCode,
@@ -637,6 +632,7 @@ public class Indexer {
     // nabidka_ext_n.put("pr_knihovna", pr_knihovna);
     nabidka_ext_n.put("ex", exemplar);
     nabidka_ext_n.put("datum", datum);
+    
     if (fields != null) {
       nabidka_ext_n.put("fields", new JSONObject(fields));
     }
@@ -686,16 +682,9 @@ public class Indexer {
         query.set(CursorMarkParams.CURSOR_MARK_PARAM, cursorMark);
         QueryResponse rsp = client.query(query);
         String nextCursorMark = rsp.getNextCursorMark();
-        for (SolrDocument doc : rsp.getResults()) {
-          idocs.add(offerDoc((String) doc.getFirstValue("offer_id"),
-                  (String) doc.getFirstValue("datum"),
-                  (String) doc.getFirstValue("doc_code"),
-                  (String) doc.getFirstValue("id"),
-                  (String) doc.getFirstValue("zaznam"),
-                  (String) doc.getFirstValue("knihovna"),
-                  doc.getFieldValues("chci"),
-                  (String) doc.getFirstValue("exemplar"),
-                  (String) doc.getFirstValue("fields")));
+        // for (SolrDocument doc : rsp.getResults()) {
+        for (OfferRecord doc : rsp.getBeans(OfferRecord.class)) {
+          idocs.add(offerDoc(doc));
           offerIndexed++;
         }
         if (cursorMark.equals(nextCursorMark)) {
@@ -772,6 +761,47 @@ public class Indexer {
     SolrIndexerCommiter.postData("<commit/>");
 
     indexDoc(uniqueCode);
+  }
+
+  /**
+   * Removes offer info from documents in catalog
+   * @param offerid
+   * @throws Exception 
+   */
+  public void removeOffer(String offerid) throws Exception {
+    
+    String code;
+    SolrQuery query = new SolrQuery("nabidka:\"" + offerid + "\"");
+    query.addField("code");
+    query.setRows(1000);
+    SolrDocumentList docs = IndexerQuery.query(query);
+    Iterator<SolrDocument> iter = docs.iterator();
+    while (iter.hasNext()) {
+      SolrDocument resultDoc = iter.next();
+      code = (String) resultDoc.getFieldValue("code");
+
+      indexDocOffers(code);
+    }
+    
+    
+//    StringBuilder sb = new StringBuilder();
+//    sb.append("<add><doc>");
+//    sb.append("<field name=\"code\">")
+//            .append(uniqueCode)
+//            .append("</field>");
+//    sb.append("<field name=\"md5\">")
+//            .append(uniqueCode)
+//            .append("</field>");
+//
+//    sb.append("<field name=\"nabidka\" update=\"set\" null=\"true\" />");
+//    sb.append("<field name=\"nabidka_ext\" update=\"set\" null=\"true\" />");
+//    sb.append("<field name=\"nabidka_datum\" update=\"set\" null=\"true\" />");
+//    sb.append("<field name=\"chci\" update=\"set\" null=\"true\" />");
+//    sb.append("<field name=\"nechci\" update=\"set\" null=\"true\" />");
+//    sb.append("</doc></add>");
+//
+//    SolrIndexerCommiter.postData(sb.toString());
+//    SolrIndexerCommiter.postData("<commit/>");
   }
 
   public void removeDocOffers(String uniqueCode) throws Exception {
@@ -1206,7 +1236,7 @@ public class Indexer {
     trRemove.transform(new StreamSource(new StringReader(xml)), destStream);
     LOGGER.log(Level.FINE, "Sending to index ...");
     StringWriter sw = (StringWriter) destStream.getWriter();
-    System.out.println(sw.toString());
+    
     return sw.toString();
   }
 

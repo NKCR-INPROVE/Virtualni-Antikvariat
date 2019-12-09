@@ -32,9 +32,7 @@ export class SearchFormComponent implements OnInit {
   setParams() {
     Utils.sanitize(this.route.snapshot.queryParams, this.searchParams);
     Utils.sanitize(this.route.snapshot.queryParams, this.advParams);
-    console.log(Object.values(this.advParams));
     this.hasAdvanced = ! (Object.values(this.advParams).every(k => k === null));
-    console.log(this.hasAdvanced);
   }
 
   search() {

@@ -6,4 +6,5 @@ export class Offer {
   expired: boolean;
   closed: boolean;
   created: string;
+  isVA: boolean;
 }

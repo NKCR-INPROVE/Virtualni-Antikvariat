@@ -11,6 +11,7 @@ import { SearchToOfferDialogComponent } from 'src/app/components/search-to-offer
 import { TemplateToOfferDialogComponent } from 'src/app/components/template-to-offer-dialog/template-to-offer-dialog.component';
 import { DatePipe, formatDate } from '@angular/common';
 import { Utils } from 'src/app/shared/utils';
+import { ConfirmDialogComponent } from 'src/app/components/confirm-dialog/confirm-dialog.component';
 
 @Component({
   selector: 'app-offers',
@@ -34,29 +35,77 @@ export class OffersComponent implements OnInit {
   }
 
   remove(idx: number) {
-    this.offers.splice(idx, 1);
+
+
+    const dialogRef = this.dialog.open(PromptDialogComponent, {
+      width: '350px',
+      data: { title: 'offers.remove' }
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      if (result) {
+        const offer: Offer = this.offers[idx];
+        this.service.removeOffer(offer).subscribe(resp => {
+          if (resp.error) {
+            this.service.showSnackBar('offer.remove_error', '', 'app-color-red');
+          } else {
+            this.state.offers.splice(idx, 1);
+            this.offers.splice(idx, 1);
+            this.service.showSnackBar('offer.remove_success', '', 'app-color-green');
+          }
+        });
+      }
+    });
+
   }
 
   removeFromOffer(idx: number) {
-    this.records = this.records.filter((val, index) => index !== idx);
+    // this.records = this.records.filter((val, index) => index !== idx);
+
+    const dialogRef = this.dialog.open(ConfirmDialogComponent, {
+      width: '350px',
+      data: { title: 'offers.remove_from_offer' }
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      if (result) {
+        this.service.removeOfferRecord(this.records[idx].id).subscribe(resp => {
+          if (resp.error) {
+            this.service.showSnackBar('offer.remove_from_offer_error', '', 'app-color-red');
+          } else {
+            this.load(this.currentOffer);
+            this.service.showSnackBar('offer.remove_from_offer_success', '', 'app-color-green');
+          }
+        });
+      }
+    });
+
   }
 
   refresh() {
-    this.service.getOffers().subscribe(resp => { 
+    this.service.getOffers().subscribe(resp => {
       this.offers = resp;
       this.offers = this.offers.filter(o => o.knihovna === this.state.user.code);
+      if (!this.currentOffer) {
+        for (let i = 0; i < this.offers.length; i++) {
+          if (!this.offers[i].closed) {
+            this.load(this.offers[i]);
+            return;
+          }
+        }
+      }
     });
   }
 
   load(offer: Offer) {
     this.currentOffer = offer;
-    this.service.getOffer(offer.id).subscribe(resp => { this.records = resp; });
+    this.service.getOfferRecords(offer.id).subscribe(resp => { this.records = resp; });
   }
 
   add(): void {
     const dialogRef = this.dialog.open(PromptDialogComponent, {
       width: '350px',
-      data: {title: 'offers.add'}
+      data: { title: 'offers.add' }
     });
 
     dialogRef.afterClosed().subscribe(result => {
@@ -83,18 +132,18 @@ export class OffersComponent implements OnInit {
   }
 
   viewReport() {
-
+    window.open('protocol?id=' + this.currentOffer.id, '_blank');
   }
 
   uploadToOffer() {
     const dialogRef = this.dialog.open(UploadToOfferDialogComponent, {
       width: '350px',
-      data: {title: 'offers.add'}
+      data: { title: 'offers.add' }
     });
 
     dialogRef.afterClosed().subscribe(result => {
       if (result) {
-        
+
       }
     });
 
@@ -103,12 +152,12 @@ export class OffersComponent implements OnInit {
   searchToOffer() {
     const dialogRef = this.dialog.open(SearchToOfferDialogComponent, {
       width: '600px',
-      data: {title: 'offers.add'}
+      data: { title: 'offers.add' }
     });
 
     dialogRef.afterClosed().subscribe(result => {
       if (result) {
-        
+
       }
     });
 
@@ -118,12 +167,12 @@ export class OffersComponent implements OnInit {
   templateToOffer() {
     const dialogRef = this.dialog.open(TemplateToOfferDialogComponent, {
       width: '600px',
-      data: {title: 'offers.add'}
+      data: { title: 'offers.add' }
     });
 
     dialogRef.afterClosed().subscribe(result => {
       if (result) {
-        
+
       }
     });
 

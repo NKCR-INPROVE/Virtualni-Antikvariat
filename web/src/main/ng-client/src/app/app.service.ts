@@ -118,6 +118,15 @@ export class AppService {
       }));
   }
 
+
+  getOfferRecords(id: string) {
+    const params: HttpParams = new HttpParams().set('id', id);
+    return this.http.get<any>(`/api/offers/records`, { params })
+      .pipe(map(resp => {
+        return resp.docs;
+      }));
+  }
+
   addToOffer(offer: OfferRecord) {
     return this.http.post<any>(`/api/offers/addrecord`, offer)
       .pipe(map(resp => {
@@ -132,9 +141,32 @@ export class AppService {
       }));
   }
 
+  removeOffer(offer: Offer) {
+    return this.http.post<any>(`/api/offers/remove`, offer)
+      .pipe(map(resp => {
+        return resp;
+      }));
+  }
+
+  removeOfferRecord(id: string) {
+    const params: HttpParams = new HttpParams().set('id', id);
+    return this.http.get<any>(`/api/offers/removerecord`, {params})
+      .pipe(map(resp => {
+        return resp;
+      }));
+  }
+
 
   saveView(v: View) {
     return this.http.post<View>(`/api/users/save_view`, v);
+  }
+
+  getUser(code: string) {
+    const params: HttpParams = new HttpParams().set('code', code);
+    return this.http.get<any>(`/api/users/info`, {params})
+      .pipe(map(resp => {
+        return resp.response.docs[0];
+      }));
   }
 
 }

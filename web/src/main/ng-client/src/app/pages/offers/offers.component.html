@@ -1,7 +1,7 @@
 <div fxLayout="row" fxLayoutAlign="start stretch" fxLayoutGap.gt-xs="16px" fxLayout.xs="column" gdAlignColumns.lt-xs="false">
   <div fxFlex.gt-sm="25%" fxFlex.gt-xs="30%" fxFlex.xs="100%">
     <mat-list role="list">
-      <mat-list-item role="listitem" *ngFor="let offer of offers; let idx = index;">
+      <mat-list-item role="listitem" *ngFor="let offer of offers; let idx = index;" [class.active]="offer.id === currentOffer.id">
         <mat-icon matTooltip="{{ offer.expired ? 'expired' : 'not_expired' | translate }}" 
           mat-list-icon>{{offer.expired ? 'access_time' : 'timelapse'}}</mat-icon>
         <mat-icon matTooltip="{{ offer.closed ? 'closed' : 'open' | translate }}" 
@@ -25,7 +25,7 @@
               <mat-icon class="app-icon-small app-icon-valign-text-top">refresh</mat-icon>
               {{ 'desc.refresh' | translate }}
             </button>
-            <button mat-button>
+            <button mat-button *ngIf="currentOffer && !currentOffer.isVA" (click)="addToVA()">
               <mat-icon class="app-icon-small app-icon-valign-text-top">archive</mat-icon>
               {{ 'desc.add_to_secondhand' | translate }}
             </button>
@@ -38,7 +38,7 @@
         <ng-container matColumnDef="price">
           <th mat-header-cell *matHeaderCellDef></th>
           <td mat-cell *matCellDef="let element">
-            <input type="text" value="330"/>
+            <input type="text" [(ngModel)]="element.cena" style="text-align:right;width:70px;" /> Kč
           </td>
         </ng-container>
     
@@ -53,6 +53,7 @@
             </div>
           </th>
           <td mat-cell *matCellDef="let element; let idx = index;">
+              <span class="app-logo app-no-logo">{{ element.chci }}</span>
             <mat-icon matTooltip="{{ 'desc.add_to_secondhand' | translate }}" class="app-cursor-pointer app-icon-valign-text-bottom app-icon-right-mg">archive</mat-icon>
             <mat-icon (click)="removeFromOffer(idx)" matTooltip="{{ 'offers.remove' | translate }}" class="app-cursor-pointer app-icon-valign-text-bottom" [color]="'warn'">cancel</mat-icon>
           </td>
