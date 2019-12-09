@@ -9,4 +9,8 @@ export class OfferRecord {
   fields: string;
   chci: string[];
   nechci: string[];
+  cena: number;
+  comment: string;
+  isVA: boolean;
+  needPrice: boolean;
 }

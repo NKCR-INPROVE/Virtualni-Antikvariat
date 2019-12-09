@@ -40,6 +40,12 @@ public class OfferRecord {
   public String[] chci;
   @Field
   public String[] nechci;
+  @Field
+  public boolean isVA;
+  @Field
+  public int cena;
+  @Field
+  public String comment;
   
   public static OfferRecord fromJSON(JSONObject json) {
     OfferRecord ofr = JSON.parseObject(json.toString(), OfferRecord.class);

@@ -179,4 +179,12 @@ export class OffersComponent implements OnInit {
 
   }
 
+  addToVA(record: OfferRecord) {
+    console.log(record);
+    if (!record.cena) {
+      this.service.showSnackBar('offers.cena_required');
+      record.needPrice = true;
+    }
+  }
+
 }
