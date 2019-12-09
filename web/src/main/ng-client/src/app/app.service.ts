@@ -114,7 +114,7 @@ export class AppService {
     const params: HttpParams = new HttpParams().set('id', id);
     return this.http.get<any>(`/api/offers/byid`, { params })
       .pipe(map(resp => {
-        return resp.docs;
+        return resp.docs[0];
       }));
   }
 
