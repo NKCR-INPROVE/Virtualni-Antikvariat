@@ -129,7 +129,7 @@
     <button mat-button matTooltip="{{ 'desc.view_original_metadata' | translate }}" (click)="openLink()">
       <mat-icon>pageview</mat-icon>{{ 'desc.view_original_metadata' | translate }}
     </button>
-    <button *ngIf="state.isLibrary && userHasDoc()" mat-button matTooltip="{{ 'desc.add_to_offer' | translate }}"
+    <button *ngIf="userHasDoc()" mat-button matTooltip="{{ 'desc.add_to_offer' | translate }}"
       (click)="addToOffer()">
       <mat-icon>local_offer</mat-icon>{{ 'desc.add_to_offer' | translate }}
     </button>

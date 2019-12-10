@@ -218,7 +218,12 @@ export class ResultItemComponent implements OnInit, OnDestroy {
     if (!this.state.user) {
       return false;
     }
-    const o = this.doc.ex.find(exe => ex.id === exe.id && ex.knihovna === this.state.user.code);
+    let kn = ex.knihovna;
+    if (kn === 'UKF' || kn === 'NKF') {
+      kn = 'NKP';
+    }
+    const exInLib = kn === this.state.user.code;
+    const o = this.doc.ex.find(exe => ex.id === exe.id && exInLib);
     return o;
   }
 
@@ -226,9 +231,11 @@ export class ResultItemComponent implements OnInit, OnDestroy {
     if (!this.state.user) {
       return false;
     }
-    const kn = this.state.user.code === 'NKP' ? 'UKF' : this.state.user.code;
-    return this.doc.zdroj.includes(kn);
-
+    if (this.state.user.code === 'NKP') {
+      return this.doc.zdroj.includes('UKF') || this.doc.zdroj.includes('NKF');
+    } else {
+      return this.doc.zdroj.includes(this.state.user.code);
+    }
   }
 
   hasDemand(): boolean {
