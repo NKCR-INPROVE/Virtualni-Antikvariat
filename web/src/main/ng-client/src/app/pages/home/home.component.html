@@ -1,7 +1,7 @@
 <div fxFlex>
-  <div>
-    <h3>{{'app.title' | translate}}</h3>
-    <h4>{{'app.desc' | translate}}</h4>
-  </div>
+    <div>
+      <h3>{{(state.isLibrary ? 'app.title' : 'app.title_va') | translate}}</h3>
+      <h4>{{(state.isLibrary ? 'app.desc' : 'app.desc_va') | translate}}</h4>
+    </div>
   <app-search-form></app-search-form>
 </div>
