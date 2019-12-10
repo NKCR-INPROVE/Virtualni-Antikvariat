@@ -116,10 +116,12 @@
 
 
     <field name="doc_code" type="string" indexed="true" stored="true"  multiValued="false" />
+    <field name="title" type="string" indexed="true" stored="true" multiValued="false" /> 
     <field name="zaznam" type="string" indexed="true" stored="true" multiValued="false" /> 
     <field name="exemplar" type="string" indexed="true" stored="true" multiValued="false" /> 
     <field name="knihovna" type="string" indexed="false" stored="true" multiValued="false" />
     <field name="comment" type="string" indexed="false" stored="true" multiValued="false" />
+    <field name="date" type="pdate" indexed="true" stored="true"  multiValued="false" />
 
 
     <field name="timestamp" type="pdate" indexed="true" stored="true" default="NOW" />

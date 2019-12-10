@@ -8,5 +8,6 @@ export class Filters {
     demands: boolean = null;
     wanted: boolean = null;
     matches: boolean = null;
+    isVA: boolean = null;
 
 }

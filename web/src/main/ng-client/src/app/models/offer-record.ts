@@ -12,5 +12,4 @@ export class OfferRecord {
   cena: number;
   comment: string;
   isVA: boolean;
-  needPrice: boolean;
 }

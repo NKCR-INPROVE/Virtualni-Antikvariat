@@ -49,6 +49,11 @@ app-offers {
       }
 
       tbody {
+        .mat-row {
+          &.isva {
+            background-color: rgba(167, 124, 6, 0.623);
+          }
+        }
         .mat-cell {
           &.mat-column-price {
             padding-left: calc(#{$app-gap-icon} * 2);

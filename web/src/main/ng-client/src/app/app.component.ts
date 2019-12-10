@@ -17,7 +17,7 @@ export class AppComponent implements OnInit {
     translate: TranslateService,
     private route: ActivatedRoute,
     private router: Router,
-    private state: AppState,
+    public state: AppState,
     private service: AppService) {
     // this language will be used as a fallback when a translation isn't found in the current language
     translate.setDefaultLang('cs');

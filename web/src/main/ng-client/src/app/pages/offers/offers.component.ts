@@ -116,11 +116,11 @@ export class OffersComponent implements OnInit {
         offer.created = formatDate(new Date(), 'yyyy-MM-dd\'T\'HH:mm:ss.SSS\'Z\'', 'cs');
         this.service.addOffer(offer).subscribe(resp => {
           if (resp.error) {
-            this.service.showSnackBar('offer.add_error', '', 'app-color-red');
+            this.service.showSnackBar('offer.add_error', '', 'app-snack-error');
           } else {
             this.state.offers.push(resp);
             this.offers.push(resp);
-            this.service.showSnackBar('offer.add_success', '', 'app-color-green');
+            this.service.showSnackBar('offer.add_success', '', 'app-snack-success');
           }
         });
       }
@@ -128,7 +128,7 @@ export class OffersComponent implements OnInit {
   }
 
   refreshOffer() {
-
+    this.load(this.currentOffer);
   }
 
   viewReport() {
@@ -180,11 +180,49 @@ export class OffersComponent implements OnInit {
   }
 
   addToVA(record: OfferRecord) {
-    console.log(record);
-    if (!record.cena) {
-      this.service.showSnackBar('offers.cena_required');
-      record.needPrice = true;
+
+    let canOffer = true;
+    if (!record.cena || record.cena === 0) {
+      const dialogRef = this.dialog.open(PromptDialogComponent, {
+        width: '350px',
+        data: { title: 'offers.cena_required' }
+      });
+
+      dialogRef.afterClosed().subscribe(result => {
+        if (result) {
+          record.cena = result;
+          canOffer = true;
+        } else {
+          canOffer = false;
+        }
+      });
+
     }
+
+    if (canOffer) {
+
+      record.isVA = true;
+      this.service.addToOffer(record).subscribe(resp => {
+        if (resp.error) {
+          this.service.showSnackBar('offer.add_to_va_error', '', 'app-snack-error');
+        } else {
+          this.service.showSnackBar('offer.add_tova__success', '', 'app-snack-success');
+        }
+      });
+
+    }
+  }
+
+  removeFromVA(record: OfferRecord) {
+    record.isVA = false;
+    this.service.addToOffer(record).subscribe(resp => {
+      if (resp.error) {
+        this.service.showSnackBar('offer.add_error', '', 'app-color-red');
+      } else {
+        this.service.showSnackBar('offer.add_success', '', 'app-color-green');
+      }
+    });
+
   }
 
 }

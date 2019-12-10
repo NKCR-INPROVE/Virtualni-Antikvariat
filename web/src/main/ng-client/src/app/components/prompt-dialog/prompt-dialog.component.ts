@@ -16,4 +16,8 @@ export class PromptDialogComponent implements OnInit {
   ngOnInit() {
   }
 
+  ok() {
+    this.dialogRef.close(this.result);
+  }
+
 }

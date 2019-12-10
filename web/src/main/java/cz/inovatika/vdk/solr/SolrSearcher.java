@@ -218,11 +218,11 @@ public class SolrSearcher {
       hasFilters = true;
     }
 
-    if (req.getParameter("pocet_exemplaru") != null && !req.getParameter("pocet_exemplaru").isBlank()) {
+    if (req.getParameter("pocet_exemplaru") != null && !req.getParameter("pocet_exemplaru").trim().isEmpty()) {
       query.addFilterQuery("pocet_exemplaru:" + req.getParameter("pocet_exemplaru"));
     }
 
-    if (req.getParameter("status") != null && !req.getParameter("status").isBlank()) {
+    if (req.getParameter("status") != null && !req.getParameter("status").trim().isEmpty()) {
       query.addFilterQuery("status:" + req.getParameter("status"));
     }
 
@@ -233,6 +233,11 @@ public class SolrSearcher {
     if (req.getParameter("matches") != null) {
       query.addFilterQuery("nabidka:[* TO *]");
       query.addFilterQuery("poptavka:" + UsersController.toKnihovna(req).getCode());
+      hasFilters = true;
+    }
+
+    if (req.getParameter("isVA") != null) {
+      query.addFilterQuery("isVA:true");
       hasFilters = true;
     }
 

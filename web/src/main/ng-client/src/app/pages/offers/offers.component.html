@@ -7,7 +7,7 @@
         <mat-icon matTooltip="{{ offer.closed ? 'closed' : 'open' | translate }}" 
           mat-list-icon>{{offer.closed ? 'lock' : 'lock_open'}}</mat-icon>
         <h4 mat-line><a (click)="load(offer)">{{ offer.nazev }}</a></h4>
-        <p mat-line>{{ offer.created }}</p>
+        <p mat-line>{{ offer.created | date : 'dd.MM.yyyy' }}</p>
       </mat-list-item>
     </mat-list>
   </div>
@@ -21,7 +21,7 @@
               <mat-icon class="app-icon-small app-icon-valign-text-top">add_circle</mat-icon>
               {{ 'offers.add' | translate }}
             </button>
-            <button mat-button (click)="refresh()">
+            <button mat-button (click)="refreshOffer()">
               <mat-icon class="app-icon-small app-icon-valign-text-top">refresh</mat-icon>
               {{ 'desc.refresh' | translate }}
             </button>
@@ -38,7 +38,7 @@
         <ng-container matColumnDef="price">
           <th mat-header-cell *matHeaderCellDef></th>
           <td mat-cell *matCellDef="let element">
-            <input #cena type="number" [(ngModel)]="element.cena" style="text-align:right;width:70px;" [class.error]="element.needPrice" /> Kč
+            <input #cena type="number" [(ngModel)]="element.cena" style="text-align:right;width:70px;" />{{element.cena ? ' Kč' : ''}} 
           </td>
         </ng-container>
     
@@ -52,16 +52,17 @@
               <button mat-flat-button class="app-button app-button-gray" (click)="searchToOffer()" matTooltip="{{ 'desc.add_to_offer_by_searching' | translate }}"><mat-icon>search</mat-icon></button>
             </div>
           </th>
-          <td mat-cell *matCellDef="let element; let idx = index;">
+          <td mat-cell *matCellDef="let element; let row; let idx = index;">
             <span *ngFor="let ch of element.chci" class="app-logo app-no-logo" style="color: rgba(26, 148, 9, 0.582);">{{ ch }}</span>
             <span *ngFor="let ch of element.nechci" class="app-logo app-no-logo" style="color: rgba(255, 0, 0, 0.452);">{{ ch }}</span>
-            <mat-icon (click)="addToVA(element)" matTooltip="{{ 'desc.add_to_secondhand' | translate }}" class="app-cursor-pointer app-icon-valign-text-bottom app-icon-right-mg">archive</mat-icon>
+            <mat-icon *ngIf="!row.isVA && (!element.chci || element.chci.length === 0)" (click)="addToVA(row)" matTooltip="{{ 'desc.add_to_secondhand' | translate }}" class="app-cursor-pointer app-icon-valign-text-bottom app-icon-right-mg">archive</mat-icon>
+            <mat-icon *ngIf="row.isVA" (click)="removeFromVA(row)" matTooltip="{{ 'desc.remove_from_secondhand' | translate }}" class="app-cursor-pointer app-icon-valign-text-bottom app-icon-right-mg">unarchive</mat-icon>
             <mat-icon (click)="removeFromOffer(idx)" matTooltip="{{ 'offers.remove' | translate }}" class="app-cursor-pointer app-icon-valign-text-bottom" [color]="'warn'">cancel</mat-icon>
           </td>
         </ng-container>
     
         <tr mat-header-row *matHeaderRowDef="displayedColumns; sticky: true"></tr>
-        <tr mat-row [ngClass]="{'app-even': index%2 == 1}" *matRowDef="let row; columns: displayedColumns; let index = index"></tr>  
+        <tr mat-row [ngClass]="{'app-even': index%2 == 1}" *matRowDef="let row; columns: displayedColumns; let index = index" [class.isva]="row.isVA"></tr>  
       </table>
     </div>
   </div>

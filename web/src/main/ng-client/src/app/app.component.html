@@ -6,6 +6,6 @@
     <router-outlet></router-outlet>
   </div>
 </main>
-<footer fxLayout="row">
+<footer *ngIf="!state.isReport" fxLayout="row">
   <app-footer fxFlex fxLayoutGap="10px"></app-footer>
 </footer>

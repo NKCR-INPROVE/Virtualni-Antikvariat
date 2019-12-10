@@ -168,6 +168,7 @@
    <field name="ex_nabidka" type="string" indexed="false" stored="true" multiValued="true" />
    
    <field name="isnabidka" type="boolean" indexed="true" stored="true" />
+   <field name="isVA" type="boolean" indexed="true" stored="true" />
    
    <field name="poptavka" type="string" indexed="true" stored="true" multiValued="true"/>
    <field name="poptavka_ext" type="string" indexed="true" stored="true" multiValued="true"/>

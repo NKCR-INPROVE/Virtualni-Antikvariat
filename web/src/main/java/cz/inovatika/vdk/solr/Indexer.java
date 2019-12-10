@@ -141,7 +141,7 @@ public class Indexer {
       LOGGER.log(Level.SEVERE, "File {0} not found", InitServlet.CONFIG_DIR + File.separator + opts.getString("indexerXSL", "vdk_md5.xsl"));
       throw new FileNotFoundException();
     }
-    
+
     f = new File(InitServlet.CONFIG_DIR + File.separator + opts.getString("indexerRemoveXSL", "vdk_md5_remove.xsl"));
     if (f.exists()) {
       xslt = new StreamSource(f);
@@ -153,7 +153,7 @@ public class Indexer {
       LOGGER.log(Level.SEVERE, "File {0} not found", "vdk_md5_remove.xsl");
       throw new FileNotFoundException();
     }
-    
+
     StreamSource xslt2;
     f = new File(InitServlet.CONFIG_DIR + File.separator + opts.getString("indexerIdXSL", "vdk_id.xsl"));
     if (f.exists()) {
@@ -575,27 +575,11 @@ public class Indexer {
     doc.addField("md5", record.doc_code);
 
     addField(doc, "nabidka", record.offer_id, "add");
+    if (record.isVA) {
+      addField(doc, "isVA", record.isVA, "set");
+    }
     // addField(doc, "nabidka_datum", offer.created, "add");
 
-//    JSONObject nabidka_ext_n = new JSONObject();
-//    nabidka_ext_n.put("id", record.id);
-//    nabidka_ext_n.put("offer_id", record.offer_id);
-//    nabidka_ext_n.put("doc_code", record.doc_code);
-//    nabidka_ext_n.put("zaznam", record.zaznam);
-//    nabidka_ext_n.put("knihovna", record.knihovna);
-//    // nabidka_ext_n.put("pr_knihovna", pr_knihovna);
-//    nabidka_ext_n.put("ex", record.exemplar);
-//    // nabidka_ext_n.put("datum", offer.created);
-//    
-//    if (record.fields != null) {
-//      nabidka_ext_n.put("fields", new JSONObject(record.fields).toString());
-//    }
-//    if (record.chci != null) {
-//      nabidka_ext_n.put("chci", new JSONArray(record.chci).toString());
-//    }
-//
-//    addField(doc, "nabidka_ext", nabidka_ext_n.toString(), "add");
-    
     addField(doc, "nabidka_ext", JSON.toJSONString(record), "add");
 
     if (record.chci != null) {
@@ -632,7 +616,7 @@ public class Indexer {
     // nabidka_ext_n.put("pr_knihovna", pr_knihovna);
     nabidka_ext_n.put("ex", exemplar);
     nabidka_ext_n.put("datum", datum);
-    
+
     if (fields != null) {
       nabidka_ext_n.put("fields", new JSONObject(fields));
     }
@@ -723,14 +707,12 @@ public class Indexer {
 
   public void reindexDocByCode(String code) throws Exception {
     LOGGER.log(Level.INFO, "----- Reindexing doc {0} ...", code);
-    
-    
-        LOGGER.log(Level.INFO, "Cleaning doc {0} from index...", code);
-        String s = "<delete><query>code:" + code + "</query></delete>";
-        SolrIndexerCommiter.postData(s);
-        indexDoc(code);
-        SolrIndexerCommiter.postData("<commit/>");
-        
+
+    LOGGER.log(Level.INFO, "Cleaning doc {0} from index...", code);
+    String s = "<delete><query>code:" + code + "</query></delete>";
+    SolrIndexerCommiter.postData(s);
+    indexDoc(code);
+    SolrIndexerCommiter.postData("<commit/>");
 
   }
 
@@ -765,11 +747,12 @@ public class Indexer {
 
   /**
    * Removes offer info from documents in catalog
+   *
    * @param offerid
-   * @throws Exception 
+   * @throws Exception
    */
   public void removeOffer(String offerid) throws Exception {
-    
+
     String code;
     SolrQuery query = new SolrQuery("nabidka:\"" + offerid + "\"");
     query.addField("code");
@@ -782,8 +765,7 @@ public class Indexer {
 
       indexDocOffers(code);
     }
-    
-    
+
 //    StringBuilder sb = new StringBuilder();
 //    sb.append("<add><doc>");
 //    sb.append("<field name=\"code\">")
@@ -1204,7 +1186,6 @@ public class Indexer {
 //    StringWriter sw = (StringWriter) destStream.getWriter();
 //    SolrIndexerCommiter.postData(sw.toString());
 //  }
-
   private String doSorlXML(String xml, String uniqueCode, String codeType, String identifier, boolean bohemika) throws Exception {
     LOGGER.log(Level.FINE, "Transforming {0} ...", identifier);
     StreamResult destStream = new StreamResult(new StringWriter());
@@ -1236,7 +1217,7 @@ public class Indexer {
     trRemove.transform(new StreamSource(new StringReader(xml)), destStream);
     LOGGER.log(Level.FINE, "Sending to index ...");
     StringWriter sw = (StringWriter) destStream.getWriter();
-    
+
     return sw.toString();
   }
 
@@ -1250,7 +1231,6 @@ public class Indexer {
 //    StringWriter sw = (StringWriter) destStream.getWriter();
 //    SolrIndexerCommiter.postData(sw.toString());
 //  }
-
   public static void main(String[] args) throws SQLException {
     Connection conn = null;
     try {

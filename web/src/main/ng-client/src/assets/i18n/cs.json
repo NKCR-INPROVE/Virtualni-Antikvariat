@@ -69,8 +69,10 @@
     "respond_to_offer_no": "Reagovat na nabídku \"nechci do fondu\"",
     "used_filters": "Nastavení filtru",
     "matches": "Vyhovující",
+    "isVA": "Virtuální antikvariát",
     "filter_chci" : "Dokumenty označené jako \"chci do fondu\"",
-    "filter_matches" : "Dokumenty, které poptávám a nekdo nabízí"
+    "filter_matches" : "Dokumenty, které poptávám a nekdo nabízí",
+    "filter_isVA": "Dokumenty, které jsou ve virtuálním antikvariátu"
   },
   "count": "Počet nalezených položek",
   "q.placeholder": "Hledej ve virtuální depozitní knihovně ...",

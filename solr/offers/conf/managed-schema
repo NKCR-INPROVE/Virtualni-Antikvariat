@@ -128,10 +128,18 @@
 	
 	<!-- when content_type is doc -->
     <field name="doc_code" type="string" indexed="true" stored="true"  multiValued="false" />
+    <field name="title" type="string" indexed="true" stored="true"  multiValued="false" />
     <field name="zaznam" type="string" indexed="true" stored="true"  multiValued="false" />
     <field name="exemplar" type="string" indexed="true" stored="true"  multiValued="false" />
     <field name="offer_id" type="string" indexed="true" stored="true"  multiValued="false" />
     <field name="fields" type="string" indexed="true" stored="true"  multiValued="false" />
+    <field name="cena" type="pint" indexed="true" stored="true"  multiValued="false" />
+    <field name="comment" type="string" indexed="false" stored="true" multiValued="false" />
+	<field name="chci" type="strings" indexed="true" stored="true"  />
+	<field name="nechci" type="strings" indexed="true" stored="true"  />
+	<!-- isVA = true pro Virtualni Antikvariat -->
+    <field name="isVA" type="boolean" indexed="true" stored="true"  multiValued="false" />
+	
     <dynamicField name="fields.*"  type="string"    indexed="true"  stored="true"/>
 
 

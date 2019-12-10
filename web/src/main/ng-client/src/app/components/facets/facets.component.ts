@@ -160,12 +160,15 @@ this.search();
     this.search();
   }
 
-
   toggleMatches() {
     this.filters.matches ? this.filters.matches = null : this.filters.matches = true;
     this.search();
   }
 
+  toggleIsVA() {
+    this.filters.isVA ? this.filters.isVA = null : this.filters.isVA = true;
+    this.search();
+  }
 
 
 }
