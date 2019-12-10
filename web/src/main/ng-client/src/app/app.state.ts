@@ -11,6 +11,7 @@ export class AppState {
   public isReport: boolean;
 
   public user: User;
+  public isLibrary: boolean;
 
   private viewsSubject: BehaviorSubject<View[]> = new BehaviorSubject<View[]>([]);
   public views: Observable<View[]> = this.viewsSubject.asObservable();

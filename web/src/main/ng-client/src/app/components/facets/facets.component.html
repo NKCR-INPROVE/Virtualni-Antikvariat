@@ -12,7 +12,7 @@
   </ng-container> -->
   <!-- /Used filters -->
 
-  <ng-container *ngIf="state.user">
+  <ng-container *ngIf="state.isLibrary">
     <h3 mat-subheader>
       {{ 'desc.matches' | translate }}
     </h3>
@@ -58,6 +58,19 @@
     </mat-list-item>
     <mat-divider></mat-divider>
   </ng-container><!--/vyhovujici -->
+
+  
+  <ng-container *ngIf="!state.isLibrary">
+    <mat-list-item>
+    <ng-container>
+      <mat-icon *ngIf="filters.isVA" class="app-cursor-pointer active">check_circle</mat-icon>
+      <h4 mat-line [matTooltip]="'desc.filter_isVA' | translate">
+        <a (click)="toggleIsVA()">{{ 'desc.isVA' | translate }}</a>
+      </h4>
+    </ng-container>
+    </mat-list-item>
+    <mat-divider></mat-divider>
+  </ng-container>
 
   <ng-container *ngFor="let field of fields">
     <ng-container *ngIf="facets[field]?.length">

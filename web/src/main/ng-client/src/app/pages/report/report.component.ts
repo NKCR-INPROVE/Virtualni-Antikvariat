@@ -29,22 +29,16 @@ export class ReportComponent implements OnInit {
   }
 
   load() {
-    console.log(this.route.snapshot.queryParams);
     const id = this.route.snapshot.queryParams.id;
 
 
     this.service.getOffer(id).subscribe(offer => {
       this.offer = offer;
-
-      console.log(offer);
       this.service.getUser(this.offer.knihovna).subscribe(user => {
-        console.log(user);
         this.offering = user;
         this.service.getOfferRecords(this.offer.id).subscribe(resp2 => {
           this.records = resp2;
-          console.log(resp2);
           this.records.forEach(rec => {
-            console.log(rec);
             if (rec.chci) {
               rec.chci.forEach(s => {
                 if (!this.receiverIds.includes(s)) {

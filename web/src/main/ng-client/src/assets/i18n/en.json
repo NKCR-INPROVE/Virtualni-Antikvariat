@@ -72,7 +72,8 @@
     "filter_chci" : "Dokumenty označené jako \"chci do fondu\"",
     "filter_matches" : "Dokumenty, které poptávám a nekdo nabízí",
     "isVA": "Virtual antiquarian",
-    "filter_isVA": "Documents in virtual antiquarian"
+    "filter_isVA": "Documents in virtual antiquarian",
+    "is_offered": "is offered by"
   },
   "count": "Count of search results",
   "q.placeholder": "Search in virtual depoiste library ...",

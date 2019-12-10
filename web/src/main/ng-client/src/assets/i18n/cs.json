@@ -72,7 +72,8 @@
     "isVA": "Virtuální antikvariát",
     "filter_chci" : "Dokumenty označené jako \"chci do fondu\"",
     "filter_matches" : "Dokumenty, které poptávám a nekdo nabízí",
-    "filter_isVA": "Dokumenty, které jsou ve virtuálním antikvariátu"
+    "filter_isVA": "Dokumenty, které jsou ve virtuálním antikvariátu",
+    "is_offered": "nabízí"
   },
   "count": "Počet nalezených položek",
   "q.placeholder": "Hledej ve virtuální depozitní knihovně ...",

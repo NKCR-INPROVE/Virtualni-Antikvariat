@@ -24,9 +24,9 @@
     </div>
     <div fxFlex class="app-fx-right" [ngClass.lt-md]="'app-hide'">
       <span class="example-fill-remaining-space"></span>
-      <span><a (click)="export()">{{'navbar.export' | translate}}</a></span>
-      <span><a *ngIf="isLogged" (click)="demands()">{{'navbar.demands' | translate}}</a></span>
-      <span><a *ngIf="isLogged" (click)="offers()">{{'navbar.offers' | translate}}</a></span>
+      <span *ngIf='state.isLibrary'><a (click)="export()">{{'navbar.export' | translate}}</a></span>
+      <span *ngIf='state.isLibrary'><a (click)="demands()">{{'navbar.demands' | translate}}</a></span>
+      <span *ngIf='state.isLibrary'><a (click)="offers()">{{'navbar.offers' | translate}}</a></span>
       <span>
         <mat-form-field>
           <mat-label>{{'navbar.views' | translate}}</mat-label>

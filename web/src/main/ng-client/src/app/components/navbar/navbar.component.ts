@@ -43,9 +43,10 @@ export class NavbarComponent implements OnInit {
   ngOnInit() {
 
     this.authService.currentUser.subscribe(x => {
-      this.isLogged = x !== null;
       this.user = x;
       this.state.user = x;
+      this.isLogged = x !== null;
+      this.state.isLibrary = this.isLogged && this.state.user.role === 'KNIHOVNA';
       this.service.getOffers().subscribe();
     });
     this.service.currentLang.subscribe((lang) => {
