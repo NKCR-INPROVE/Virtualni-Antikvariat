@@ -17,7 +17,7 @@
             <input matInput [(ngModel)]="user.zkratka" [placeholder]="'zkratka' | translate" cdkFocusInitial />
           </mat-form-field>
           <mat-form-field>
-            <input matInput [(ngModel)]="user.nazev" [placeholder]="'název' | translate" cdkFocusInitial />
+            <input matInput [(ngModel)]="user.nazev" [placeholder]="'název' | translate" />
           </mat-form-field>
           <mat-form-field>
             <input matInput [(ngModel)]="user.sigla" [placeholder]="'sigla' | translate" />
@@ -42,18 +42,30 @@
           </mat-form-field>
         </ng-container>
         <mat-dialog-actions align="end">
-            <button mat-button (click)="saveUser()">{{'admin.save' | translate}}</button>
-            <button mat-button (click)="addUser()">{{'admin.users_add' | translate}}</button>
+          <button mat-button (click)="saveUser()">{{'admin.save' | translate}}</button>
+          <button mat-button (click)="addUser()">{{'admin.users_add' | translate}}</button>
         </mat-dialog-actions>
       </div>
     </div>
-
-
   </mat-tab>
   <mat-tab [label]="'admin.jobs' | translate">
     <h3>{{'admin.jobs_title' | translate}}</h3>
-    <mat-list>
-      <mat-list-item *ngFor="let job of jobs">{{job.name}}</mat-list-item>
-    </mat-list>
+    <div>
+      <mat-list>
+        <mat-list-item *ngFor="let job of jobs">
+          <span>{{ job.name }}</span>
+          <span>{{'admin.jobs_nextFireTime' | translate}} {{ job.nextFireTime | date : 'dd.MM.yyyy H:mm' }} </span>
+          <span *ngIf="job.status">{{'admin.jobs_last_run' | translate}}
+            {{ job.status.last_run | date : 'dd.MM.yyyy H:mm' }} </span>
+          <button *ngIf="job.state !== 'running'" mat-button (click)="startJob(job)" matTooltip="{{'admin.jobs_start' | translate}}">
+            <mat-icon class="app-cursor-pointer">play_arrow</mat-icon>
+          </button>
+          <button *ngIf="job.state === 'running'" mat-button (click)="stopJob(job)" matTooltip="{{'admin.jobs_stop' | translate}}">
+            <mat-icon class="app-cursor-pointer">stop</mat-icon>
+          </button>
+        </mat-list-item>
+      </mat-list>
+      <button mat-button (click)="getJobs()">{{'admin.jobs_refresh' | translate}}</button>
+    </div>
   </mat-tab>
 </mat-tab-group>

@@ -16,6 +16,7 @@ import { Demand } from './models/demand';
 import { OfferRecord } from './models/offer-record';
 import { Offer } from './models/offer';
 import { MatSnackBar } from '@angular/material';
+import { Job } from './models/job';
 
 @Injectable({
   providedIn: 'root'
@@ -185,6 +186,23 @@ export class AppService {
 
   getJobs() {
     return this.http.get<any>(`/api/sched/getjobs`)
+      .pipe(map(resp => {
+        return resp;
+      }));
+  }
+
+  startJob(job: Job) {
+    const params: HttpParams = new HttpParams().set('key', job.jobKey);
+    return this.http.get<any>(`/api/sched/startjob`, {params})
+      .pipe(map(resp => {
+        return resp;
+      }));
+  }
+
+
+  stopJob(job: Job) {
+    const params: HttpParams = new HttpParams().set('key', job.jobKey);
+    return this.http.get<any>(`/api/sched/stopjob`, {params})
       .pipe(map(resp => {
         return resp;
       }));

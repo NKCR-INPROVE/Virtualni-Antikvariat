@@ -58,15 +58,10 @@ public class HarvesterJobData {
         this.jdata = jdata;
         this.configFile = jdata.getConfigFile();
         
-        
         this.homeDir = System.getProperty("user.home") + File.separator + ".vdkcr" + File.separator;
-        
         
         String json = IOUtils.toString(Options.class.getResourceAsStream("oai.json"), "UTF-8");
         opts = new JSONObject(json);
-        
-        System.out.println(jdata);
-        System.out.println(json);
         
         this.name = jdata.getString("knihovna");
         this.oaiDir = jdata.getString("oaiDir", ".vdkcr") + File.separator;

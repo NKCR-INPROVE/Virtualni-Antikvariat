@@ -6,6 +6,7 @@ import java.io.File;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.net.InetAddress;
+import java.text.SimpleDateFormat;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
@@ -188,7 +189,8 @@ public class SchedulerServlet extends HttpServlet {
         JSONObject ret = new JSONObject();
         try {
           Scheduler scheduler = VDKScheduler.getInstance().getScheduler();
-          String homeDir = System.getProperty("user.home") + File.separator + ".vdkcr" + File.separator;
+          SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSSXXX");
+          
 
           for (String groupName : scheduler.getJobGroupNames()) {
             for (JobKey jobKey : scheduler.getJobKeys(GroupMatcher
@@ -205,14 +207,14 @@ public class SchedulerServlet extends HttpServlet {
               if (triggers.isEmpty()) {
                 json.put("nextFireTime", "not scheduled");
               } else {
-                json.put("nextFireTime", triggers.get(0).getNextFireTime());
+                json.put("nextFireTime", sdf.format(triggers.get(0).getNextFireTime()));
               }
               json.put("state", "waiting");
               JobDataMap data = jd.getJobDataMap();
               VDKJobData jobdata = (VDKJobData) data.get("jobdata");
               jobdata.load();
               json.put("conf", jobdata.getOpts());
-              LOGGER.log(Level.INFO, jobdata.getStatusFile());
+              // LOGGER.log(Level.INFO, jobdata.getStatusFile());
               File statusFile = new File(jobdata.getStatusFile());
 
               if (statusFile.exists()) {

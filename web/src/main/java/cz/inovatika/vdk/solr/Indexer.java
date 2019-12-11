@@ -167,12 +167,16 @@ public class Indexer {
       throw new FileNotFoundException();
     }
     if (this.jobData == null) {
-      statusFileName = System.getProperty("user.home")
-              + File.separator + ".vdkcr" + File.separator
+      statusFileName = InitServlet.CONFIG_DIR
               + File.separator + "jobs" + File.separator
               + File.separator + "status" + File.separator + "indexer.status";
     } else {
       statusFileName = jobData.getStatusFile();
+      if (statusFileName == null) {
+        statusFileName = InitServlet.CONFIG_DIR
+              + File.separator + "jobs" + File.separator
+              + File.separator + "status" + File.separator + "indexer.status";
+      }
     }
     server = SolrIndexerCommiter.getServer();
   }
@@ -180,6 +184,7 @@ public class Indexer {
   public void clean() throws Exception {
     LOGGER.log(Level.FINE, "Cleaning index...");
     SolrIndexerCommiter.getServer().deleteByQuery("*:*");
+    SolrIndexerCommiter.postData("<commit/>");
     LOGGER.log(Level.INFO, "Index cleaned");
   }
 
@@ -191,7 +196,6 @@ public class Indexer {
       json.put("index", index());
       indexAllOffers();
       indexAllDemands();
-      indexAllWanted();
 
     } catch (Exception ex) {
       LOGGER.log(Level.SEVERE, null, ex);
@@ -531,35 +535,6 @@ public class Indexer {
     server.commit();
   }
 
-  public void indexAllWanted() throws Exception {
-    Connection conn = DbUtils.getConnection();
-    String sql = "select w.wants, zo.knihovna, k.code, zo.uniquecode from WANTED w, KNIHOVNA k, ZAZNAMOFFER zo "
-            + "where w.knihovna=k.knihovna_id and zo.zaznamoffer_id=w.zaznamoffer";
-    PreparedStatement ps = conn.prepareStatement(sql);
-
-    try (ResultSet rs = ps.executeQuery()) {
-      while (rs.next()) {
-        if (jobData.isInterrupted()) {
-          LOGGER.log(Level.INFO, "INDEXER INTERRUPTED");
-          break;
-        }
-
-        SolrInputDocument doc = new SolrInputDocument();
-        String uniquecode = rs.getString("uniquecode");
-        doc.addField("code", uniquecode);
-        doc.addField("md5", uniquecode);
-
-        if (rs.getBoolean(1)) {
-          addField(doc, "chci", rs.getString("code"), "add");
-        } else {
-          addField(doc, "nechci", rs.getString("code"), "add");
-        }
-        server.add(doc);
-
-      }
-    }
-    server.commit();
-  }
 
   private void addField(SolrInputDocument doc, String name, Object value, String modifier) {
     Map<String, Object> map = new HashMap();
@@ -701,7 +676,7 @@ public class Indexer {
     while (iter.hasNext()) {
       SolrDocument resultDoc = iter.next();
       String uniqueCode = (String) resultDoc.getFieldValue("code");
-      reindexDoc(uniqueCode, identifier);
+      reindexDoc(uniqueCode, identifier, true);
     }
   }
 
@@ -711,12 +686,12 @@ public class Indexer {
     LOGGER.log(Level.INFO, "Cleaning doc {0} from index...", code);
     String s = "<delete><query>code:" + code + "</query></delete>";
     SolrIndexerCommiter.postData(s);
-    indexDoc(code);
+    indexDoc(code, true);
     SolrIndexerCommiter.postData("<commit/>");
 
   }
 
-  public void reindexDoc(String uniqueCode, String identifier) throws Exception {
+  public void reindexDoc(String uniqueCode, String identifier, boolean commit) throws Exception {
 
     String oldUniqueCode;
     SolrQuery query = new SolrQuery("id:\"" + identifier + "\"");
@@ -732,7 +707,7 @@ public class Indexer {
         LOGGER.log(Level.INFO, "Cleaning doc {0} from index...", oldUniqueCode);
         String s = "<delete><query>code:" + oldUniqueCode + "</query></delete>";
         SolrIndexerCommiter.postData(s);
-        indexDoc(oldUniqueCode);
+        indexDoc(oldUniqueCode, commit);
         SolrIndexerCommiter.postData("<commit/>");
       }
     }
@@ -742,7 +717,7 @@ public class Indexer {
     SolrIndexerCommiter.postData(s);
     SolrIndexerCommiter.postData("<commit/>");
 
-    indexDoc(uniqueCode);
+    indexDoc(uniqueCode, commit);
   }
 
   /**
@@ -846,10 +821,10 @@ public class Indexer {
     }
   }
 
-  public void indexDoc(String uniqueCode) throws Exception {
+  public void indexDoc(String uniqueCode, boolean commit) throws Exception {
 
     try {
-      LOGGER.log(Level.INFO, "Indexace doc {0}...", uniqueCode);
+      LOGGER.log(Level.FINE, "Indexace doc {0}...", uniqueCode);
       StringBuilder sb = new StringBuilder();
       sb.append("<add>");
 
@@ -888,7 +863,9 @@ public class Indexer {
       SolrIndexerCommiter.postData(sb.toString());
       removeDocOffers(uniqueCode);
       indexDocOffers(uniqueCode);
-      SolrIndexerCommiter.postData("<commit/>");
+      if (commit) {
+        SolrIndexerCommiter.postData("<commit/>");
+      }
       LOGGER.log(Level.INFO, "REINDEX FINISHED. Total docs: {0}", total);
     } catch (Exception ex) {
       LOGGER.log(Level.SEVERE, "Error in reindex", ex);
@@ -1031,6 +1008,7 @@ public class Indexer {
   public void run() throws Exception {
 
     readStatus();
+    System.out.println("QQQQQQQQQQQ: " + jobData.getBoolean("full_index", false));
     if (jobData.getBoolean("full_index", false)) {
       reindex();
     } else {
@@ -1049,7 +1027,6 @@ public class Indexer {
       }
       if (jobData.getBoolean("reindex_wanted", false)) {
         removeAllWanted();
-        indexAllWanted();
       }
       if (!"".equals(jobData.getString("identifier", ""))) {
         LOGGER.log(Level.INFO, "----- Reindexing doc {0} ...", jobData.getString("identifier"));
@@ -1062,8 +1039,9 @@ public class Indexer {
         while (iter.hasNext()) {
           SolrDocument resultDoc = iter.next();
           String uniqueCode = (String) resultDoc.getFieldValue("code");
-          reindexDoc(uniqueCode, jobData.getString("identifier"));
+          reindexDoc(uniqueCode, jobData.getString("identifier"), false);
         }
+        SolrIndexerCommiter.postData("<commit/>");
 
       }
     }
@@ -1097,6 +1075,7 @@ public class Indexer {
 
   private JSONObject update(String fq) throws Exception {
     JSONObject json = new JSONObject();
+      StringBuilder sb = new StringBuilder();
     try {
       StorageBrowser docs = new StorageBrowser();
       docs.setWt("json");
@@ -1105,7 +1084,6 @@ public class Indexer {
         docs.setStart(fq);
       }
       Iterator it = docs.iterator();
-      StringBuilder sb = new StringBuilder();
       sb.append("<add>");
       while (it.hasNext()) {
         if (jobData.isInterrupted()) {
@@ -1115,7 +1093,7 @@ public class Indexer {
         JSONObject doc = (JSONObject) it.next();
 
         if (!jobData.getBoolean("full_index", false)) {
-          reindexDoc(doc.getString("code"), doc.getString("id"));
+          reindexDoc(doc.getString("code"), doc.getString("id"), false);
           if (doc.has("timestamp")) {
             statusJson.put(LAST_UPDATE, doc.getString("timestamp"));
             writeStatus();
@@ -1142,7 +1120,7 @@ public class Indexer {
           if (!doc.optString("timestamp").equals("")) {
             statusJson.put(LAST_UPDATE, doc.getString("timestamp"));
           }
-          if (total % 1000 == 0) {
+          if (total % 10 == 0) {
             sb.append("</add>");
             SolrIndexerCommiter.postData(sb.toString());
             SolrIndexerCommiter.postData("<commit/>");
@@ -1164,8 +1142,11 @@ public class Indexer {
 
       writeStatus();
     } catch (Exception ex) {
+      
       errorMsg += ex.toString();
       json.put("error", errorMsg);
+      json.put("doc", sb.toString());
+      LOGGER.log(Level.SEVERE, "Error reindexing {0}", sb.toString());
       LOGGER.log(Level.SEVERE, "Error in reindex", ex);
     }
     return json;
@@ -1211,7 +1192,7 @@ public class Indexer {
   }
 
   private String removeXML(String xml, String uniqueCode) throws Exception {
-    LOGGER.log(Level.INFO, "Transforming for remove {0} ...", uniqueCode);
+    LOGGER.log(Level.FINE, "Transforming for remove {0} ...", uniqueCode);
     StreamResult destStream = new StreamResult(new StringWriter());
     trRemove.setParameter("uniqueCode", uniqueCode);
     trRemove.transform(new StreamSource(new StringReader(xml)), destStream);

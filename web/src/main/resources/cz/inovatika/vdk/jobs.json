@@ -11,13 +11,11 @@
     "name": "indexer",
     "type": "index",
     "cron": "0 45 04 * * ?",
-    "settings": {
-      "full_index": false,
-      "reindex_offers": false,
-      "reindex_demands": false,
-      "reindex_wanted": false,
+      "full_index": true,
+      "reindex_offers": true,
+      "reindex_demands": true,
+      "reindex_wanted": true,
       "identifier": ""
-    }
   },
   {
     "name": "nkp_vdk",

@@ -154,24 +154,6 @@ public class IndexServlet extends HttpServlet {
         out.println(json.toString());
       }
     },
-    INDEXALLWANTED {
-      @Override
-      void doPerform(HttpServletRequest req, HttpServletResponse resp) throws Exception {
-        resp.setContentType("application/json");
-        PrintWriter out = resp.getWriter();
-        JSONObject json = new JSONObject();
-        try {
-
-          String f = System.getProperty("user.home") + File.separator + ".vdkcr" + File.separator + "jobs" + File.separator + "indexer.json";
-          Indexer indexer = new Indexer(f);
-          indexer.removeAllWanted();
-          indexer.indexAllWanted();
-        } catch (Exception ex) {
-          json.put("error", ex.toString());
-        }
-        out.println(json.toString());
-      }
-    },
     INDEXALLOFFERS {
       @Override
       void doPerform(HttpServletRequest req, HttpServletResponse resp) throws Exception {

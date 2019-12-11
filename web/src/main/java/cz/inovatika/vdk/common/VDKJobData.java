@@ -5,6 +5,7 @@
  */
 package cz.inovatika.vdk.common;
 
+import cz.inovatika.vdk.InitServlet;
 import cz.inovatika.vdk.Options;
 import java.io.File;
 import java.util.Iterator;
@@ -37,22 +38,28 @@ public class VDKJobData {
     this.configFile = conf;
     this.runtimeOptions = runtime;
     String json = IOUtils.toString(Options.class.getResourceAsStream("job.json"), "UTF-8");
-    this.initConfig = new JSONObject(json);
+    // this.initConfig = new JSONObject(json);
+    this.initConfig = new JSONObject(conf);
+    this.configSimpleName = initConfig.getString("name");
   }
 
   public VDKJobData(JSONObject initConfig) throws Exception {
     this.configFile = null;
     this.runtimeOptions = new JSONObject();
-    this.statusFile = this.configDir + File.separator + "status" + File.separator + this.configSimpleName + ".status";
+    logger.info(initConfig.toString()); 
+    this.configSimpleName = initConfig.getString("name");
+    this.statusFile = InitServlet.CONFIG_DIR + File.separator + "status" + File.separator + this.configSimpleName + ".status";
 
-    String json = IOUtils.toString(Options.class.getResourceAsStream("job.json"), "UTF-8");
-    this.initConfig = new JSONObject(json);
-
-    Iterator keys = initConfig.keys();
-    while (keys.hasNext()) {
-      String key = (String) keys.next();
-      this.initConfig.put(key, initConfig.get(key));
-    }
+    this.initConfig = initConfig;
+    
+//    String json = IOUtils.toString(Options.class.getResourceAsStream("job.json"), "UTF-8");
+//    this.initConfig = new JSONObject(json);
+//
+//    Iterator keys = initConfig.keys();
+//    while (keys.hasNext()) {
+//      String key = (String) keys.next();
+//      this.initConfig.put(key, initConfig.get(key));
+//    }
   }
 
   public void load() throws Exception {

@@ -5,6 +5,7 @@ import { AppConfiguration } from 'src/app/app-configuration';
 import { MatDialog } from '@angular/material';
 import { PromptDialogComponent } from 'src/app/components/prompt-dialog/prompt-dialog.component';
 import { Utils } from 'src/app/shared/utils';
+import { Job } from 'src/app/models/job';
 
 @Component({
   selector: 'app-admin',
@@ -15,7 +16,7 @@ export class AdminComponent implements OnInit {
 
   users: User[];
   user: User;
-  jobs: any[];
+  jobs: Job[];
 
   constructor(
     public dialog: MatDialog,
@@ -75,13 +76,25 @@ export class AdminComponent implements OnInit {
     });
   }
 
-  getJob() {
-    this.service.getJobs().subscribe(resp => {
-      this.jobs = [];
-      Object.keys(resp).forEach(k => {
-        this.jobs.push(resp[k]);
-      });
+  startJob(job: Job) {
+    this.service.startJob(job).subscribe(resp => {
+      if (resp.error) {
+        this.service.showSnackBar('admin.start_job_error', '', 'app-snack-error');
+      } else {
+        this.service.showSnackBar('admin.start_job_success', '', 'app-snack-success');
+      }
     });
+  }
+
+  stopJob(job: Job) {
+    this.service.stopJob(job).subscribe(resp => {
+      if (resp.error) {
+        this.service.showSnackBar('admin.stop_job_error', '', 'app-snack-error');
+      } else {
+        this.service.showSnackBar('admin.stop_job_success', '', 'app-snack-success');
+      }
+    });
+
   }
 
 }

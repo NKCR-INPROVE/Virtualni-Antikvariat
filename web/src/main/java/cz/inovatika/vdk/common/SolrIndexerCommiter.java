@@ -15,14 +15,12 @@ import java.net.HttpURLConnection;
 import java.net.ProtocolException;
 import java.net.URL;
 import java.util.HashMap;
-import java.util.Map;
-import java.util.Map.Entry;
 import java.util.logging.Level;
+import java.util.logging.Logger;
 import org.apache.solr.client.solrj.SolrClient;
 import org.apache.solr.client.solrj.SolrServerException;
 import org.apache.solr.client.solrj.impl.HttpSolrClient;
 import org.apache.solr.client.solrj.request.DirectXmlRequest;
-import org.apache.solr.client.solrj.request.json.DirectJsonQueryRequest;
 import org.apache.solr.client.solrj.response.UpdateResponse;
 import org.json.JSONObject;
 
@@ -31,6 +29,8 @@ import org.json.JSONObject;
  * @author alberto
  */
 public class SolrIndexerCommiter {
+  
+  private static final Logger LOGGER = Logger.getLogger(SolrIndexerCommiter.class.getName());
 
     private static HashMap <String, SolrClient> _servers = new HashMap<String, SolrClient>();
 
@@ -102,8 +102,6 @@ public class SolrIndexerCommiter {
 
     public static String postData(String url, String dataStr)
             throws Exception {
-      
-      
 
         URL solrUrl = new URL(url);
         Reader data = new StringReader(dataStr);
@@ -115,6 +113,7 @@ public class SolrIndexerCommiter {
         try {
             urlc.setRequestMethod("POST");
         } catch (ProtocolException e) {
+          LOGGER.log(Level.SEVERE, null, e);
             throw new Exception("Shouldn't happen: HttpURLConnection doesn't support POST??", e);
         }
         urlc.setDoOutput(true);
@@ -149,6 +148,7 @@ public class SolrIndexerCommiter {
             pipeString(reader, output);
             reader.close();
         } catch (IOException e) {
+          LOGGER.log(Level.SEVERE, null, e);
             throw new Exception("IOException while reading response", e);
         } finally {
             if (in != null) {
@@ -171,6 +171,7 @@ public class SolrIndexerCommiter {
             }
         }
         if (errorStream.length() > 0) {
+          LOGGER.log(Level.SEVERE, null, errorStream);
             throw new Exception("postData error: " + errorStream.toString());
         }
 

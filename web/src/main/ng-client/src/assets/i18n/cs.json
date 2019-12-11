@@ -100,6 +100,11 @@
     "users_add" : "Přidat uživatele",
     "jobs" : "Úkoly",
     "jobs_title" : "Administrace ukolů",
+    "jobs_start" : "Start",
+    "jobs_stop" : "Stop",
+    "jobs_nextFireTime" : "příští spuštění",
+    "jobs_last_run" : "poslední spuštění",
+    "jobs_refresh" : "aktualizovat",
     "save": "Uložit"
   }
 }
