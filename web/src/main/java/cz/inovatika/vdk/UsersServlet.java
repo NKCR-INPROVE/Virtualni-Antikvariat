@@ -67,7 +67,7 @@ public class UsersServlet extends HttpServlet {
 
         Actions actionToDo = Actions.valueOf(actionNameParam.toUpperCase());
         //if (UsersController.isLogged(req) || isLocalhost) {
-          out.print(actionToDo.doPerform(req, resp));
+        out.print(actionToDo.doPerform(req, resp));
 //        } else {
 //          JSONObject json = new JSONObject();
 //          json.put("error", "not logged");
@@ -115,6 +115,50 @@ public class UsersServlet extends HttpServlet {
 
       }
     },
+    SAVE {
+      @Override
+      JSONObject doPerform(HttpServletRequest req, HttpServletResponse resp) throws Exception {
+
+        JSONObject jo = new JSONObject();
+        try {
+          JSONObject js;
+          if (req.getMethod().equals("POST")) {
+            js = new JSONObject(IOUtils.toString(req.getInputStream(), "UTF-8"));
+          } else {
+            js = new JSONObject(req.getParameter("json"));
+          }
+          jo = UsersController.save(js);
+
+        } catch (Exception ex) {
+          LOGGER.log(Level.SEVERE, null, ex);
+          jo.put("error", ex.toString());
+        }
+        return jo;
+
+      }
+    },
+    RESETPWD {
+      @Override
+      JSONObject doPerform(HttpServletRequest req, HttpServletResponse resp) throws Exception {
+
+        JSONObject jo = new JSONObject();
+        try {
+          JSONObject js;
+          if (req.getMethod().equals("POST")) {
+            js = new JSONObject(IOUtils.toString(req.getInputStream(), "UTF-8"));
+          } else {
+            js = new JSONObject(req.getParameter("json"));
+          }
+          jo = UsersController.resetHeslo(js);
+
+        } catch (Exception ex) {
+          LOGGER.log(Level.SEVERE, null, ex);
+          jo.put("error", ex.toString());
+        }
+        return jo;
+
+      }
+    },
     LOGIN {
       @Override
       JSONObject doPerform(HttpServletRequest req, HttpServletResponse resp) throws Exception {
@@ -127,7 +171,7 @@ public class UsersServlet extends HttpServlet {
             JSONObject js = new JSONObject(IOUtils.toString(req.getInputStream(), "UTF-8"));
             user = js.getString("username");
             pwd = js.getString("password");
-          } 
+          }
 
           if (user != null) {
             JSONObject j = UsersController.login(req, user, pwd);
@@ -142,13 +186,13 @@ public class UsersServlet extends HttpServlet {
             }
 
           } else {
-              //resp.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
+            //resp.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
             jo.put("logged", false);
             jo.put("error", "invalid user name or password");
           }
 
         } catch (Exception ex) {
-              //resp.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
+          //resp.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
           jo.put("logged", false);
           jo.put("error", ex.toString());
         }
@@ -251,18 +295,7 @@ public class UsersServlet extends HttpServlet {
       JSONObject doPerform(HttpServletRequest req, HttpServletResponse response) throws Exception {
         JSONObject jo = new JSONObject();
         try {
-
-          SolrQuery query = new SolrQuery("code:" + req.getParameter("code"));
-          try (HttpSolrClient client = new HttpSolrClient.Builder("http://localhost:8983/solr").build()) {
-            QueryRequest qreq = new QueryRequest(query);
-
-            return new JSONObject(IndexerQuery.json(query, "usersCore"));
-
-          } catch (IOException ex) {
-            LOGGER.log(Level.SEVERE, null, ex);
-            jo.put("error", ex.toString());
-          }
-
+          jo = UsersController.getOne(req.getParameter("code"), false);
         } catch (JSONException ex) {
           LOGGER.log(Level.SEVERE, null, ex);
           jo.put("error", ex.toString());

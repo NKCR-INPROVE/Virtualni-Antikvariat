@@ -1,1 +1,59 @@
-<p>admin works!</p>
+<mat-tab-group>
+  <mat-tab [label]="'admin.users' | translate">
+    <h3>{{'admin.users_title' | translate}}</h3>
+
+    <div fxLayout="row" fxLayoutAlign="start stretch" fxLayoutGap.gt-xs="16px" fxLayout.xs="column"
+      gdAlignColumns.lt-xs="false">
+      <div fxFlex.gt-sm="25%" fxFlex.gt-xs="30%" fxFlex.xs="100%">
+        <mat-list>
+          <mat-list-item *ngFor="let user of users"><a (click)="selectUser(user)">{{user.nazev}}</a></mat-list-item>
+        </mat-list>
+      </div>
+
+      <div fxFlex.gt-sm="75%" fxFlex.gt-xs="70%" fxFlex.xs="100%">
+        <ng-container *ngIf="user">
+          <span class="app-logo app-no-logo">{{user.code}}</span>
+          <mat-form-field>
+            <input matInput [(ngModel)]="user.zkratka" [placeholder]="'zkratka' | translate" cdkFocusInitial />
+          </mat-form-field>
+          <mat-form-field>
+            <input matInput [(ngModel)]="user.nazev" [placeholder]="'název' | translate" cdkFocusInitial />
+          </mat-form-field>
+          <mat-form-field>
+            <input matInput [(ngModel)]="user.sigla" [placeholder]="'sigla' | translate" />
+          </mat-form-field>
+          <mat-form-field>
+            <input matInput [(ngModel)]="user.adresa" [placeholder]="'adresa' | translate" />
+          </mat-form-field>
+          <mat-form-field>
+            <input matInput [(ngModel)]="user.telefon" [placeholder]="'telefon' | translate" />
+          </mat-form-field>
+          <mat-form-field>
+            <input matInput [(ngModel)]="user.email" [placeholder]="'email' | translate" />
+          </mat-form-field>
+          <mat-form-field>
+            <mat-label>{{'role' | translate}}</mat-label>
+            <mat-select [(ngModel)]="user.role">
+              <mat-option *ngFor="let role of config.roles" [value]="role">{{role}}</mat-option>
+            </mat-select>
+          </mat-form-field>
+          <mat-form-field>
+            <input matInput type="number" [(ngModel)]="user.priorita" [placeholder]="'priorita' | translate" />
+          </mat-form-field>
+        </ng-container>
+        <mat-dialog-actions align="end">
+            <button mat-button (click)="saveUser()">{{'admin.save' | translate}}</button>
+            <button mat-button (click)="addUser()">{{'admin.users_add' | translate}}</button>
+        </mat-dialog-actions>
+      </div>
+    </div>
+
+
+  </mat-tab>
+  <mat-tab [label]="'admin.jobs' | translate">
+    <h3>{{'admin.jobs_title' | translate}}</h3>
+    <mat-list>
+      <mat-list-item *ngFor="let job of jobs">{{job.name}}</mat-list-item>
+    </mat-list>
+  </mat-tab>
+</mat-tab-group>

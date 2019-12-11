@@ -9,7 +9,7 @@
     <div fxFlex fxFlex.lt-sm="100%" class="app-fx-right" [ngClass.lt-md]="'app-hide'">
       <span><a routerLink="home">{{'navbar.home' | translate}}</a></span>
       <span><a routerLink="/registrace">{{'navbar.registration' | translate}}</a></span>
-      <span *ngIf="user && user.role === 'admin'"><a routerLink="/admin">{{'navbar.administration' | translate}}</a></span>
+      <span *ngIf="user && user.role === 'ADMIN'"><a routerLink="/admin">{{'navbar.administration' | translate}}</a></span>
       <span><a (click)="changeLang()" class="app-link">{{currLang}}</a></span>
       <span>
         <a *ngIf="!user" (click)="login()" class="app-link">{{'navbar.login' | translate}}</a>

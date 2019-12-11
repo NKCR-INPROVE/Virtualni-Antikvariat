@@ -93,5 +93,13 @@
     "add": "Přidat nabídku",
     "remove": "Odstranit nabídku",
     "removeFrom": "Odstranit z nabídky"
+  },
+  "admin": {
+    "users" : "Uživatelé",
+    "users_title" : "Administrace uživatelů",
+    "users_add" : "Přidat uživatele",
+    "jobs" : "Úkoly",
+    "jobs_title" : "Administrace ukolů",
+    "save": "Uložit"
   }
 }

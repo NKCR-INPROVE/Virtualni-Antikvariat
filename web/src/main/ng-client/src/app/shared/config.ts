@@ -3,4 +3,5 @@ export class Configuration {
   isVa: boolean = false;
   facets: string[];
   standardSources: string[];
+  roles: string[];
 }

@@ -55,6 +55,35 @@ public class UsersController {
     req.getSession().invalidate();
   }
 
+  public static JSONObject getOne(String code, boolean pwd) {
+    try {
+
+      Options opts = Options.getInstance();
+      SolrQuery query = new SolrQuery("code:" + code);
+      query.setFields("code", "zkratka", "nazev", "role", "priorita", "telefon", "email", "sigla", "adresa");
+      if (pwd) {
+        query.addField("heslo");
+      }
+      try (HttpSolrClient client = new HttpSolrClient.Builder("http://localhost:8983/solr").build()) {
+        QueryRequest qreq = new QueryRequest(query);
+
+        NoOpResponseParser dontMessWithSolr = new NoOpResponseParser();
+        dontMessWithSolr.setWriterType("json");
+        client.setParser(dontMessWithSolr);
+        NamedList<Object> qresp = client.request(qreq, opts.getString("usersCore", "users"));
+        JSONObject r = new JSONObject((String) qresp.get("response"));
+        return r.getJSONObject("response");
+
+      } catch (SolrServerException | IOException ex) {
+        LOGGER.log(Level.SEVERE, null, ex);
+      }
+
+    } catch (IOException | JSONException ex) {
+      LOGGER.log(Level.SEVERE, null, ex);
+    }
+    return null;
+  }
+
   public static JSONObject getAll() {
     try {
 
@@ -83,7 +112,7 @@ public class UsersController {
 
   public static JSONObject login(HttpServletRequest req, String code, String pwd) {
     try {
-      
+
       Options opts = Options.getInstance();
       SolrQuery query = new SolrQuery("code:\"" + code + "\"");
       try (SolrClient client = new HttpSolrClient.Builder(String.format("%s/%s/",
@@ -159,34 +188,52 @@ public class UsersController {
 
     // Get encoded user and password, comes after "BASIC "  
     String userpassEncoded = auth.substring(6);
-    
+
     // Decode it, using any base 64 decoder  
     byte[] decoded = Base64.getDecoder().decode(userpassEncoded);
 
     String userpassDecoded = new String(decoded);
 
     String account[] = userpassDecoded.split(":");
-    
+
     return login(req, account[0], account[1]) != null;
   }
 
   public static JSONObject add(JSONObject json) {
     try {
+      // Check code
       String jsonStr = SolrIndexerCommiter.indexJSON(json, "usersCore");
-
-//       Options opts = Options.getInstance();
-//      SolrClient solr = new HttpSolrClient.Builder(String.format("%s/%s/",
-//              opts.getString("solrHost", "http://localhost:8983/solr"),
-//              opts.getString("usersCore", "users")))
-//              .build();
-//
-//      JSONUpdateRequest request = new JSONUpdateRequest(json);
-//      UpdateResponse response = request.setCommitWithin(100).process(solr);
-//      LOGGER.log(Level.INFO, response.jsonStr());
-      // User u = JSON.parseObject(json.toString(), User.class); 
-      // solr.addBean(u, 1000);
-//      solr.close();
       return new JSONObject(jsonStr);
+    } catch (IOException | SolrServerException ex) {
+      LOGGER.log(Level.SEVERE, null, ex);
+      return new JSONObject().put("error", ex);
+    }
+  }
+
+  public static JSONObject save(JSONObject json) {
+    try {
+      //Retreive pwd. It should be missed in request
+      JSONObject orig = getOne(json.getString("code"), true).getJSONArray("docs").getJSONObject(0);
+      json.put("heslo", orig.get("heslo"));
+      String jsonStr = SolrIndexerCommiter.indexJSON(json, "usersCore");
+      return new JSONObject(jsonStr);
+    } catch (IOException | SolrServerException ex) {
+      LOGGER.log(Level.SEVERE, null, ex);
+      return new JSONObject().put("error", ex);
+    }
+  }
+
+  public static JSONObject resetHeslo(JSONObject json) {
+    try {
+      //Retreive pwd. It should be missed in request
+      JSONObject orig = getOne(json.getString("code"), true).getJSONArray("docs").getJSONObject(0);
+      if (json.getString("oldheslo").equals(orig.getString("heslo"))) {
+        orig.put("heslo", json.getString("newheslo"));
+        String jsonStr = SolrIndexerCommiter.indexJSON(orig, "usersCore");
+        return new JSONObject(jsonStr);
+      } else {
+        return (new JSONObject()).put("error", "invalid heslo");
+      }
     } catch (IOException | SolrServerException ex) {
       LOGGER.log(Level.SEVERE, null, ex);
       return new JSONObject().put("error", ex);

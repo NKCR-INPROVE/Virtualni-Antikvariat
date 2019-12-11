@@ -46,7 +46,7 @@ export class NavbarComponent implements OnInit {
       this.user = x;
       this.state.user = x;
       this.isLogged = x !== null;
-      this.state.isLibrary = this.isLogged && this.state.user.role === 'KNIHOVNA';
+      this.state.isLibrary = this.isLogged && this.state.user.role === 'LIBRARY';
       this.service.getOffers().subscribe();
     });
     this.service.currentLang.subscribe((lang) => {

@@ -2,5 +2,6 @@
     "defaultLang": "cs",
     "isVA": false,
     "facets": ["zdroj", "bohemika", "pocet_exemplaru", "rokvydani", "status"],
-    "standardSources": ["NKZ", "VKOL", "MZK", "UKF"]
+    "standardSources": ["NKZ", "VKOL", "MZK", "UKF"],
+    "roles": ["ADMIN", "LIBRARY", "USER"]
 }

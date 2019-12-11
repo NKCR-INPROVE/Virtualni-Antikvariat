@@ -1,5 +1,6 @@
 export class User {
     code: string;
+    zkratka: string;
     nazev: string;
     role: string;
     priorita: number;
@@ -7,5 +8,6 @@ export class User {
     email: string;
     sigla: string;
     adresa: string;
+    active: boolean;
     authdata?: string;
 }

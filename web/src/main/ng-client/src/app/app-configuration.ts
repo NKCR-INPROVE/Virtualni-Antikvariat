@@ -18,6 +18,10 @@ import { Configuration } from './shared/config';
         return this.config.standardSources;
     }
 
+    public get roles() {
+        return this.config.roles;
+    }
+
     /**
      * List the files holding section configuration in assets/configs folder
      * ['search'] will look for /assets/configs/search.json

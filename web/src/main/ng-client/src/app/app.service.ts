@@ -169,4 +169,25 @@ export class AppService {
       }));
   }
 
+  saveUser(user: User) {
+    return this.http.post<any>(`/api/users/save`, user)
+      .pipe(map(resp => {
+        return resp;
+      }));
+  }
+
+  getUsers() {
+    return this.http.get<any>(`/api/users/all`)
+      .pipe(map(resp => {
+        return resp.docs;
+      }));
+  }
+
+  getJobs() {
+    return this.http.get<any>(`/api/sched/getjobs`)
+      .pipe(map(resp => {
+        return resp;
+      }));
+  }
+
 }
