@@ -7,6 +7,7 @@ import { User } from 'src/app/models/user';
 
 const users: User[] = [{
     code: 'test',
+    heslo: 'test',
     username: 'TEST',
     nazev: 'Moravská zemská knihovna v Brně',
     role: 'KNIHOVNA',
