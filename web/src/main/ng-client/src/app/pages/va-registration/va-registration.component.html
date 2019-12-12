@@ -10,7 +10,7 @@
             [placeholder]="'user.username' | translate" required cdkFocusInitial />
         </mat-form-field>
         <mat-form-field>
-          <input matInput type="password" [(ngModel)]="user.heslo" name="heslo" [placeholder]="'user.heslo' | translate"
+          <input matInput type="password" [(ngModel)]="heslo" name="heslo" [placeholder]="'user.heslo' | translate"
             required />
         </mat-form-field>
         <mat-form-field>
@@ -66,7 +66,6 @@
             </mat-select>
           </mat-form-field>
         </ng-container>
-
 
         <mat-form-field>
           <textarea matInput [(ngModel)]="user.poznamka" name="poznamka"

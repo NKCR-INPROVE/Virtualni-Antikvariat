@@ -2,6 +2,7 @@ import { Component, OnInit, ElementRef } from '@angular/core';
 import { User } from 'src/app/models/user';
 import { AppConfiguration } from 'src/app/app-configuration';
 import { AppService } from 'src/app/app.service';
+import { Md5 } from 'ts-md5';
 
 @Component({
   selector: 'app-va-registration',
@@ -13,6 +14,7 @@ export class VaRegistrationComponent implements OnInit {
   user: User = new User();
   userTypes: string[] = ['user', 'library'];
   userType = 'user';
+  heslo: string;
 
   constructor(
     private el: ElementRef,
@@ -32,6 +34,8 @@ export class VaRegistrationComponent implements OnInit {
         this.service.showSnackBar('user.alreadyExists');
         this.el.nativeElement.querySelector('#username').focus();
       } else {
+        const pwd = '' + Md5.hashStr(this.heslo);
+        this.user.heslo = pwd;
         this.service.addUser(this.user).subscribe(resp => {
           if (resp.error) {
             this.service.showSnackBar('user.send_error', '', 'app-snack-error');
