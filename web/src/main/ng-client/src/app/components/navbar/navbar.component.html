@@ -2,8 +2,8 @@
   <mat-toolbar-row fxLayout="row" class="app-row-top" fxLayout.lt-sm="column">
     <div fxFlex fxFlex.lt-sm="100%" class="app-fx-left">
       <span><a routerLink="home" matTooltip="{{'app.title' | translate}}">
-          <img *ngIf="state.isLibrary" [src]="config.context + '/assets/img/logo-vdk-primary-desc.png'" alt="{{'app.title' | translate}}" />
-          <img *ngIf="!state.isLibrary" [src]="config.context + '/assets/img/logo-virtualni-antikvariat.png'" alt="{{'app.title_va' | translate}}" />
+        <img *ngIf="state.isLibrary" [src]="config.context + '/assets/img/logo-vdk-primary-desc.png'" alt="{{'app.title' | translate}}" />
+        <img *ngIf="!state.isLibrary" [src]="config.context + '/assets/img/logo-va.png'" alt="{{'app.title_va' | translate}}" />
       </a></span>
     </div>
     <div fxFlex fxFlex.lt-sm="100%" class="app-fx-right" [ngClass.lt-md]="'app-hide'">
