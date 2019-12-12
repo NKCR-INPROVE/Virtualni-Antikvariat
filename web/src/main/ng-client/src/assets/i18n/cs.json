@@ -116,7 +116,15 @@
     "adresa":"adresa",
     "telefon": "telefon",
     "email": "e-mail",
-    "alreadyExists": "Uživatelské jméno existuje. Vyberte jiné"
+    "alreadyExists": "Uživatelské jméno existuje. Vyberte jiné",
+    "type.label": "Typ uživatele",
+    "type_library": "Knihovna",
+    "type_user": "Knihkupectví - Antikvariát",
+    "prijemce": "příjemce povinného výtisku",
+    "celostatni" : "celostátní",
+    "regionalni":"regionální",
+    "periodicky":"periodický",
+    "poznamka":"poznámka"
   },
   "doprava" : {
     "label" :"způsoby dopravy knih",

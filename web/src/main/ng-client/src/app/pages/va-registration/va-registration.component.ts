@@ -11,6 +11,8 @@ import { AppService } from 'src/app/app.service';
 export class VaRegistrationComponent implements OnInit {
 
   user: User = new User();
+  userTypes: string[] = ['user', 'library'];
+  userType = 'user';
 
   constructor(
     private el: ElementRef,
@@ -20,7 +22,7 @@ export class VaRegistrationComponent implements OnInit {
 
   ngOnInit() {
   }
-
+  
   send() {
     console.log(this.user);
     // Check username uniqueness
