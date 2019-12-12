@@ -14,6 +14,7 @@ import { TranslateService } from '@ngx-translate/core';
 import { DemandsComponent } from 'src/app/pages/demands/demands.component';
 import { OffersComponent } from 'src/app/pages/offers/offers.component';
 import { Md5 } from 'ts-md5';
+import { AppConfiguration } from 'src/app/app-configuration';
 
 @Component({
   selector: 'app-navbar',
@@ -37,7 +38,8 @@ export class NavbarComponent implements OnInit {
     private router: Router,
     private translate: TranslateService,
     public state: AppState,
-    private service: AppService) {
+    private service: AppService,
+    public config: AppConfiguration) {
   }
 
   ngOnInit() {

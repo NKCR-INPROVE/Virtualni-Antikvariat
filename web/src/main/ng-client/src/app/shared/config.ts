@@ -1,4 +1,5 @@
 export class Configuration {
+  context: string;
   defaultLang: string;
   isVa: boolean = false;
   facets: string[];

@@ -10,6 +10,10 @@ import { Configuration } from './shared/config';
     private config: Configuration;
     public invalidServer: boolean;
 
+    public get context() {
+        return this.config.context;
+    }
+
     public get facets() {
         return this.config.facets;
     }

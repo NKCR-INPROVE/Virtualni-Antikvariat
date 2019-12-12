@@ -1,4 +1,5 @@
 {
+    "context": "",
     "defaultLang": "cs",
     "isVA": false,
     "facets": ["zdroj", "bohemika", "pocet_exemplaru", "rokvydani", "status"],

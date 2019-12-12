@@ -23,12 +23,13 @@
   </mat-card-actions>
   <mat-card-header>
     <mat-card-title>
-      {{doc.titlemd5[0]}}
+        <ng-container *ngIf="doc.titlemd5">{{doc.titlemd5[0]}}</ng-container>
+        <ng-container *ngIf="!doc.titlemd5">{{'NOTITLE' | translate}} {{doc.code}}</ng-container>      
       <mat-icon *ngIf="hasDifferences('title')" #wTitle (click)="openPop('title', wTitle, infoPopup)"
         class="app-cursor-pointer app-icon-left-mg app-icon-valign-text-top">warning</mat-icon>
     </mat-card-title>
     <mat-card-subtitle>
-      <div>
+      <div *ngIf="doc.author && doc.author[0]">
         <span *ngFor="let a of doc.author[0]">{{a}}; </span>
         <mat-icon *ngIf="hasDifferences('author')" #wAuthor (click)="openPop('author', wAuthor, infoPopup)"
           class="app-cursor-pointer app-icon-left-mg app-icon-valign-text-bottom">warning</mat-icon>

@@ -82,6 +82,9 @@ export class ResultItemComponent implements OnInit, OnDestroy {
     if (!arr) {
       return false;
     }
+    if (!arr[0]) {
+      return false;
+    }
     return !arr.every(v => {
       if (v instanceof Array) {
         return JSON.stringify(v) === JSON.stringify(arr[0]);
