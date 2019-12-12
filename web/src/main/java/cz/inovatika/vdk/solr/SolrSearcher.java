@@ -232,7 +232,7 @@ public class SolrSearcher {
 
     if (req.getParameter("matches") != null) {
       query.addFilterQuery("nabidka:[* TO *]");
-      query.addFilterQuery("poptavka:" + UsersController.toKnihovna(req).getCode());
+      query.addFilterQuery("poptavka:" + UsersController.toKnihovna(req).code);
       hasFilters = true;
     }
 
@@ -275,7 +275,7 @@ public class SolrSearcher {
     }
 
     if (req.getParameter("wanted") != null) {
-      query.addFilterQuery("chci:" + UsersController.toKnihovna(req).getCode());
+      query.addFilterQuery("chci:" + UsersController.toKnihovna(req).code);
       hasFilters = true;
     }
 

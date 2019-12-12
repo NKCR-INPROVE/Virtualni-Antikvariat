@@ -9,5 +9,7 @@ export class User {
     sigla: string;
     adresa: string;
     active: boolean;
+    doprava: string;
+    platba: string;
     authdata?: string;
 }

@@ -253,7 +253,7 @@ public class IndexServlet extends HttpServlet {
             Indexer indexer = new Indexer(f);
             indexer.indexDemand(
                     req.getParameter("id"),
-                    kn.getCode(),
+                    kn.code,
                     req.getParameter("docCode"),
                     req.getParameter("zaznam"),
                     req.getParameter("ex"));
@@ -279,7 +279,7 @@ public class IndexServlet extends HttpServlet {
             Indexer indexer = new Indexer(f);
             indexer.removeDemand(
                     req.getParameter("id"),
-                    kn.getCode(),
+                    kn.code,
                     req.getParameter("docCode"),
                     req.getParameter("zaznam"),
                     req.getParameter("ex"));
@@ -298,7 +298,7 @@ public class IndexServlet extends HttpServlet {
         JSONObject json = new JSONObject();
         try {
             User kn = UsersController.toKnihovna(req);
-            if (isLocalhost || kn.hasRole(DbUtils.Roles.ADMIN)) {
+            if (isLocalhost || kn.role.equals(DbUtils.Roles.ADMIN)) {
               String f = System.getProperty("user.home") + File.separator + ".vdkcr" + File.separator + "jobs" + File.separator + "indexer.json";
               Indexer indexer = new Indexer(f);
               indexer.indexAllDemands();
@@ -346,7 +346,7 @@ public class IndexServlet extends HttpServlet {
             json.put("error", "rights.notlogged");
           } else {
 
-            if (kn.hasRole(DbUtils.Roles.ADMIN)) {
+            if (kn.role.equals(DbUtils.Roles.ADMIN)) {
               String f = System.getProperty("user.home") + File.separator + ".vdkcr" + File.separator + "jobs" + File.separator + "indexer.json";
               Indexer indexer = new Indexer(f);
               indexer.reindex();
@@ -369,7 +369,7 @@ public class IndexServlet extends HttpServlet {
         JSONObject json = new JSONObject();
         try {
             User kn = UsersController.toKnihovna(req);
-            if (isLocalhost || kn.hasRole(DbUtils.Roles.ADMIN)) {
+            if (isLocalhost || kn.role.equals(DbUtils.Roles.ADMIN)) {
               String f = System.getProperty("user.home") + File.separator + ".vdkcr" + File.separator + "jobs" + File.separator + "indexer.json";
               Indexer indexer = new Indexer(f);
               indexer.reindex();
@@ -395,7 +395,7 @@ public class IndexServlet extends HttpServlet {
         JSONObject json = new JSONObject();
         try {
           User kn = UsersController.toKnihovna(req);
-            if (isLocalhost || kn.hasRole(DbUtils.Roles.ADMIN)) {
+            if (isLocalhost || kn.role.equals(DbUtils.Roles.ADMIN)) {
 
               String f = System.getProperty("user.home") + File.separator + ".vdkcr" + File.separator + "jobs" + File.separator + "indexer.json";
               Indexer indexer = new Indexer(f);
@@ -421,7 +421,7 @@ public class IndexServlet extends HttpServlet {
         JSONObject json = new JSONObject();
         try {
           User kn = UsersController.toKnihovna(req);
-            if (isLocalhost || kn.hasRole(DbUtils.Roles.ADMIN)) {
+            if (isLocalhost || kn.role.equals(DbUtils.Roles.ADMIN)) {
               Indexer indexer = new Indexer();
               indexer.reindexDocByCode(req.getParameter("code"));
               SolrIndexerCommiter.closeClients();

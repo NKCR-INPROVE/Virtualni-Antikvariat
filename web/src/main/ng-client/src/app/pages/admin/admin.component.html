@@ -40,6 +40,8 @@
           <mat-form-field>
             <input matInput type="number" [(ngModel)]="user.priorita" [placeholder]="'priorita' | translate" />
           </mat-form-field>
+            <mat-checkbox [(ngModel)]="user.active" >{{'active' | translate}}</mat-checkbox>
+          
         </ng-container>
         <mat-dialog-actions align="end">
           <button mat-button (click)="saveUser()">{{'admin.save' | translate}}</button>

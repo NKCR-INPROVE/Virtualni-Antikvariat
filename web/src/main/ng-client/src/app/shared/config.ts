@@ -5,4 +5,6 @@ export class Configuration {
   facets: string[];
   standardSources: string[];
   roles: string[];
+  doprava: string[];
+  platba: string[];
 }

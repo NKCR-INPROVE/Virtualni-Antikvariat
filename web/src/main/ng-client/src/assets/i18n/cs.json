@@ -106,5 +106,18 @@
     "jobs_last_run" : "poslední spuštění",
     "jobs_refresh" : "aktualizovat",
     "save": "Uložit"
+  },
+  "doprava" : {
+    "label" :"způsoby dopravy knih",
+    "osobni": "osobní vyzvednutí",
+    "nadobirku": "poštou na dobírku",
+    "predem": "poštou platba předem"
+  },
+  
+  "platba": {
+    "label": "způsoby platby",
+    "hotove": "hotově při převzetí",
+    "dobirka": "dobírka",
+    "predem" : "platba předem – převodem na účet, platba kartou online, paypal"
   }
 }

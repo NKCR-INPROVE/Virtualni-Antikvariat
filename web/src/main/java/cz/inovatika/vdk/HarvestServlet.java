@@ -100,7 +100,7 @@ public class HarvestServlet extends HttpServlet {
           if (kn == null && !isLocalhost) {
             json.put("error", "rights.notlogged");
           } else {
-            if (isLocalhost || kn.hasRole(DbUtils.Roles.ADMIN)) {
+            if (isLocalhost || kn.role.equals(DbUtils.Roles.ADMIN)) {
               
               HarvesterJob hj = new HarvesterJob();
               JSONObject runParams = new JSONObject();

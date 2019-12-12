@@ -89,5 +89,18 @@
     "add": "Add offer",
     "remove": "Remove offer",
     "removeFrom": "Remove from offer"
+  },
+  "doprava" : {
+    "label" :"ways of transporting books",
+    "osobni": "personal pickup",
+    "nadobirku": "cash on delivery",
+    "predem": "postal, payment in advance"
+  },
+  
+  "platba": {
+    "label": "payment methods",
+    "hotove": "cash on receipt",
+    "dobirka": "cash on delivery",
+    "predem" : "prepay - bank transfer, card payment online, paypal"
   }
 }

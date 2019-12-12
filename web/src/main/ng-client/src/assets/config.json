@@ -1,8 +1,10 @@
 {
-    "context": "",
-    "defaultLang": "cs",
-    "isVA": false,
-    "facets": ["zdroj", "bohemika", "pocet_exemplaru", "rokvydani", "status"],
-    "standardSources": ["NKZ", "VKOL", "MZK", "UKF"],
-    "roles": ["ADMIN", "LIBRARY", "USER"]
+  "context": "",
+  "defaultLang": "cs",
+  "isVA": false,
+  "facets": ["zdroj", "bohemika", "pocet_exemplaru", "rokvydani", "status"],
+  "standardSources": ["NKZ", "VKOL", "MZK", "UKF"],
+  "roles": ["ADMIN", "LIBRARY", "USER"],
+  "doprava": ["osobni", "nadobirku", "predem"],
+  "platba": ["hotove", "dobirka", "predem"]
 }

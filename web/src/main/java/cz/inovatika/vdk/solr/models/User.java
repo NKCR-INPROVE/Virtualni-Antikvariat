@@ -1,5 +1,6 @@
 package cz.inovatika.vdk.solr.models;
 
+import com.alibaba.fastjson.JSON;
 import cz.inovatika.vdk.Options;
 import cz.inovatika.vdk.common.DbUtils;
 import cz.inovatika.vdk.common.MD5;
@@ -12,7 +13,6 @@ import org.apache.solr.client.solrj.SolrServerException;
 import org.apache.solr.client.solrj.beans.Field;
 import org.apache.solr.client.solrj.impl.HttpSolrClient;
 import org.apache.solr.client.solrj.response.QueryResponse;
-import org.json.JSONException;
 import org.json.JSONObject;
 
 /**
@@ -23,27 +23,40 @@ public class User {
 
   final static Logger LOGGER = Logger.getLogger(User.class.getName());
   @Field
-  private String code;
+  public String code;
   @Field
-  private String username;
+  public String username;
   @Field
-  private String nazev;
+  public String nazev;
   @Field
-  private String heslo;
+  public String heslo;
   @Field
-  private String sigla;
+  public String sigla;
   @Field
-  private String adresa;
+  public String adresa;
   @Field
-  private String role;
+  public String role;
   @Field
-  private int priorita;
+  public int priorita;
   @Field
-  private String email;
+  public String email;
   @Field
-  private String telefon;
+  public String telefon;
+  @Field
+  public boolean active;
+  @Field
+  public String platba;
+  @Field
+  public String doprava;
   
-
+  public static User fromJSON(JSONObject json) {
+    User user = JSON.parseObject(json.toString(), User.class);
+    if (user.code == null || user.code.trim().isEmpty()) {
+      user.code = MD5.generate(new String[]{user.nazev, user.email});
+    }
+    return user;
+  }
+  
   public static User fromJSONx(JSONObject json) {
     
     User user = new User();
@@ -57,6 +70,7 @@ public class User {
     user.email = json.getString("email");
     user.sigla = json.getString("sigla");
     user.adresa = json.getString("adresa");
+    user.active = json.getBoolean("active");
     return user;
   }
 
@@ -86,160 +100,4 @@ public class User {
       return null;
     }
   }
-
-//  public JSONObject getJsonx() throws JSONException {
-//    JSONObject j = new JSONObject();
-//    j.put("name", nazev);
-//    j.put("code", code);
-//    j.put("priorita", priorita);
-//    j.put("role", role);
-//    j.put("telefon", telefon);
-//    j.put("email", email);
-//    j.put("sigla", getSigla());
-//    j.put("adresa", getAdresa());
-//    return j;
-//  }
-
-  /**
-   * @return the code
-   */
-  public String getCode() {
-    return code;
-  }
-
-  /**
-   * @param code the code to set
-   */
-  public void setCode(String code) {
-    this.code = code;
-  }
-
-  /**
-   * @return the username
-   */
-  public String getUsername() {
-    return username;
-  }
-
-  /**
-   * @param username the username to set
-   */
-  public void setUsername(String username) {
-    this.username = username;
-  }
-
-  /**
-   * @return the nazev
-   */
-  public String getNazev() {
-    return nazev;
-  }
-
-  /**
-   * @param nazev the nazev to set
-   */
-  public void setNazev(String nazev) {
-    this.nazev = nazev;
-  }
-
-  /**
-   * @return the heslo
-   */
-  public String getHeslo() {
-    return heslo;
-  }
-
-  /**
-   * @param heslo the heslo to set
-   */
-  public void setHeslo(String heslo) {
-    this.heslo = heslo;
-  }
-
-  /**
-   * @return the roles
-   */
-  public String getRole() {
-    return role;
-  }
-
-  public boolean hasRole(DbUtils.Roles role) {
-    return role.equals(role.toString());
-  }
-
-  public boolean isSourceLib() {
-    return hasRole(DbUtils.Roles.SOURCELIB);
-  }
-
-  /**
-   * @return the email
-   */
-  public String getEmail() {
-    return email;
-  }
-
-  /**
-   * @param email the email to set
-   */
-  public void setEmail(String email) {
-    this.email = email;
-  }
-
-  /**
-   * @return the telefon
-   */
-  public String getTelefon() {
-    return telefon;
-  }
-
-  /**
-   * @param telefon the telefon to set
-   */
-  public void setTelefon(String telefon) {
-    this.telefon = telefon;
-  }
-
-
-  /**
-   * @return the priorita
-   */
-  public int getPriorita() {
-    return priorita;
-  }
-
-  /**
-   * @param priorita the priorita to set
-   */
-  public void setPriorita(int priorita) {
-    this.priorita = priorita;
-  }
-
-  /**
-   * @return the sigla
-   */
-  public String getSigla() {
-    return sigla;
-  }
-
-  /**
-   * @param sigla the sigla to set
-   */
-  public void setSigla(String sigla) {
-    this.sigla = sigla;
-  }
-
-  /**
-   * @return the adresa
-   */
-  public String getAdresa() {
-    return adresa;
-  }
-
-  /**
-   * @param adresa the adresa to set
-   */
-  public void setAdresa(String adresa) {
-    this.adresa = adresa;
-  }
-
 }

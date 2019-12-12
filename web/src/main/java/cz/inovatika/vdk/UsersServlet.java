@@ -127,7 +127,13 @@ public class UsersServlet extends HttpServlet {
           } else {
             js = new JSONObject(req.getParameter("json"));
           }
-          jo = UsersController.save(js);
+          
+          if (js.has("code")) {
+            jo = UsersController.save(js);
+          } else {
+            jo = UsersController.add(js);
+          }
+          
 
         } catch (Exception ex) {
           LOGGER.log(Level.SEVERE, null, ex);

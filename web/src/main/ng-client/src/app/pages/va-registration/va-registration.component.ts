@@ -1,4 +1,7 @@
 import { Component, OnInit } from '@angular/core';
+import { User } from 'src/app/models/user';
+import { AppConfiguration } from 'src/app/app-configuration';
+import { AppService } from 'src/app/app.service';
 
 @Component({
   selector: 'app-va-registration',
@@ -7,13 +10,20 @@ import { Component, OnInit } from '@angular/core';
 })
 export class VaRegistrationComponent implements OnInit {
 
-  constructor() { }
+  user: User = new User();
+
+
+
+  constructor(
+    public config: AppConfiguration,
+    private service: AppService
+  ) { }
 
   ngOnInit() {
   }
 
   send() {
-    
+    console.log(this.user);
   }
 
 }

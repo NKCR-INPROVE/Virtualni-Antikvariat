@@ -961,7 +961,7 @@ public class Indexer {
 
       String from = opts.getString("admin.email");
       User kn = User.byCode(j.getString("knihovna"));
-      String to = kn.getEmail();
+      String to = kn.email;
       String zaznam = j.optString("zaznam");
       String code = j.optString("code");
       String exemplar = j.optString("exemplar");

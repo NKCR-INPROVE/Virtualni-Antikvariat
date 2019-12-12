@@ -26,6 +26,14 @@ import { Configuration } from './shared/config';
         return this.config.roles;
     }
 
+    public get doprava() {
+        return this.config.doprava;
+    }
+
+    public get platba() {
+        return this.config.platba;
+    }
+
     /**
      * List the files holding section configuration in assets/configs folder
      * ['search'] will look for /assets/configs/search.json

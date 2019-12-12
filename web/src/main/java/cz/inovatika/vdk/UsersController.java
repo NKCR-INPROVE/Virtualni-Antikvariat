@@ -127,7 +127,7 @@ public class UsersController {
         }
         User user = response.getBeans(User.class).get(0);
         // if (user.getHeslo().equals(MD5.generate(pwd))) {
-        if (user.getHeslo().equals(pwd)) {
+        if (user.heslo.equals(pwd)) {
           JSONObject json = new JSONObject(JSON.toJSONString(user));
           json.remove("heslo");
           req.getSession().setAttribute("login", json);
@@ -201,8 +201,11 @@ public class UsersController {
 
   public static JSONObject add(JSONObject json) {
     try {
-      // Check code
-      String jsonStr = SolrIndexerCommiter.indexJSON(json, "usersCore");
+      // generate code
+      User user = User.fromJSON(json);
+      JSONObject jo = new JSONObject(JSON.toJSONString(user));
+      
+      String jsonStr = SolrIndexerCommiter.indexJSON(jo, "usersCore");
       return new JSONObject(jsonStr);
     } catch (IOException | SolrServerException ex) {
       LOGGER.log(Level.SEVERE, null, ex);
