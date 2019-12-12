@@ -1,6 +1,6 @@
 export class User {
     code: string;
-    zkratka: string;
+    username: string;
     nazev: string;
     role: string;
     priorita: number;

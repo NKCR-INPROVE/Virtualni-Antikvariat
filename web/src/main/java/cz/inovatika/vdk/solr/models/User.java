@@ -25,6 +25,8 @@ public class User {
   @Field
   private String code;
   @Field
+  private String username;
+  @Field
   private String nazev;
   @Field
   private String heslo;
@@ -46,6 +48,7 @@ public class User {
     
     User user = new User();
     user.code = json.getString("code");
+    user.username = json.getString("username");
     user.heslo = MD5.generate(json.getString("heslo"));
     user.nazev = json.getString("nazev");
     user.role = json.getString("role");
@@ -109,6 +112,20 @@ public class User {
    */
   public void setCode(String code) {
     this.code = code;
+  }
+
+  /**
+   * @return the username
+   */
+  public String getUsername() {
+    return username;
+  }
+
+  /**
+   * @param username the username to set
+   */
+  public void setUsername(String username) {
+    this.username = username;
   }
 
   /**

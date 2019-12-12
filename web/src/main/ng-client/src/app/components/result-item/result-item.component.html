@@ -17,7 +17,7 @@
 
       <ng-container *ngIf="doc.poptavka">
         <label>{{'poptava' | translate}}: </label>
-        <ng-container *ngFor="let id of doc.poptavka">{{id}};</ng-container>
+        <ng-container *ngFor="let id of doc.poptavka"><span class="app-logo app-no-logo">{{id}}</span>&#160;</ng-container>
       </ng-container>
     </span>
   </mat-card-actions>

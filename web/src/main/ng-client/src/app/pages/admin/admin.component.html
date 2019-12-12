@@ -12,9 +12,9 @@
 
       <div fxFlex.gt-sm="75%" fxFlex.gt-xs="70%" fxFlex.xs="100%">
         <ng-container *ngIf="user">
-          <span class="app-logo app-no-logo">{{user.code}}</span>
+          
           <mat-form-field>
-            <input matInput [(ngModel)]="user.zkratka" [placeholder]="'zkratka' | translate" cdkFocusInitial />
+            <input matInput [(ngModel)]="user.username" [placeholder]="'username' | translate" cdkFocusInitial />
           </mat-form-field>
           <mat-form-field>
             <input matInput [(ngModel)]="user.nazev" [placeholder]="'název' | translate" />

@@ -60,7 +60,7 @@ public class UsersController {
 
       Options opts = Options.getInstance();
       SolrQuery query = new SolrQuery("code:" + code);
-      query.setFields("code", "zkratka", "nazev", "role", "priorita", "telefon", "email", "sigla", "adresa");
+      query.setFields("code", "username", "nazev", "role", "priorita", "telefon", "email", "sigla", "adresa");
       if (pwd) {
         query.addField("heslo");
       }
@@ -89,7 +89,7 @@ public class UsersController {
 
       Options opts = Options.getInstance();
       SolrQuery query = new SolrQuery("*");
-      query.setFields("code", "nazev", "role", "priorita", "telefon", "email", "sigla", "adresa");
+      query.setFields("code", "username", "nazev", "role", "priorita", "telefon", "email", "sigla", "adresa");
       try (HttpSolrClient client = new HttpSolrClient.Builder("http://localhost:8983/solr").build()) {
         QueryRequest qreq = new QueryRequest(query);
 
@@ -225,7 +225,6 @@ public class UsersController {
 
   public static JSONObject resetHeslo(JSONObject json) {
     try {
-      //Retreive pwd. It should be missed in request
       JSONObject orig = getOne(json.getString("code"), true).getJSONArray("docs").getJSONObject(0);
       if (json.getString("oldheslo").equals(orig.getString("heslo"))) {
         orig.put("heslo", json.getString("newheslo"));

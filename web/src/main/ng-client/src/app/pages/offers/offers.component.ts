@@ -85,7 +85,7 @@ export class OffersComponent implements OnInit {
   refresh() {
     this.service.getOffers().subscribe(resp => {
       this.offers = resp;
-      this.offers = this.offers.filter(o => o.knihovna === this.state.user.code);
+      this.offers = this.offers.filter(o => o.knihovna === this.state.user.username);
       if (!this.currentOffer) {
         for (let i = 0; i < this.offers.length; i++) {
           if (!this.offers[i].closed) {
@@ -112,7 +112,7 @@ export class OffersComponent implements OnInit {
       if (result) {
         const offer: Offer = new Offer();
         offer.nazev = result;
-        offer.knihovna = this.state.user.code;
+        offer.knihovna = this.state.user.username;
         offer.created = formatDate(new Date(), 'yyyy-MM-dd\'T\'HH:mm:ss.SSS\'Z\'', 'cs');
         this.service.addOffer(offer).subscribe(resp => {
           if (resp.error) {

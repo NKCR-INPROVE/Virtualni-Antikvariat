@@ -148,7 +148,7 @@ export class ResultItemComponent implements OnInit, OnDestroy {
 
   addToOffer(ex?: Exemplar) {
     const record = new OfferRecord();
-    record.knihovna = this.state.user.code;
+    record.knihovna = this.state.user.username;
     record.doc_code = this.doc.code;
     record.title = this.doc.title[0];
     if (ex) {
@@ -172,7 +172,7 @@ export class ResultItemComponent implements OnInit, OnDestroy {
 
   addToDemands(ex?: Exemplar) {
     const demand = new Demand();
-    demand.knihovna = this.state.user.code;
+    demand.knihovna = this.state.user.username;
     demand.doc_code = this.doc.code;
     demand.zaznam = this.doc.id[0];
     demand.title = this.doc.titlemd5[0];
@@ -186,7 +186,7 @@ export class ResultItemComponent implements OnInit, OnDestroy {
   }
 
   removeFromDemands(ex?: Exemplar) {
-    const demand: Demand = this.doc.poptavka_ext.find(d => this.state.user.code === d.knihovna);
+    const demand: Demand = this.doc.poptavka_ext.find(d => this.state.user.username === d.knihovna);
     console.log(demand);
 
     this.service.removeFromDemands(demand).subscribe(resp => {
@@ -225,7 +225,7 @@ export class ResultItemComponent implements OnInit, OnDestroy {
     if (kn === 'UKF' || kn === 'NKF') {
       kn = 'NKP';
     }
-    const exInLib = kn === this.state.user.code;
+    const exInLib = kn === this.state.user.username;
     const o = this.doc.ex.find(exe => ex.id === exe.id && exInLib);
     return o;
   }
@@ -234,10 +234,10 @@ export class ResultItemComponent implements OnInit, OnDestroy {
     if (!this.state.user) {
       return false;
     }
-    if (this.state.user.code === 'NKP') {
+    if (this.state.user.username === 'NKP') {
       return this.doc.zdroj.includes('UKF') || this.doc.zdroj.includes('NKF');
     } else {
-      return this.doc.zdroj.includes(this.state.user.code);
+      return this.doc.zdroj.includes(this.state.user.username);
     }
   }
 
@@ -245,7 +245,7 @@ export class ResultItemComponent implements OnInit, OnDestroy {
     if (!this.state.user) {
       return false;
     }
-    return this.doc.poptavka && this.doc.poptavka.includes(this.state.user.code);
+    return this.doc.poptavka && this.doc.poptavka.includes(this.state.user.username);
   }
 
   addWanted(offer: OfferRecord, want: boolean) {
@@ -254,12 +254,12 @@ export class ResultItemComponent implements OnInit, OnDestroy {
       if (!offer.chci) {
         offer.chci = [];
       }
-      offer.chci.push(this.state.user.code);
+      offer.chci.push(this.state.user.username);
     } else {
       if (!offer.nechci) {
         offer.nechci = [];
       }
-      offer.nechci.push(this.state.user.code);
+      offer.nechci.push(this.state.user.username);
     }
 
     this.service.addToOffer(offer).subscribe(resp => {

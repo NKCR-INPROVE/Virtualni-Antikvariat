@@ -59,8 +59,8 @@ export class AdminComponent implements OnInit {
     dialogRef.afterClosed().subscribe(result => {
       if (result) {
         this.user = new User();
-        this.user.nazev = result;
-        this.user.zkratka = Utils.generateAvatar(result);
+        this.user.username = result;
+        // this.user.zkratka = Utils.generateAvatar(result);
         this.user.role = 'USER';
       }
     });

@@ -7,6 +7,7 @@ import { User } from 'src/app/models/user';
 
 const users: User[] = [{
     code: 'test',
+    username: 'TEST',
     nazev: 'Moravská zemská knihovna v Brně',
     role: 'KNIHOVNA',
     priorita: 2,
@@ -14,7 +15,6 @@ const users: User[] = [{
     email: 'mzk@mzk.cz',
     sigla: 'qweqwe',
     adresa: 'Kounicova 65a, 601 87 Brno ',
-    zkratka: 'TEST',
     active: true
 }];
 
@@ -48,7 +48,7 @@ export class FakeBackendInterceptor implements HttpInterceptor {
 
         function authenticate() {
             const { username, password } = body;
-            const user = users.find(x => x.code === username && 'test' === password);
+            const user = users.find(x => x.username === username && 'test' === password);
             if (!user) { return error('Username or password is incorrect'); }
             return ok(user);
         }
