@@ -115,6 +115,7 @@
 
 
     <field name="code" type="string" indexed="true" stored="true" required="true" multiValued="false"  />
+    <field name="username" type="string" indexed="true" stored="true" multiValued="false"  />
     <field name="code_type" type="string" indexed="true" stored="true"  /> 
     <field name="nazev" type="string" indexed="true" stored="true" /> 
     <field name="heslo" type="string" indexed="true" stored="true" /> 
@@ -124,6 +125,9 @@
     <field name="email" type="string" indexed="true" stored="true" /> 
     <field name="telefon" type="string" indexed="true" stored="true" /> 
     <field name="role" type="string" indexed="true" stored="true" />
+    <field name="platba" type="string" indexed="true" stored="true" />
+    <field name="doprava" type="string" indexed="true" stored="true" />
+    <field name="active" type="boolean" indexed="true" stored="true" />
 
 
     <field name="timestamp" type="pdate" indexed="true" stored="true" default="NOW" />
