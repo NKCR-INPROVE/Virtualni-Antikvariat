@@ -10,8 +10,10 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import java.util.regex.Pattern;
 import org.apache.commons.httpclient.URIException;
 import org.apache.commons.httpclient.util.URIUtil;
+import org.apache.commons.lang.StringUtils;
 import org.w3c.dom.Node;
 
 /**
@@ -76,13 +78,22 @@ public class XSLFunctions {
         return MD5.generate(s);
     }
     
+    public String escapeRegex(String s) {
+      return Pattern.quote(s);
+    }
+    
     public String join(org.w3c.dom.NodeList n1, org.w3c.dom.NodeList n2, org.w3c.dom.NodeList n3, org.w3c.dom.NodeList n4) {
-      
-      return joinM(n1, n2, n3, n4);
+      String joined = joinM(n1, n2, n3, n4);
+//      LOGGER.log(Level.INFO, joined);
+//      if (escape) {
+//        joined = Pattern.quote(joined);
+//      }
+//      LOGGER.log(Level.INFO, joined);
+      return joined;
     }
     
     public String joinM(org.w3c.dom.NodeList... nodesList) {
-      
+      //StringBuilder sb = new StringBuilder();
       ArrayList<String> sb = new ArrayList<>();
       for(org.w3c.dom.NodeList nodes : nodesList) {
         
@@ -95,10 +106,12 @@ public class XSLFunctions {
                 val = val.substring(0, val.length()-1);
               }
               sb.add("\""+val+"\"");
+              //sb.append("\""+val+"\"");
             }
         }
       }
-      return sb.toString();
+      
+      return StringUtils.join(sb, ",");
     }
     
 

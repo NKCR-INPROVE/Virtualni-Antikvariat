@@ -15,7 +15,8 @@
       "reindex_offers": true,
       "reindex_demands": true,
       "reindex_wanted": true,
-      "identifier": ""
+      "identifier": "",
+    "batchSize": 1000
   },
   {
     "name": "nkp_vdk",

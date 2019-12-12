@@ -921,7 +921,7 @@ public class Indexer {
 //                    opts.getString("solrHost", "http://localhost:8983/solr"),
 //                    opts.getString("solrIdCore", "vdk_id"));
 //            SolrIndexerCommiter.postData(url, sb.toString());
-      if (total % 1000 == 0) {
+      if (total % jobData.getInt("batchSize", 1000) == 0) {
         SolrIndexerCommiter.indexXML("<commit/>", opts.getString("solrIdCore", "vdk_id"));
         //  SolrIndexerCommiter.postData(url, "<commit/>");
         //  logger.log(Level.INFO, "Current stored docs: {0}", total);
@@ -1008,7 +1008,7 @@ public class Indexer {
   public void run() throws Exception {
 
     readStatus();
-    System.out.println("QQQQQQQQQQQ: " + jobData.getBoolean("full_index", false));
+    
     if (jobData.getBoolean("full_index", false)) {
       reindex();
     } else {
@@ -1120,7 +1120,7 @@ public class Indexer {
           if (!doc.optString("timestamp").equals("")) {
             statusJson.put(LAST_UPDATE, doc.getString("timestamp"));
           }
-          if (total % 10 == 0) {
+          if (total % jobData.getInt("batchSize", 1000) == 0) {
             sb.append("</add>");
             SolrIndexerCommiter.postData(sb.toString());
             SolrIndexerCommiter.postData("<commit/>");
