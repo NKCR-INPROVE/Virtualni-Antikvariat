@@ -204,7 +204,7 @@ public class UsersController {
       // generate code
       User user = User.fromJSON(json);
       JSONObject jo = new JSONObject(JSON.toJSONString(user));
-      
+
       String jsonStr = SolrIndexerCommiter.indexJSON(jo, "usersCore");
       return new JSONObject(jsonStr);
     } catch (IOException | SolrServerException ex) {
@@ -237,6 +237,22 @@ public class UsersController {
         return (new JSONObject()).put("error", "invalid heslo");
       }
     } catch (IOException | SolrServerException ex) {
+      LOGGER.log(Level.SEVERE, null, ex);
+      return new JSONObject().put("error", ex);
+    }
+  }
+
+  public static JSONObject exists(String username) {
+    try {
+      Options opts = Options.getInstance();
+      SolrQuery query = new SolrQuery("username:\"" + username + "\"");
+      try (HttpSolrClient client = new HttpSolrClient.Builder(opts.getString("solrHost", "http://localhost:8983/solr")).build()) {
+        return new JSONObject().put("exists", client.query(opts.getString("usersCore", "users"), query).getResults().getNumFound() > 0);
+      } catch (SolrServerException | IOException ex) {
+        LOGGER.log(Level.SEVERE, null, ex);
+      return new JSONObject().put("error", ex);
+      }
+    } catch (IOException ex) {
       LOGGER.log(Level.SEVERE, null, ex);
       return new JSONObject().put("error", ex);
     }

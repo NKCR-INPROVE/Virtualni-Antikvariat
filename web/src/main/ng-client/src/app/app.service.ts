@@ -170,6 +170,13 @@ export class AppService {
       }));
   }
 
+  addUser(user: User) {
+    return this.http.post<any>(`/api/users/add`, user)
+      .pipe(map(resp => {
+        return resp;
+      }));
+  }
+
   saveUser(user: User) {
     return this.http.post<any>(`/api/users/save`, user)
       .pipe(map(resp => {
@@ -205,6 +212,18 @@ export class AppService {
     return this.http.get<any>(`/api/sched/stopjob`, {params})
       .pipe(map(resp => {
         return resp;
+      }));
+  }
+
+  checkUserExists(username: string): Observable<boolean> {
+    const params: HttpParams = new HttpParams().set('username', username);
+    return this.http.get<any>(`/api/users/check`, {params})
+      .pipe(map(resp => {
+        if (resp.error) {
+          return false;
+        } else {
+          return resp.exists;
+        }
       }));
   }
 

@@ -1,24 +1,30 @@
 <div fxFlex>
   <mat-card>
     <mat-card-header>
-      <mat-card-title>{{'va_registration' | translate}}</mat-card-title>
+      <mat-card-title>{{'user.registration' | translate}}</mat-card-title>
     </mat-card-header>
     <form (ngSubmit)="send()" #userForm="ngForm">
       <mat-card-content>
+          <mat-form-field>
+            <input matInput [(ngModel)]="user.username" name="username" id="username" [placeholder]="'user.username' | translate" required cdkFocusInitial />
+          </mat-form-field>
+          <mat-form-field>
+            <input matInput type="password" [(ngModel)]="user.heslo" name="heslo" [placeholder]="'user.heslo' | translate" required />
+          </mat-form-field>
         <mat-form-field>
-          <input matInput [(ngModel)]="user.username" name="username" [placeholder]="'username' | translate" required cdkFocusInitial />
+          <input matInput [(ngModel)]="user.nazev" name="nazev" [placeholder]="'user.nazev' | translate" required />
         </mat-form-field>
         <mat-form-field>
-          <input matInput [(ngModel)]="user.nazev" name="nazev" [placeholder]="'název' | translate" required />
+          <input matInput [(ngModel)]="user.adresa"  name="adresa" [placeholder]="'user.adresa' | translate" required />
         </mat-form-field>
         <mat-form-field>
-          <input matInput [(ngModel)]="user.adresa"  name="adresa" [placeholder]="'adresa' | translate" required />
+          <input matInput [(ngModel)]="user.telefon"  name="telefon" [placeholder]="'user.telefon' | translate" required />
         </mat-form-field>
         <mat-form-field>
-          <input matInput [(ngModel)]="user.telefon"  name="telefon" [placeholder]="'telefon' | translate" required />
+          <input matInput [(ngModel)]="user.email"  name="email" [placeholder]="'user.email' | translate" required />
         </mat-form-field>
         <mat-form-field>
-          <input matInput [(ngModel)]="user.email"  name="email" [placeholder]="'email' | translate" required />
+          <input matInput [(ngModel)]="user.osoba"  name="osoba" [placeholder]="'user.osoba' | translate" required />
         </mat-form-field>
 
         <mat-form-field>
@@ -37,8 +43,9 @@
 
       </mat-card-content>
       <mat-card-actions class="app-card-actions-bottom">
-        <button mat-button matTooltip="{{ 'desc.send_form' | translate }}" type="submit"
-          [disabled]="!userForm.form.valid">{{'send' | translate}}</button>
+          <button mat-button matTooltip="{{ 'desc.send_form' | translate }}" type="submit"
+            [disabled]="!userForm.form.valid">{{'send' | translate}}</button>
+            <button mat-button matTooltip="{{ 'desc.send_form' | translate }}" type="button" (click)="send()">{{'send' | translate}}</button>
       </mat-card-actions>
     </form>
   </mat-card>

@@ -107,6 +107,17 @@
     "jobs_refresh" : "aktualizovat",
     "save": "Uložit"
   },
+  "user": {
+    "registration": "Registrace uživatelů",
+    "nazev" : "Název",
+    "osoba":"Kontaktní osoba",
+    "heslo": "heslo",
+    "username" : "Uživatelské jméno",
+    "adresa":"adresa",
+    "telefon": "telefon",
+    "email": "e-mail",
+    "alreadyExists": "Uživatelské jméno existuje. Vyberte jiné"
+  },
   "doprava" : {
     "label" :"způsoby dopravy knih",
     "osobni": "osobní vyzvednutí",

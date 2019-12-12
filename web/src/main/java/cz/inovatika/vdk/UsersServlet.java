@@ -230,6 +230,13 @@ public class UsersServlet extends HttpServlet {
 
       }
     },
+    CHECK {
+      @Override
+      JSONObject doPerform(HttpServletRequest req, HttpServletResponse resp) throws Exception {
+        JSONObject jo = UsersController.exists(req.getParameter("username"));
+        return jo;
+      }
+    },
     TESTLOGIN {
       @Override
       JSONObject doPerform(HttpServletRequest req, HttpServletResponse resp) throws Exception {

@@ -90,6 +90,16 @@
     "remove": "Remove offer",
     "removeFrom": "Remove from offer"
   },
+  "user": {
+    "registration": "User registration",
+    "nazev" : "Name",
+    "osoba":"Contact person",
+    "heslo": "password",
+    "username" : "User nama",
+    "adresa":"adress",
+    "telefon": "telefon",
+    "email": "e-mail"
+  },
   "doprava" : {
     "label" :"ways of transporting books",
     "osobni": "personal pickup",

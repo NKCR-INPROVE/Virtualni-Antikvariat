@@ -15,7 +15,9 @@ const users: User[] = [{
     email: 'mzk@mzk.cz',
     sigla: 'qweqwe',
     adresa: 'Kounicova 65a, 601 87 Brno ',
-    active: true
+    active: true,
+    doprava: 'a',
+    platba: 'b'
 }];
 
 @Injectable()
