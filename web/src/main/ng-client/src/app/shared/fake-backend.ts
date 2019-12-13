@@ -21,7 +21,10 @@ const users: User[] = [{
     platba: 'b',
     celostatni: false,
     regionalni: false,
-    periodicky: false
+    periodicky: false,
+    prijemce: '',
+    poznamka: 'string',
+    osoba: 'string',
 }];
 
 @Injectable()

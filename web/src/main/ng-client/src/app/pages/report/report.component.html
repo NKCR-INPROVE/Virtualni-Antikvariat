@@ -14,8 +14,8 @@
 
         <h3>Nabídka:</h3>
         <div>Název nabídky {{offer.nazev}}</div>
-        ##<div>Datum zveřejnění nabídky{{offer.created}} </div>
-        ##<div>Datum ukončení nabídky {{offer.closed}}</div>
+        <div>Datum zveřejnění nabídky: {{offer.created | date : 'dd.MM.yyyy'}} </div>
+        <div>Datum ukončení nabídky: {{offer.closed | date : 'dd.MM.yyyy'}}</div>
         <br />
         <br />
         <br />

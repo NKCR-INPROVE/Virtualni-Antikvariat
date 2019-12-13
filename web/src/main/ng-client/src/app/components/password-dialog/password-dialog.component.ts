@@ -14,6 +14,7 @@ export class PasswordDialogComponent implements OnInit {
 
   hesloForm: FormGroup;
   error = '';
+  loading: boolean;
 
   constructor(
     public dialogRef: MatDialogRef<PasswordDialogComponent>,
@@ -40,11 +41,14 @@ export class PasswordDialogComponent implements OnInit {
       newheslo: '' + Md5.hashStr(this.f.newheslo.value)
     };
 
+    this.loading = true;
     this.service.resetHeslo(data).subscribe(resp => {
       if (resp.error) {
         this.service.showSnackBar('heslo.reset_heslo_error', resp.error, 'app-snack-error');
         this.error = resp.error;
+        this.loading = false;
       } else {
+        this.loading = false;
         this.service.showSnackBar('heslo.reset_heslo_success', '', 'app-snack-success');
         this.dialogRef.close();
       }

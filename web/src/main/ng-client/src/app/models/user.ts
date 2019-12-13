@@ -15,5 +15,8 @@ export class User {
     celostatni: boolean;
     regionalni: boolean;
     periodicky: boolean;
+    prijemce: string;
+    poznamka: string;
+    osoba: string;
     authdata?: string;
 }

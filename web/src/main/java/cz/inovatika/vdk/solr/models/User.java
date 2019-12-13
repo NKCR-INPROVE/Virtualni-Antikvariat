@@ -54,6 +54,12 @@ public class User {
   public boolean regionalni;
   @Field
   public boolean periodicky;
+  @Field
+  public String prijemce;
+  @Field
+  public String poznamka;
+  @Field
+  public String osoba;
   
   
   public static User fromJSON(JSONObject json) {
