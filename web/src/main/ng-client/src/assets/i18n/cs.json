@@ -110,7 +110,9 @@
     "save": "Uložit",
     "role": "Role",
     "priority": "Priorita",
-    "active": "Aktivní"
+    "active": "Aktivní",
+    "job_name": "Název procesu",
+    "action": "Akce"
   },
   "user": {
     "registration": "Registrace uživatelů",

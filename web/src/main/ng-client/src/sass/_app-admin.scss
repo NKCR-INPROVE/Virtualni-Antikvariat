@@ -14,4 +14,12 @@ app-admin {
       }
     }
   }
+
+  .mat-table {
+    thead {
+      .mat-column-buttons {
+        width: 50px;
+      }
+    }
+  }
 }

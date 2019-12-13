@@ -110,7 +110,9 @@
     "save": "Save",
     "role": "Role",
     "priority": "Priority",
-    "active": "Active"
+    "active": "Active",
+    "job_name": "Job name",
+    "action": "Action"
   },
   "user": {
     "registration": "User registration",

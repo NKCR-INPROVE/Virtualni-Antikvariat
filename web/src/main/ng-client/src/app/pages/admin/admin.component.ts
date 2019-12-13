@@ -18,6 +18,8 @@ export class AdminComponent implements OnInit {
   user: User;
   jobs: Job[];
 
+  displayedColumns = ['jobName', 'nextFireTime', 'lastRun', 'buttons'];
+
   constructor(
     public dialog: MatDialog,
     public config: AppConfiguration,
