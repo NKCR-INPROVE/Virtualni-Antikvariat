@@ -1,7 +1,9 @@
 {
   "app": {
     "title": "Virtual deposite library",
-    "desc": "Kooperativní systém pro budování a správu novodobých konzervačních knižních sbírek v České Republice"
+    "title_va": "Virtual Antiquarian Bookshop",
+    "desc": "Cooperative system for building and managing modern conservation book collections in the Czech Republic",
+    "desc_va": "Virtual Antiquarian is a platform where the library can insert a list of offered books with information on price, type of payment, delivery"
   },
   "navbar": {
     "home": "Home",
@@ -74,10 +76,13 @@
     "filter_matches" : "Dokumenty, které poptávám a nekdo nabízí",
     "isVA": "Virtual antiquarian",
     "filter_isVA": "Documents in virtual antiquarian",
-    "is_offered": "is offered by"
+    "is_offered": "is offered by",
+    "send": "Send"
   },
   "count": "Count of search results",
   "q.placeholder": "Search in virtual depoiste library ...",
+  "Search": "Search",
+  "Advanced search": "Advanced search",
   "route": {
     "demands" : "Demands",
     "offers" : "Offers"
@@ -91,36 +96,56 @@
     "remove": "Remove offer",
     "removeFrom": "Remove from offer"
   },
+  "admin": {
+    "users": "Users",
+    "users_title": "Users administration",
+    "users_add": "Add users",
+    "jobs": "Tasks",
+    "jobs_title": "Tasks administration",
+    "jobs_start": "Start",
+    "jobs_stop": "Stop",
+    "jobs_nextFireTime": "Next launch",
+    "jobs_last_run": "Last launch",
+    "jobs_refresh": "Update",
+    "save": "Save"
+  },
   "user": {
     "registration": "User registration",
     "nazev" : "Name",
     "osoba":"Contact person",
-    "heslo": "password",
-    "username" : "User nama",
-    "adresa":"adress",
-    "telefon": "telefon",
-    "email": "e-mail"
+    "heslo": "Password",
+    "username" : "User name",
+    "adresa":"Address",
+    "telefon": "Phone",
+    "email": "E-mail",
+    "alreadyExists": "User already exist, please, choose another",
+    "type.label": "Type user",
+    "type_library": "Library",
+    "type_user": "Library - Antikvariat",
+    "prijemce": "The recipient of the legal deposit",
+    "celostatni" : "National",
+    "regionalni":"Regional",
+    "periodicky":"Periodical",
+    "poznamka":"Comment"
   },
   "doprava" : {
-    "label" :"ways of transporting books",
-    "osobni": "personal pickup",
-    "nadobirku": "cash on delivery",
-    "predem": "postal, payment in advance"
+    "label" :"Ways of transporting books",
+    "osobni": "Personal pickup",
+    "nadobirku": "Cash on delivery",
+    "predem": "Postal, payment in advance"
   },
-  
   "platba": {
-    "label": "payment methods",
-    "hotove": "cash on receipt",
-    "dobirka": "cash on delivery",
-    "predem" : "prepay - bank transfer, card payment online, paypal"
+    "label": "Payment methods",
+    "hotove": "Cash on receipt",
+    "dobirka": "Cash on delivery",
+    "predem" : "Prepay - bank transfer, card payment online, paypal"
   },
-
   "heslo" : {
-    "change_heslo" : "Změnit heslo",
-    "old_heslo" : "Aktuální heslo",
-    "new_heslo" : "Nové heslo",
-    "reset_heslo_success": "Zmena hesla probleha v poradku",
-    "reset_heslo_error": "Chyba pri zmene hesla",
-    "nespravne_heslo": "Zadane heslo neni spravne"
+    "change_heslo": "Change password",
+    "old_heslo": "Actual password",
+    "new_heslo": "New password",
+    "reset_heslo_success": "Changing the password is done correctly",
+    "reset_heslo_error": "Error changing password",
+    "nespravne_heslo": "The password you entered is not correct"
   }
 }

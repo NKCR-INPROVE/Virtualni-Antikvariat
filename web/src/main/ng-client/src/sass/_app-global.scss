@@ -129,6 +129,21 @@ app-results {
 	}
 }
 
+// card
+.mat-card {
+	.mat-card-header {
+		.mat-card-header-text {
+			margin-left: 0;
+		}
+	}
+}
+
+// mat form field
+.app-mat-form-field-wrapper {
+	.mat-form-field {
+		margin-right: 12px;
+	}
+}
 
 
 .app-logo {
