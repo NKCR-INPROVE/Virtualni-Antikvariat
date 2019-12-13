@@ -101,7 +101,6 @@ public class MD5 {
                 return 0;
             }
         } catch (Exception e) {
-            System.out.println("Exception has been caught" + e);
             return 0;
         }
     }

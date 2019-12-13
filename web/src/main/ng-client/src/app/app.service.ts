@@ -1,13 +1,11 @@
 import { Injectable } from '@angular/core';
-import { Router, ActivatedRoute } from '@angular/router';
-import { DatePipe } from '@angular/common';
 import { TranslateService } from '@ngx-translate/core';
 
-import { Observable, BehaviorSubject, ReplaySubject } from 'rxjs';
-import { Subject } from 'rxjs';
+import { Observable, ReplaySubject } from 'rxjs';
+
 import { map } from 'rxjs/operators';
 
-import { HttpClient, HttpParams, HttpHeaders, HttpErrorResponse } from '@angular/common/http';
+import { HttpClient, HttpParams } from '@angular/common/http';
 
 import { AppState } from './app.state';
 import { User } from './models/user';
@@ -23,7 +21,6 @@ import { Job } from './models/job';
 })
 export class AppService {
 
-
   // Observe language
   private langSubject: ReplaySubject<string> = new ReplaySubject(3);
   public currentLang: Observable<string> = this.langSubject.asObservable();
@@ -32,9 +29,7 @@ export class AppService {
     private state: AppState,
     private translate: TranslateService,
     private http: HttpClient,
-    private router: Router,
-    private snackBar: MatSnackBar,
-    private datePipe: DatePipe) {
+    private snackBar: MatSnackBar) {
 
   }
 

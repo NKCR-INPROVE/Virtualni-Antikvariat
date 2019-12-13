@@ -92,6 +92,8 @@ public class UsersController {
         JSONObject resp = r.getJSONObject("response");
         for(int i=0; i < resp.getJSONArray("docs").length(); i++){
           resp.getJSONArray("docs").getJSONObject(i).remove("heslo");
+          resp.getJSONArray("docs").getJSONObject(i).remove("_version_");
+          resp.getJSONArray("docs").getJSONObject(i).remove("timestamp");
         }
         return resp;
 
@@ -212,7 +214,7 @@ public class UsersController {
   public static JSONObject save(JSONObject json) {
     try {
       //Retreive pwd. It should be missed in request
-      JSONObject orig = getOne(json.getString("code"), true).getJSONArray("docs").getJSONObject(0);
+      JSONObject orig = getOne(json.getString("code"), true);
       json.put("heslo", orig.get("heslo"));
       String jsonStr = SolrIndexerCommiter.indexJSON(json, "usersCore");
       return new JSONObject(jsonStr);

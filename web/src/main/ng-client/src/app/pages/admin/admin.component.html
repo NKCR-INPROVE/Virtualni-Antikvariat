@@ -4,7 +4,7 @@
       <div fxFlex.gt-sm="25%" fxFlex.gt-xs="30%" fxFlex.xs="100%">
         {{ isUserActive }}
         <mat-list>
-          <mat-list-item *ngFor="let user of users"><a (click)="selectUser(user)">{{user.nazev}}</a></mat-list-item>
+          <mat-list-item *ngFor="let u of users" [class.app-active]="u.code === user.code"><a (click)="selectUser(u)">{{u.nazev}}</a></mat-list-item>
         </mat-list>
       </div>
 

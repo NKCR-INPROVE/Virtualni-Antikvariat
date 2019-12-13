@@ -17,7 +17,6 @@ public class XmlUnescapeService {
                 .replace("<?xml version=\"1.0\" encoding=\"UTF-8\" standalone=\"no\"?>", "")
                 .replace("<?xml version=\"1.0\"?>", "")
                 .replace("&", "&amp;").trim();
-        //System.out.println(res);
         return res;
     }
 
