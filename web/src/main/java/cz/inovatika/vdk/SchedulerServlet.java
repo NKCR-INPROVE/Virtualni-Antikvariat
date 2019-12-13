@@ -108,10 +108,9 @@ public class SchedulerServlet extends HttpServlet {
           //Scheduler scheduler = VDKScheduler.getInstance().getScheduler();
           String[] key = req.getParameter("key").split("\\.");
           //scheduler.triggerJob(new JobKey(key[1],key[0]));
-          File f = new File(System.getProperty("user.home") + File.separator
-                  + ".vdkcr" + File.separator + "jobs" + File.separator + key[1] + ".json");
-          VDKScheduler.addJob(f);
-          json.put("message", "Job reloaded");
+          File f = new File(InitServlet.CONFIG_DIR + File.separator + "jobs" + File.separator + key[1] + ".json");
+          
+          json = VDKScheduler.addJob(f);
 
         } catch (SchedulerException ex) {
           LOGGER.log(Level.SEVERE, null, ex);

@@ -293,7 +293,7 @@ public class OAIHarvester {
 
     URL url = new URL(urlString.replace("\n", ""));
 
-    logger.log(Level.FINE, "url: {0}", url.toString());
+    logger.log(Level.INFO, "url: {0}", url.toString());
     xmlReader.readUrl(url.toString());
     return xmlReader.getNodeValue("//oai:Identify/oai:earliestDatestamp/text()");
   }

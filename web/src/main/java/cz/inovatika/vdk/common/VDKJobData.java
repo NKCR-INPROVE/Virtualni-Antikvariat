@@ -9,10 +9,12 @@ import cz.inovatika.vdk.InitServlet;
 import cz.inovatika.vdk.Options;
 import java.io.File;
 import java.util.Iterator;
+import java.util.logging.Level;
 import java.util.logging.Logger;
 import org.apache.commons.io.FileUtils;
 import org.apache.commons.io.IOUtils;
 import org.json.JSONObject;
+import sun.util.logging.PlatformLogger;
 
 /**
  *
@@ -37,7 +39,7 @@ public class VDKJobData {
   public VDKJobData(String conf, JSONObject runtime) throws Exception {
     this.configFile = conf;
     this.runtimeOptions = runtime;
-    String json = IOUtils.toString(Options.class.getResourceAsStream("job.json"), "UTF-8");
+    // String json = IOUtils.toString(Options.class.getResourceAsStream("job.json"), "UTF-8");
     // this.initConfig = new JSONObject(json);
     this.initConfig = new JSONObject(conf);
     this.configSimpleName = initConfig.getString("name");
@@ -46,9 +48,9 @@ public class VDKJobData {
   public VDKJobData(JSONObject initConfig) throws Exception {
     this.configFile = null;
     this.runtimeOptions = new JSONObject();
-    logger.info(initConfig.toString()); 
+    // logger.info(initConfig.toString()); 
     this.configSimpleName = initConfig.getString("name");
-    this.statusFile = InitServlet.CONFIG_DIR + File.separator + "status" + File.separator + this.configSimpleName + ".status";
+    this.statusFile = InitServlet.JOBS_DIR + File.separator + "status" + File.separator + this.configSimpleName + ".status";
 
     this.initConfig = initConfig;
     
@@ -86,7 +88,7 @@ public class VDKJobData {
       String key = (String) keys.next();
       opts.put(key, runtimeOptions.get(key));
     }
-    logger.info("VDKJobData loaded");
+    logger.log(Level.INFO, "VDKJobData {0} loaded", this.configSimpleName);
   }
 
   public String getString(String key) {

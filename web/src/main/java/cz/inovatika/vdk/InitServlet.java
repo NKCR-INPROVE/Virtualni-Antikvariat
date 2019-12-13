@@ -35,6 +35,8 @@ public class InitServlet extends HttpServlet {
   //Directory where cant override configuration  
   public static String CONFIG_DIR = ".vdk";
 
+  public static String JOBS_DIR;
+
   //Default config directory in webapp
   public static String DEFAULT_CONFIG_DIR = "/assets";
 
@@ -86,6 +88,7 @@ public class InitServlet extends HttpServlet {
       } else {
         CONFIG_DIR = System.getProperty("user.home") + File.separator + CONFIG_DIR;
       }
+      JOBS_DIR = CONFIG_DIR + File.separator + "jobs";
       LOGGER.log(Level.INFO, "app dir is ----> {0}", CONFIG_DIR);
       
       sched = VDKScheduler.getInstance().getScheduler();
