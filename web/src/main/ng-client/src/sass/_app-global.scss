@@ -140,8 +140,9 @@ app-results {
 
 // mat form field
 .app-mat-form-field-wrapper {
-	.mat-form-field {
-		margin-right: 12px;
+	.mat-form-field,
+	.mat-checkbox {
+		margin-right: $app-gap;
 	}
 }
 
