@@ -166,7 +166,7 @@ export class AppService {
     const params: HttpParams = new HttpParams().set('code', code);
     return this.http.get<any>(`/api/users/info`, {params})
       .pipe(map(resp => {
-        return resp.response.docs[0];
+        return resp;
       }));
   }
 

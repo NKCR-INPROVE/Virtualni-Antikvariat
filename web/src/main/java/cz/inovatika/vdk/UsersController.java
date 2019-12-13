@@ -1,12 +1,9 @@
 package cz.inovatika.vdk;
 
 import com.alibaba.fastjson.JSON;
-import cz.inovatika.vdk.common.MD5;
 import cz.inovatika.vdk.common.SolrIndexerCommiter;
-import cz.inovatika.vdk.solr.JSONUpdateRequest;
 import cz.inovatika.vdk.solr.models.User;
 import java.io.IOException;
-import java.io.UnsupportedEncodingException;
 import java.util.Base64;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -18,7 +15,6 @@ import org.apache.solr.client.solrj.impl.HttpSolrClient;
 import org.apache.solr.client.solrj.impl.NoOpResponseParser;
 import org.apache.solr.client.solrj.request.QueryRequest;
 import org.apache.solr.client.solrj.response.QueryResponse;
-import org.apache.solr.client.solrj.response.UpdateResponse;
 import org.apache.solr.common.util.NamedList;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -60,19 +56,14 @@ public class UsersController {
 
       Options opts = Options.getInstance();
       SolrQuery query = new SolrQuery("code:" + code);
-      query.setFields("code", "username", "nazev", "role", "priorita", "telefon", "email", "sigla", "adresa");
-      if (pwd) {
-        query.addField("heslo");
-      }
-      try (HttpSolrClient client = new HttpSolrClient.Builder("http://localhost:8983/solr").build()) {
-        QueryRequest qreq = new QueryRequest(query);
-
-        NoOpResponseParser dontMessWithSolr = new NoOpResponseParser();
-        dontMessWithSolr.setWriterType("json");
-        client.setParser(dontMessWithSolr);
-        NamedList<Object> qresp = client.request(qreq, opts.getString("usersCore", "users"));
-        JSONObject r = new JSONObject((String) qresp.get("response"));
-        return r.getJSONObject("response");
+      // query.setFields("code", "username", "nazev", "role", "priorita", "telefon", "email", "sigla", "adresa");
+      try (HttpSolrClient client = new HttpSolrClient.Builder(opts.getString("solrHost", "http://localhost:8983/solr")).build()) {
+        final QueryResponse response = client.query(opts.getString("usersCore", "users"), query);
+        User user = response.getBeans(User.class).get(0);
+        if (!pwd) {
+          user.heslo = null;
+        }
+        return new JSONObject(JSON.toJSONString(user));
 
       } catch (SolrServerException | IOException ex) {
         LOGGER.log(Level.SEVERE, null, ex);
@@ -89,8 +80,8 @@ public class UsersController {
 
       Options opts = Options.getInstance();
       SolrQuery query = new SolrQuery("*");
-      query.setFields("code", "username", "nazev", "role", "priorita", "telefon", "email", "sigla", "adresa");
-      try (HttpSolrClient client = new HttpSolrClient.Builder("http://localhost:8983/solr").build()) {
+      // query.setFields("code", "username", "nazev", "role", "priorita", "telefon", "email", "sigla", "adresa");
+      try (HttpSolrClient client = new HttpSolrClient.Builder(opts.getString("solrHost", "http://localhost:8983/solr")).build()) {
         QueryRequest qreq = new QueryRequest(query);
 
         NoOpResponseParser dontMessWithSolr = new NoOpResponseParser();
@@ -98,7 +89,11 @@ public class UsersController {
         client.setParser(dontMessWithSolr);
         NamedList<Object> qresp = client.request(qreq, opts.getString("usersCore", "users"));
         JSONObject r = new JSONObject((String) qresp.get("response"));
-        return r.getJSONObject("response");
+        JSONObject resp = r.getJSONObject("response");
+        for(int i=0; i < resp.getJSONArray("docs").length(); i++){
+          resp.getJSONArray("docs").getJSONObject(i).remove("heslo");
+        }
+        return resp;
 
       } catch (SolrServerException | IOException ex) {
         LOGGER.log(Level.SEVERE, null, ex);
@@ -251,7 +246,7 @@ public class UsersController {
         return new JSONObject().put("exists", client.query(opts.getString("usersCore", "users"), query).getResults().getNumFound() > 0);
       } catch (SolrServerException | IOException ex) {
         LOGGER.log(Level.SEVERE, null, ex);
-      return new JSONObject().put("error", ex);
+        return new JSONObject().put("error", ex);
       }
     } catch (IOException ex) {
       LOGGER.log(Level.SEVERE, null, ex);

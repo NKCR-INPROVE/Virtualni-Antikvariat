@@ -13,6 +13,7 @@ import { Md5 } from 'ts-md5';
 export class PasswordDialogComponent implements OnInit {
 
   hesloForm: FormGroup;
+  error = '';
 
   constructor(
     public dialogRef: MatDialogRef<PasswordDialogComponent>,
@@ -30,6 +31,9 @@ export class PasswordDialogComponent implements OnInit {
   get f() { return this.hesloForm.controls; }
 
   onSubmit() {
+    if (this.hesloForm.invalid) {
+        return;
+    }
     const data = {
       code: this.state.user.code,
       oldheslo: '' + Md5.hashStr(this.f.oldheslo.value),
@@ -39,6 +43,7 @@ export class PasswordDialogComponent implements OnInit {
     this.service.resetHeslo(data).subscribe(resp => {
       if (resp.error) {
         this.service.showSnackBar('heslo.reset_heslo_error', resp.error, 'app-snack-error');
+        this.error = resp.error;
       } else {
         this.service.showSnackBar('heslo.reset_heslo_success', '', 'app-snack-success');
         this.dialogRef.close();
