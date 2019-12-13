@@ -15,7 +15,8 @@
     "demands": "Poptávky",
     "offers": "Nabídky",
     "views": "Pohledy",
-    "save_view": "Uložit pohled"
+    "save_view": "Uložit pohled",
+    "resetHeslo": "Změnit heslo"
   },
   "searchform": {
     "search": "Hledej",
@@ -138,5 +139,14 @@
     "hotove": "hotově při převzetí",
     "dobirka": "dobírka",
     "predem" : "platba předem – převodem na účet, platba kartou online, paypal"
+  },
+
+  "heslo" : {
+    "change_heslo" : "Změnit heslo",
+    "old_heslo" : "Aktuální heslo",
+    "new_heslo" : "Nové heslo",
+    "reset_heslo_success": "Zmena hesla probleha v poradku",
+    "reset_heslo_error": "Chyba pri zmene hesla",
+    "nespravne_heslo": "Zadane heslo neni spravne"
   }
 }

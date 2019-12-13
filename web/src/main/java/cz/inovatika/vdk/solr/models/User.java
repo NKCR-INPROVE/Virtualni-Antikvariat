@@ -48,6 +48,13 @@ public class User {
   public String platba;
   @Field
   public String doprava;
+  @Field
+  public boolean celostatni;
+  @Field
+  public boolean regionalni;
+  @Field
+  public boolean periodicky;
+  
   
   public static User fromJSON(JSONObject json) {
     User user = JSON.parseObject(json.toString(), User.class);

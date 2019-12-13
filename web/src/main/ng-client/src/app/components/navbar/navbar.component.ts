@@ -15,6 +15,7 @@ import { DemandsComponent } from 'src/app/pages/demands/demands.component';
 import { OffersComponent } from 'src/app/pages/offers/offers.component';
 import { Md5 } from 'ts-md5';
 import { AppConfiguration } from 'src/app/app-configuration';
+import { PasswordDialogComponent } from '../password-dialog/password-dialog.component';
 
 @Component({
   selector: 'app-navbar',
@@ -146,6 +147,12 @@ export class NavbarComponent implements OnInit {
           }
         });
       }
+    });
+  }
+
+  resetHeslo() {
+    const dialogRef = this.dialog.open(PasswordDialogComponent, {
+      width: '350px'
     });
   }
 

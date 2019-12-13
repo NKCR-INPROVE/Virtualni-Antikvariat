@@ -39,9 +39,9 @@ export class AppService {
   }
 
   showSnackBar(s: string, r: string = '', p: string = '') {
-
-    this.snackBar.open(this.getTranslation(s), r, {
-      duration: 20000,
+    const right = r !== '' ? this.getTranslation(r) : '';
+    this.snackBar.open(this.getTranslation(s), right, {
+      duration: 2000,
       verticalPosition: 'top',
       panelClass: p
     });
@@ -179,6 +179,13 @@ export class AppService {
 
   saveUser(user: User) {
     return this.http.post<any>(`/api/users/save`, user)
+      .pipe(map(resp => {
+        return resp;
+      }));
+  }
+
+  resetHeslo(json: {code: string, oldheslo: string, newheslo: string}) {
+    return this.http.post<any>(`/api/users/resetpwd`, json)
       .pipe(map(resp => {
         return resp;
       }));

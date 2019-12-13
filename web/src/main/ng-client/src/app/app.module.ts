@@ -50,6 +50,7 @@ import { SearchToOfferDialogComponent } from './components/search-to-offer-dialo
 import { VaRegistrationComponent } from './pages/va-registration/va-registration.component';
 import { ConfirmDialogComponent } from './components/confirm-dialog/confirm-dialog.component';
 import { ReportComponent } from './pages/report/report.component';
+import { PasswordDialogComponent } from './components/password-dialog/password-dialog.component';
 
 
 registerLocaleData(localeCs, 'cs');
@@ -101,7 +102,8 @@ if (environment.mocked) {
     SearchToOfferDialogComponent,
     VaRegistrationComponent,
     ConfirmDialogComponent,
-    ReportComponent
+    ReportComponent,
+    PasswordDialogComponent
   ],
   imports: [
     BrowserModule,
@@ -124,7 +126,8 @@ if (environment.mocked) {
     AddToOfferDialogComponent, PromptDialogComponent, ConfirmDialogComponent,
     TemplateToOfferDialogComponent,
     UploadToOfferDialogComponent,
-    SearchToOfferDialogComponent],
+    SearchToOfferDialogComponent,
+    PasswordDialogComponent],
   providers,
   bootstrap: [AppComponent]
 })

@@ -12,5 +12,8 @@ export class User {
     active: boolean;
     doprava: string;
     platba: string;
+    celostatni: boolean;
+    regionalni: boolean;
+    periodicky: boolean;
     authdata?: string;
 }

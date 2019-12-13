@@ -235,7 +235,7 @@ public class UsersController {
         String jsonStr = SolrIndexerCommiter.indexJSON(orig, "usersCore");
         return new JSONObject(jsonStr);
       } else {
-        return (new JSONObject()).put("error", "invalid heslo");
+        return (new JSONObject()).put("error", "heslo.nespravne_heslo");
       }
     } catch (IOException | SolrServerException ex) {
       LOGGER.log(Level.SEVERE, null, ex);

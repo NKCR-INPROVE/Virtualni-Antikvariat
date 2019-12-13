@@ -18,7 +18,10 @@ const users: User[] = [{
     adresa: 'Kounicova 65a, 601 87 Brno ',
     active: true,
     doprava: 'a',
-    platba: 'b'
+    platba: 'b',
+    celostatni: false,
+    regionalni: false,
+    periodicky: false
 }];
 
 @Injectable()

@@ -15,6 +15,7 @@
         <a *ngIf="!user" (click)="login()" class="app-link">{{'navbar.login' | translate}}</a>
         <ng-container *ngIf="user">
           {{user.nazev}}
+          <a (click)="resetHeslo()" matTooltip="{{'navbar.resetHeslo' | translate}}"><mat-icon>vpn_key</mat-icon></a>
           <a (click)="logout()" matTooltip="{{'navbar.logout' | translate}}"><mat-icon>input</mat-icon></a>
         </ng-container>
       </span>

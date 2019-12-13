@@ -35,8 +35,7 @@ export class LoginComponent implements OnInit {
             password: ['', Validators.required]
         });
 
-        // get return url from route parameters or default to '/'
-        this.returnUrl = this.route.snapshot.queryParams['returnUrl'] || '/';
+        this.returnUrl = this.route.snapshot.queryParams['returnUrl'];
     }
 
     // convenience getter for easy access to form fields
@@ -52,7 +51,6 @@ export class LoginComponent implements OnInit {
         }
 
         this.loading = true;
-        const md5 = new Md5();
         const pwd = '' + Md5.hashStr(this.f.password.value);
         console.log(pwd);
         this.authenticationService.login(this.f.username.value, pwd)

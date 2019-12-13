@@ -13,7 +13,8 @@
     "demands": "Demands",
     "offers": "Offers",
     "views": "Views",
-    "save_view": "Save view"
+    "save_view": "Save view",
+    "resetHeslo": "Change password"
   },
   "searchform": {
     "search": "Search",
