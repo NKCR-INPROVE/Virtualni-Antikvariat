@@ -16,7 +16,9 @@ import { OverlayContainer } from '@angular/cdk/overlay';
 export class AppComponent implements OnInit {
 
   @HostBinding('class') componentCssClass;
-  
+
+  favicoId = 'vdk-favicon';
+
   constructor(
     private authService: AuthenticationService,
     private overlayContainer: OverlayContainer,
@@ -32,12 +34,15 @@ export class AppComponent implements OnInit {
 
   ngOnInit() {
 
+    this.removeExternalLinkElements();
     this.authService.currentUser.subscribe(x => {
       const isLogged = x !== null;
       const lib = isLogged && x.role === 'LIBRARY';
       const theme = lib ? 'vdk-theme' : 'va-theme';
       this.overlayContainer.getContainerElement().classList.add(theme);
       this.componentCssClass = theme;
+      const favico = lib ? 'vdk-ico.png' : 'va-ico.png';
+      this.setFavIcon('assets/img/' + favico);
       this.service.getOffers().subscribe();
     });
     this.router.events.subscribe(val => {
@@ -49,5 +54,38 @@ export class AppComponent implements OnInit {
     });
 
   }
+
+      // I remove the favicon node from the document header.
+      private removeFavIcon(): void {
+
+        const linkElement = document.head.querySelector( '#' + this.favicoId );
+        if ( linkElement ) {
+            document.head.removeChild( linkElement );
+        }
+    }
+
+    private setFavIcon( href: string ): void {
+
+        this.removeFavIcon();
+        this.addFavIcon( href );
+
+    }
+
+  private addFavIcon(href: string): void {
+    const linkElement = document.createElement('link');
+    linkElement.setAttribute('id', this.favicoId);
+    linkElement.setAttribute('rel', 'icon');
+    linkElement.setAttribute('type', 'image/x-icon');
+    linkElement.setAttribute('href', href);
+    document.head.appendChild(linkElement);
+  }
+
+  private removeExternalLinkElements(): void {
+    const linkElements = document.querySelectorAll('link[ rel ~= \'icon\' i]');
+    for (const linkElement of Array.from(linkElements)) {
+      linkElement.parentNode.removeChild(linkElement);
+    }
+  }
+
 
 }
