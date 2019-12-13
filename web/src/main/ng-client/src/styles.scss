@@ -3,19 +3,38 @@
 @import '~@angular/material/theming';
 @include mat-core();
 
-// theme
-@import "sass/app-va-theme";
-@import "sass/app-vdk-theme";
+// vdk theme
+.vdk-theme {
+  @import "sass/app-theme-vdk";
+  @import "sass/app-variables";
 
-// custom variables
-@import "sass/app-variables";
+  // mnixins
+  @import "sass/app-mixins";
 
-// mnixins
-@import "sass/app-mixins";
+  // global scss
+  @import "sass/app-global";
+  @import "sass/app-layout";
+  @import "sass/app-search-form";
+}
 
-// global scss
-@import "sass/app-global";
-@import "sass/app-layout";
-@import "sass/app-search-form";
+// va theme
+.va-theme { 
+  @import "sass/app-theme-va";
+  @import "sass/app-variables";
+
+  // mnixins
+  @import "sass/app-mixins";
+
+  // global scss
+  @import "sass/app-global";
+  @import "sass/app-layout";
+  @import "sass/app-search-form";
+}
+
+// out of theme
+html, body { 
+  height: 100%; 
+  margin: 0;
+}
 
 
