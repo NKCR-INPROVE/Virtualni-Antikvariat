@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, HostBinding } from '@angular/core';
 
 import { AppState } from '../../app.state';
 import { AppService } from '../../app.service';
@@ -16,6 +16,7 @@ import { OffersComponent } from 'src/app/pages/offers/offers.component';
 import { Md5 } from 'ts-md5';
 import { AppConfiguration } from 'src/app/app-configuration';
 import { PasswordDialogComponent } from '../password-dialog/password-dialog.component';
+import { OverlayContainer } from '@angular/cdk/overlay';
 
 @Component({
   selector: 'app-navbar',
@@ -23,6 +24,7 @@ import { PasswordDialogComponent } from '../password-dialog/password-dialog.comp
   styleUrls: ['./navbar.component.scss']
 })
 export class NavbarComponent implements OnInit {
+  
   // Keep loaded langs, so we don't add duplicated routes
   loadedLangs: string[] = [];
   currLang: string;
@@ -50,6 +52,7 @@ export class NavbarComponent implements OnInit {
       this.state.user = x;
       this.isLogged = x !== null;
       this.state.isLibrary = this.isLogged && this.state.user.role === 'LIBRARY';
+      const theme = this.state.isLibrary ? 'vdk-theme' : 'va-theme';
       this.service.getOffers().subscribe();
     });
     this.service.currentLang.subscribe((lang) => {

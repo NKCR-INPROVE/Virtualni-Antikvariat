@@ -113,5 +113,14 @@
     "hotove": "cash on receipt",
     "dobirka": "cash on delivery",
     "predem" : "prepay - bank transfer, card payment online, paypal"
+  },
+
+  "heslo" : {
+    "change_heslo" : "Změnit heslo",
+    "old_heslo" : "Aktuální heslo",
+    "new_heslo" : "Nové heslo",
+    "reset_heslo_success": "Zmena hesla probleha v poradku",
+    "reset_heslo_error": "Chyba pri zmene hesla",
+    "nespravne_heslo": "Zadane heslo neni spravne"
   }
 }

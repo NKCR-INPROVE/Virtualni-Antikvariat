@@ -4,8 +4,8 @@
 @include mat-core();
 
 // theme
-@import "sass/app-vdk-theme";
 @import "sass/app-va-theme";
+@import "sass/app-vdk-theme";
 
 // custom variables
 @import "sass/app-variables";
