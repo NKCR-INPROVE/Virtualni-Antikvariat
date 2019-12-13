@@ -107,14 +107,17 @@
     "jobs_nextFireTime": "Next launch",
     "jobs_last_run": "Last launch",
     "jobs_refresh": "Update",
-    "save": "Save"
+    "save": "Save",
+    "role": "Role",
+    "priority": "Priority",
+    "active": "Active"
   },
   "user": {
     "registration": "User registration",
     "nazev" : "Name",
     "osoba":"Contact person",
     "heslo": "Password",
-    "username" : "User name",
+    "username": "Username",
     "adresa":"Address",
     "telefon": "Phone",
     "email": "E-mail",

@@ -4,73 +4,73 @@
       <mat-card-header>
         <mat-card-title>{{'user.registration' | translate}}</mat-card-title>
       </mat-card-header>
-        <mat-card-content class="app-mat-form-field-wrapper">
+      <mat-card-content class="app-mat-form-field-wrapper">
+        <mat-form-field>
+          <input matInput [(ngModel)]="user.username" name="username" id="username" [placeholder]="'user.username' | translate" required cdkFocusInitial />
+        </mat-form-field>
+        <mat-form-field>
+          <input matInput type="password" [(ngModel)]="heslo" name="heslo" [placeholder]="'user.heslo' | translate" required />
+        </mat-form-field>
+        <mat-form-field>
+          <input matInput [(ngModel)]="user.nazev" name="nazev" [placeholder]="'user.nazev' | translate" required />
+        </mat-form-field>
+        <mat-form-field>
+          <input matInput [(ngModel)]="user.adresa" name="adresa" [placeholder]="'user.adresa' | translate" required />
+        </mat-form-field>
+        <mat-form-field>
+          <input matInput [(ngModel)]="user.telefon" name="telefon" [placeholder]="'user.telefon' | translate"
+            required />
+        </mat-form-field>
+        <mat-form-field>
+          <input matInput [(ngModel)]="user.email" name="email" [placeholder]="'user.email' | translate" required />
+        </mat-form-field>
+        <mat-form-field>
+          <input matInput [(ngModel)]="user.osoba" name="osoba" [placeholder]="'user.osoba' | translate" required />
+        </mat-form-field>
+        <mat-form-field>
+          <mat-label>{{'user.type.label' | translate}}</mat-label>
+          <mat-select [(ngModel)]="userType" name="userType">
+            
+              <mat-option *ngFor="let t of userTypes" [value]="t">{{'user.type_' + t | translate}}</mat-option>
+            <!--
+            <mat-option [value]="'library'">{{'user.type_library' | translate}}</mat-option>
+            <mat-option [value]="'user'">{{'user.type_user' | translate}}</mat-option>
+          -->
+          </mat-select>
+        </mat-form-field>
+
+        <ng-container *ngIf="userType === 'library'">
           <mat-form-field>
-            <input matInput [(ngModel)]="user.username" name="username" id="username" [placeholder]="'user.username' | translate" required cdkFocusInitial />
+            <input matInput [(ngModel)]="user.prijemce" name="prijemce" [placeholder]="'user.prijemce' | translate" />
           </mat-form-field>
+          <mat-checkbox [(ngModel)]="user.celostatni" name="celostatni">{{'user.celostatni' | translate}}</mat-checkbox>
+          <mat-checkbox [(ngModel)]="user.regionalni" name="regionalni">{{'user.regionalni' | translate}}</mat-checkbox>
+          <mat-checkbox [(ngModel)]="user.periodicky" name="periodicky">{{'user.periodicky' | translate}}</mat-checkbox>
+        </ng-container>
+
+        <ng-container *ngIf="userType === 'user'">
           <mat-form-field>
-            <input matInput type="password" [(ngModel)]="heslo" name="heslo" [placeholder]="'user.heslo' | translate" required />
-          </mat-form-field>
-          <mat-form-field>
-            <input matInput [(ngModel)]="user.nazev" name="nazev" [placeholder]="'user.nazev' | translate" required />
-          </mat-form-field>
-          <mat-form-field>
-            <input matInput [(ngModel)]="user.adresa" name="adresa" [placeholder]="'user.adresa' | translate" required />
-          </mat-form-field>
-          <mat-form-field>
-            <input matInput [(ngModel)]="user.telefon" name="telefon" [placeholder]="'user.telefon' | translate"
-              required />
-          </mat-form-field>
-          <mat-form-field>
-            <input matInput [(ngModel)]="user.email" name="email" [placeholder]="'user.email' | translate" required />
-          </mat-form-field>
-          <mat-form-field>
-            <input matInput [(ngModel)]="user.osoba" name="osoba" [placeholder]="'user.osoba' | translate" required />
-          </mat-form-field>
-          <mat-form-field>
-            <mat-label>{{'user.type.label' | translate}}</mat-label>
-            <mat-select [(ngModel)]="userType" name="userType">
-              
-                <mat-option *ngFor="let t of userTypes" [value]="t">{{'user.type_' + t | translate}}</mat-option>
-              <!--
-              <mat-option [value]="'library'">{{'user.type_library' | translate}}</mat-option>
-              <mat-option [value]="'user'">{{'user.type_user' | translate}}</mat-option>
-            -->
+            <mat-label>{{'doprava.label' | translate}}</mat-label>
+            <mat-select [(ngModel)]="user.doprava" name="doprava">
+              <mat-option *ngFor="let dp of config.doprava" [value]="dp">{{'doprava.' + dp | translate}}</mat-option>
             </mat-select>
           </mat-form-field>
-
-          <ng-container *ngIf="userType === 'library'">
-            <mat-form-field>
-              <input matInput [(ngModel)]="user.prijemce" name="prijemce" [placeholder]="'user.prijemce' | translate" />
-            </mat-form-field>
-            <mat-checkbox [(ngModel)]="user.celostatni" name="celostatni">{{'user.celostatni' | translate}}</mat-checkbox>
-            <mat-checkbox [(ngModel)]="user.regionalni" name="regionalni">{{'user.regionalni' | translate}}</mat-checkbox>
-            <mat-checkbox [(ngModel)]="user.periodicky" name="periodicky">{{'user.periodicky' | translate}}</mat-checkbox>
-          </ng-container>
-
-          <ng-container *ngIf="userType === 'user'">
-            <mat-form-field>
-              <mat-label>{{'doprava.label' | translate}}</mat-label>
-              <mat-select [(ngModel)]="user.doprava" name="doprava">
-                <mat-option *ngFor="let dp of config.doprava" [value]="dp">{{'doprava.' + dp | translate}}</mat-option>
-              </mat-select>
-            </mat-form-field>
-            <mat-form-field>
-              <mat-label>{{'platba.label' | translate}}</mat-label>
-              <mat-select [(ngModel)]="user.platba" name="platba">
-                <mat-option *ngFor="let dp of config.platba" [value]="dp">{{'platba.' + dp | translate}}</mat-option>
-              </mat-select>
-            </mat-form-field>
-          </ng-container>
-
           <mat-form-field>
-            <textarea matInput [(ngModel)]="user.poznamka" name="poznamka" [placeholder]="'user.poznamka' | translate"></textarea>
+            <mat-label>{{'platba.label' | translate}}</mat-label>
+            <mat-select [(ngModel)]="user.platba" name="platba">
+              <mat-option *ngFor="let dp of config.platba" [value]="dp">{{'platba.' + dp | translate}}</mat-option>
+            </mat-select>
           </mat-form-field>
-        </mat-card-content>
-        <mat-card-actions>
-          <button mat-button matTooltip="{{ 'desc.send_form' | translate }}" type="submit" [disabled]="!userForm.form.valid">{{'desc.send' | translate}}</button>
-          <button mat-button matTooltip="{{ 'desc.send_form' | translate }}" type="button" (click)="send()">test user name</button>
-        </mat-card-actions>
+        </ng-container>
+
+        <mat-form-field>
+          <textarea matInput [(ngModel)]="user.poznamka" name="poznamka" [placeholder]="'user.poznamka' | translate"></textarea>
+        </mat-form-field>
+      </mat-card-content>
+      <mat-card-actions>
+        <button mat-button matTooltip="{{ 'desc.send_form' | translate }}" type="submit" [disabled]="!userForm.form.valid">{{'desc.send' | translate}}</button>
+        <button mat-button matTooltip="{{ 'desc.send_form' | translate }}" type="button" (click)="send()">test user name</button>
+      </mat-card-actions>
     </mat-card>
   </form>
 </div>

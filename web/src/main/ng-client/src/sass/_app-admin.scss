@@ -1,0 +1,17 @@
+// --- ADMIN ---
+
+app-admin {
+  display: block;
+  padding: $app-gap;
+
+  .mat-list-base {
+    padding-top: 0;
+
+    .mat-list-item {
+      &.app-active {
+        background-color: $app-gray-3;
+        font-weight: bold;
+      }
+    }
+  }
+}

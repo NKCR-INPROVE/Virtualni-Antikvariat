@@ -1,73 +1,77 @@
 <mat-tab-group>
-  <mat-tab [label]="'admin.users' | translate">
-    <h3>{{'admin.users_title' | translate}}</h3>
-
-    <div fxLayout="row" fxLayoutAlign="start stretch" fxLayoutGap.gt-xs="16px" fxLayout.xs="column"
-      gdAlignColumns.lt-xs="false">
+  <mat-tab [label]="'admin.users_title' | translate">
+    <div fxLayout="row" fxLayoutAlign="start stretch" fxLayoutGap.gt-xs="16px" fxLayout.xs="column" gdAlignColumns.lt-xs="false">
       <div fxFlex.gt-sm="25%" fxFlex.gt-xs="30%" fxFlex.xs="100%">
+        {{ isUserActive }}
         <mat-list>
           <mat-list-item *ngFor="let user of users"><a (click)="selectUser(user)">{{user.nazev}}</a></mat-list-item>
         </mat-list>
       </div>
 
       <div fxFlex.gt-sm="75%" fxFlex.gt-xs="70%" fxFlex.xs="100%">
-        <ng-container *ngIf="user">
-          
-          <mat-form-field>
-            <input matInput [(ngModel)]="user.username" [placeholder]="'username' | translate" cdkFocusInitial />
-          </mat-form-field>
-          <mat-form-field>
-            <input matInput [(ngModel)]="user.nazev" [placeholder]="'název' | translate" />
-          </mat-form-field>
-          <mat-form-field>
-            <input matInput [(ngModel)]="user.sigla" [placeholder]="'sigla' | translate" />
-          </mat-form-field>
-          <mat-form-field>
-            <input matInput [(ngModel)]="user.adresa" [placeholder]="'adresa' | translate" />
-          </mat-form-field>
-          <mat-form-field>
-            <input matInput [(ngModel)]="user.telefon" [placeholder]="'telefon' | translate" />
-          </mat-form-field>
-          <mat-form-field>
-            <input matInput [(ngModel)]="user.email" [placeholder]="'email' | translate" />
-          </mat-form-field>
-          <mat-form-field>
-            <mat-label>{{'role' | translate}}</mat-label>
-            <mat-select [(ngModel)]="user.role">
-              <mat-option *ngFor="let role of config.roles" [value]="role">{{role}}</mat-option>
-            </mat-select>
-          </mat-form-field>
-          <mat-form-field>
-            <input matInput type="number" [(ngModel)]="user.priorita" [placeholder]="'priorita' | translate" />
-          </mat-form-field>
-            <mat-checkbox [(ngModel)]="user.active" >{{'active' | translate}}</mat-checkbox>
-          
-        </ng-container>
-        <mat-dialog-actions align="end">
-          <button mat-button (click)="saveUser()">{{'admin.save' | translate}}</button>
-          <button mat-button (click)="addUser()">{{'admin.users_add' | translate}}</button>
-        </mat-dialog-actions>
-      </div>
-    </div>
+        <mat-card>
+          <mat-card-content class="app-mat-form-field-wrapper">
+            <ng-container *ngIf="user">
+              <mat-form-field>
+                <input matInput [(ngModel)]="user.username" [placeholder]="'user.username' | translate" cdkFocusInitial />
+              </mat-form-field>
+              <mat-form-field>
+                <input matInput [(ngModel)]="user.nazev" [placeholder]="'user.nazev' | translate" />
+              </mat-form-field>
+              <mat-form-field>
+                <input matInput [(ngModel)]="user.sigla" [placeholder]="'Sigla' | translate" />
+              </mat-form-field>
+              <mat-form-field>
+                <input matInput [(ngModel)]="user.adresa" [placeholder]="'user.adresa' | translate" />
+              </mat-form-field>
+              <mat-form-field>
+                <input matInput [(ngModel)]="user.telefon" [placeholder]="'user.telefon' | translate" />
+              </mat-form-field>
+              <mat-form-field>
+                <input matInput [(ngModel)]="user.email" [placeholder]="'user.email' | translate" />
+              </mat-form-field>
+              <mat-form-field>
+                <mat-label>{{ 'admin.role' | translate }}</mat-label>
+                <mat-select [(ngModel)]="user.role">
+                  <mat-option *ngFor="let role of config.roles" [value]="role">{{ role }}</mat-option>
+                </mat-select>
+              </mat-form-field>
+              <mat-form-field>
+                <input matInput type="number" [(ngModel)]="user.priorita" [placeholder]="'admin.priority' | translate" />
+              </mat-form-field>
+              <mat-checkbox [(ngModel)]="user.active" >{{'admin.active' | translate}}</mat-checkbox>
+            </ng-container>
+          </mat-card-content>
+          <mat-card-actions>
+            <button mat-button (click)="saveUser()">{{'admin.save' | translate}}</button>
+            <button mat-button (click)="addUser()">{{'admin.users_add' | translate}}</button>
+          </mat-card-actions>
+        </mat-card>
+      </div><!--/flex -->
+    </div><!--/ flex row-->
   </mat-tab>
-  <mat-tab [label]="'admin.jobs' | translate">
-    <h3>{{'admin.jobs_title' | translate}}</h3>
-    <div>
-      <mat-list>
-        <mat-list-item *ngFor="let job of jobs">
-          <span>{{ job.name }}</span>
-          <span>{{'admin.jobs_nextFireTime' | translate}} {{ job.nextFireTime | date : 'dd.MM.yyyy H:mm' }} </span>
-          <span *ngIf="job.status">{{'admin.jobs_last_run' | translate}}
-            {{ job.status.last_run | date : 'dd.MM.yyyy H:mm' }} </span>
-          <button *ngIf="job.state !== 'running'" mat-button (click)="startJob(job)" matTooltip="{{'admin.jobs_start' | translate}}">
-            <mat-icon class="app-cursor-pointer">play_arrow</mat-icon>
-          </button>
-          <button *ngIf="job.state === 'running'" mat-button (click)="stopJob(job)" matTooltip="{{'admin.jobs_stop' | translate}}">
-            <mat-icon class="app-cursor-pointer">stop</mat-icon>
-          </button>
-        </mat-list-item>
-      </mat-list>
-      <button mat-button (click)="getJobs()">{{'admin.jobs_refresh' | translate}}</button>
-    </div>
+
+  <mat-tab [label]="'admin.jobs_title' | translate">
+    <mat-card>
+      <mat-card-content>
+        <mat-list>
+          <mat-list-item *ngFor="let job of jobs">
+            <span>{{ job.name }}</span>
+            <span>{{'admin.jobs_nextFireTime' | translate}} {{ job.nextFireTime | date : 'dd.MM.yyyy H:mm' }} </span>
+            <span *ngIf="job.status">{{'admin.jobs_last_run' | translate}}
+              {{ job.status.last_run | date : 'dd.MM.yyyy H:mm' }} </span>
+            <button *ngIf="job.state !== 'running'" mat-button (click)="startJob(job)" matTooltip="{{'admin.jobs_start' | translate}}">
+              <mat-icon class="app-cursor-pointer">play_arrow</mat-icon>
+            </button>
+            <button *ngIf="job.state === 'running'" mat-button (click)="stopJob(job)" matTooltip="{{'admin.jobs_stop' | translate}}">
+              <mat-icon class="app-cursor-pointer">stop</mat-icon>
+            </button>
+          </mat-list-item>
+        </mat-list>
+      </mat-card-content>
+      <mat-card-actions>
+        <button mat-button (click)="getJobs()">{{'admin.jobs_refresh' | translate}}</button>
+      </mat-card-actions>
+    </mat-card>
   </mat-tab>
 </mat-tab-group>
