@@ -76,7 +76,8 @@
     "filter_chci" : "Dokumenty označené jako \"chci do fondu\"",
     "filter_matches" : "Dokumenty, které poptávám a nekdo nabízí",
     "filter_isVA": "Dokumenty, které jsou ve virtuálním antikvariátu",
-    "is_offered": "nabízí"
+    "is_offered": "nabízí",
+    "send": "Odeslat"
   },
   "count": "Počet nalezených položek",
   "q.placeholder": "Hledej ve virtuální depozitní knihovně ...",
@@ -96,16 +97,16 @@
     "removeFrom": "Odstranit z nabídky"
   },
   "admin": {
-    "users" : "Uživatelé",
-    "users_title" : "Administrace uživatelů",
-    "users_add" : "Přidat uživatele",
-    "jobs" : "Úkoly",
-    "jobs_title" : "Administrace ukolů",
-    "jobs_start" : "Start",
-    "jobs_stop" : "Stop",
-    "jobs_nextFireTime" : "příští spuštění",
-    "jobs_last_run" : "poslední spuštění",
-    "jobs_refresh" : "aktualizovat",
+    "users": "Uživatelé",
+    "users_title": "Administrace uživatelů",
+    "users_add": "Přidat uživatele",
+    "jobs": "Úkoly",
+    "jobs_title": "Administrace ukolů",
+    "jobs_start": "Start",
+    "jobs_stop": "Stop",
+    "jobs_nextFireTime": "Příští spuštění",
+    "jobs_last_run": "Poslední spuštění",
+    "jobs_refresh": "Aktualizovat",
     "save": "Uložit"
   },
   "user": {
@@ -128,25 +129,23 @@
     "poznamka":"poznámka"
   },
   "doprava" : {
-    "label" :"způsoby dopravy knih",
-    "osobni": "osobní vyzvednutí",
-    "nadobirku": "poštou na dobírku",
-    "predem": "poštou platba předem"
+    "label" :"Způsoby dopravy knih",
+    "osobni": "Osobní vyzvednutí",
+    "nadobirku": "Poštou na dobírku",
+    "predem": "Poštou platba předem"
   },
-  
   "platba": {
-    "label": "způsoby platby",
-    "hotove": "hotově při převzetí",
-    "dobirka": "dobírka",
-    "predem" : "platba předem – převodem na účet, platba kartou online, paypal"
+    "label": "Způsoby platby",
+    "hotove": "Hotově při převzetí",
+    "dobirka": "Dobírka",
+    "predem" : "Platba předem – převodem na účet, platba kartou online, paypal"
   },
-
   "heslo" : {
-    "change_heslo" : "Změnit heslo",
-    "old_heslo" : "Aktuální heslo",
-    "new_heslo" : "Nové heslo",
-    "reset_heslo_success": "Zmena hesla probleha v poradku",
-    "reset_heslo_error": "Chyba pri zmene hesla",
-    "nespravne_heslo": "Zadane heslo neni spravne"
+    "change_heslo": "Změnit heslo",
+    "old_heslo": "Aktuální heslo",
+    "new_heslo": "Nové heslo",
+    "reset_heslo_success": "Zmeěna hesla problěhla v pořádku",
+    "reset_heslo_error": "Chyba při změně hesla",
+    "nespravne_heslo": "Zadané heslo není správné"
   }
 }

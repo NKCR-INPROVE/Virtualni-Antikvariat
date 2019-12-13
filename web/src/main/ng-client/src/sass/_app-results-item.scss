@@ -7,8 +7,6 @@ app-result-item {
   .mat-card {
     .mat-card-header {
       .mat-card-header-text {
-        @extend .app-clean-mg;
-
         .mat-card-title {
           font-size: $app-card-title-font-size;
           scroll-margin-bottom: $app-gap;
