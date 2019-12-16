@@ -69,7 +69,27 @@ public class UsersController {
         LOGGER.log(Level.SEVERE, null, ex);
       }
 
-    } catch (IOException | JSONException ex) {
+    } catch (JSONException ex) {
+      LOGGER.log(Level.SEVERE, null, ex);
+    }
+    return null;
+  }
+
+  public static User getUser(String code) {
+    try {
+
+      Options opts = Options.getInstance();
+      SolrQuery query = new SolrQuery("code:" + code);
+      try (HttpSolrClient client = new HttpSolrClient.Builder(opts.getString("solrHost")).build()) {
+        final QueryResponse response = client.query(opts.getString("usersCore", "users"), query);
+        User user = response.getBeans(User.class).get(0);
+        return user;
+
+      } catch (SolrServerException | IOException ex) {
+        LOGGER.log(Level.SEVERE, null, ex);
+      }
+
+    } catch (JSONException ex) {
       LOGGER.log(Level.SEVERE, null, ex);
     }
     return null;
@@ -101,7 +121,7 @@ public class UsersController {
         LOGGER.log(Level.SEVERE, null, ex);
       }
 
-    } catch (IOException | JSONException ex) {
+    } catch (JSONException ex) {
       LOGGER.log(Level.SEVERE, null, ex);
     }
     return null;
@@ -140,7 +160,7 @@ public class UsersController {
       }
 
       return null;
-    } catch (IOException | JSONException ex) {
+    } catch (JSONException ex) {
       LOGGER.log(Level.SEVERE, null, ex);
       return null;
     }
@@ -241,7 +261,6 @@ public class UsersController {
   }
 
   public static JSONObject exists(String username) {
-    try {
       Options opts = Options.getInstance();
       SolrQuery query = new SolrQuery("username:\"" + username + "\"");
       try (HttpSolrClient client = new HttpSolrClient.Builder(opts.getString("solrHost", "http://localhost:8983/solr")).build()) {
@@ -250,9 +269,5 @@ public class UsersController {
         LOGGER.log(Level.SEVERE, null, ex);
         return new JSONObject().put("error", ex);
       }
-    } catch (IOException ex) {
-      LOGGER.log(Level.SEVERE, null, ex);
-      return new JSONObject().put("error", ex);
-    }
   }
 }

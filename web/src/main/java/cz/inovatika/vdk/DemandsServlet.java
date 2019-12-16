@@ -134,7 +134,7 @@ public class DemandsServlet extends HttpServlet {
         JSONObject jo = new JSONObject();
         try {
           Options opts = Options.getInstance();
-          try (HttpSolrClient client = new HttpSolrClient.Builder("http://localhost:8983/solr").build()) {
+          try (HttpSolrClient client = new HttpSolrClient.Builder(opts.getString("solrHost")).build()) {
             
             JSONObject json;
             if (req.getMethod().equals("POST")) {
@@ -172,7 +172,7 @@ public class DemandsServlet extends HttpServlet {
 
           Options opts = Options.getInstance();
           SolrQuery query = new SolrQuery("*");
-          try (HttpSolrClient client = new HttpSolrClient.Builder("http://localhost:8983/solr").build()) {
+          try (HttpSolrClient client = new HttpSolrClient.Builder(opts.getString("solrHost")).build()) {
             QueryRequest qreq = new QueryRequest(query);
 
             NoOpResponseParser dontMessWithSolr = new NoOpResponseParser();
@@ -187,7 +187,7 @@ public class DemandsServlet extends HttpServlet {
             jo.put("error", ex.toString());
           }
 
-        } catch (IOException | JSONException ex) {
+        } catch (JSONException ex) {
           LOGGER.log(Level.SEVERE, null, ex);
           jo.put("error", ex.toString());
         }
@@ -205,7 +205,7 @@ public class DemandsServlet extends HttpServlet {
           Options opts = Options.getInstance();
           SolrQuery query = new SolrQuery("id:" + req.getParameter("id"));
           query.set("wt", "json");
-          try (HttpSolrClient client = new HttpSolrClient.Builder("http://localhost:8983/solr").build()) {
+          try (HttpSolrClient client = new HttpSolrClient.Builder(opts.getString("solrHost")).build()) {
             QueryRequest qreq = new QueryRequest(query);
 
             NoOpResponseParser dontMessWithSolr = new NoOpResponseParser();
@@ -220,7 +220,7 @@ public class DemandsServlet extends HttpServlet {
             jo.put("error", ex.toString());
           }
 
-        } catch (IOException | JSONException ex) {
+        } catch (JSONException ex) {
           LOGGER.log(Level.SEVERE, null, ex);
           jo.put("error", ex.toString());
         }

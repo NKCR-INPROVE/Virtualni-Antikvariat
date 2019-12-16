@@ -20,7 +20,6 @@ import com.alibaba.fastjson.JSON;
 import cz.inovatika.vdk.InitServlet;
 import cz.inovatika.vdk.Options;
 import cz.inovatika.vdk.common.Bohemika;
-import cz.inovatika.vdk.common.DbUtils;
 import cz.inovatika.vdk.solr.models.User;
 import cz.inovatika.vdk.common.SolrIndexerCommiter;
 import cz.inovatika.vdk.common.VDKJobData;
@@ -283,31 +282,6 @@ public class Indexer {
     server.commit();
   }
 
-  public void indexWanted(int wanted_id) throws Exception {
-    Connection conn = DbUtils.getConnection();
-    String sql = "select w.wants, zo.knihovna, k.code, zo.uniquecode from WANTED w, KNIHOVNA k, ZAZNAMOFFER zo "
-            + "where w.wanted_id=? "
-            + "and w.knihovna=k.knihovna_id and zo.zaznamoffer_id=w.zaznamoffer";
-    PreparedStatement ps = conn.prepareStatement(sql);
-    ps.setInt(1, wanted_id);
-
-    try (ResultSet rs = ps.executeQuery()) {
-      while (rs.next()) {
-        String uniquecode = rs.getString("uniquecode");
-        SolrInputDocument doc = new SolrInputDocument();
-        doc.addField("code", uniquecode);
-        doc.addField("md5", uniquecode);
-
-        if (rs.getBoolean(1)) {
-          addField(doc, "chci", rs.getString("code"), "add");
-        } else {
-          addField(doc, "nechci", rs.getString("code"), "add");
-        }
-        server.add(doc);
-      }
-    }
-    server.commit();
-  }
 
   public void indexWanted(String code, String knihovna, boolean wanted) throws Exception {
 
@@ -322,38 +296,6 @@ public class Indexer {
     server.add(doc);
 
     server.commit();
-  }
-
-  public void indexOfferDb(int id) throws Exception {
-    LOGGER.log(Level.INFO, "indexing offer {0}", id);
-    Connection conn = DbUtils.getConnection();
-
-    String sql = "SELECT offer.datum, ZaznamOffer.zaznamoffer_id, ZaznamOffer.offer, "
-            + "ZaznamOffer.knihovna, ZaznamOffer.pr_knihovna, "
-            + "ZaznamOffer.uniqueCode, ZaznamOffer.zaznam, ZaznamOffer.exemplar, ZaznamOffer.fields "
-            + "FROM zaznamOffer, offer where offer.offer_id=zaznamOffer.offer and zaznamOffer.offer=?";
-    PreparedStatement ps = conn.prepareStatement(sql);
-    ps.setInt(1, id);
-
-    try (ResultSet rs = ps.executeQuery()) {
-      while (rs.next()) {
-//        server.add(offerDoc(rs.getInt("offer"),
-//                rs.getDate("datum"),
-//                rs.getString("uniquecode"),
-//                rs.getInt("zaznamoffer_id"),
-//                rs.getString("zaznam"),
-//                rs.getString("knihovna"),
-//                rs.getString("pr_knihovna"),
-//                rs.getString("exemplar"),
-//                rs.getString("fields")));
-
-        offerIndexed++;
-
-      }
-    }
-    server.commit();
-    offerIndexed++;
-    //SolrIndexerCommiter.postData("<commit/>");
   }
 
   public void removeAllWanted() throws Exception {
@@ -780,45 +722,6 @@ public class Indexer {
 
     SolrIndexerCommiter.postData(sb.toString());
     SolrIndexerCommiter.postData("<commit/>");
-  }
-
-  public void indexDocOffersDb(String uniqueCode) throws NamingException, SQLException, IOException, SolrServerException, Exception {
-    Connection conn = DbUtils.getConnection();
-    try {
-      String sql = "SELECT offer,datum, ZaznamOffer.zaznamoffer_id, ZaznamOffer.offer, "
-              + "ZaznamOffer.uniqueCode, ZaznamOffer.zaznam, ZaznamOffer.exemplar, "
-              + "ZaznamOffer.fields, ZaznamOffer.knihovna, ZaznamOffer.pr_knihovna, ZaznamOffer.pr_timestamp "
-              + "FROM ZaznamOffer "
-              + "JOIN offer ON offer.offer_id=ZaznamOffer.offer where offer.closed=? and ZaznamOffer.uniquecode=?";
-      PreparedStatement ps = conn.prepareStatement(sql);
-      ps.setBoolean(1, true);
-      ps.setString(2, uniqueCode);
-      try (ResultSet rs = ps.executeQuery()) {
-        while (rs.next()) {
-          if (jobData.isInterrupted()) {
-            LOGGER.log(Level.INFO, "INDEXER INTERRUPTED");
-            break;
-          }
-//          server.add(offerDoc(rs.getInt("offer"),
-//                  rs.getDate("datum"),
-//                  rs.getString("uniquecode"),
-//                  rs.getInt("zaznamoffer_id"),
-//                  rs.getString("zaznam"),
-//                  rs.getString("knihovna"),
-//                  rs.getString("pr_knihovna"),
-//                  rs.getString("exemplar"),
-//                  rs.getString("fields")));
-
-          offerIndexed++;
-
-        }
-      }
-      server.commit();
-    } finally {
-      if (conn != null && !conn.isClosed()) {
-        conn.close();
-      }
-    }
   }
 
   public void indexDoc(String uniqueCode, boolean commit) throws Exception {

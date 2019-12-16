@@ -1,7 +1,6 @@
 
 package cz.inovatika.vdk;
 
-import cz.inovatika.vdk.common.DbUtils;
 import cz.inovatika.vdk.solr.models.User;
 import cz.inovatika.vdk.common.VDKJobData;
 import cz.inovatika.vdk.oai.HarvesterJob;
@@ -100,7 +99,7 @@ public class HarvestServlet extends HttpServlet {
           if (kn == null && !isLocalhost) {
             json.put("error", "rights.notlogged");
           } else {
-            if (isLocalhost || kn.role.equals(DbUtils.Roles.ADMIN)) {
+            if (isLocalhost || kn.role.equals("ADMIN")) {
               
               HarvesterJob hj = new HarvesterJob();
               JSONObject runParams = new JSONObject();

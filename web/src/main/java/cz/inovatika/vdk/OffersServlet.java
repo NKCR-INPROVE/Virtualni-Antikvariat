@@ -263,7 +263,7 @@ public class OffersServlet extends HttpServlet {
           query.setRows(1000);
           query.set("wt", "json");
           query.setFields("*,fields:[json]");
-          try (HttpSolrClient client = new HttpSolrClient.Builder("http://localhost:8983/solr").build()) {
+          try (HttpSolrClient client = new HttpSolrClient.Builder(opts.getString("solrHost")).build()) {
             QueryRequest qreq = new QueryRequest(query);
 
             NoOpResponseParser dontMessWithSolr = new NoOpResponseParser();
@@ -278,7 +278,7 @@ public class OffersServlet extends HttpServlet {
             jo.put("error", ex.toString());
           }
 
-        } catch (IOException | JSONException ex) {
+        } catch (JSONException ex) {
           LOGGER.log(Level.SEVERE, null, ex);
           jo.put("error", ex.toString());
         }
@@ -297,7 +297,7 @@ public class OffersServlet extends HttpServlet {
           SolrQuery query = new SolrQuery("id:" + req.getParameter("id"));
           query.set("wt", "json");
           query.setFields("*");
-          try (HttpSolrClient client = new HttpSolrClient.Builder("http://localhost:8983/solr").build()) {
+          try (HttpSolrClient client = new HttpSolrClient.Builder(opts.getString("solrHost")).build()) {
             QueryRequest qreq = new QueryRequest(query);
 
             NoOpResponseParser dontMessWithSolr = new NoOpResponseParser();
@@ -312,7 +312,7 @@ public class OffersServlet extends HttpServlet {
             jo.put("error", ex.toString());
           }
 
-        } catch (IOException | JSONException ex) {
+        } catch (JSONException ex) {
           LOGGER.log(Level.SEVERE, null, ex);
           jo.put("error", ex.toString());
         }
@@ -331,7 +331,7 @@ public class OffersServlet extends HttpServlet {
           SolrQuery query = new SolrQuery("offer_id:" + req.getParameter("id"));
           query.set("wt", "json");
           query.setFields("*,fields:[json]");
-          try (HttpSolrClient client = new HttpSolrClient.Builder("http://localhost:8983/solr").build()) {
+          try (HttpSolrClient client = new HttpSolrClient.Builder(opts.getString("solrHost")).build()) {
             QueryRequest qreq = new QueryRequest(query);
 
             NoOpResponseParser dontMessWithSolr = new NoOpResponseParser();
@@ -346,7 +346,7 @@ public class OffersServlet extends HttpServlet {
             jo.put("error", ex.toString());
           }
 
-        } catch (IOException | JSONException ex) {
+        } catch (JSONException ex) {
           LOGGER.log(Level.SEVERE, null, ex);
           jo.put("error", ex.toString());
         }

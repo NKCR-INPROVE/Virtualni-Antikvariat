@@ -52,8 +52,6 @@ public class SolrSearcher {
 
       opts = Options.getInstance();
 
-    } catch (IOException e) {
-      LOGGER.log(Level.SEVERE, e.getMessage(), e);
     } catch (JSONException e) {
       LOGGER.log(Level.SEVERE, e.getMessage(), e);
     }

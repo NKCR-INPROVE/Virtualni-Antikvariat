@@ -2,7 +2,6 @@ package cz.inovatika.vdk.solr.models;
 
 import com.alibaba.fastjson.JSON;
 import cz.inovatika.vdk.Options;
-import cz.inovatika.vdk.common.DbUtils;
 import cz.inovatika.vdk.common.MD5;
 import java.io.IOException;
 import java.util.logging.Level;

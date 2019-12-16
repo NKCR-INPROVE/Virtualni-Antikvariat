@@ -17,11 +17,12 @@
 package cz.inovatika.vdk.common;
 
 import cz.inovatika.vdk.Options;
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
+import cz.inovatika.vdk.UsersController;
+import java.io.IOException;
+
 import java.util.Calendar;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.Properties;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -32,6 +33,12 @@ import javax.mail.Transport;
 import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeMessage;
 import javax.naming.NamingException;
+import org.apache.solr.client.solrj.SolrClient;
+import org.apache.solr.client.solrj.SolrQuery;
+import org.apache.solr.client.solrj.SolrServerException;
+import org.apache.solr.client.solrj.impl.HttpSolrClient;
+import org.apache.solr.common.SolrDocument;
+import org.apache.solr.common.SolrDocumentList;
 
 /**
  *
@@ -39,98 +46,101 @@ import javax.naming.NamingException;
  */
 public class AdminJob {
 
-    Logger LOGGER = Logger.getLogger(AdminJob.class.getName());
+  Logger LOGGER = Logger.getLogger(AdminJob.class.getName());
 
-    private final Options opts;
-    private final VDKJobData jobData;
-    String configFile;
+  private final Options opts;
+  private final VDKJobData jobData;
+  String configFile;
 
-    public AdminJob(VDKJobData jobData) throws Exception {
-        this.jobData = jobData;
-        this.configFile = jobData.getConfigFile();
-        opts = Options.getInstance();
-        init();
-    }
+  public AdminJob(VDKJobData jobData) throws Exception {
+    this.jobData = jobData;
+    this.configFile = jobData.getConfigFile();
+    opts = Options.getInstance();
+    init();
+  }
 
-    private void init() {
+  private void init() {
 
-    }
+  }
 
-    public void run() {
-        checkOffers();
-    }
+  public void run() {
+    checkOffers();
+  }
 
-    //Check expiration date offer.
-    // When expires archive them and send emails
-    private void checkOffers() {
-        try {
-            Calendar now = Calendar.getInstance();
-            Calendar o = Calendar.getInstance();
-            Connection conn = DbUtils.getConnection();
-            String sql = "select o.nazev, o.offer_id, o.datum, kn.email from offer o, knihovna kn"
-                    + " where o.knihovna=kn.knihovna_id and archived=?";
-            PreparedStatement ps = conn.prepareStatement(sql);
-            ps.setBoolean(1, false);
-            
-            String sql2 = "select * from zaznamoffer zo, knihovna kn where "
-                    + "zo.pr_knihovna=kn.knihovna_id and zo.offer=?";
-            PreparedStatement ps2 = conn.prepareStatement(sql2);
-            
-            String sql3 = "update offer set archived=? where "
-                    + "offer_id=?";
-            PreparedStatement ps3 = conn.prepareStatement(sql3);
-            
-            ResultSet rs = ps.executeQuery();
-            while (rs.next()) {
-                o.setTime(rs.getDate("datum"));
-                o.add(Calendar.DATE, opts.getInt("expirationDays", 7) * 3);
-                if(o.before(now)){
-                    //expired. Should archive and send emails
-                    sendMail(rs.getString("email"), rs.getString("nazev"), rs.getString("offer_id"));
-                    
-                    ps2.setInt(1, rs.getInt("offer_id"));
-                    ResultSet rs2 = ps2.executeQuery();
-                    while(rs2.next()){
-                        sendMail(rs2.getString("email"), rs2.getString("nazev"), rs.getString("offer_id"));
-                    }
-                    rs2.close();
-                    
-                    ps3.setBoolean(1, true);
-                    ps3.setInt(2, rs.getInt("offer_id"));
-                    ps3.executeUpdate();
-                }
-            }
-            rs.close();
-        } catch (NamingException | SQLException ex) {
-            LOGGER.log(Level.SEVERE, "Error checking offers");
-            LOGGER.log(Level.SEVERE, null, ex);
+  // Check expiration date offer.
+  // When expires archive them and send emails
+  private void checkOffers() {
+    Calendar now = Calendar.getInstance();
+    Calendar o = Calendar.getInstance();
+    Options opts = Options.getInstance();
+    Map<String, String> mails = new HashMap<>();
+    String kn;
+    String email;
+
+    int days = opts.getInt("expirationDays", 7) * 3;
+
+    //expired. Should archive and send emails
+    SolrQuery query = new SolrQuery("archived:false");
+    query.addFilterQuery("created:[NOW/DAY-" + days + "DAYS TO NOW]");
+    try (SolrClient client = new HttpSolrClient.Builder(opts.getString("solrHost")).build()) {
+      SolrDocumentList docs = client.query(opts.getString("offersCore"), query).getResults();
+      for (SolrDocument doc : docs) {
+        kn = (String) doc.getFirstValue("knihovna");
+        email = mails.get(kn);
+        if (email == null) {
+          email = UsersController.getUser(kn).email;
+          mails.put(kn, email);
         }
-    }
 
-    private void sendMail(String to, String offerName, String offerId) {
-        String from = opts.getString("admin.email");
-        try {
-            Properties properties = System.getProperties();
-            Session session = Session.getDefaultInstance(properties);
+        sendMail(email, (String) doc.getFirstValue("nazev"), (String) doc.getFirstValue("id"));
 
-            MimeMessage message = new MimeMessage(session);
-            message.setFrom(new InternetAddress(from));
-            message.addRecipient(Message.RecipientType.TO,
-                    new InternetAddress(to));
-            
-            message.setSubject(opts.getString("admin.email.offer.subject"));
-            
-            String link = opts.getString("app.url") + "/reports/protocol.vm?id=" + offerId;
-            String body = opts.getString("admin.email.offer.body")
-                    .replace("${offer.nazev}", offerName)
-                    .replace("${offer.report}", link);
-            message.setText(body);
-
-            Transport.send(message);
-            LOGGER.fine("Sent message successfully....");
-        } catch (MessagingException ex) {
-            LOGGER.log(Level.SEVERE, "Error sending email to: {0}, from {1} ", new Object[]{to, from});
-            LOGGER.log(Level.SEVERE, null, ex);
+        // Find receivers and send mails
+        query = new SolrQuery("offer_id:" + doc.getFirstValue("id"));
+        SolrDocumentList docs2 = client.query(opts.getString("offersCore"), query).getResults();
+        for (SolrDocument doc2 : docs2) {
+          kn = (String) doc2.getFirstValue("chci");
+          email = mails.get(kn);
+          if (email == null) {
+            email = UsersController.getUser(kn).email;
+            mails.put(kn, email);
+          }
+          sendMail(email, (String) doc.getFirstValue("nazev"), (String) doc.getFirstValue("id"));
         }
+
+        // Archive 
+        // set archive true
+      }
+    } catch (SolrServerException | IOException ex) {
+      LOGGER.log(Level.SEVERE, "Error checking offers");
+      LOGGER.log(Level.SEVERE, null, ex);
+
     }
+  }
+
+  private void sendMail(String to, String offerName, String offerId) {
+    String from = opts.getString("admin.email");
+    try {
+      Properties properties = System.getProperties();
+      Session session = Session.getDefaultInstance(properties);
+
+      MimeMessage message = new MimeMessage(session);
+      message.setFrom(new InternetAddress(from));
+      message.addRecipient(Message.RecipientType.TO,
+              new InternetAddress(to));
+
+      message.setSubject(opts.getString("admin.email.offer.subject"));
+
+      String link = opts.getString("app.url") + "/reports/protocol.vm?id=" + offerId;
+      String body = opts.getString("admin.email.offer.body")
+              .replace("${offer.nazev}", offerName)
+              .replace("${offer.report}", link);
+      message.setText(body);
+
+      Transport.send(message);
+      LOGGER.fine("Sent message successfully....");
+    } catch (MessagingException ex) {
+      LOGGER.log(Level.SEVERE, "Error sending email to: {0}, from {1} ", new Object[]{to, from});
+      LOGGER.log(Level.SEVERE, null, ex);
+    }
+  }
 }
