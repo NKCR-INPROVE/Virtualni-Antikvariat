@@ -99,4 +99,8 @@ export class AdminComponent implements OnInit {
 
   }
 
+  removeJob(idx: number) {
+    
+  }
+
 }

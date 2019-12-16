@@ -12,7 +12,10 @@
   <properties>
     <endorsed.dir>${project.build.directory}/endorsed</endorsed.dir>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+    <context.name>virtualni-antikvariat</context.name>
+    <!--
     <context.name>vdk</context.name>
+    -->
     <skipNg>false</skipNg>
   </properties>
     
@@ -241,6 +244,23 @@
                 <replacement> 
                   <token>"context": "",</token> 
                   <value>"context": "/${context.name}",</value> 
+                </replacement> 
+              </replacements> 
+            </configuration> 
+          </execution> 
+          
+          <execution> 
+            <id>replace-for-meta-inf</id>
+            <phase>prepare-package</phase> 
+            <goals> 
+              <goal>replace</goal> 
+            </goals>  
+            <configuration> 
+              <file>${project.basedir}/src/main/webapp/META-INF/context.xml</file> 
+              <replacements> 
+                <replacement> 
+                  <token>path="/(.)*"</token> 
+                  <value>path="/${context.name}"</value> 
                 </replacement> 
               </replacements> 
             </configuration> 

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<Context path="/vdk">
+<Context path="/virtualni-antikvariat">
   
-  <Parameter name="app_dir" value="c:\Users\alberto\Projects\VDK\VA\config"
+  <Parameter name="app_dir" value="/home/alberto/.vdkcr"
          override="false"/>
 </Context>

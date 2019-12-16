@@ -6,15 +6,12 @@
 package cz.inovatika.vdk.common;
 
 import cz.inovatika.vdk.InitServlet;
-import cz.inovatika.vdk.Options;
 import java.io.File;
 import java.util.Iterator;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import org.apache.commons.io.FileUtils;
-import org.apache.commons.io.IOUtils;
 import org.json.JSONObject;
-import sun.util.logging.PlatformLogger;
 
 /**
  *
@@ -22,7 +19,7 @@ import sun.util.logging.PlatformLogger;
  */
 public class VDKJobData {
 
-  private static final Logger logger = Logger.getLogger(VDKJobData.class.getName());
+  private static final Logger LOGGER = Logger.getLogger(VDKJobData.class.getName());
 
   private JSONObject opts;
 
@@ -88,7 +85,7 @@ public class VDKJobData {
       String key = (String) keys.next();
       opts.put(key, runtimeOptions.get(key));
     }
-    logger.log(Level.INFO, "VDKJobData {0} loaded", this.configSimpleName);
+    LOGGER.log(Level.INFO, "VDKJobData {0} loaded", this.configSimpleName);
   }
 
   public String getString(String key) {

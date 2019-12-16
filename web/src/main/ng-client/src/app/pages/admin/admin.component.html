@@ -2,7 +2,6 @@
   <mat-tab [label]="'admin.users_title' | translate">
     <div fxLayout="row" fxLayoutAlign="start stretch" fxLayoutGap.gt-xs="16px" fxLayout.xs="column" gdAlignColumns.lt-xs="false">
       <div fxFlex.gt-sm="25%" fxFlex.gt-xs="30%" fxFlex.xs="100%">
-        {{ isUserActive }}
         <mat-list>
           <mat-list-item *ngFor="let u of users" [class.app-active]="u.code === user.code"><a (click)="selectUser(u)">{{u.nazev}}</a></mat-list-item>
         </mat-list>
@@ -84,10 +83,10 @@
           {{ 'admin.action' | translate }}
         </th>
         <td mat-cell *matCellDef="let element">
-          <mat-icon *ngIf="element.state !== 'running'" mat-button (click)="startJob(job)" matTooltip="{{'admin.jobs_start' | translate}}" class="app-cursor-pointer">
+          <mat-icon *ngIf="element.state !== 'running'" mat-button (click)="startJob(element)" matTooltip="{{'admin.jobs_start' | translate}}" class="app-cursor-pointer">
             play_circle_filled
           </mat-icon>
-          <mat-icon  *ngIf="element.state === 'running'" mat-button (click)="stopJob(job)" matTooltip="{{'admin.jobs_stop' | translate}}" class="app-cursor-pointer">
+          <mat-icon  *ngIf="element.state === 'running'" mat-button (click)="stopJob(element)" matTooltip="{{'admin.jobs_stop' | translate}}" class="app-cursor-pointer">
             pause_circle_filled
           </mat-icon>
         </td>
@@ -96,7 +95,7 @@
       <ng-container matColumnDef="button">
         <th mat-header-cell *matHeaderCellDef></th>
         <td mat-cell *matCellDef="let element; let idx = index;">
-          <mat-icon (click)="remove(idx)" matTooltip="{{ 'demands.remove' | translate }}" class="app-cursor-pointer app-icon-valign-text-bottom" [color]="'warn'">cancel</mat-icon>
+          <mat-icon (click)="removeJob(idx)" matTooltip="{{ 'demands.remove' | translate }}" class="app-cursor-pointer app-icon-valign-text-bottom" [color]="'warn'">cancel</mat-icon>
         </td>
       </ng-container>
   
