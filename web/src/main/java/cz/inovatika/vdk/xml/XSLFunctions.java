@@ -105,7 +105,10 @@ public class XSLFunctions {
               if (val.endsWith(",")) {
                 val = val.substring(0, val.length()-1);
               }
-              sb.add("\""+val+"\"");
+              
+              // sb.add("\"" + val + "\"");
+              sb.add("\"" + val.replaceAll("\"","\\\"") + "\"");
+              
               //sb.append("\""+val+"\"");
             }
         }
