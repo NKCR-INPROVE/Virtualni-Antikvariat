@@ -139,7 +139,10 @@
     "label" :"Ways of transporting books",
     "osobni": "Personal pickup",
     "nadobirku": "Cash on delivery",
-    "predem": "Postal, payment in advance"
+    "predem": "Postal, payment in advance",
+    "cenik_osobni": "Cena pri osobním vyzvednutí",
+    "cenik_nadobirku": "Cena při dodání na dobírku",
+    "cenik_predem": "Cena při platbě předem"
   },
   "platba": {
     "label": "Payment methods",

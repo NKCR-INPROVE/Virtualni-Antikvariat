@@ -13,6 +13,7 @@ export class VaRegistrationComponent implements OnInit {
 
   user: User = new User();
   heslo: string;
+  accept: boolean;
 
   constructor(
     private el: ElementRef,

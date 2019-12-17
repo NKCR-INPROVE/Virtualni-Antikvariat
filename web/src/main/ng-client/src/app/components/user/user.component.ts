@@ -1,5 +1,6 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { User } from 'src/app/models/user';
+import { AppConfiguration } from 'src/app/app-configuration';
 
 @Component({
   selector: 'app-user',
@@ -15,10 +16,11 @@ export class UserComponent implements OnInit {
   userTypes: string[] = ['USER', 'LIBRARY'];
   userType = 'USER';
 
-  constructor() { }
+  constructor(
+    public config: AppConfiguration) { }
 
   ngOnInit() {
-    this.userType = this.user.role
+    this.userType = this.user.role;
   }
 
 }

@@ -4,6 +4,7 @@ import { View } from './models/view';
 import { ResultsHeader } from './models/results-header';
 import { Offer } from './models/offer';
 import { User } from './models/user';
+import { OfferRecord } from './models/offer-record';
 
 @Injectable()
 export class AppState {
@@ -27,6 +28,8 @@ export class AppState {
 
   public offers: Offer[] = [];
   public activeOffer: Offer;
+
+  public shoppingCard: OfferRecord[] = [];
 
   setResults(resp) {
     this.resultsSubject.next(resp.response.docs);

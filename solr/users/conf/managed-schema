@@ -127,8 +127,12 @@
     <field name="telefon" type="string" indexed="true" stored="true" /> 
     <field name="role" type="string" indexed="true" stored="true" />
 	
-    <field name="platba" type="string" indexed="true" stored="true" />
-    <field name="doprava" type="string" indexed="true" stored="true" />
+    <field name="prijemce" type="string" indexed="true" stored="true" />
+    <field name="poznamka" type="string" indexed="true" stored="true" />
+    <field name="osoba" type="string" indexed="true" stored="true" />
+	
+    <field name="platba" type="strings" indexed="true" stored="true" />
+    <field name="doprava" type="strings" indexed="true" stored="true" />
 
     <field name="celostatni" type="boolean" indexed="true" stored="true" />
     <field name="regionalni" type="boolean" indexed="true" stored="true" />

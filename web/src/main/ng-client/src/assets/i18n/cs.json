@@ -139,7 +139,10 @@
     "label" :"Způsoby dopravy knih",
     "osobni": "Osobní vyzvednutí",
     "nadobirku": "Poštou na dobírku",
-    "predem": "Poštou platba předem"
+    "predem": "Poštou platba předem",
+    "cenik_osobni": "Cena pri osobním vyzvednutí",
+    "cenik_nadobirku": "Cena při dodání na dobírku",
+    "cenik_predem": "Cena při platbě předem"
   },
   "platba": {
     "label": "Způsoby platby",

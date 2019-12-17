@@ -7,9 +7,21 @@
       <mat-card-content class="app-mat-form-field-wrapper">
         <app-user [user]="user"></app-user>
       </mat-card-content>
+
       <mat-card-actions>
+        <mat-checkbox [(ngModel)]="accept" name="accept" required>Souhlasim s podminkami</mat-checkbox>
         <button mat-button matTooltip="{{ 'desc.send_form' | translate }}" type="submit" [disabled]="!userForm.form.valid">{{'desc.send' | translate}}</button>
       </mat-card-actions>
     </mat-card>
+    <p>
+      Všechny tyto údaje jsou využívány jen pro zobrazení uživateli, případně pro provedení dalších akcí na pokyn tohoto uživatele (zadávání a rušení rezervací apod.)
+    </p>
+    <p>
+      Veškeré údaje, které si portál o uživateli uchovává, je možné z portálu odstranit
+    </p>
+    <p>
+     Aplikace "Virtuální antikvariát" používá pro svůj provoz cookies, které potřebuje k poskytování služeb uživatelům.
+    </p>
+    
   </form>
 </div>

@@ -28,8 +28,10 @@
 <ng-container *ngIf="userType === 'LIBRARY'">
   
 <mat-form-field>
-  <input matInput [(ngModel)]="user.osoba" name="osoba" [placeholder]="'user.osoba' | translate" required />
+  <input matInput [(ngModel)]="user.osoba" name="osoba" [placeholder]="'user.osoba' | translate" />
 </mat-form-field>
+
+<!--
 
   <mat-form-field>
     <input matInput [(ngModel)]="user.prijemce" name="prijemce" [placeholder]="'user.prijemce' | translate" />
@@ -37,6 +39,7 @@
   <mat-checkbox [(ngModel)]="user.celostatni" name="celostatni">{{'user.celostatni' | translate}}</mat-checkbox>
   <mat-checkbox [(ngModel)]="user.regionalni" name="regionalni">{{'user.regionalni' | translate}}</mat-checkbox>
   <mat-checkbox [(ngModel)]="user.periodicky" name="periodicky">{{'user.periodicky' | translate}}</mat-checkbox>
+-->
   
   <mat-form-field>
     <mat-label>{{'doprava.label' | translate}}</mat-label>
@@ -44,12 +47,27 @@
       <mat-option *ngFor="let dp of config.doprava" [value]="dp">{{'doprava.' + dp | translate}}</mat-option>
     </mat-select>
   </mat-form-field>
+  
   <mat-form-field>
     <mat-label>{{'platba.label' | translate}}</mat-label>
     <mat-select [(ngModel)]="user.platba" name="platba" multiple>
       <mat-option *ngFor="let dp of config.platba" [value]="dp">{{'platba.' + dp | translate}}</mat-option>
     </mat-select>
   </mat-form-field>
+  
+  <ng-container *ngIf="user.doprava">
+    <mat-form-field *ngIf="user.doprava.includes('osobni')">
+      <input matInput [(ngModel)]="user.cenik_osobni" name="cenik_osobni" [placeholder]="'doprava.cenik_osobni' | translate" />
+    </mat-form-field>
+    <mat-form-field *ngIf="user.doprava.includes('nadobirku')">
+      <input matInput [(ngModel)]="user.cenik_nadobirku" name="cenik_nadobirku" [placeholder]="'doprava.cenik_nadobirku' | translate" />
+    </mat-form-field>
+    <mat-form-field *ngIf="user.doprava.includes('predem')">
+      <input matInput [(ngModel)]="user.cenik_predem" name="cenik_predem" [placeholder]="'doprava.cenik_predem' | translate" />
+    </mat-form-field>
+
+</ng-container>
+
 </ng-container>
 
 <br/>

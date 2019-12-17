@@ -262,9 +262,13 @@ export class ResultItemComponent implements OnInit, OnDestroy {
       offer.nechci.push(this.state.user.username);
     }
 
-    this.service.addToOffer(offer).subscribe(resp => {
-      this.service.showSnackBar('reaction', '');
-    });
+    if (this.state.isLibrary) {
+      this.service.addToOffer(offer).subscribe(resp => {
+        this.service.showSnackBar('reaction', '');
+      });
+    } else {
+      this.state.shoppingCard.push(offer);
+    }
   }
 
   toggleStatus(status: string) {
