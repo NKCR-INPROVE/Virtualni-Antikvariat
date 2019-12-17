@@ -15,8 +15,7 @@
     "demands": "Poptávky",
     "offers": "Nabídky",
     "views": "Pohledy",
-    "save_view": "Uložit pohled",
-    "resetHeslo": "Změnit heslo"
+    "save_view": "Uložit pohled"
   },
   "searchform": {
     "search": "Hledej",
@@ -126,12 +125,14 @@
     "alreadyExists": "Uživatelské jméno existuje. Vyberte jiné",
     "type.label": "Typ uživatele",
     "type_library": "Knihovna",
-    "type_user": "Knihkupectví - Antikvariát",
+    "type_user": "Soukromá osoba - Antikvariát",
     "prijemce": "Příjemce povinného výtisku",
     "celostatni" : "Celostátní",
     "regionalni":"Regionální",
     "periodicky":"Periodický",
-    "poznamka":"Poznámka"
+    "poznamka":"Poznámka",
+    "profile": "Můj účet",
+    "resetHeslo": "Změnit heslo"
   },
   "doprava" : {
     "label" :"Způsoby dopravy knih",

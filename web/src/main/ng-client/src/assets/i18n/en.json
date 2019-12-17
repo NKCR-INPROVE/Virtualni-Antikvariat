@@ -15,8 +15,7 @@
     "demands": "Demands",
     "offers": "Offers",
     "views": "Views",
-    "save_view": "Save view",
-    "resetHeslo": "Change password"
+    "save_view": "Save view"
   },
   "searchform": {
     "search": "Search",
@@ -126,12 +125,14 @@
     "alreadyExists": "User already exist, please, choose another",
     "type.label": "Type user",
     "type_library": "Library",
-    "type_user": "Library - Antikvariat",
+    "type_user": "User - Antikvariat",
     "prijemce": "The recipient of the legal deposit",
     "celostatni" : "National",
     "regionalni":"Regional",
     "periodicky":"Periodical",
-    "poznamka":"Comment"
+    "poznamka":"Comment",
+    "profile": "Profile",
+    "resetHeslo": "Change password"
   },
   "doprava" : {
     "label" :"Ways of transporting books",

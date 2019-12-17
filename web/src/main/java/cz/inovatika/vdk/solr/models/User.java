@@ -44,9 +44,9 @@ public class User {
   @Field
   public boolean active;
   @Field
-  public String platba;
+  public String[] platba;
   @Field
-  public String doprava;
+  public String[] doprava;
   @Field
   public boolean celostatni;
   @Field
@@ -69,47 +69,47 @@ public class User {
     return user;
   }
   
-  public static User fromJSONx(JSONObject json) {
-    
-    User user = new User();
-    user.code = json.getString("code");
-    user.username = json.getString("username");
-    user.heslo = MD5.generate(json.getString("heslo"));
-    user.nazev = json.getString("nazev");
-    user.role = json.getString("role");
-    user.priorita = json.getInt("priorita");
-    user.telefon = json.getString("telefon");
-    user.email = json.getString("email");
-    user.sigla = json.getString("sigla");
-    user.adresa = json.getString("adresa");
-    user.active = json.getBoolean("active");
-    return user;
-  }
+//  public static User fromJSONx(JSONObject json) {
+//    
+//    User user = new User();
+//    user.code = json.getString("code");
+//    user.username = json.getString("username");
+//    user.heslo = MD5.generate(json.getString("heslo"));
+//    user.nazev = json.getString("nazev");
+//    user.role = json.getString("role");
+//    user.priorita = json.getInt("priorita");
+//    user.telefon = json.getString("telefon");
+//    user.email = json.getString("email");
+//    user.sigla = json.getString("sigla");
+//    user.adresa = json.getString("adresa");
+//    user.active = json.getBoolean("active");
+//    return user;
+//  }
 
-  public static User byCode(String code) {
-    try {
-      SolrQuery query = new SolrQuery("code:\"" + code + "\"");
-      return query(query);
-    } catch (IOException ex) {
-      LOGGER.log(Level.SEVERE, null, ex);
-      return null;
-    }
-  }
+//  public static User byCode(String code) {
+//    try {
+//      SolrQuery query = new SolrQuery("code:\"" + code + "\"");
+//      return query(query);
+//    } catch (IOException ex) {
+//      LOGGER.log(Level.SEVERE, null, ex);
+//      return null;
+//    }
+//  }
 
-  private static User query(SolrQuery query) throws IOException {
-
-    Options opts = Options.getInstance();
-    try (SolrClient client = new HttpSolrClient.Builder(String.format("%s/%s/",
-            opts.getString("solrHost", "http://localhost:8983/solr"),
-            opts.getString("usersCore", "users")))
-            .build()) {
-
-      final QueryResponse response = client.query(query);
-      return response.getBeans(User.class).get(0);
-
-    } catch (SolrServerException | IOException ex) {
-      LOGGER.log(Level.SEVERE, null, ex);
-      return null;
-    }
-  }
+//  private static User query(SolrQuery query) throws IOException {
+//
+//    Options opts = Options.getInstance();
+//    try (SolrClient client = new HttpSolrClient.Builder(String.format("%s/%s/",
+//            opts.getString("solrHost", "http://localhost:8983/solr"),
+//            opts.getString("usersCore", "users")))
+//            .build()) {
+//
+//      final QueryResponse response = client.query(query);
+//      return response.getBeans(User.class).get(0);
+//
+//    } catch (SolrServerException | IOException ex) {
+//      LOGGER.log(Level.SEVERE, null, ex);
+//      return null;
+//    }
+//  }
 }

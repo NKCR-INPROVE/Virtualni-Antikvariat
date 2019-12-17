@@ -195,18 +195,18 @@ export class OffersComponent implements OnInit {
         } else {
           canOffer = false;
         }
-      });
 
-    }
+        if (canOffer) {
 
-    if (canOffer) {
+          record.isVA = true;
+          this.service.addToOffer(record).subscribe(resp => {
+            if (resp.error) {
+              this.service.showSnackBar('offer.add_to_va_error', '', 'app-snack-error');
+            } else {
+              this.service.showSnackBar('offer.add_to_va_success', '', 'app-snack-success');
+            }
+          });
 
-      record.isVA = true;
-      this.service.addToOffer(record).subscribe(resp => {
-        if (resp.error) {
-          this.service.showSnackBar('offer.add_to_va_error', '', 'app-snack-error');
-        } else {
-          this.service.showSnackBar('offer.add_tova__success', '', 'app-snack-success');
         }
       });
 

@@ -51,6 +51,8 @@ import { VaRegistrationComponent } from './pages/va-registration/va-registration
 import { ConfirmDialogComponent } from './components/confirm-dialog/confirm-dialog.component';
 import { ReportComponent } from './pages/report/report.component';
 import { PasswordDialogComponent } from './components/password-dialog/password-dialog.component';
+import { ProfileComponent } from './pages/profile/profile.component';
+import { UserComponent } from './components/user/user.component';
 
 
 registerLocaleData(localeCs, 'cs');
@@ -103,7 +105,9 @@ if (environment.mocked) {
     VaRegistrationComponent,
     ConfirmDialogComponent,
     ReportComponent,
-    PasswordDialogComponent
+    PasswordDialogComponent,
+    ProfileComponent,
+    UserComponent
   ],
   imports: [
     BrowserModule,

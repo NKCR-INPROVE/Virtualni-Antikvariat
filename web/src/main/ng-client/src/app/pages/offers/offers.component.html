@@ -52,11 +52,11 @@
               <button mat-flat-button class="app-button app-button-gray" (click)="searchToOffer()" matTooltip="{{ 'desc.add_to_offer_by_searching' | translate }}"><mat-icon>search</mat-icon></button>
             </div>
           </th>
-          <td mat-cell *matCellDef="let element; let row; let idx = index;">
-            <span *ngFor="let ch of element.chci" class="app-logo app-no-logo" style="color: rgba(26, 148, 9, 0.582);">{{ ch }}</span>
-            <span *ngFor="let ch of element.nechci" class="app-logo app-no-logo" style="color: rgba(255, 0, 0, 0.452);">{{ ch }}</span>
-            <mat-icon *ngIf="!row.isVA && (!element.chci || element.chci.length === 0)" (click)="addToVA(row)" matTooltip="{{ 'desc.add_to_secondhand' | translate }}" class="app-cursor-pointer app-icon-valign-text-bottom app-icon-right-mg">archive</mat-icon>
-            <mat-icon *ngIf="row.isVA" (click)="removeFromVA(row)" matTooltip="{{ 'desc.remove_from_secondhand' | translate }}" class="app-cursor-pointer app-icon-valign-text-bottom app-icon-right-mg">unarchive</mat-icon>
+          <td mat-cell *matCellDef="let row; let idx = index;">
+            <span *ngFor="let ch of row.chci" class="app-logo app-no-logo" style="color: rgba(26, 148, 9, 0.582);">{{ ch }}</span>
+            <span *ngFor="let ch of row.nechci" class="app-logo app-no-logo" style="color: rgba(255, 0, 0, 0.452);">{{ ch }}</span>
+            <mat-icon *ngIf="!row.isVA && (!row.chci || row.chci.length === 0)" (click)="addToVA(row)" matTooltip="{{ 'desc.add_to_secondhand' | translate }}" class="app-cursor-pointer app-icon-valign-text-bottom app-icon-right-mg">archive</mat-icon>
+            <mat-icon *ngIf="row.isVA && (!row.chci || row.chci.length === 0)" (click)="removeFromVA(row)" matTooltip="{{ 'desc.remove_from_secondhand' | translate }}" class="app-cursor-pointer app-icon-valign-text-bottom app-icon-right-mg">unarchive</mat-icon>
             <mat-icon (click)="removeFromOffer(idx)" matTooltip="{{ 'offers.remove' | translate }}" class="app-cursor-pointer app-icon-valign-text-bottom" [color]="'warn'">cancel</mat-icon>
           </td>
         </ng-container>

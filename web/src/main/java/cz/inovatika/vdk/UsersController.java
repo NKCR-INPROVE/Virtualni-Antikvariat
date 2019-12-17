@@ -40,7 +40,7 @@ public class UsersController {
   public static User toKnihovna(HttpServletRequest req) {
     JSONObject jo = get(req);
     if (jo != null) {
-      User kn = User.byCode(jo.getString("code"));
+      User kn = getUser(jo.getString("code"));
       return kn;
     }
     return null;

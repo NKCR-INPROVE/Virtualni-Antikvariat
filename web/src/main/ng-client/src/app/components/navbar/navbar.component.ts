@@ -86,12 +86,12 @@ export class NavbarComponent implements OnInit {
 
   demands() {
     const r = this.translate.instant('route.demands');
-    this.router.navigate([r]);
+    this.router.navigate(['/demands']);
   }
 
   offers() {
     const r = this.translate.instant('route.offers');
-    this.router.navigate([r]);
+    this.router.navigate(['/offers']);
   }
 
   export() {

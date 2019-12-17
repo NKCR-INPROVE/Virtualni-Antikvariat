@@ -10,8 +10,8 @@ export class User {
     sigla: string;
     adresa: string;
     active: boolean;
-    doprava: string;
-    platba: string;
+    doprava: string[];
+    platba: string[];
     celostatni: boolean;
     regionalni: boolean;
     periodicky: boolean;

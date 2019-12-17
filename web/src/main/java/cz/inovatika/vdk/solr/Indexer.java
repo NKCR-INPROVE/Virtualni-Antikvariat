@@ -19,6 +19,7 @@ package cz.inovatika.vdk.solr;
 import com.alibaba.fastjson.JSON;
 import cz.inovatika.vdk.InitServlet;
 import cz.inovatika.vdk.Options;
+import cz.inovatika.vdk.UsersController;
 import cz.inovatika.vdk.common.Bohemika;
 import cz.inovatika.vdk.solr.models.User;
 import cz.inovatika.vdk.common.SolrIndexerCommiter;
@@ -863,7 +864,7 @@ public class Indexer {
       JSONObject j = new JSONObject(pop);
 
       String from = opts.getString("admin.email");
-      User kn = User.byCode(j.getString("knihovna"));
+      User kn = UsersController.getUser(j.getString("knihovna"));
       String to = kn.email;
       String zaznam = j.optString("zaznam");
       String code = j.optString("code");
