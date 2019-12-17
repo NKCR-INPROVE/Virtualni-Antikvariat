@@ -4,15 +4,13 @@
       <ng-container *ngIf="doc.nabidka">
         <label>{{'desc.is_offered' | translate}}: </label>
         <ng-container *ngFor="let n of doc.nabidka_ext">
-          <button *ngIf="state.isLibrary || n.isVA" mat-flat-button class="app-button app-button-gray"
-            matTooltip="{{ 'desc.respond_to_offer_yes' | translate }}" (click)="addWanted(n, true)">
-            <mat-icon color="primary">{{state.isLibrary ? 'thumb_up' : 'shopping_cart'}}</mat-icon>
+          <button *ngIf="state.isLibrary || n.isVA" mat-icon-button matTooltip="{{ 'desc.respond_to_offer_yes' | translate }}" (click)="addWanted(n, true)">
+            <mat-icon>{{state.isLibrary ? 'thumb_up' : 'shopping_cart'}}</mat-icon>
           </button>
-          <button *ngIf="state.isLibrary" mat-flat-button class="app-button app-button-gray"
-            matTooltip="{{ 'desc.respond_to_offer_no' | translate }}" (click)="addWanted(n, false)">
-            <mat-icon color="primary">thumb_down</mat-icon>
+          <button *ngIf="state.isLibrary" mat-icon-button matTooltip="{{ 'desc.respond_to_offer_no' | translate }}" (click)="addWanted(n, false)">
+            <mat-icon>thumb_down</mat-icon>
           </button>
-          <span class="app-logo app-no-logo">{{n.knihovna}}</span><span *ngIf="n.cena"> za {{n.cena}} Kč</span></ng-container>
+          <span class="app-logo app-no-logo">{{n.knihovna}}</span></ng-container>
       </ng-container>
 
       <ng-container *ngIf="doc.poptavka">
@@ -134,11 +132,11 @@
       (click)="addToOffer()">
       <mat-icon>local_offer</mat-icon>{{ 'desc.add_to_offer' | translate }}
     </button>
-    <button *ngIf="state.isLibrary && !hasDemand()" mat-button matTooltip="{{ 'desc.add_to_demand' | translate }}"
+    <button *ngIf="!hasDemand()" mat-button matTooltip="{{ 'desc.add_to_demand' | translate }}"
       (click)="addToDemands()">
       <mat-icon>shopping_cart</mat-icon>{{ 'desc.add_to_demand' | translate }}
     </button>
-    <button *ngIf="state.isLibrary && hasDemand()" mat-button matTooltip="{{ 'desc.remove_from_demand' | translate }}"
+    <button *ngIf="hasDemand()" mat-button matTooltip="{{ 'desc.remove_from_demand' | translate }}"
       (click)="removeFromDemands()">
       <mat-icon>remove_shopping_cart</mat-icon>{{ 'demands.remove' | translate }}
     </button>

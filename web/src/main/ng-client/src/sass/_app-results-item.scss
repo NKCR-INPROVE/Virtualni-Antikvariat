@@ -53,12 +53,6 @@ app-result-item {
               height: $app-table-body-row-height;
 
               .mat-cell {
-               /*  .mat-icon {
-                  font-size: calc(#{$app-mat-icon-size} - 3px);
-                  width: calc(#{$app-mat-icon-size} - 3px) !important;
-                  height: calc(#{$app-mat-icon-size} - 3px) !important;
-                } */
-
                 &.mat-column-status {
                   padding: 0 $app-gap-icon 0 8px;
                 }
@@ -69,35 +63,17 @@ app-result-item {
 
                 @include setStatusColor();
 
-                .mat-icon {
-                  color: $app-primary-color;
-                }
-
-                &:not(.mat-column-buttons) {
+              /*   &:not(.mat-column-buttons) {
                   .mat-icon {
                     font-size: calc(#{$app-mat-icon-size} - 3px);
                     width: calc(#{$app-mat-icon-size} - 3px) !important;
                     height: calc(#{$app-mat-icon-size} - 3px) !important;
                     color: $app-primary-color;
                   }
-                }
+                } */
 
                 &:last-child {
                   text-align: right;
-
-                 /*  .mat-button-base {
-                    @extend .app-clean-shadow;
-                    margin-right: $app-gap-icon;
-                  }
-
-                  .mat-mini-fab {
-                    width: $app-table-icon-size;
-                    height: $app-table-icon-size;
-
-                    .mat-icon {
-                      vertical-align: unset;
-                    }
-                  } */
                 }
               }
             }

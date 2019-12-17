@@ -47,9 +47,9 @@ a, .app-link {
 app-facets,
 app-results {
 	.mat-icon {
-		font-size: $app-mat-icon-size;
+		/* font-size: $app-mat-icon-size;
 		width: $app-mat-icon-size !important;
-		height: $app-mat-icon-size !important;
+		height: $app-mat-icon-size !important; */
 
 		&:not(:last-child) {
 			margin-right: $app-gap-icon;
@@ -168,7 +168,7 @@ app-results {
 	color: $app-gray-5;
 }
 
-.page-break{
+.page-break {
 	page-break-after: always;
 	page-break-inside: auto;
 }

@@ -4,11 +4,11 @@
   
       <ng-container matColumnDef="text">
         <th mat-header-cell *matHeaderCellDef>
-          <button mat-button (click)="add()"[color]="'primary'">
+          <button mat-button (click)="add()">
             <mat-icon>add_circle</mat-icon>
             {{ 'demands.add' | translate }}
           </button>
-          <button mat-button (click)="refresh()" color="primary">
+          <button mat-button (click)="refresh()">
             <mat-icon>refresh</mat-icon>
             {{ 'desc.refresh' | translate }}
           </button>
