@@ -236,7 +236,9 @@ public class UsersController {
       //Retreive pwd. It should be missed in request
       JSONObject orig = getOne(json.getString("code"), true);
       json.put("heslo", orig.get("heslo"));
-      String jsonStr = SolrIndexerCommiter.indexJSON(json, "usersCore");
+      User user = User.fromJSON(json);
+      JSONObject jo = new JSONObject(JSON.toJSONString(user));
+      String jsonStr = SolrIndexerCommiter.indexJSON(jo, "usersCore");
       return new JSONObject(jsonStr);
     } catch (IOException | SolrServerException ex) {
       LOGGER.log(Level.SEVERE, null, ex);

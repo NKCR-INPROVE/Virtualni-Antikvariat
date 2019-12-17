@@ -11,9 +11,14 @@ export class UserComponent implements OnInit {
   @Input() user: User;
   @Input() type: string = 'registrace';
 
+  
+  userTypes: string[] = ['USER', 'LIBRARY'];
+  userType = 'USER';
+
   constructor() { }
 
   ngOnInit() {
+    this.userType = this.user.role
   }
 
 }

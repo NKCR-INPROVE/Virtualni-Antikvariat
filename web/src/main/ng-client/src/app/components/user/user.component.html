@@ -17,14 +17,15 @@
 <mat-form-field>
   <input matInput [(ngModel)]="user.email" name="email" [placeholder]="'user.email' | translate" required />
 </mat-form-field>
-<mat-form-field>
+
+<mat-form-field *ngIf="type === 'registrace'">
   <mat-label>{{'user.type.label' | translate}}</mat-label>
   <mat-select [(ngModel)]="userType" name="userType">
       <mat-option *ngFor="let t of userTypes" [value]="t">{{'user.type_' + t | translate}}</mat-option>
   </mat-select>
 </mat-form-field>
 
-<ng-container *ngIf="userType === 'library'">
+<ng-container *ngIf="userType === 'LIBRARY'">
   
 <mat-form-field>
   <input matInput [(ngModel)]="user.osoba" name="osoba" [placeholder]="'user.osoba' | translate" required />
@@ -51,6 +52,7 @@
   </mat-form-field>
 </ng-container>
 
+<br/>
 <mat-form-field>
-  <textarea matInput [(ngModel)]="user.poznamka" name="poznamka" [placeholder]="'user.poznamka' | translate"></textarea>
+  <textarea matInput [(ngModel)]="user.poznamka" name="poznamka" [placeholder]="'user.poznamka' | translate" rows="3"></textarea>
 </mat-form-field>

@@ -5,11 +5,11 @@
         <mat-card-title>{{'user.profile' | translate}}</mat-card-title>
       </mat-card-header>
       <mat-card-content class="app-mat-form-field-wrapper">
-        <app-user [user]="user"></app-user>
+        <app-user [user]="user" [type]="'profile'"></app-user>
       </mat-card-content>
       <mat-card-actions>
         <button mat-button (click)="resetHeslo()" matTooltip="{{'user.resetHeslo' | translate}}" type="button" >{{'user.resetHeslo' | translate}}</button>
-        <button mat-button matTooltip="{{ 'desc.save' | translate }}" type="submit" [disabled]="!userForm.form.valid">{{'desc.save' | translate}}</button>
+        <button mat-button matTooltip="{{ 'user.save' | translate }}" type="submit" [disabled]="!userForm.form.valid">{{'user.save' | translate}}</button>
       </mat-card-actions>
     </mat-card>
   </form>

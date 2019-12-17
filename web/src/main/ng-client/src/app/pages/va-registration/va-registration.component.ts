@@ -12,8 +12,6 @@ import { Md5 } from 'ts-md5';
 export class VaRegistrationComponent implements OnInit {
 
   user: User = new User();
-  userTypes: string[] = ['user', 'library'];
-  userType = 'user';
   heslo: string;
 
   constructor(

@@ -124,15 +124,16 @@
     "email": "E-mail",
     "alreadyExists": "User already exist, please, choose another",
     "type.label": "Type user",
-    "type_library": "Library",
-    "type_user": "User - Antikvariat",
+    "type_LIBRARY": "Library",
+    "type_USER": "User - Antikvariat",
     "prijemce": "The recipient of the legal deposit",
     "celostatni" : "National",
     "regionalni":"Regional",
     "periodicky":"Periodical",
     "poznamka":"Comment",
     "profile": "Profile",
-    "resetHeslo": "Change password"
+    "resetHeslo": "Change password",
+    "save": "Save"
   },
   "doprava" : {
     "label" :"Ways of transporting books",

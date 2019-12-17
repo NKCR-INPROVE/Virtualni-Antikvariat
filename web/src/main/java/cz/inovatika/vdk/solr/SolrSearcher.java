@@ -18,6 +18,7 @@ package cz.inovatika.vdk.solr;
 
 import cz.inovatika.vdk.UsersController;
 import cz.inovatika.vdk.Options;
+import cz.inovatika.vdk.solr.models.User;
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;
 import java.util.Iterator;
@@ -102,10 +103,14 @@ public class SolrSearcher {
       query.setStart(getStart());
       query.setRows(getRows());
 
-      if (UsersController.isLogged(req)) {
+      User user = UsersController.toKnihovna(req);
+      if (user != null && !user.role.equals("USER")) {
         query.addFacetField(opts.getStrings("user_facets"));
+        query.addFacetField(opts.getStrings("facets"));
+      } else {
+        query.addFacetField("{!ex=zdr}zdroj");
       }
-      query.addFacetField(opts.getStrings("facets"));
+      
 
       query.setFacetMinCount(1);
 

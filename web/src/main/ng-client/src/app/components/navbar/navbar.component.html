@@ -28,10 +28,10 @@
     </div>
     <div fxFlex class="app-fx-right" [ngClass.lt-md]="'app-hide'">
       <span class="example-fill-remaining-space"></span>
-      <span *ngIf='state.isLibrary'><a (click)="export()">{{'navbar.export' | translate}}</a></span>
-      <span *ngIf='state.isLibrary'><a (click)="demands()">{{'navbar.demands' | translate}}</a></span>
-      <span *ngIf='state.isLibrary'><a (click)="offers()">{{'navbar.offers' | translate}}</a></span>
-      <span>
+      <span *ngIf="state.isLibrary"><a (click)="export()">{{'navbar.export' | translate}}</a></span>
+      <span *ngIf="state.isLibrary"><a (click)="demands()">{{'navbar.demands' | translate}}</a></span>
+      <span *ngIf="state.isLibrary"><a (click)="offers()">{{'navbar.offers' | translate}}</a></span>
+      <span *ngIf="state.isLibrary">
         <mat-form-field>
           <mat-label>{{'navbar.views' | translate}}</mat-label>
           <mat-select (selectionChange)="changeView()" [(ngModel)]="selectedView">
@@ -39,7 +39,7 @@
           </mat-select>
         </mat-form-field>
       </span>
-      <span><a *ngIf="isLogged" (click)="openViewDialog()">{{'navbar.save_view' | translate}}</a></span>
+      <span *ngIf="state.isLibrary"><a *ngIf="isLogged" (click)="openViewDialog()">{{'navbar.save_view' | translate}}</a></span>
     </div>
   </mat-toolbar-row>
 </mat-toolbar>

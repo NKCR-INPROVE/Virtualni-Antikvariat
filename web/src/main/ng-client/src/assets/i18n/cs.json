@@ -124,15 +124,16 @@
     "email": "E-mail",
     "alreadyExists": "Uživatelské jméno existuje. Vyberte jiné",
     "type.label": "Typ uživatele",
-    "type_library": "Knihovna",
-    "type_user": "Soukromá osoba - Antikvariát",
+    "type_LIBRARY": "Knihovna",
+    "type_USER": "Soukromá osoba - Antikvariát",
     "prijemce": "Příjemce povinného výtisku",
     "celostatni" : "Celostátní",
     "regionalni":"Regionální",
     "periodicky":"Periodický",
     "poznamka":"Poznámka",
     "profile": "Můj účet",
-    "resetHeslo": "Změnit heslo"
+    "resetHeslo": "Změnit heslo",
+    "save": "Uložit"
   },
   "doprava" : {
     "label" :"Způsoby dopravy knih",
