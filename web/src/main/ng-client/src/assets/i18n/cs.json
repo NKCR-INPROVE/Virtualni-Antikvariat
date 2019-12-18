@@ -15,7 +15,8 @@
     "demands": "Poptávky",
     "offers": "Nabídky",
     "views": "Pohledy",
-    "save_view": "Uložit pohled"
+    "save_view": "Uložit pohled",
+    "shoppingCart":"Košík"
   },
   "searchform": {
     "search": "Hledej",
@@ -157,5 +158,10 @@
     "reset_heslo_success": "Zmeěna hesla problěhla v pořádku",
     "reset_heslo_error": "Chyba při změně hesla",
     "nespravne_heslo": "Zadané heslo není správné"
+  },
+  "cart" : {
+    "order":"Objednat",
+    "remove": "Odstranit položku",
+    "total":"Celkem"
   }
 }

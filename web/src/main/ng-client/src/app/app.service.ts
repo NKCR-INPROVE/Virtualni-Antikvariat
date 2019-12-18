@@ -229,4 +229,23 @@ export class AppService {
       }));
   }
 
+  addToShoppingCart(record: OfferRecord) {
+    this.state.shoppingCart.push(record);
+    localStorage.setItem('shoppingCart', JSON.stringify(this.state.shoppingCart));
+  }
+
+  removeFromShoppingCart(idx: number) {
+    this.state.shoppingCart.splice(idx, 1);
+    localStorage.setItem('shoppingCart', JSON.stringify(this.state.shoppingCart));
+  }
+
+  orderCart(user: User) {
+
+    const data = {user, cart: this.state.shoppingCart};
+    return this.http.post<any>(`/api/offers/ordercart`, data)
+      .pipe(map(resp => {
+        return resp;
+      }));
+  }
+
 }

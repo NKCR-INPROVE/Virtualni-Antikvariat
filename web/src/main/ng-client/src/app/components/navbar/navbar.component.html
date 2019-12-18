@@ -28,6 +28,9 @@
     </div>
     <div fxFlex class="app-fx-right" [ngClass.lt-md]="'app-hide'">
       <span class="example-fill-remaining-space"></span>
+      <span *ngIf="state.shoppingCart.length > 0">
+        <a (click)="shoppingCart()"><mat-icon>shopping_cart</mat-icon>{{'navbar.shoppingCart' | translate}} ({{state.shoppingCart.length}})</a>
+      </span>
       <span *ngIf="state.isLibrary"><a (click)="export()">{{'navbar.export' | translate}}</a></span>
       <span *ngIf="state.isLibrary"><a (click)="demands()">{{'navbar.demands' | translate}}</a></span>
       <span *ngIf="state.isLibrary"><a (click)="offers()">{{'navbar.offers' | translate}}</a></span>

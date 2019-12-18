@@ -17,6 +17,9 @@ export class AuthenticationService {
         private state: AppState) {
         this.currentUserSubject = new BehaviorSubject<User>(JSON.parse(localStorage.getItem('currentUser')));
         this.currentUser = this.currentUserSubject.asObservable();
+        if (localStorage.getItem('shoppingCart')) {
+            this.state.shoppingCart = JSON.parse(localStorage.getItem('shoppingCart'));
+        }
     }
 
     public get currentUserValue(): User {

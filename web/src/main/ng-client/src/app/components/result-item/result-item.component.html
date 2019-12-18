@@ -10,7 +10,7 @@
           <button *ngIf="state.isLibrary" mat-icon-button matTooltip="{{ 'desc.respond_to_offer_no' | translate }}" (click)="addWanted(n, false)">
             <mat-icon>thumb_down</mat-icon>
           </button>
-          <span class="app-logo app-no-logo">{{n.knihovna}}</span></ng-container>
+          <span class="app-logo app-no-logo">{{n.knihovna}}</span> <span *ngIf="n.cena">{{n.cena}} Kč</span></ng-container>
       </ng-container>
 
       <ng-container *ngIf="doc.poptavka">

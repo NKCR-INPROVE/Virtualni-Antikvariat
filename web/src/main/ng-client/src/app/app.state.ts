@@ -29,7 +29,7 @@ export class AppState {
   public offers: Offer[] = [];
   public activeOffer: Offer;
 
-  public shoppingCard: OfferRecord[] = [];
+  public shoppingCart: OfferRecord[] = [];
 
   setResults(resp) {
     this.resultsSubject.next(resp.response.docs);

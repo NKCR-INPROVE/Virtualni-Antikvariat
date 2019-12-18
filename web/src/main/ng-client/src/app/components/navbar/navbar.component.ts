@@ -94,6 +94,10 @@ export class NavbarComponent implements OnInit {
     this.router.navigate(['/offers']);
   }
 
+  shoppingCart() {
+    this.router.navigate(['/cart']);
+  }
+
   export() {
 
   }

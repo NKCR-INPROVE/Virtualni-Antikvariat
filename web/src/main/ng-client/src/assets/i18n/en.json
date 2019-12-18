@@ -15,7 +15,8 @@
     "demands": "Demands",
     "offers": "Offers",
     "views": "Views",
-    "save_view": "Save view"
+    "save_view": "Save view",
+    "shoppingCart":"Shopping cart"
   },
   "searchform": {
     "search": "Search",
@@ -157,5 +158,10 @@
     "reset_heslo_success": "Changing the password is done correctly",
     "reset_heslo_error": "Error changing password",
     "nespravne_heslo": "The password you entered is not correct"
+  },
+  "cart" : {
+    "order":"order",
+    "remove": "remove item",
+    "total":"Total"
   }
 }

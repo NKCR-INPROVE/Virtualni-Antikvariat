@@ -249,25 +249,23 @@ export class ResultItemComponent implements OnInit, OnDestroy {
   }
 
   addWanted(offer: OfferRecord, want: boolean) {
-
-    if (want) {
-      if (!offer.chci) {
-        offer.chci = [];
-      }
-      offer.chci.push(this.state.user.username);
-    } else {
-      if (!offer.nechci) {
-        offer.nechci = [];
-      }
-      offer.nechci.push(this.state.user.username);
-    }
-
     if (this.state.isLibrary) {
+      if (want) {
+        if (!offer.chci) {
+          offer.chci = [];
+        }
+        offer.chci.push(this.state.user.username);
+      } else {
+        if (!offer.nechci) {
+          offer.nechci = [];
+        }
+        offer.nechci.push(this.state.user.username);
+      }
       this.service.addToOffer(offer).subscribe(resp => {
         this.service.showSnackBar('reaction', '');
       });
     } else {
-      this.state.shoppingCard.push(offer);
+      this.service.addToShoppingCart(offer);
     }
   }
 

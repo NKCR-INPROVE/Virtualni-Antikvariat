@@ -1,0 +1,43 @@
+<div fxLayout="row" fxLayoutAlign="start stretch" fxLayoutGap="16px">
+  <div fxFlex class="app-mat-table-container">
+    <table mat-table [dataSource]="data" class="mat-elevation-z2">
+  
+      <ng-container matColumnDef="text">
+        <th mat-header-cell *matHeaderCellDef>
+          <button mat-button (click)="order()">
+            <mat-icon>shop</mat-icon>
+            {{ 'cart.order' | translate }}
+          </button>
+        </th>
+        <td mat-cell *matCellDef="let element">
+          {{ element.title }}
+          <span>{{ element.comment }}</span>
+        </td>
+        <td mat-footer-cell *matFooterCellDef> {{'cart.total' | translate }} </td>
+      </ng-container>
+  
+      <ng-container matColumnDef="cena">
+        <th mat-header-cell *matHeaderCellDef>
+          
+        </th>
+        <td mat-cell *matCellDef="let element">
+          {{ element.cena }} Kč
+        </td>
+        <td mat-footer-cell *matFooterCellDef> {{totalCost}}  Kč</td>
+      </ng-container>
+  
+      <ng-container matColumnDef="button">
+        <th mat-header-cell *matHeaderCellDef></th>
+        <td mat-cell *matCellDef="let element; let idx = index;">
+          <mat-icon (click)="remove(idx)" matTooltip="{{ 'cart.remove' | translate }}" class="app-cursor-pointer app-icon-valign-text-bottom" [color]="'warn'">cancel</mat-icon>
+        </td>
+        <td mat-footer-cell *matFooterCellDef></td>
+      </ng-container>
+  
+      <tr mat-header-row *matHeaderRowDef="displayedColumns; sticky: true"></tr>
+      <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>  
+      <tr mat-footer-row *matFooterRowDef="displayedColumns"></tr>
+    </table>
+  </div>
+</div>
+

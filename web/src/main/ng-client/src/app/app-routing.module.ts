@@ -10,6 +10,7 @@ import { OffersComponent } from './pages/offers/offers.component';
 import { VaRegistrationComponent } from './pages/va-registration/va-registration.component';
 import { ReportComponent } from './pages/report/report.component';
 import { ProfileComponent } from './pages/profile/profile.component';
+import { ShoppingCartComponent } from './pages/shopping-cart/shopping-cart.component';
 
 
 const routes: Routes = [
@@ -18,6 +19,7 @@ const routes: Routes = [
   { path: 'home', component: HomeComponent },
   { path: 'demands', component: DemandsComponent },
   { path: 'offers', component: OffersComponent },
+  { path: 'cart', component: ShoppingCartComponent },
   { path: 'profile', component: ProfileComponent },
   // { path: 'Poptávky', component: DemandsComponent },
   // { path: 'Nabídky', component: OffersComponent },

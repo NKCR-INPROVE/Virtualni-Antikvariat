@@ -59,6 +59,8 @@ public class User {
   public String poznamka;
   @Field
   public String osoba;
+  @Field
+  public String cenik;
   
   
   public static User fromJSON(JSONObject json) {
