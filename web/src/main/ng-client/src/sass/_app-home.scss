@@ -7,6 +7,12 @@ app-home {
   text-align: center;
   padding-bottom: calc(#{$app-gap} * 2);
 
+  .app-desc {
+    width: 640px;
+    margin-bottom: 20px;
+    display: inline-block;
+  }
+
   app-search-form {
     justify-content: center;
 

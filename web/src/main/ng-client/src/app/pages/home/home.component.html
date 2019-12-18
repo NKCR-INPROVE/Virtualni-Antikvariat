@@ -1,13 +1,6 @@
 <div fxFlex>
-  <div>
-    <mat-card>
-      <mat-card-content class="app-mat-form-field-wrapper">
-        {{(state.isLibrary ? 'app.desc' : 'app.desc_va') | translate}}
-      </mat-card-content>
-      <mat-card-actions>
-        <app-search-form></app-search-form>
-      </mat-card-actions>
-    </mat-card>
-  </div>
-  
+  <p class="app-desc">
+    {{(state.isLibrary ? 'app.desc' : 'app.desc_va') | translate}}
+  </p>
+  <app-search-form></app-search-form>
 </div>
