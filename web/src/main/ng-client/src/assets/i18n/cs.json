@@ -3,7 +3,7 @@
     "title": "Virtuální depozitní knihovna",
     "title_va": "Virtuální antikvariát",
     "desc": "Kooperativní systém pro budování a správu novodobých konzervačních knižních sbírek v České Republice",
-    "desc_va": "Virtuální antikvariát je platforma, kam knihovna může vložit seznam nabízených knih s informací o ceně, typu platby, dodání"
+    "desc_va": "Virtuální antikvariát je softwarový nástroj, který v rámci svého propojení na služby Virtuální depozitní knihovny umožní knihovnám nabízet širší veřejnosti vyřazené publikace, které jsou po jejich nabídnutí dalším institucím označeny jako dále nepotřebné. Tímto způsobem může dojít k jejich dalšímu zhodnocení a efektivnímu využití."
   },
   "navbar": {
     "home": "Home",
