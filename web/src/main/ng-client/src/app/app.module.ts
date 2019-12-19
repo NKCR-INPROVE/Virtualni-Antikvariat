@@ -53,7 +53,7 @@ import { ReportComponent } from './pages/report/report.component';
 import { PasswordDialogComponent } from './components/password-dialog/password-dialog.component';
 import { ProfileComponent } from './pages/profile/profile.component';
 import { UserComponent } from './components/user/user.component';
-import { ShoppingCartComponent } from './pages/shopping-cart/shopping-cart.component';
+import { ShoppingCartComponent, OrderCartDialogComponent } from './pages/shopping-cart/shopping-cart.component';
 
 
 registerLocaleData(localeCs, 'cs');
@@ -109,7 +109,8 @@ if (environment.mocked) {
     PasswordDialogComponent,
     ProfileComponent,
     UserComponent,
-    ShoppingCartComponent
+    ShoppingCartComponent,
+    OrderCartDialogComponent
   ],
   imports: [
     BrowserModule,
@@ -133,7 +134,8 @@ if (environment.mocked) {
     TemplateToOfferDialogComponent,
     UploadToOfferDialogComponent,
     SearchToOfferDialogComponent,
-    PasswordDialogComponent],
+    PasswordDialogComponent,
+    OrderCartDialogComponent],
   providers,
   bootstrap: [AppComponent]
 })

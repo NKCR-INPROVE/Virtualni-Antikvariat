@@ -54,6 +54,7 @@ export class NavbarComponent implements OnInit {
       this.state.isLibrary = this.isLogged && this.state.user.role === 'LIBRARY';
       const theme = this.state.isLibrary ? 'vdk-theme' : 'va-theme';
       this.service.getOffers().subscribe();
+      this.service.getShoppingCart();
     });
     this.service.currentLang.subscribe((lang) => {
       this.currLang = lang;

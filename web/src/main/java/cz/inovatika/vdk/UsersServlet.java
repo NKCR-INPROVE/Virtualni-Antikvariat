@@ -1,7 +1,6 @@
 package cz.inovatika.vdk;
 
 import com.alibaba.fastjson.JSON;
-import com.alibaba.fastjson.serializer.SerializerFeature;
 import cz.inovatika.vdk.common.SolrIndexerCommiter;
 import cz.inovatika.vdk.solr.IndexerQuery;
 import cz.inovatika.vdk.solr.models.View;
@@ -227,6 +226,27 @@ public class UsersServlet extends HttpServlet {
 
         JSONObject jo = UsersController.getAll();
         return jo;
+
+      }
+    },
+    CART {
+      @Override
+      JSONObject doPerform(HttpServletRequest req, HttpServletResponse resp) throws Exception {
+        return UsersController.getCart(req);
+
+      }
+    },
+    STORECART {
+      @Override
+      JSONObject doPerform(HttpServletRequest req, HttpServletResponse resp) throws Exception {
+        JSONObject json;
+          if (req.getMethod().equals("POST")) {
+            String js = IOUtils.toString(req.getInputStream(), "UTF-8");
+            json = new JSONObject(js);
+          } else {
+            json = new JSONObject(req.getParameter("json"));
+          }
+        return UsersController.storeCart(json);
 
       }
     },

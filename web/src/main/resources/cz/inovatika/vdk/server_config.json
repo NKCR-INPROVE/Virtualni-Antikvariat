@@ -6,6 +6,7 @@
   "offersCore": "offers",
   "demandsCore": "demands",
   "viewsCore": "views",
+  "cartCore": "cart",
   "indexerXSL": "OAI/vdk_md5.xsl",
   "indexerIdXSL": "OAI/vdk_id.xsl",
   "facets": ["{!ex=zdr}zdroj", "nabidka", "bohemika", "status", "pocet_exemplaru"],

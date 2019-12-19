@@ -1,10 +1,13 @@
 package cz.inovatika.vdk;
 
 import com.alibaba.fastjson.JSON;
+import com.alibaba.fastjson.serializer.SerializerFeature;
 import cz.inovatika.vdk.common.SolrIndexerCommiter;
+import cz.inovatika.vdk.solr.models.Cart;
 import cz.inovatika.vdk.solr.models.User;
 import java.io.IOException;
 import java.util.Base64;
+import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.servlet.http.HttpServletRequest;
@@ -16,6 +19,7 @@ import org.apache.solr.client.solrj.impl.NoOpResponseParser;
 import org.apache.solr.client.solrj.request.QueryRequest;
 import org.apache.solr.client.solrj.response.QueryResponse;
 import org.apache.solr.common.util.NamedList;
+import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -45,6 +49,44 @@ public class UsersController {
     }
     return null;
 
+  }
+
+  public static JSONObject getCart(HttpServletRequest req) {
+    if (isLogged(req)) {
+      JSONObject jo = get(req);
+      if (jo != null) {
+        try {
+          Options opts = Options.getInstance();
+          SolrQuery query = new SolrQuery("user:" + jo.getString("code"));
+          try (HttpSolrClient client = new HttpSolrClient.Builder(opts.getString("solrHost")).build()) {
+            final QueryResponse response = client.query(opts.getString("cartCore"), query);
+            List<Cart> cart = response.getBeans(Cart.class);
+            LOGGER.log(Level.INFO, "cart {0}", JSON.toJSONString(cart));
+            return new JSONObject().put("cart", new JSONArray(JSON.toJSONString(cart)));
+            
+          } catch (SolrServerException | IOException ex) {
+            LOGGER.log(Level.SEVERE, null, ex);
+          }
+
+        } catch (JSONException ex) {
+          LOGGER.log(Level.SEVERE, null, ex);
+        }
+      }
+    }
+    return new JSONObject().put("cart", new JSONArray());
+  }
+
+  public static JSONObject storeCart(JSONObject json) {
+    try {
+      Cart cart = Cart.fromJSON(json);
+      JSONObject jo = new JSONObject(JSON.toJSONString(cart));
+      SolrIndexerCommiter
+              .indexJSON(jo, "cartCore");
+      return jo;
+    } catch (IOException | SolrServerException ex) {
+      LOGGER.log(Level.SEVERE, null, ex);
+      return new JSONObject().put("error", ex);
+    }
   }
 
   public static void logout(HttpServletRequest req) {
@@ -110,7 +152,7 @@ public class UsersController {
         NamedList<Object> qresp = client.request(qreq, opts.getString("usersCore", "users"));
         JSONObject r = new JSONObject((String) qresp.get("response"));
         JSONObject resp = r.getJSONObject("response");
-        for(int i=0; i < resp.getJSONArray("docs").length(); i++){
+        for (int i = 0; i < resp.getJSONArray("docs").length(); i++) {
           resp.getJSONArray("docs").getJSONObject(i).remove("heslo");
           resp.getJSONArray("docs").getJSONObject(i).remove("_version_");
           resp.getJSONArray("docs").getJSONObject(i).remove("timestamp");
@@ -263,13 +305,13 @@ public class UsersController {
   }
 
   public static JSONObject exists(String username) {
-      Options opts = Options.getInstance();
-      SolrQuery query = new SolrQuery("username:\"" + username + "\"");
-      try (HttpSolrClient client = new HttpSolrClient.Builder(opts.getString("solrHost", "http://localhost:8983/solr")).build()) {
-        return new JSONObject().put("exists", client.query(opts.getString("usersCore", "users"), query).getResults().getNumFound() > 0);
-      } catch (SolrServerException | IOException ex) {
-        LOGGER.log(Level.SEVERE, null, ex);
-        return new JSONObject().put("error", ex);
-      }
+    Options opts = Options.getInstance();
+    SolrQuery query = new SolrQuery("username:\"" + username + "\"");
+    try (HttpSolrClient client = new HttpSolrClient.Builder(opts.getString("solrHost", "http://localhost:8983/solr")).build()) {
+      return new JSONObject().put("exists", client.query(opts.getString("usersCore", "users"), query).getResults().getNumFound() > 0);
+    } catch (SolrServerException | IOException ex) {
+      LOGGER.log(Level.SEVERE, null, ex);
+      return new JSONObject().put("error", ex);
+    }
   }
 }

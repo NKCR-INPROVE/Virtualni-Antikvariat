@@ -146,7 +146,7 @@ export class AppService {
 
   removeOfferRecord(id: string) {
     const params: HttpParams = new HttpParams().set('id', id);
-    return this.http.get<any>(`/api/offers/removerecord`, {params})
+    return this.http.get<any>(`/api/offers/removerecord`, { params })
       .pipe(map(resp => {
         return resp;
       }));
@@ -159,7 +159,7 @@ export class AppService {
 
   getUser(code: string) {
     const params: HttpParams = new HttpParams().set('code', code);
-    return this.http.get<any>(`/api/users/info`, {params})
+    return this.http.get<any>(`/api/users/info`, { params })
       .pipe(map(resp => {
         return resp;
       }));
@@ -179,7 +179,7 @@ export class AppService {
       }));
   }
 
-  resetHeslo(json: {code: string, oldheslo: string, newheslo: string}) {
+  resetHeslo(json: { code: string, oldheslo: string, newheslo: string }) {
     return this.http.post<any>(`/api/users/resetpwd`, json)
       .pipe(map(resp => {
         return resp;
@@ -202,7 +202,7 @@ export class AppService {
 
   startJob(job: Job) {
     const params: HttpParams = new HttpParams().set('key', job.jobKey);
-    return this.http.get<any>(`/api/sched/startjob`, {params})
+    return this.http.get<any>(`/api/sched/startjob`, { params })
       .pipe(map(resp => {
         return resp;
       }));
@@ -211,7 +211,7 @@ export class AppService {
 
   stopJob(job: Job) {
     const params: HttpParams = new HttpParams().set('key', job.jobKey);
-    return this.http.get<any>(`/api/sched/stopjob`, {params})
+    return this.http.get<any>(`/api/sched/stopjob`, { params })
       .pipe(map(resp => {
         return resp;
       }));
@@ -219,7 +219,7 @@ export class AppService {
 
   checkUserExists(username: string): Observable<boolean> {
     const params: HttpParams = new HttpParams().set('username', username);
-    return this.http.get<any>(`/api/users/check`, {params})
+    return this.http.get<any>(`/api/users/check`, { params })
       .pipe(map(resp => {
         if (resp.error) {
           return false;
@@ -231,6 +231,9 @@ export class AppService {
 
   addToShoppingCart(record: OfferRecord) {
     this.state.shoppingCart.push(record);
+    if (this.state.user) {
+      this.storeCart(record).subscribe();
+    }
     localStorage.setItem('shoppingCart', JSON.stringify(this.state.shoppingCart));
   }
 
@@ -239,9 +242,31 @@ export class AppService {
     localStorage.setItem('shoppingCart', JSON.stringify(this.state.shoppingCart));
   }
 
-  orderCart(user: User) {
+  getShoppingCart() {
+    if (this.state.user) {
+      this.retrieveShoppingCart().subscribe( resp => this.state.shoppingCart = resp.cart);
+    } else {
+      if (localStorage.getItem('shoppingCart')) {
+        this.state.shoppingCart = JSON.parse(localStorage.getItem('shoppingCart'));
+      }
+    }
 
-    const data = {user, cart: this.state.shoppingCart};
+  }
+
+  retrieveShoppingCart() {
+    return this.http.get<any>(`/api/users/cart`);
+  }
+
+  storeCart(record: OfferRecord) {
+    const data = { user: this.state.user.code, item: record };
+    return this.http.post<any>(`/api/users/storecart`, data)
+      .pipe(map(resp => {
+        return resp;
+      }));
+  }
+
+  orderCart(user: User) {
+    const data = { user, cart: this.state.shoppingCart };
     return this.http.post<any>(`/api/offers/ordercart`, data)
       .pipe(map(resp => {
         return resp;
