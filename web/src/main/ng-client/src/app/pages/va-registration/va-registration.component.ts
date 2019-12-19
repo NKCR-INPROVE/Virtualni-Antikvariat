@@ -12,7 +12,7 @@ import { Md5 } from 'ts-md5';
 export class VaRegistrationComponent implements OnInit {
 
   user: User = new User();
-  heslo: string;
+  heslo: {val: string};
   accept: boolean;
 
   constructor(
@@ -33,7 +33,7 @@ export class VaRegistrationComponent implements OnInit {
         this.service.showSnackBar('user.alreadyExists');
         this.el.nativeElement.querySelector('#username').focus();
       } else {
-        const pwd = '' + Md5.hashStr(this.heslo);
+        const pwd = '' + Md5.hashStr(this.heslo.val);
         this.user.heslo = pwd;
         this.service.addUser(this.user).subscribe(resp => {
           if (resp.error) {

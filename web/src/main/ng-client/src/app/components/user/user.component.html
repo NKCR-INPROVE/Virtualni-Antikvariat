@@ -2,7 +2,7 @@
   <input matInput [(ngModel)]="user.username" name="username" id="username" [placeholder]="'user.username' | translate" required cdkFocusInitial />
 </mat-form-field>
 <mat-form-field *ngIf="type === 'registrace'">
-  <input matInput type="password" [(ngModel)]="heslo" name="heslo" [placeholder]="'user.heslo' | translate" required />
+  <input matInput type="password" [(ngModel)]="heslo.val" name="heslo" [placeholder]="'user.heslo' | translate" required />
 </mat-form-field>
 <mat-form-field>
   <input matInput [(ngModel)]="user.nazev" name="nazev" [placeholder]="'user.nazev' | translate" required />

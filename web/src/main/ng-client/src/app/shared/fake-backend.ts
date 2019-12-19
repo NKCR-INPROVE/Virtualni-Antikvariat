@@ -5,27 +5,14 @@ import { delay, mergeMap, materialize, dematerialize } from 'rxjs/operators';
 
 import { User } from 'src/app/models/user';
 
-const users: User[] = [{
-    code: 'test',
-    heslo: 'test',
-    username: 'TEST',
-    nazev: 'Moravská zemská knihovna v Brně',
-    role: 'KNIHOVNA',
-    priorita: 2,
-    telefon: '541 646 111',
-    email: 'mzk@mzk.cz',
-    sigla: 'qweqwe',
-    adresa: 'Kounicova 65a, 601 87 Brno ',
-    active: true,
-    doprava: ['a'],
-    platba: ['b'],
-    celostatni: false,
-    regionalni: false,
-    periodicky: false,
-    prijemce: '',
-    poznamka: 'string',
-    osoba: 'string',
-}];
+const users: User[] = [];
+const u = new User();
+u.code = 'test';
+u.username = 'test';
+u.heslo = 'test';
+u.nazev = 'Moravská zemská knihovna v Brně';
+u.role = 'LIBRARY';
+users.push(u);
 
 @Injectable()
 export class FakeBackendInterceptor implements HttpInterceptor {

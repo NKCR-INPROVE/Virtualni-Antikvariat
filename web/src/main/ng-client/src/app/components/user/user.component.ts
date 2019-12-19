@@ -11,6 +11,7 @@ export class UserComponent implements OnInit {
 
   @Input() user: User;
   @Input() type: string = 'registrace';
+  @Input() heslo: {val: string};
 
   
   userTypes: string[] = ['USER', 'LIBRARY'];

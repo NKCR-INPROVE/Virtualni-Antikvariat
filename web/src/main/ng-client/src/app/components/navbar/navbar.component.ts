@@ -158,11 +158,5 @@ export class NavbarComponent implements OnInit {
     });
   }
 
-  resetHeslo() {
-    const dialogRef = this.dialog.open(PasswordDialogComponent, {
-      width: '350px'
-    });
-  }
-
 
 }

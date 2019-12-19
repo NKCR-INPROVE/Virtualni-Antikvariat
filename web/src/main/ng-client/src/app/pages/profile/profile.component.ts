@@ -3,6 +3,8 @@ import { User } from 'src/app/models/user';
 import { AppState } from 'src/app/app.state';
 import { Md5 } from 'ts-md5';
 import { AppService } from 'src/app/app.service';
+import { MatDialog } from '@angular/material';
+import { PasswordDialogComponent } from 'src/app/components/password-dialog/password-dialog.component';
 
 @Component({
   selector: 'app-profile',
@@ -14,6 +16,7 @@ export class ProfileComponent implements OnInit {
   user: User;
 
   constructor(
+    public dialog: MatDialog,
     public state: AppState,
     private service: AppService
   ) { }
@@ -32,6 +35,14 @@ export class ProfileComponent implements OnInit {
       }
     });
 
+  }
+
+  
+
+  resetHeslo() {
+    const dialogRef = this.dialog.open(PasswordDialogComponent, {
+      width: '350px'
+    });
   }
 
 }
