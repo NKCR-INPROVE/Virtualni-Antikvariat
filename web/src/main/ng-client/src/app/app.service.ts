@@ -259,18 +259,16 @@ export class AppService {
 
   storeCart(record: OfferRecord) {
     const data = { user: this.state.user.code, item: record };
-    return this.http.post<any>(`/api/users/storecart`, data)
-      .pipe(map(resp => {
-        return resp;
-      }));
+    return this.http.post<any>(`/api/users/storecart`, data);
   }
 
   orderCart(user: User) {
     const data = { user, cart: this.state.shoppingCart };
-    return this.http.post<any>(`/api/offers/ordercart`, data)
-      .pipe(map(resp => {
-        return resp;
-      }));
+    return this.http.post<any>(`/api/offers/ordercart`, data);
+  }
+
+  getCenik() {
+    return this.http.get<any>(`/api/users/cenik`);
   }
 
 }

@@ -229,6 +229,15 @@ public class UsersServlet extends HttpServlet {
 
       }
     },
+    CENIK {
+      @Override
+      JSONObject doPerform(HttpServletRequest req, HttpServletResponse resp) throws Exception {
+
+        JSONObject jo = UsersController.getDopravy();
+        return jo;
+
+      }
+    },
     CART {
       @Override
       JSONObject doPerform(HttpServletRequest req, HttpServletResponse resp) throws Exception {

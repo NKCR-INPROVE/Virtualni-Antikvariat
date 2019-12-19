@@ -168,6 +168,34 @@ public class UsersController {
     }
     return null;
   }
+  
+  public static JSONObject getDopravy() {
+    try {
+
+      Options opts = Options.getInstance();
+      SolrQuery query = new SolrQuery("role:LIBRARY");
+      query.setFields("code", "username", "doprava", "platba", "cenik_osobni", "cenik_nadobirku", "cenik_predem");
+      try (HttpSolrClient client = new HttpSolrClient.Builder(opts.getString("solrHost", "http://localhost:8983/solr")).build()) {
+        QueryRequest qreq = new QueryRequest(query);
+
+        NoOpResponseParser dontMessWithSolr = new NoOpResponseParser();
+        dontMessWithSolr.setWriterType("json");
+        client.setParser(dontMessWithSolr);
+        NamedList<Object> qresp = client.request(qreq, opts.getString("usersCore", "users"));
+        JSONObject r = new JSONObject((String) qresp.get("response"));
+        JSONObject resp = r.getJSONObject("response");
+        
+        return resp;
+
+      } catch (SolrServerException | IOException ex) {
+        LOGGER.log(Level.SEVERE, null, ex);
+      }
+
+    } catch (JSONException ex) {
+      LOGGER.log(Level.SEVERE, null, ex);
+    }
+    return null;
+  }
 
   public static JSONObject login(HttpServletRequest req, String code, String pwd) {
     try {

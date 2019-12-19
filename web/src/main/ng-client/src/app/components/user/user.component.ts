@@ -20,6 +20,7 @@ export class UserComponent implements OnInit {
     public config: AppConfiguration) { }
 
   ngOnInit() {
+    console.log(this.user);
     this.userType = this.user.role;
   }
 

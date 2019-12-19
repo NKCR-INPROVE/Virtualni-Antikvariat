@@ -1,17 +1,9 @@
 package cz.inovatika.vdk.solr.models;
 
 import com.alibaba.fastjson.JSON;
-import cz.inovatika.vdk.Options;
 import cz.inovatika.vdk.common.MD5;
-import java.io.IOException;
-import java.util.logging.Level;
 import java.util.logging.Logger;
-import org.apache.solr.client.solrj.SolrClient;
-import org.apache.solr.client.solrj.SolrQuery;
-import org.apache.solr.client.solrj.SolrServerException;
 import org.apache.solr.client.solrj.beans.Field;
-import org.apache.solr.client.solrj.impl.HttpSolrClient;
-import org.apache.solr.client.solrj.response.QueryResponse;
 import org.json.JSONObject;
 
 /**
@@ -60,7 +52,11 @@ public class User {
   @Field
   public String osoba;
   @Field
-  public String cenik;
+  public String cenik_osobni;
+  @Field
+  public String cenik_nadobirku;
+  @Field
+  public String cenik_predem;
   
   
   public static User fromJSON(JSONObject json) {

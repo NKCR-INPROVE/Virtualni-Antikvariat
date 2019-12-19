@@ -11,6 +11,9 @@ export class User {
     adresa: string;
     active: boolean;
     doprava: string[];
+    cenik_osobni: string;
+    cenik_nadobirku: string;
+    cenik_predem: string;
     platba: string[];
     celostatni: boolean;
     regionalni: boolean;
