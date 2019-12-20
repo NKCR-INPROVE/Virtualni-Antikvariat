@@ -10,12 +10,16 @@ main {
   background-color: $app-background;
   min-height: calc(100% - 128px - 50px);
 
-  @import "app-home";
-  @import "app-results";
-  @import "app-demands";
-  @import "app-offers";
-  @import "app-va-registration";
   @import "app-admin";
+  @import "app-demands";
+  @import "app-home";
+  @import "app-offers";
+  @import "app-profile";
+  @import "app-registration";
+  @import "app-report";
+  @import "app-results";
+  @import "app-shopping-cart";
+  @import "app-va-registration";
 }
 
 footer {

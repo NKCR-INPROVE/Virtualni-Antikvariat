@@ -1,8 +1,7 @@
 // --- DEMANDS ---
 
 app-demands {
-  display: block;
-  padding: $app-gap;
+  @extend .app-wrap-component;
 
   .app-mat-table-container {
     height: 700px;

@@ -1,9 +1,8 @@
 // --- OFFERS ---
 
 app-offers {
-  display: block;
-  padding: $app-gap;
-
+  @extend .app-wrap-component;
+  
   .mat-list {
     .mat-list-item {
       &.mat-2-line {

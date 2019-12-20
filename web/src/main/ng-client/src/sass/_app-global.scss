@@ -21,6 +21,11 @@ a, .app-link {
 	width: $app-container-width;
 }
 
+.app-wrap-component {
+	display: block;
+  padding: $app-gap;
+}
+
 
 // cleaners
 .app-clean-pd {
@@ -57,7 +62,7 @@ app-results {
 	}
 }
 
-.mat-icon {
+/* .mat-icon {
 	&.app-icon-small {
 		font-size: calc(#{$app-mat-icon-size} - 3px);
 		width: calc(#{$app-mat-icon-size} - 3px) !important;
@@ -81,7 +86,7 @@ app-results {
 	&.app-icon-valign-text-top {
 		vertical-align: text-top !important;
 	}
-}
+} */
 
 // popover card
 .app-popover-card {
