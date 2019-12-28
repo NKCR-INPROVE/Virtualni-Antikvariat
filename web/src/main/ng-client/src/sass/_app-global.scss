@@ -106,6 +106,14 @@ app-results {
 .mat-table {
 	width: 100%;
 
+	thead {
+		.mat-header-cell {
+			&:first-of-type {
+				padding-left: $app-table-first-cell-left-pd;
+			}
+		}
+	}
+
 	tbody {
 		.mat-row {
 			&.app-even {
@@ -114,6 +122,38 @@ app-results {
 
 			&:hover {
 				background-color: $app-table-body-row-highlight;
+			}
+		}
+
+		.mat-cell {
+			&:first-of-type {
+				padding-left: $app-table-first-cell-left-pd;
+			}
+
+			.mat-icon-button {
+				width: 26px;
+				height: 26px;
+				line-height: 26px;
+
+				.mat-button-wrapper {
+					& > * {
+						vertical-align: text-bottom;
+					}
+				}
+
+				.mat-icon {
+					font-size: 20px;
+					height: 20px;
+					width: 20px;
+				}
+			}
+		}
+	}
+
+	tfoot {
+		.mat-footer-cell {
+			&:first-of-type {
+				padding-left: $app-table-first-cell-left-pd;
 			}
 		}
 	}
@@ -158,10 +198,11 @@ app-results {
 	}
 }
 
-
+// library logo in table
 .app-logo {
 	min-width: 34px;
 	display: inline-block;
+	vertical-align: inherit;
 
 	img {
 		max-height: 20px;

@@ -76,8 +76,9 @@
     "filter_matches" : "Dokumenty, které poptávám a nekdo nabízí",
     "isVA": "Virtual antiquarian",
     "filter_isVA": "Documents in virtual antiquarian",
-    "is_offered": "is offered by",
-    "send": "Send"
+    "is_offered": "Is offered by",
+    "send": "Send",
+    "is_demand": "Is demand"
   },
   "count": "Count of search results",
   "q.placeholder": "Search in virtual depoiste library ...",
