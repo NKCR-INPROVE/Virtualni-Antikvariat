@@ -35,12 +35,13 @@ $app-facet-icon-active-color: $app-primary-color !default;
 $app-card-title-font-size: 1.1rem !default;
 
 // result item table
-$app-table-icon-size: 32px !default;
 $app-table-head-row-height: 46px !default;
 $app-table-body-row-height: 38px !default;
 $app-table-body-row-even: $app-gray-0 !default;
 $app-table-body-row-highlight: $app-gray-2 !default;
 $app-table-first-cell-left-pd: 10px !default;
+$app-table-button-size: 26px !default;
+$app-table-icon-size: 20px !default;
 
 $app-table-cell-status-AR: mat-color($mat-green, 50) !default;
 $app-table-cell-status-P: mat-color($mat-amber, 50) !default;
