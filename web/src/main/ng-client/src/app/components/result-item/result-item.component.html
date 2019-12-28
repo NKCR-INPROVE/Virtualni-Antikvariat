@@ -28,21 +28,30 @@
   </mat-card-actions>
   <mat-card-header>
     <mat-card-title>
-        <ng-container *ngIf="doc.titlemd5">{{doc.titlemd5[0]}}</ng-container>
-        <ng-container *ngIf="!doc.titlemd5">{{'NOTITLE' | translate}} {{doc.code}}</ng-container>      
-      <mat-icon *ngIf="hasDifferences('title')" #wTitle (click)="openPop('title', wTitle, infoPopup)"
-        class="app-cursor-pointer app-icon-left-mg app-icon-valign-text-top">warning</mat-icon>
+      <ng-container *ngIf="doc.titlemd5">{{doc.titlemd5[0]}}</ng-container>
+      <ng-container *ngIf="!doc.titlemd5">{{'NOTITLE' | translate}} {{doc.code}}</ng-container>      
+      <!-- <mat-icon *ngIf="hasDifferences('title')" #wTitle (click)="openPop('title', wTitle, infoPopup)"
+        class="app-cursor-pointer app-icon-left-mg app-icon-valign-text-top">warning</mat-icon> -->
+      <button mat-icon-button *ngIf="hasDifferences('title')" #wTitle (click)="openPop('title', wTitle, infoPopup)">
+        <mat-icon>warning</mat-icon>
+      </button>
     </mat-card-title>
     <mat-card-subtitle>
       <div *ngIf="doc.author && doc.author[0]">
         <span *ngFor="let a of doc.author[0]">{{a}}; </span>
-        <mat-icon *ngIf="hasDifferences('author')" #wAuthor (click)="openPop('author', wAuthor, infoPopup)"
-          class="app-cursor-pointer app-icon-left-mg app-icon-valign-text-bottom">warning</mat-icon>
+        <!-- <mat-icon *ngIf="hasDifferences('author')" #wAuthor (click)="openPop('author', wAuthor, infoPopup)"
+          class="app-cursor-pointer app-icon-left-mg app-icon-valign-text-bottom">warning</mat-icon> -->
+        <button mat-icon-button *ngIf="hasDifferences('author')" #wAuthor (click)="openPop('author', wAuthor, infoPopup)">
+          <mat-icon>warning</mat-icon>
+        </button>
       </div>
       <div>
         <span>{{'desc.publisher' | translate}}: {{doc.vydavatel[0]}}</span>
-        <mat-icon *ngIf="hasDifferences('vydavatel')" #wVydavatel (click)="openPop('vydavatel', wVydavatel, infoPopup)"
-          class="app-cursor-pointer app-icon-left-mg app-icon-valign-text-bottom">warning</mat-icon>
+        <!-- <mat-icon *ngIf="hasDifferences('vydavatel')" #wVydavatel (click)="openPop('vydavatel', wVydavatel, infoPopup)"
+          class="app-cursor-pointer app-icon-left-mg app-icon-valign-text-bottom">warning</mat-icon> -->
+        <button mat-icon-button *ngIf="hasDifferences('vydavatel')" #wVydavatel (click)="openPop('vydavatel', wVydavatel, infoPopup)">
+          <mat-icon>warning</mat-icon>
+        </button>
       </div>
     </mat-card-subtitle>
 

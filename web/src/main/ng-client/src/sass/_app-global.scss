@@ -129,24 +129,8 @@ app-results {
 			&:first-of-type {
 				padding-left: $app-table-first-cell-left-pd;
 			}
-
-			.mat-icon-button {
-				width: $app-table-button-size;
-				height: $app-table-button-size;
-				line-height: $app-table-button-size;
-
-				.mat-button-wrapper {
-					& > * {
-						vertical-align: text-bottom;
-					}
-				}
-
-				.mat-icon {
-					font-size: $app-table-icon-size;
-					height: $app-table-icon-size;
-					width: $app-table-icon-size;
-				}
-			}
+			
+			@include setIconButton(18px, 18px);
 		}
 	}
 
@@ -179,6 +163,8 @@ app-results {
 	.mat-card-header {
 		.mat-card-header-text {
 			margin-left: 0;
+
+			@include setIconButton(18px, 18px);
 		}
 	}
 }
