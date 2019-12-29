@@ -63,15 +63,6 @@ app-result-item {
 
                 @include setStatusColor();
 
-              /*   &:not(.mat-column-buttons) {
-                  .mat-icon {
-                    font-size: calc(#{$app-mat-icon-size} - 3px);
-                    width: calc(#{$app-mat-icon-size} - 3px) !important;
-                    height: calc(#{$app-mat-icon-size} - 3px) !important;
-                    color: $app-primary-color;
-                  }
-                } */
-
                 &:last-child {
                   text-align: right;
                 }

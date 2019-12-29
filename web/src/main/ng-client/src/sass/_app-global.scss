@@ -26,6 +26,15 @@ a, .app-link {
   padding: $app-gap;
 }
 
+.app-pipe {
+	&:before {
+		content: '|';
+		margin-right: $app-gap-icon;
+		margin-left: $app-gap-icon;
+		color: $app-gray-4;
+	}
+}
+
 
 // cleaners
 .app-clean-pd {
@@ -47,46 +56,6 @@ a, .app-link {
 .app-clean-bg {
 	background-color: transparent !important;
 }
-
-// icons
-app-facets,
-app-results {
-	.mat-icon {
-		/* font-size: $app-mat-icon-size;
-		width: $app-mat-icon-size !important;
-		height: $app-mat-icon-size !important; */
-
-		&:not(:last-child) {
-			margin-right: $app-gap-icon;
-		}	
-	}
-}
-
-/* .mat-icon {
-	&.app-icon-small {
-		font-size: calc(#{$app-mat-icon-size} - 3px);
-		width: calc(#{$app-mat-icon-size} - 3px) !important;
-		height: calc(#{$app-mat-icon-size} - 3px) !important;
-	}
-
-	&.app-icon-left-mg {
-		margin-left: $app-gap-icon;
-	}
-
-	&.app-icon-right-mg {
-		&:not(:last-child) {
-			margin-right: $app-gap-icon;
-		}
-	}
-
-	&.app-icon-valign-text-bottom {
-		vertical-align: text-bottom !important;
-	}
-
-	&.app-icon-valign-text-top {
-		vertical-align: text-top !important;
-	}
-} */
 
 // popover card
 .app-popover-card {
@@ -143,6 +112,13 @@ app-results {
 	}
 }
 
+// mat list
+.mat-list {
+	.mat-list-item {
+		@include setIconButton(18px, 18px, 0px);
+	}
+}
+
 // customize mat-button
 .app-button {
 	min-width: unset !important;
@@ -160,6 +136,12 @@ app-results {
 
 // card
 .mat-card {
+	.mat-card-actions {
+		&.app-card-actions-top {
+			@include setIconButton(20px, 20px);
+		}
+	}
+
 	.mat-card-header {
 		.mat-card-header-text {
 			margin-left: 0;
