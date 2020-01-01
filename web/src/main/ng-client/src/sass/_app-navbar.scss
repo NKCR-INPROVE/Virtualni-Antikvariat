@@ -28,16 +28,20 @@ app-navbar {
     margin-left: $app-gap-icon;
   }
 
-  .app-row-top {
+  .app-row-top-wrapper {
     background-color: $app-lightest;
-    color: $app-gray-6;
 
-    .app-fx-left {
-      img {
-        max-height: $app-navbar-logo-height;
-        vertical-align: top;
-      }
-    } 
+    .app-row-top {
+      background-color: $app-lightest;
+      color: $app-gray-6;
+  
+      .app-fx-left {
+        img {
+          max-height: $app-navbar-logo-height;
+          vertical-align: top;
+        }
+      } 
+    }
   }
 
   .app-row-bottom {
