@@ -2,8 +2,10 @@
 
 app-results-header {
   display: block;
-  //background-color: $app-lightest;
   margin-bottom: $app-gap;
-  //padding: calc(#{$app-gap} / 2) $app-gap;
   margin-bottom: $app-gap;
+
+  .mat-paginator {
+    background-color: $app-gray-0;
+  }
 }
