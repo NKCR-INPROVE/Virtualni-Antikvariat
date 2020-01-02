@@ -10,6 +10,7 @@ $app-va-theme:   mat-light-theme($app-va-primary, $app-va-accent, $app-va-warn);
 // colors
 $app-primary-color: mat-color($app-va-primary);
 $app-secondary-color: mat-color($app-va-accent, 800);
+$app-warn-color: mat-color($app-va-warn, 800);
 
 $app-darkest: #000000 !default;
 $app-lightest: #ffffff !default;

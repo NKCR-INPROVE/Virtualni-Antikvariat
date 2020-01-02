@@ -10,6 +10,7 @@ $app-vdk-theme:   mat-light-theme($app-vdk-primary, $app-vdk-accent, $app-vdk-wa
 // colors
 $app-primary-color: mat-color($app-vdk-primary);
 $app-secondary-color: mat-color($app-vdk-accent, 800);
+$app-warn-color: mat-color($app-vdk-warn, 800);
 
 $app-darkest: #000000 !default;
 $app-lightest: #ffffff !default;

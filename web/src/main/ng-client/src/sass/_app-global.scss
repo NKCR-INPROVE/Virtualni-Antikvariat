@@ -57,6 +57,11 @@ a, .app-link {
 	background-color: transparent !important;
 }
 
+// icons
+.app-icon-cancel {
+	color: $app-warn-color;
+}
+
 // popover card
 .app-popover-card {
 	background-color: $app-gray-1;
@@ -177,6 +182,7 @@ a, .app-link {
 	}
 }
 
+// no logo mark
 .app-no-logo {
 	font-weight: bold;
 	color: $app-gray-5;
