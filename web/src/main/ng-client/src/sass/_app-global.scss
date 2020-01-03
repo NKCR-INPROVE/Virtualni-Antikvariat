@@ -57,6 +57,12 @@ a, .app-link {
 	background-color: transparent !important;
 }
 
+// colors
+.app-item-expired,
+.app-item-closed {
+	color: $app-gray-4;
+}
+
 // icons
 .app-icon-cancel {
 	color: $app-warn-color;
