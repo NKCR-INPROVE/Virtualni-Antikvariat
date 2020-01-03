@@ -33,7 +33,6 @@ app-offers {
 
           &.mat-column-button {
             position: relative;
-            width: 100px;
 
             & > div {
               position: absolute;
@@ -56,17 +55,33 @@ app-offers {
         .mat-cell {
           &.mat-column-price {
             padding-left: calc(#{$app-gap-icon} * 2);
+            
+            .mat-icon {
+              @include setIcon(16px, $app-gray-4);
+            }
+
+            &:focus-within {
+              .mat-icon {
+                color: black !important;
+              }
+            }
 
             input {
               @extend .app-clean-border, .app-clean-bg;
               font-size: inherit;
+              width: 50px;
+              text-align: right;
+              padding: 2px 5px 3px 5px;
 
               &:focus {
                 outline: none;
-                background-color: $app-darkest !important;
-                color: $app-lightest;
-                padding: 2px 5px 3px 5px;
-                width: 50px;
+              }
+
+              // remove arrows from input type number
+              &::-webkit-outer-spin-button,
+              &::-webkit-inner-spin-button {
+                -webkit-appearance: none;
+                margin: 0;
               }
             }
           }

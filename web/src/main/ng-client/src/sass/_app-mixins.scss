@@ -48,4 +48,12 @@ $colors-list:(
   }
 }
 
+// set icon size
+@mixin setIcon($size, $color: inherit) {
+  font-size: $size;
+  height: $size;
+  width: $size;
+  color: $color;
+}
+
 
