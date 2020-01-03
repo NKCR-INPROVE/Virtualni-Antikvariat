@@ -1,5 +1,9 @@
 // --- VARIABLES ---
 
+// global colors
+$app-row-want: mat-color($mat-teal, 500) !default;
+$app-row-want-not: mat-color($mat-lime, 600) !default;
+
 // grid behavior
 $app-gap: 16px !default;
 $app-gap-icon: 5px !default;

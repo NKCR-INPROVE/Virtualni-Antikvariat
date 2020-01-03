@@ -186,6 +186,14 @@ a, .app-link {
 .app-no-logo {
 	font-weight: bold;
 	color: $app-gray-5;
+
+	&.app-row-want {
+		color: $app-row-want;
+	}
+
+	&.app-row-want-not {
+		color: $app-row-want-not;
+	}
 }
 
 .page-break {
