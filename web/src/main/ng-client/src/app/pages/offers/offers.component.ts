@@ -185,7 +185,7 @@ export class OffersComponent implements OnInit {
     if (!record.cena || record.cena === 0) {
       const dialogRef = this.dialog.open(PromptDialogComponent, {
         width: '350px',
-        data: { title: 'offers.cena_required' }
+        data: { title: 'offers.price_required' }
       });
 
       dialogRef.afterClosed().subscribe(result => {

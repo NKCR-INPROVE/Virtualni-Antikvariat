@@ -96,7 +96,8 @@
   "offers": {
     "add": "Přidat nabídku",
     "remove": "Odstranit nabídku",
-    "removeFrom": "Odstranit z nabídky"
+    "removeFrom": "Odstranit z nabídky",
+    "price_required": "Cena požadována"
   },
   "admin": {
     "users": "Uživatelé",
