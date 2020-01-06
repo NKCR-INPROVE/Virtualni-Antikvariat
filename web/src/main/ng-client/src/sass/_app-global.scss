@@ -7,6 +7,8 @@ a, .app-link {
 	@include setLinkColor($app-primary-color, .7);
 }
 
+.mat-button-focus-overlay { background-color: transparent!important; }
+
 .app-cursor-pointer {
 	cursor: pointer;
 }
@@ -100,6 +102,10 @@ a, .app-link {
 				background-color: $app-table-body-row-even;
 			}
 
+			&.app-is-va {
+				background-color: $app-row-is-va;
+			}
+
 			&:hover {
 				background-color: $app-table-body-row-highlight;
 			}
@@ -110,7 +116,13 @@ a, .app-link {
 				padding-left: $app-table-first-cell-left-pd;
 			}
 			
-			@include setIconButton(18px, 18px);
+			.mat-icon-button {
+				@include setIconButton(18px, 18px);	
+			}
+
+			.app-double-icon-button {
+				@include setDoubleIconButton(18px, 14px, 18px);
+			}
 		}
 	}
 
@@ -126,7 +138,10 @@ a, .app-link {
 // mat list
 .mat-list {
 	.mat-list-item {
-		@include setIconButton(18px, 18px, 0px);
+		.mat-icon-button {
+			@include setIconButton(18px, 18px, 0px);
+		}
+		
 	}
 }
 
@@ -149,7 +164,10 @@ a, .app-link {
 .mat-card {
 	.mat-card-actions {
 		&.app-card-actions-top {
-			@include setIconButton(20px, 20px);
+			.mat-icon-button {
+				@include setIconButton(20px, 20px);	
+			}
+			
 		}
 	}
 
@@ -157,7 +175,10 @@ a, .app-link {
 		.mat-card-header-text {
 			margin-left: 0;
 
-			@include setIconButton(18px, 18px);
+			.mat-icon-button {
+				@include setIconButton(18px, 18px);	
+			}
+			
 		}
 	}
 }

@@ -3,6 +3,7 @@
 // global colors
 $app-row-want: mat-color($mat-teal, 500) !default;
 $app-row-want-not: mat-color($mat-lime, 600) !default;
+$app-row-is-va: rgba(mat-color($mat-teal, 50), .5) !default;
 
 // grid behavior
 $app-gap: 16px !default;

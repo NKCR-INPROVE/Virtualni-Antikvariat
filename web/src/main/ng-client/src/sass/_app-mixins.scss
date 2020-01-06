@@ -30,20 +30,43 @@ $colors-list:(
   }
 }
 
-// set icon size
+// set button / icon size
 @mixin setIconButton($buttonSize, $iconSize, $buttonMargin: 3px) {
-  .mat-icon-button {
-    margin-left: $buttonMargin;
-    margin-right: $buttonMargin;
-    width: $buttonSize;
-    height: $buttonSize;
-    line-height: $buttonSize;
+  margin-left: $buttonMargin;
+  margin-right: $buttonMargin;
+  width: $buttonSize;
+  height: $buttonSize;
+  line-height: $buttonSize;
 
-    .mat-icon {
-      font-size: $iconSize;
-      height: $iconSize;
-      width: $iconSize;
-      line-height: $iconSize;
+  .mat-icon {
+    font-size: $iconSize;
+    height: $iconSize;
+    width: $iconSize;
+    line-height: $iconSize;
+  }
+}
+
+// set double button / icon size
+@mixin setDoubleIconButton($buttonSize, $firstIconSize, $secondIconSize, $buttonMargin: 3px) {
+  margin-left: $buttonMargin;
+  margin-right: $buttonMargin;
+  width: calc(#{$firstIconSize} + #{$secondIconSize}) !important;
+  height: $buttonSize;
+  line-height: $buttonSize;
+
+  .mat-icon {
+    &:first-child {
+      font-size: $firstIconSize;
+      height: $firstIconSize;
+      width: calc(#{$firstIconSize} - 4px);
+      line-height: $firstIconSize;
+    } 
+
+    &:last-child {
+      font-size: $secondIconSize;
+      height: $secondIconSize;
+      width: $secondIconSize;
+      line-height: $secondIconSize; 
     }
   }
 }

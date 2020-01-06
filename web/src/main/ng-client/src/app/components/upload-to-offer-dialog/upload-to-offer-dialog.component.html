@@ -31,5 +31,5 @@
 </mat-dialog-content>
 <mat-dialog-actions align="end">
   <button mat-button (click)="uploadFiles()" [disabled]="files.length === 0">Import</button>
-  <button mat-button mat-dialog-close>Close</button>
+  <button mat-button mat-dialog-close>{{ 'desc.close' | translate }}</button>
 </mat-dialog-actions>
