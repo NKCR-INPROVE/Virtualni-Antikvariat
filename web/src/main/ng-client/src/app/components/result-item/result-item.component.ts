@@ -29,6 +29,7 @@ export class ResultItemComponent implements OnInit, OnDestroy {
 
   activeStatus: string = null;
   activeZdroj: string = null;
+  isInCart: boolean;
 
   public tooltip: {
     field: string,
@@ -49,6 +50,7 @@ export class ResultItemComponent implements OnInit, OnDestroy {
 
   ngOnInit() {
     this.setExemplars();
+    this.isInCart = this.state.shoppingCart.findIndex(e => e.doc_code === this.doc.code) > -1;
   }
 
   setExemplars() {
@@ -246,6 +248,16 @@ export class ResultItemComponent implements OnInit, OnDestroy {
       return false;
     }
     return this.doc.poptavka && this.doc.poptavka.includes(this.state.user.username);
+  }
+
+  toggleShopping(offer: OfferRecord) {
+    if (this.isInCart) {
+      const idx = this.state.shoppingCart.findIndex(e => e.doc_code === this.doc.code);
+      this.service.removeFromShoppingCart(idx);
+    } else {
+      this.service.addToShoppingCart(offer);
+    }
+    this.isInCart = !this.isInCart;
   }
 
   addWanted(offer: OfferRecord, want: boolean) {

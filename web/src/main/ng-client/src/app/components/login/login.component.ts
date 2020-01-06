@@ -52,7 +52,6 @@ export class LoginComponent implements OnInit {
 
         this.loading = true;
         const pwd = '' + Md5.hashStr(this.f.password.value);
-        console.log(pwd);
         this.authenticationService.login(this.f.username.value, pwd)
             .pipe(first())
             .subscribe(

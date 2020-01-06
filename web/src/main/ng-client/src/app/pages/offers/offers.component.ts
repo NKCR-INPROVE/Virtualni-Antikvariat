@@ -12,6 +12,7 @@ import { TemplateToOfferDialogComponent } from 'src/app/components/template-to-o
 import { DatePipe, formatDate } from '@angular/common';
 import { Utils } from 'src/app/shared/utils';
 import { ConfirmDialogComponent } from 'src/app/components/confirm-dialog/confirm-dialog.component';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-offers',
@@ -26,12 +27,17 @@ export class OffersComponent implements OnInit {
   currentOffer: Offer;
 
   constructor(
+    private router: Router,
     public dialog: MatDialog,
     private service: AppService,
     private state: AppState) { }
 
   ngOnInit() {
-    this.refresh();
+    if (this.state.isLibrary) {
+      this.refresh();
+    } else {
+      this.router.navigate(['/home']);
+    }
   }
 
   remove(idx: number) {

@@ -89,6 +89,19 @@ public class UsersController {
     }
   }
 
+  public static JSONObject orderCart(JSONObject json) {
+//    try {
+      // JSON in format
+      // { user: User, cart: OfferRecord[], doprava: { [key: string]: string } }
+
+      
+      return json;
+//    } catch (IOException | SolrServerException ex) {
+//      LOGGER.log(Level.SEVERE, null, ex);
+//      return new JSONObject().put("error", ex);
+//    }
+  }
+
   public static void logout(HttpServletRequest req) {
     req.getSession().invalidate();
   }

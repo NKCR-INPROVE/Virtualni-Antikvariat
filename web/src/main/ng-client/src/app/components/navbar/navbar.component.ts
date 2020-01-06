@@ -49,11 +49,7 @@ export class NavbarComponent implements OnInit {
 
     this.authService.currentUser.subscribe(x => {
       this.user = x;
-      this.state.user = x;
       this.isLogged = x !== null;
-      this.state.isLibrary = this.isLogged && this.state.user.role === 'LIBRARY';
-      const theme = this.state.isLibrary ? 'vdk-theme' : 'va-theme';
-      this.service.getOffers().subscribe();
       this.service.getShoppingCart();
     });
     this.service.currentLang.subscribe((lang) => {
@@ -105,6 +101,7 @@ export class NavbarComponent implements OnInit {
 
   logout() {
     this.authService.logout();
+    this.router.navigate(['/home']);
   }
 
   login() {

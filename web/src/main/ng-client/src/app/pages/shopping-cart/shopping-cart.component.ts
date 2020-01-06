@@ -52,7 +52,6 @@ export class ShoppingCartComponent implements OnInit {
     } else {
       const data = { user: new User(), cart: this.data };
       const dialogRef = this.dialog.open(OrderCartDialogComponent, {
-        width: '350px',
         data
       });
 
@@ -80,23 +79,19 @@ export class OrderCartDialogComponent implements OnInit {
   dopravaForm: FormGroup;
 
   knihovny: string[] = [];
-  cenik: {code: string, username: string, doprava: string[]}[] = [];
+  cenik: { code: string, username: string, doprava: string[] }[];
 
   constructor(
     private service: AppService,
     public config: AppConfiguration,
     private formBuilder: FormBuilder,
     public dialogRef: MatDialogRef<OrderCartDialogComponent>,
-    @Inject(MAT_DIALOG_DATA) public data: { user: User, cart: OfferRecord[] }) { }
+    @Inject(MAT_DIALOG_DATA) public data: { user: User, cart: OfferRecord[], doprava: { [key: string]: string } }) { }
 
 
   get f() { return this.userForm.controls; }
 
   ngOnInit() {
-
-    this.service.getCenik().subscribe(resp => {
-      this.cenik = resp.docs;
-    }); 
 
     this.userForm = this.formBuilder.group({
       nazev: ['', Validators.required],
@@ -105,25 +100,31 @@ export class OrderCartDialogComponent implements OnInit {
       email: ['', Validators.required]
     });
 
-    const dp = {};
-    this.data.cart.forEach(record => {
-      if (!this.knihovny.includes(record.knihovna)) {
-        this.knihovny.push(record.knihovna);
-        dp[record.knihovna] = ['', Validators.required];
-      }
-    });
+    this.service.getCenik().subscribe(resp => {
+      this.cenik = resp.docs;
 
-    this.dopravaForm = this.formBuilder.group(dp);
+      const dp = {};
+      this.data.cart.forEach(record => {
+        if (!this.knihovny.includes(record.knihovna)) {
+          this.knihovny.push(record.knihovna);
+          dp[record.knihovna] = ['', Validators.required];
+        }
+      });
+
+      this.dopravaForm = this.formBuilder.group(dp);
+    });
   }
 
   getDoprava(kn: string) {
-    const info = this.cenik.find(c => c.username === kn);
-    return info.doprava;
+    if (this.cenik.length > 0) {
+      const info = this.cenik.find(c => c.username === kn);
+      return info.doprava;
+    }
   }
 
   getCena(kn: string) {
     this.cenik.forEach(c => {
-      
+
     });
   }
 
@@ -145,8 +146,14 @@ export class OrderCartDialogComponent implements OnInit {
     this.data.user.telefon = this.f.telefon.value;
     this.data.user.email = this.f.email.value;
 
-    console.log(this.dopravaForm.value);
-    // this.dialogRef.close(this.data);
+    this.data.doprava = this.dopravaForm.value;
+
+    console.log(this.data);
+    this.service.orderCart(this.data).subscribe(resp => {
+      console.log(resp);
+      // this.dialogRef.close(this.data);
+    });
+
   }
 
 
