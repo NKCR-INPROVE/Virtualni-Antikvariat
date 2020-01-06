@@ -262,9 +262,9 @@ export class AppService {
     return this.http.post<any>(`/api/users/storecart`, data);
   }
 
-  orderCart(user: User) {
-    const data = { user, cart: this.state.shoppingCart };
-    return this.http.post<any>(`/api/offers/ordercart`, data);
+  orderCart(orderData: { user: User, cart: OfferRecord[], doprava: { [key: string]: string } }) {
+    // const data = { orderData, cart: this.state.shoppingCart };
+    return this.http.post<any>(`/api/users/ordercart`, orderData);
   }
 
   getCenik() {

@@ -2,9 +2,9 @@
 <mat-dialog-content class="mat-typography">
 
 	<mat-horizontal-stepper linear #stepper>
-		<mat-step [stepControl]="userForm"  errorMessage="Fields with * are required.">
+		<mat-step [stepControl]="userForm" [errorMessage]="'Fields with * are required' | translate">
 			<form fxFlex [formGroup]="userForm">
-				<ng-template matStepLabel>Fill out your name</ng-template>
+				<ng-template matStepLabel>{{'cart.username_step' | translate}}</ng-template>
 				<mat-form-field>
 					<input matInput  formControlName="nazev" [placeholder]="'user.nazev' | translate" required />
 				</mat-form-field>
@@ -26,8 +26,8 @@
 			</form>
 		</mat-step>
 		<mat-step [stepControl]="dopravaForm">
-			<form [formGroup]="dopravaForm">
-			<ng-template matStepLabel>Zpusob doruceni</ng-template>
+			<form *ngIf="cenik" [formGroup]="dopravaForm">
+			<ng-template matStepLabel>{{'Zpusob doruceni' | translate}}</ng-template>
 			<div *ngFor="let kn of knihovny">
 				{{kn}} 
 				<mat-radio-group aria-label="Select an option" [formControlName]="kn">

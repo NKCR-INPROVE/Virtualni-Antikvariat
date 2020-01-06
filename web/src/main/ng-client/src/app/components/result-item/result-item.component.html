@@ -1,4 +1,4 @@
-<mat-card>
+<mat-card [class.app-in-cart]="isInCart">
   <mat-card-actions *ngIf="doc.nabidka || doc.poptavka" class="app-card-actions-top">
     <span class="app-info-text">
       <ng-container *ngIf="doc.nabidka">
@@ -6,8 +6,11 @@
         <ng-container *ngFor="let n of doc.nabidka_ext">
           <span class="app-logo app-no-logo">{{n.knihovna}}</span> <span *ngIf="n.cena">{{n.cena}} Kč</span>
           <span class="app-pipe" *ngIf="state.isLibrary || n.isVA"></span>
-          <button *ngIf="state.isLibrary || n.isVA" mat-icon-button matTooltip="{{ 'desc.respond_to_offer_yes' | translate }}" (click)="addWanted(n, true)">
-            <mat-icon>{{state.isLibrary ? 'send' : 'shopping_cart'}}</mat-icon>
+          <button *ngIf="state.isLibrary" mat-icon-button matTooltip="{{ 'desc.respond_to_offer_yes' | translate }}" (click)="addWanted(n, true)">
+            <mat-icon>send</mat-icon>
+          </button>
+          <button *ngIf="!state.isLibrary && n.isVA" mat-icon-button matTooltip="{{ 'desc.addToCart' | translate }}" (click)="toggleShopping(n)">
+            <mat-icon>{{isInCart ? 'remove_shopping_cart' : 'shopping_cart'}}</mat-icon>
           </button>
           <button *ngIf="state.isLibrary" mat-icon-button matTooltip="{{ 'desc.respond_to_offer_no' | translate }}" (click)="addWanted(n, false)">
             <mat-icon>highlight_off</mat-icon>
@@ -21,7 +24,7 @@
         </ng-container>
       </ng-container>
 
-      <ng-container *ngIf="doc.poptavka">
+      <ng-container *ngIf="state.isLibrary && doc.poptavka">
         <label>{{'desc.is_demand' | translate}}: </label>
         <ng-container *ngFor="let id of doc.poptavka"><span class="app-logo app-no-logo">{{id}}</span>&#160;</ng-container>
       </ng-container>
@@ -160,7 +163,7 @@
       (click)="addToOffer()">
       <mat-icon>local_offer</mat-icon>{{ 'desc.add_to_offer' | translate }}
     </button>
-    <button *ngIf="!hasDemand()" mat-button matTooltip="{{ 'desc.add_to_demand' | translate }}"
+    <button *ngIf="state.isLibrary && !hasDemand()" mat-button matTooltip="{{ 'desc.add_to_demand' | translate }}"
       (click)="addToDemands()">
       <mat-icon>shopping_cart</mat-icon>{{ 'desc.add_to_demand' | translate }}
     </button>
@@ -168,7 +171,7 @@
       (click)="removeFromDemands()">
       <mat-icon>remove_shopping_cart</mat-icon>{{ 'demands.remove' | translate }}
     </button>
-    <button *ngIf='state.isLibrary' mat-button matTooltip="{{ 'desc.csv_format' | translate }}" (click)="csv()">
+    <button *ngIf="state.isLibrary" mat-button matTooltip="{{ 'desc.csv_format' | translate }}" (click)="csv()">
       <mat-icon>text_format</mat-icon>{{ 'desc.csv_format' | translate }}
     </button>
   </mat-card-actions>

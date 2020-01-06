@@ -37,6 +37,8 @@ export class AppComponent implements OnInit {
     this.removeExternalLinkElements();
     this.authService.currentUser.subscribe(x => {
       const isLogged = x !== null;
+      this.state.user = x;
+      this.state.isLibrary = isLogged && this.state.user.role === 'LIBRARY';
       const lib = isLogged && x.role === 'LIBRARY';
       const theme = lib ? 'vdk-theme' : 'va-theme';
       this.overlayContainer.getContainerElement().classList.add(theme);
