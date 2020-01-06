@@ -79,7 +79,8 @@
     "filter_isVA": "Dokumenty, které jsou ve virtuálním antikvariátu",
     "is_offered": "Nabízí",
     "send": "Odeslat",
-    "is_demand": "Poptává"
+    "is_demand": "Poptává",
+    "cancel": "Zrušit"
   },
   "count": "Počet nalezených položek",
   "q.placeholder": "Hledej ve virtuální depozitní knihovně ...",

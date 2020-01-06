@@ -79,7 +79,8 @@
     "filter_isVA": "Documents in virtual antiquarian",
     "is_offered": "Is offered by",
     "send": "Send",
-    "is_demand": "Is demand"
+    "is_demand": "Is demand",
+    "cancel": "Cancel"
   },
   "count": "Count of search results",
   "q.placeholder": "Search in virtual depoiste library ...",
