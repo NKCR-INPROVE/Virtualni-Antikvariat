@@ -2,6 +2,7 @@
   <app-facets fxFlex.gt-sm="25%" fxFlex.gt-xs="30%" fxFlex.xs="100%"></app-facets>
   <div class="app-result-items" fxFlex.gt-sm="75%" fxFlex.gt-xs="70%" fxFlex.xs="100%">
     <app-results-header [resultsHeader]="state.resultsHeader | async"></app-results-header>
+    <mat-progress-bar *ngIf="loading" mode="indeterminate"></mat-progress-bar>
     <ng-container *ngIf="!loading">
       <app-result-item *ngFor="let doc of state.results | async" [doc]="doc"></app-result-item>
     </ng-container>
