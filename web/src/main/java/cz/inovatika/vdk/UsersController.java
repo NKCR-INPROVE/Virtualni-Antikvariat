@@ -4,12 +4,22 @@ import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.serializer.SerializerFeature;
 import cz.inovatika.vdk.common.SolrIndexerCommiter;
 import cz.inovatika.vdk.solr.models.Cart;
+import cz.inovatika.vdk.solr.models.OfferRecord;
 import cz.inovatika.vdk.solr.models.User;
 import java.io.IOException;
 import java.util.Base64;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+import java.util.Properties;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.mail.Message;
+import javax.mail.MessagingException;
+import javax.mail.Session;
+import javax.mail.Transport;
+import javax.mail.internet.InternetAddress;
+import javax.mail.internet.MimeMessage;
 import javax.servlet.http.HttpServletRequest;
 import org.apache.solr.client.solrj.SolrClient;
 import org.apache.solr.client.solrj.SolrQuery;
@@ -18,6 +28,7 @@ import org.apache.solr.client.solrj.impl.HttpSolrClient;
 import org.apache.solr.client.solrj.impl.NoOpResponseParser;
 import org.apache.solr.client.solrj.request.QueryRequest;
 import org.apache.solr.client.solrj.response.QueryResponse;
+import org.apache.solr.common.SolrDocument;
 import org.apache.solr.common.util.NamedList;
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -91,14 +102,34 @@ public class UsersController {
 
   public static JSONObject orderCart(JSONObject json) {
     try {
-//       JSON in format
-//       { user: User, cart: OfferRecord[], doprava: { [key: string]: string } }
+      
+//       JSON in CART format 
 
       
       Cart cart = Cart.fromJSON(json);
       JSONObject jo = new JSONObject(JSON.toJSONString(cart, SerializerFeature.WriteDateUseDateFormat));
       SolrIndexerCommiter
               .indexJSON(jo, "cartCore");
+      User user = JSON.parseObject(cart.user, User.class);
+
+      // extract libaries and send mail.
+      JSONObject doprava = new JSONObject(cart.doprava);
+      List<OfferRecord> records = JSON.parseArray(cart.item, OfferRecord.class);
+      Map<String, StringBuilder> libraries = new HashMap();
+      for(OfferRecord record : records){
+        if (!libraries.containsKey(record.knihovna)) {
+          libraries.put(record.knihovna, new StringBuilder());
+        }
+        
+        StringBuilder sb = libraries.get(record.knihovna);
+        sb.append(record.title);
+        
+      }
+      
+      for (String key : libraries.keySet()) {
+        sendCartMail(libraries.get(key).toString(), user, key);
+      }
+      
       return json;
     } catch (IOException | SolrServerException ex) {
       LOGGER.log(Level.SEVERE, null, ex);
@@ -357,6 +388,38 @@ public class UsersController {
     } catch (SolrServerException | IOException ex) {
       LOGGER.log(Level.SEVERE, null, ex);
       return new JSONObject().put("error", ex);
+    }
+  }
+  
+  private static void sendCartMail(String msg, User user, String library) {
+    try {
+      Options opts = Options.getInstance();
+      
+      String from = opts.getString("admin.email");
+      User kn = getUser(library);
+      String to = kn.email;
+      try {
+        Properties properties = System.getProperties();
+        Session session = Session.getDefaultInstance(properties);
+
+        MimeMessage message = new MimeMessage(session);
+        message.setFrom(new InternetAddress(from));
+        message.addRecipient(Message.RecipientType.TO,
+                new InternetAddress(to));
+
+        message.setSubject(opts.getString("cart.email.subject"));
+
+        String body = user.email + "\n" + msg;
+        message.setText(body);
+
+        Transport.send(message);
+        LOGGER.fine("Sent message successfully....");
+      } catch (MessagingException ex) {
+        LOGGER.log(Level.SEVERE, "Error sending email to: {0}, from {1} ", new Object[]{to, from});
+        LOGGER.log(Level.SEVERE, null, ex);
+      }
+    } catch (Exception ex) {
+      LOGGER.log(Level.SEVERE, null, ex);
     }
   }
 }

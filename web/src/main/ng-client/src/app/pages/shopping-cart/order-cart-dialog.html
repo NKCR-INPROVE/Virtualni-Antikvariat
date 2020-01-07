@@ -6,13 +6,13 @@
 			<form fxFlex [formGroup]="userForm">
 				<ng-template matStepLabel>{{'cart.username_step' | translate}}</ng-template>
 				<mat-form-field>
-					<input matInput  formControlName="nazev" [placeholder]="'user.nazev' | translate" required />
+					<input matInput  formControlName="nazev" [placeholder]="'user.nazev' | translate" required cdkFocusInitial />
 				</mat-form-field>
 				<mat-form-field>
 					<input matInput  formControlName="adresa" [placeholder]="'user.adresa' | translate" required />
 				</mat-form-field>
 				<mat-form-field>
-					<input matInput formControlName="telefon" [placeholder]="'user.telefon' | translate"
+					<input matInput formControlName="telefon" [placeholder]="'user.telefon' | translate" type="email"
 						required />
 				</mat-form-field>
 				<mat-form-field>

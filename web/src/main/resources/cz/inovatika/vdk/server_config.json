@@ -24,5 +24,7 @@
   "admin.email.offer.body": "Offer ${offer.nazev} has expired. Click on ${offer.report} to view report",
   "admin.email.demand.subject": "VDK Notification. Your demand harvested.",
   "admin.email.demand.body": "Your demand on document ${demand.title} has been harvested. Click on ${demand.url} to view it",
-  "app.url": "localhost:8080/vdk"
+  "app.url": "localhost:8080/vdk",
+  
+  "cart.email.subject": "Nova objednavka z Virtualniho Antikvariatu"
 }

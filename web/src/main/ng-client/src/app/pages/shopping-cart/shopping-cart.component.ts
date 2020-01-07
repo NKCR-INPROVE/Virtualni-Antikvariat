@@ -98,7 +98,7 @@ export class OrderCartDialogComponent implements OnInit {
       nazev: ['', Validators.required],
       adresa: ['', Validators.required],
       telefon: ['', Validators.required],
-      email: ['', Validators.required]
+      email: ['', [Validators.required, Validators.email]]
     });
 
     this.service.getCenik().subscribe(resp => {
@@ -148,6 +148,7 @@ export class OrderCartDialogComponent implements OnInit {
     this.data.user.email = this.f.email.value;
 
     this.data.doprava = this.dopravaForm.value;
+    this.data.status = 'new';
 
     console.log(this.data);
     this.service.orderCart(this.data).subscribe(resp => {
