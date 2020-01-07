@@ -24,7 +24,6 @@ import cz.inovatika.vdk.common.Bohemika;
 import cz.inovatika.vdk.solr.models.User;
 import cz.inovatika.vdk.common.SolrIndexerCommiter;
 import cz.inovatika.vdk.common.VDKJobData;
-import cz.inovatika.vdk.solr.models.Offer;
 import cz.inovatika.vdk.solr.models.OfferRecord;
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -32,10 +31,9 @@ import java.io.IOException;
 import java.io.StringReader;
 import java.io.StringWriter;
 import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.text.SimpleDateFormat;
+import java.time.Instant;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Date;
@@ -52,14 +50,11 @@ import javax.mail.Session;
 import javax.mail.Transport;
 import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeMessage;
-import javax.naming.NamingException;
 import javax.xml.transform.Transformer;
 import javax.xml.transform.TransformerFactory;
-import javax.xml.transform.dom.DOMSource;
 import javax.xml.transform.stream.StreamResult;
 import javax.xml.transform.stream.StreamSource;
 import org.apache.commons.io.FileUtils;
-import org.apache.commons.io.IOUtils;
 import org.apache.solr.client.solrj.SolrQuery;
 import org.apache.solr.client.solrj.SolrClient;
 import org.apache.solr.client.solrj.SolrQuery.SortClause;
@@ -70,9 +65,7 @@ import org.apache.solr.common.SolrDocument;
 import org.apache.solr.common.SolrDocumentList;
 import org.apache.solr.common.SolrInputDocument;
 import org.apache.solr.common.params.CursorMarkParams;
-import org.json.JSONArray;
 import org.json.JSONObject;
-import org.w3c.dom.Document;
 
 /**
  *
@@ -900,9 +893,8 @@ public class Indexer {
   private JSONObject index() throws Exception {
 
     JSONObject json = update(null);
-    Date date = new Date();
 
-    String to = sdf.format(date);
+    String to = sdf.format(Instant.now());
 
     statusJson.put(LAST_UPDATE, to);
     writeStatus();

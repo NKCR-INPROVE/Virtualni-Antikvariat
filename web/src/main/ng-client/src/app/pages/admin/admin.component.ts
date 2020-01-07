@@ -45,9 +45,9 @@ export class AdminComponent implements OnInit {
   saveUser() {
     this.service.saveUser(this.user).subscribe(resp => {
       if (resp.error) {
-        this.service.showSnackBar('admin.add_user_error', '', 'app-snack-error');
+        this.service.showSnackBar('admin.add_user_error', '', true);
       } else {
-        this.service.showSnackBar('admin.add_user_success', '', 'app-snack-success');
+        this.service.showSnackBar('admin.add_user_success');
       }
     });
   }
@@ -81,9 +81,9 @@ export class AdminComponent implements OnInit {
   startJob(job: Job) {
     this.service.startJob(job).subscribe(resp => {
       if (resp.error) {
-        this.service.showSnackBar('admin.start_job_error', '', 'app-snack-error');
+        this.service.showSnackBar('admin.start_job_error', '', true);
       } else {
-        this.service.showSnackBar('admin.start_job_success', '', 'app-snack-success');
+        this.service.showSnackBar('admin.start_job_success');
       }
     });
   }
@@ -91,9 +91,9 @@ export class AdminComponent implements OnInit {
   stopJob(job: Job) {
     this.service.stopJob(job).subscribe(resp => {
       if (resp.error) {
-        this.service.showSnackBar('admin.stop_job_error', '', 'app-snack-error');
+        this.service.showSnackBar('admin.stop_job_error', '', true);
       } else {
-        this.service.showSnackBar('admin.stop_job_success', '', 'app-snack-success');
+        this.service.showSnackBar('admin.stop_job_success');
       }
     });
 

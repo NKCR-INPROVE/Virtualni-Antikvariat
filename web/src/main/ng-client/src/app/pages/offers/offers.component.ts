@@ -53,11 +53,11 @@ export class OffersComponent implements OnInit {
         const offer: Offer = this.offers[idx];
         this.service.removeOffer(offer).subscribe(resp => {
           if (resp.error) {
-            this.service.showSnackBar('offer.remove_error', '', 'app-color-red');
+            this.service.showSnackBar('offer.remove_error', '', true);
           } else {
             this.state.offers.splice(idx, 1);
             this.offers.splice(idx, 1);
-            this.service.showSnackBar('offer.remove_success', '', 'app-color-green');
+            this.service.showSnackBar('offer.remove_success');
           }
         });
       }
@@ -77,10 +77,10 @@ export class OffersComponent implements OnInit {
       if (result) {
         this.service.removeOfferRecord(this.records[idx].id).subscribe(resp => {
           if (resp.error) {
-            this.service.showSnackBar('offer.remove_from_offer_error', '', 'app-color-red');
+            this.service.showSnackBar('offer.remove_from_offer_error', '', true);
           } else {
             this.load(this.currentOffer);
-            this.service.showSnackBar('offer.remove_from_offer_success', '', 'app-color-green');
+            this.service.showSnackBar('offer.remove_from_offer_success');
           }
         });
       }
@@ -122,11 +122,11 @@ export class OffersComponent implements OnInit {
         offer.created = formatDate(new Date(), 'yyyy-MM-dd\'T\'HH:mm:ss.SSS\'Z\'', 'cs');
         this.service.addOffer(offer).subscribe(resp => {
           if (resp.error) {
-            this.service.showSnackBar('offer.add_error', '', 'app-snack-error');
+            this.service.showSnackBar('offer.add_error', '', true);
           } else {
             this.state.offers.push(resp);
             this.offers.push(resp);
-            this.service.showSnackBar('offer.add_success', '', 'app-snack-success');
+            this.service.showSnackBar('offer.add_success');
           }
         });
       }
@@ -202,17 +202,29 @@ export class OffersComponent implements OnInit {
           canOffer = false;
         }
 
-        if (canOffer) {
 
-          record.isVA = true;
-          this.service.addToOffer(record).subscribe(resp => {
-            if (resp.error) {
-              this.service.showSnackBar('offer.add_to_va_error', '', 'app-snack-error');
-            } else {
-              this.service.showSnackBar('offer.add_to_va_success', '', 'app-snack-success');
-            }
-          });
+      });
 
+      if (canOffer) {
+        record.isVA = true;
+        this.service.addToOffer(record).subscribe(resp => {
+          if (resp.error) {
+            this.service.showSnackBar('offer.add_to_va_error', '', true);
+          } else {
+            this.service.showSnackBar('offer.add_to_va_success');
+          }
+        });
+
+      }
+    }
+
+    if (canOffer) {
+      record.isVA = true;
+      this.service.addToOffer(record).subscribe(resp => {
+        if (resp.error) {
+          this.service.showSnackBar('offer.add_to_va_error', '', true);
+        } else {
+          this.service.showSnackBar('offer.add_to_va_success');
         }
       });
 
@@ -223,9 +235,9 @@ export class OffersComponent implements OnInit {
     record.isVA = false;
     this.service.addToOffer(record).subscribe(resp => {
       if (resp.error) {
-        this.service.showSnackBar('offer.add_error', '', 'app-color-red');
+        this.service.showSnackBar('offer.add_error', '', true);
       } else {
-        this.service.showSnackBar('offer.add_success', '', 'app-color-green');
+        this.service.showSnackBar('offer.add_success');
       }
     });
 

@@ -7,7 +7,6 @@ import cz.inovatika.vdk.solr.Indexer;
 import cz.inovatika.vdk.solr.models.Offer;
 import cz.inovatika.vdk.solr.models.OfferRecord;
 import cz.inovatika.vdk.solr.models.User;
-import java.io.File;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.net.InetAddress;

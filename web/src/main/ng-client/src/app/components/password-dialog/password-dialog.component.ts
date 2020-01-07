@@ -44,12 +44,12 @@ export class PasswordDialogComponent implements OnInit {
     this.loading = true;
     this.service.resetHeslo(data).subscribe(resp => {
       if (resp.error) {
-        this.service.showSnackBar('heslo.reset_heslo_error', resp.error, 'app-snack-error');
+        this.service.showSnackBar('heslo.reset_heslo_error', resp.error, true);
         this.error = resp.error;
         this.loading = false;
       } else {
         this.loading = false;
-        this.service.showSnackBar('heslo.reset_heslo_success', '', 'app-snack-success');
+        this.service.showSnackBar('heslo.reset_heslo_success');
         this.dialogRef.close();
       }
     });

@@ -37,9 +37,9 @@ export class VaRegistrationComponent implements OnInit {
         this.user.heslo = pwd;
         this.service.addUser(this.user).subscribe(resp => {
           if (resp.error) {
-            this.service.showSnackBar('user.send_error', '', 'app-snack-error');
+            this.service.showSnackBar('user.send_error', '', true);
           } else {
-            this.service.showSnackBar('user.send_success', '', 'app-snack-success');
+            this.service.showSnackBar('user.send_success');
           }
         });
       }

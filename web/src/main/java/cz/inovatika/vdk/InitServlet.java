@@ -5,6 +5,7 @@
  */
 package cz.inovatika.vdk;
 
+import com.alibaba.fastjson.JSON;
 import cz.inovatika.vdk.common.VDKScheduler;
 import java.io.File;
 import java.io.IOException;
@@ -90,6 +91,8 @@ public class InitServlet extends HttpServlet {
       }
       JOBS_DIR = CONFIG_DIR + File.separator + "jobs";
       LOGGER.log(Level.INFO, "app dir is ----> {0}", CONFIG_DIR);
+      
+      JSON.DEFFAULT_DATE_FORMAT = "yyyy-MM-dd'T'HH:mm:ss.SSS'Z'";
       
       sched = VDKScheduler.getInstance().getScheduler();
       getJobs();

@@ -29,9 +29,9 @@ export class ProfileComponent implements OnInit {
 
     this.service.saveUser(this.user).subscribe(resp => {
       if (resp.error) {
-        this.service.showSnackBar('user.save_error', '', 'app-snack-error');
+        this.service.showSnackBar('user.save_error', '', true);
       } else {
-        this.service.showSnackBar('user.save_success', '', 'app-snack-success');
+        this.service.showSnackBar('user.save_success');
       }
     });
 

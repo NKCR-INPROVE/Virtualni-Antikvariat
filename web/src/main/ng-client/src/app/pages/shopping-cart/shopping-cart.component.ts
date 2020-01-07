@@ -7,6 +7,7 @@ import { MatDialogRef, MAT_DIALOG_DATA, MatDialog } from '@angular/material';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { STEPPER_GLOBAL_OPTIONS } from '@angular/cdk/stepper';
 import { AppConfiguration } from 'src/app/app-configuration';
+import { Cart } from 'src/app/models/cart';
 
 @Component({
   selector: 'app-shopping-cart',
@@ -50,7 +51,7 @@ export class ShoppingCartComponent implements OnInit {
     if (this.state.user) {
       user = this.state.user;
     } else {
-      const data = { user: new User(), cart: this.data };
+      const data = { user: new User(), item: this.data };
       const dialogRef = this.dialog.open(OrderCartDialogComponent, {
         data
       });
@@ -86,7 +87,7 @@ export class OrderCartDialogComponent implements OnInit {
     public config: AppConfiguration,
     private formBuilder: FormBuilder,
     public dialogRef: MatDialogRef<OrderCartDialogComponent>,
-    @Inject(MAT_DIALOG_DATA) public data: { user: User, cart: OfferRecord[], doprava: { [key: string]: string } }) { }
+    @Inject(MAT_DIALOG_DATA) public data: Cart) { }
 
 
   get f() { return this.userForm.controls; }
@@ -104,7 +105,7 @@ export class OrderCartDialogComponent implements OnInit {
       this.cenik = resp.docs;
 
       const dp = {};
-      this.data.cart.forEach(record => {
+      this.data.item.forEach(record => {
         if (!this.knihovny.includes(record.knihovna)) {
           this.knihovny.push(record.knihovna);
           dp[record.knihovna] = ['', Validators.required];
@@ -151,6 +152,14 @@ export class OrderCartDialogComponent implements OnInit {
     console.log(this.data);
     this.service.orderCart(this.data).subscribe(resp => {
       console.log(resp);
+
+      if (resp.error) {
+        this.service.showSnackBar('cart.add_error', '', true);
+      } else {
+        this.service.showSnackBar('cart.add_success');
+      }
+
+
       // this.dialogRef.close(this.data);
     });
 

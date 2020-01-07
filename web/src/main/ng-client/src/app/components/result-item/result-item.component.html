@@ -49,7 +49,7 @@
           <mat-icon>warning</mat-icon>
         </button>
       </div>
-      <div>
+      <div *ngIf="doc.vydavatel">
         <span>{{'desc.publisher' | translate}}: {{doc.vydavatel[0]}}</span>
         <!-- <mat-icon *ngIf="hasDifferences('vydavatel')" #wVydavatel (click)="openPop('vydavatel', wVydavatel, infoPopup)"
           class="app-cursor-pointer app-icon-left-mg app-icon-valign-text-bottom">warning</mat-icon> -->
