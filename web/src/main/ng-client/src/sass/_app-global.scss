@@ -28,6 +28,10 @@ a, .app-link {
   padding: $app-gap;
 }
 
+.app-input-full-width {
+	width: 100%;
+}
+
 .app-pipe {
 	&:before {
 		content: '|';

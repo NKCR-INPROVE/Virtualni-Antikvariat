@@ -64,7 +64,6 @@
     "refresh": "Refresh",
     "view_report": "View report",
     "import_to_offer": "Import to offer",
-    "add_to_offer_from_template": "Add to offer from template",
     "add_to_offer_by_searching": "Add to offer by searching",
     "add_to_secondhand": "Add to secondhand",
     "remove_from_secondhand": "Remove from secondhand",
@@ -82,7 +81,9 @@
     "is_demand": "Is demand",
     "cancel": "Cancel",
     "close": "Close",
-    "empty_formular": "Empty formular"
+    "empty_formular": "Empty formular",
+    "price": "Price",
+    "comment": "Comment"
   },
   "count": "Count of search results",
   "q.placeholder": "Search in virtual depoiste library ...",
@@ -102,7 +103,17 @@
     "removeFrom": "Remove from offer",
     "price_required": "Price required",
     "remove_from_offer": "Remove from offer",
-    "add_to_offer": "Add to offer"
+    "add_to_offer": "Add to offer",
+    "add_to_offer_from_template": "Add to offer from template",
+
+    "title_245a":"Title (245a) (245b) (245c)",
+    "part_number": "Part number (245n)",
+    "part_name": "Name number (245p)",
+    "edition_info": "Edition information (250a)",
+    "author_name_surname": "Author (100a) name, surname",
+    "author_corporation": "Author – corporation (110a)",
+    "author_action_name": "Author – action name (e.g.. conference) (111a)",
+    "publication_details": "Publication details – place „a“, publisher name „b“, edition date  „c“) (260a)(260b)(260c)"
   },
   "admin": {
     "users": "Users",

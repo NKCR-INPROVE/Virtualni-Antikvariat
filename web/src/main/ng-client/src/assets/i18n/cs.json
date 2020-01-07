@@ -64,7 +64,6 @@
     "refresh": "Aktualizovat",
     "view_report": "Zobrazit report",
     "import_to_offer": "Importovat do nabídky",
-    "add_to_offer_from_template": "Založit nabídku ze šablony",
     "add_to_offer_by_searching": "Založit nabídku z vyhledávání",
     "add_to_secondhand": "Vložit do antikvariátu",
     "remove_from_secondhand": "Odstranit z antikvariátu",
@@ -82,7 +81,9 @@
     "is_demand": "Poptává",
     "cancel": "Zrušit",
     "close": "Zavřít",
-    "empty_formular": "Vyprázdnit formulář"
+    "empty_formular": "Vyprázdnit formulář",
+    "price": "Cena",
+    "comment": "Poznámka"
   },
   "count": "Počet nalezených položek",
   "q.placeholder": "Hledej ve virtuální depozitní knihovně ...",
@@ -102,7 +103,17 @@
     "removeFrom": "Odstranit z nabídky",
     "price_required": "Cena požadována",
     "remove_from_offer": "Odstranit z nabídky",
-    "add_to_offer": "Přídat do nabídky"
+    "add_to_offer": "Přídat do nabídky",
+    "add_to_offer_from_template": "Založit nabídku ze šablony",
+
+    "title_245a":"Titul (245a) (245b) (245c)",
+    "part_number": "Číslo části (245n)",
+    "part_name": "Název části (245p)",
+    "edition_info": "Údaje o vydání (250a)",
+    "author_name_surname": "Autor (100a) jméno, příjmení",
+    "author_corporation": "Autor – korporace (110a)",
+    "author_action_name": "Autor – jméno akce (např. konference) (111a)",
+    "publication_details": "Nakladatelské údaje – místo „a“, jméno nakladatele „b“, datum vydání  „c“) (260a)(260b)(260c)"
   },
   "admin": {
     "users": "Uživatelé",
