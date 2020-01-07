@@ -81,7 +81,8 @@
     "send": "Odeslat",
     "is_demand": "Poptává",
     "cancel": "Zrušit",
-    "close": "Zavřít"
+    "close": "Zavřít",
+    "empty_formular": "Vyprázdnit formulář"
   },
   "count": "Počet nalezených položek",
   "q.placeholder": "Hledej ve virtuální depozitní knihovně ...",
@@ -100,7 +101,8 @@
     "remove": "Odstranit nabídku",
     "removeFrom": "Odstranit z nabídky",
     "price_required": "Cena požadována",
-    "remove_from_offer": "Odstranit z nabídky"
+    "remove_from_offer": "Odstranit z nabídky",
+    "add_to_offer": "Přídat do nabídky"
   },
   "admin": {
     "users": "Uživatelé",

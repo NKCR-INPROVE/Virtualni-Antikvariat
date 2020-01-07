@@ -81,7 +81,8 @@
     "send": "Send",
     "is_demand": "Is demand",
     "cancel": "Cancel",
-    "close": "Close"
+    "close": "Close",
+    "empty_formular": "Empty formular"
   },
   "count": "Count of search results",
   "q.placeholder": "Search in virtual depoiste library ...",
@@ -100,7 +101,8 @@
     "remove": "Remove offer",
     "removeFrom": "Remove from offer",
     "price_required": "Price required",
-    "remove_from_offer": "Remove from offer"
+    "remove_from_offer": "Remove from offer",
+    "add_to_offer": "Add to offer"
   },
   "admin": {
     "users": "Users",
