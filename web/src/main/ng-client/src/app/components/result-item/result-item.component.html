@@ -50,7 +50,7 @@
         </button>
       </div>
       <div>
-        <span>{{'desc.publisher' | translate}}: {{doc.vydavatel[0]}}</span>
+        <span *ngIf="doc.vydavatel">{{'desc.publisher' | translate}}: {{doc.vydavatel[0]}}</span>
         <!-- <mat-icon *ngIf="hasDifferences('vydavatel')" #wVydavatel (click)="openPop('vydavatel', wVydavatel, infoPopup)"
           class="app-cursor-pointer app-icon-left-mg app-icon-valign-text-bottom">warning</mat-icon> -->
         <button mat-icon-button *ngIf="hasDifferences('vydavatel')" #wVydavatel (click)="openPop('vydavatel', wVydavatel, infoPopup)">

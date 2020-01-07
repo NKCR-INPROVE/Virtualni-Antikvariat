@@ -90,16 +90,20 @@ public class UsersController {
   }
 
   public static JSONObject orderCart(JSONObject json) {
-//    try {
-      // JSON in format
-      // { user: User, cart: OfferRecord[], doprava: { [key: string]: string } }
+    try {
+//       JSON in format
+//       { user: User, cart: OfferRecord[], doprava: { [key: string]: string } }
 
       
+      Cart cart = Cart.fromJSON(json);
+      JSONObject jo = new JSONObject(JSON.toJSONString(cart, SerializerFeature.WriteDateUseDateFormat));
+      SolrIndexerCommiter
+              .indexJSON(jo, "cartCore");
       return json;
-//    } catch (IOException | SolrServerException ex) {
-//      LOGGER.log(Level.SEVERE, null, ex);
-//      return new JSONObject().put("error", ex);
-//    }
+    } catch (IOException | SolrServerException ex) {
+      LOGGER.log(Level.SEVERE, null, ex);
+      return new JSONObject().put("error", ex);
+    }
   }
 
   public static void logout(HttpServletRequest req) {
