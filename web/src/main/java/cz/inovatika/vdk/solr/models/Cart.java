@@ -3,6 +3,8 @@ package cz.inovatika.vdk.solr.models;
 
 import com.alibaba.fastjson.JSON;
 import cz.inovatika.vdk.common.MD5;
+import java.time.Instant;
+import java.time.ZoneOffset;
 import java.util.Date;
 import java.util.logging.Logger;
 import org.apache.solr.client.solrj.beans.Field;
@@ -23,7 +25,9 @@ public class Cart {
   @Field
   public String item;
   @Field
-  public Date created;
+  public String doprava;
+  @Field
+  public Instant created;
   
   public static Cart fromJSON(JSONObject json) {
     Cart o = JSON.parseObject(json.toString(), Cart.class);
@@ -31,7 +35,8 @@ public class Cart {
       o.id = MD5.generate(new String[]{o.user, o.item});
     }
     if (o.created == null) {
-      o.created = new Date();
+      //Instant instant = Instant.now();
+      o.created = Instant.now();
     }
     return o;
   }

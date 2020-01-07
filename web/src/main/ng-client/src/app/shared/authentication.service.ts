@@ -33,6 +33,7 @@ export class AuthenticationService {
                     const user = resp.user;
                     user.authdata = window.btoa(username + ':' + password);
                     localStorage.setItem('currentUser', JSON.stringify(user));
+                    localStorage.removeItem('shoppingCart');
                     this.currentUserSubject.next(user);
 
                     return user;
@@ -45,6 +46,7 @@ export class AuthenticationService {
     logout() {
         // remove user from local storage to log user out
         localStorage.removeItem('currentUser');
+        localStorage.removeItem('shoppingCart');
         this.state.user = null;
         this.currentUserSubject.next(null);
     }

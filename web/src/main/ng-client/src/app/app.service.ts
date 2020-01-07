@@ -15,6 +15,7 @@ import { OfferRecord } from './models/offer-record';
 import { Offer } from './models/offer';
 import { MatSnackBar } from '@angular/material';
 import { Job } from './models/job';
+import { Cart } from './models/cart';
 
 @Injectable({
   providedIn: 'root'
@@ -33,12 +34,13 @@ export class AppService {
 
   }
 
-  showSnackBar(s: string, r: string = '', p: string = '') {
+  showSnackBar(s: string, r: string = '', error: boolean = false) {
     const right = r !== '' ? this.getTranslation(r) : '';
+    const clazz = error ? 'app-snack-error' : 'app-snack-success';
     this.snackBar.open(this.getTranslation(s), right, {
       duration: 2000,
       verticalPosition: 'top',
-      panelClass: p
+      panelClass: clazz
     });
   }
 
@@ -262,7 +264,7 @@ export class AppService {
     return this.http.post<any>(`/api/users/storecart`, data);
   }
 
-  orderCart(orderData: { user: User, cart: OfferRecord[], doprava: { [key: string]: string } }) {
+  orderCart(orderData: Cart) {
     // const data = { orderData, cart: this.state.shoppingCart };
     return this.http.post<any>(`/api/users/ordercart`, orderData);
   }
