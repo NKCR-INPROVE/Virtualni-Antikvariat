@@ -63,8 +63,6 @@
     "publisher": "Vydavatel",
     "refresh": "Aktualizovat",
     "view_report": "Zobrazit report",
-    "import_to_offer": "Importovat do nabídky",
-    "add_to_offer_by_searching": "Založit nabídku z vyhledávání",
     "add_to_secondhand": "Vložit do antikvariátu",
     "remove_from_secondhand": "Odstranit z antikvariátu",
     "offer_yes": "\"chci do fondu\"",
@@ -83,7 +81,11 @@
     "close": "Zavřít",
     "empty_formular": "Vyprázdnit formulář",
     "price": "Cena",
-    "comment": "Poznámka"
+    "comment": "Poznámka",
+    "expired": "Vypršela platnost",
+    "not_expired": "Platnost ještě nevypršela",
+    "closed": "Zavřená",
+    "open" : "Otevřená"
   },
   "count": "Počet nalezených položek",
   "q.placeholder": "Hledej ve virtuální depozitní knihovně ...",
@@ -105,6 +107,8 @@
     "remove_from_offer": "Odstranit z nabídky",
     "add_to_offer": "Přídat do nabídky",
     "add_to_offer_from_template": "Založit nabídku ze šablony",
+    "import_to_offer": "Importovat do nabídky",
+    "add_to_offer_by_searching": "Založit nabídku z vyhledávání",
 
     "title_245a":"Titul (245a) (245b) (245c)",
     "part_number": "Číslo části (245n)",
