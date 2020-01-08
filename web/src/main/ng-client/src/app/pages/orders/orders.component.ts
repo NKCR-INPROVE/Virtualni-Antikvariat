@@ -48,6 +48,16 @@ export class OrdersComponent implements OnInit {
 
   process() {
     this.current.status = 'processed';
+    this.service.processOrder(this.current).subscribe(resp => {
+
+      if (resp.error) {
+        this.service.showSnackBar('cart.process_error', '', true);
+        this.current.status = 'new';
+      } else {
+        this.service.showSnackBar('cart.process_success');
+      }
+      
+    });
   }
 
 }

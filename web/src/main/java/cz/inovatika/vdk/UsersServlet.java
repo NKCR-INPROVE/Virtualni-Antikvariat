@@ -273,6 +273,20 @@ public class UsersServlet extends HttpServlet {
 
       }
     },
+    PROCESSORDER {
+      @Override
+      JSONObject doPerform(HttpServletRequest req, HttpServletResponse resp) throws Exception {
+        JSONObject json;
+          if (req.getMethod().equals("POST")) {
+            String js = IOUtils.toString(req.getInputStream(), "UTF-8");
+            json = new JSONObject(js);
+          } else {
+            json = new JSONObject(req.getParameter("json"));
+          }
+        return UsersController.processOrder(json);
+
+      }
+    },
     ORDERS {
       @Override
       JSONObject doPerform(HttpServletRequest req, HttpServletResponse resp) throws Exception {

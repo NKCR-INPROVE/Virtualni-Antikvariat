@@ -167,6 +167,21 @@ public class UsersController {
       return new JSONObject().put("error", ex);
     }
   }
+  
+  public static JSONObject processOrder(JSONObject json) {
+    try {
+      Cart cart = Cart.fromJSON(json);
+      cart.status = "processed";
+      JSONObject jo = new JSONObject(JSON.toJSONString(cart, SerializerFeature.WriteDateUseDateFormat));
+      SolrIndexerCommiter
+              .indexJSON(jo, "cartCore");
+
+      return json;
+    } catch (IOException | SolrServerException ex) {
+      LOGGER.log(Level.SEVERE, null, ex);
+      return new JSONObject().put("error", ex);
+    }
+  }
 
   public static void logout(HttpServletRequest req) {
     req.getSession().invalidate();
