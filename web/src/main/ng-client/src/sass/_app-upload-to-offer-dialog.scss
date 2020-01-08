@@ -1,0 +1,31 @@
+// --- UPLOAD TO OFFER DIALOG ---
+
+app-upload-to-offer-dialog {
+  .mat-radio-group {
+    margin-top: 10px;
+    
+    .mat-radio-button {
+      margin-right: $app-gap;
+    } 
+  }
+
+  .mat-list {
+    .mat-list-item {
+      height: 25px;
+
+      .mat-list-item-content {
+        @extend .app-clean-pd;
+
+        .mat-icon-button {
+          margin-right: 5px;
+        }
+
+        label {
+          font-size: 14px;
+          color: $app-gray-7;
+        }
+      }
+    }
+  }
+  
+}

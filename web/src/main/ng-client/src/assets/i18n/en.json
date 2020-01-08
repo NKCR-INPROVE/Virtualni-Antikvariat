@@ -86,7 +86,8 @@
     "expired": "Expired",
     "not_expired": "Not expired",
     "closed": "Closed",
-    "open" : "Open"
+    "open" : "Open",
+    "upload": "Upload"
   },
   "count": "Count of search results",
   "q.placeholder": "Search in virtual depoiste library ...",
@@ -110,6 +111,7 @@
     "add_to_offer_from_template": "Add to offer from template",
     "import_to_offer": "Import to offer",
     "add_to_offer_by_searching": "Add to offer by searching",
+    "upload_format": "Upload format",
 
     "title_245a":"Title (245a) (245b) (245c)",
     "part_number": "Part number (245n)",
