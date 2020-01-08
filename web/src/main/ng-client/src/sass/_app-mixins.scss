@@ -58,7 +58,7 @@ $colors-list:(
     &:first-child {
       font-size: $firstIconSize;
       height: $firstIconSize;
-      width: calc(#{$firstIconSize} - 4px);
+      width: calc(#{$firstIconSize} - 2px);
       line-height: $firstIconSize;
     } 
 
