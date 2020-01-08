@@ -11,6 +11,18 @@
   </div>
   <div fxFlex.gt-sm="75%" fxFlex.gt-xs="70%" fxFlex.xs="100%">
     <div fxFlex class="app-mat-table-container">
+      <div>
+        {{current.user.nazev}}
+      </div>
+      <div>
+        {{current.user.adresa}}
+      </div>
+      <div>
+        {{current.user.email}}
+      </div>
+      <div>
+        {{current.user.telefon}}
+      </div>
       <table mat-table [dataSource]="records">
     
         <ng-container matColumnDef="text">
