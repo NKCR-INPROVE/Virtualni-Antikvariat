@@ -54,6 +54,7 @@ import { PasswordDialogComponent } from './components/password-dialog/password-d
 import { ProfileComponent } from './pages/profile/profile.component';
 import { UserComponent } from './components/user/user.component';
 import { ShoppingCartComponent, OrderCartDialogComponent } from './pages/shopping-cart/shopping-cart.component';
+import { OrdersComponent } from './pages/orders/orders.component';
 
 
 registerLocaleData(localeCs, 'cs');
@@ -110,7 +111,8 @@ if (environment.mocked) {
     ProfileComponent,
     UserComponent,
     ShoppingCartComponent,
-    OrderCartDialogComponent
+    OrderCartDialogComponent,
+    OrdersComponent
   ],
   imports: [
     BrowserModule,

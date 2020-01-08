@@ -36,6 +36,7 @@
       <span *ngIf="state.isLibrary"><a (click)="export()">{{'navbar.export' | translate}}</a></span>
       <span *ngIf="state.isLibrary"><a (click)="demands()">{{'navbar.demands' | translate}}</a></span>
       <span *ngIf="state.isLibrary"><a (click)="offers()">{{'navbar.offers' | translate}}</a></span>
+      <span *ngIf="state.isLibrary"><a routerLink="orders">{{'navbar.orders' | translate}}</a></span>
       <span *ngIf="state.isLibrary">
         <mat-form-field>
           <mat-label>{{'navbar.views' | translate}}</mat-label>

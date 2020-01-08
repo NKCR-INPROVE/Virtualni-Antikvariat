@@ -2,7 +2,6 @@ import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 import { ResultsComponent } from './pages/results/results.component';
 import { HomeComponent } from './pages/home/home.component';
-import { RegistrationComponent } from './pages/registration/registration.component';
 import { AdminComponent } from './pages/admin/admin.component';
 import { AuthGuard } from './auth-guard';
 import { DemandsComponent } from './pages/demands/demands.component';
@@ -11,6 +10,7 @@ import { VaRegistrationComponent } from './pages/va-registration/va-registration
 import { ReportComponent } from './pages/report/report.component';
 import { ProfileComponent } from './pages/profile/profile.component';
 import { ShoppingCartComponent } from './pages/shopping-cart/shopping-cart.component';
+import { OrdersComponent } from './pages/orders/orders.component';
 
 
 const routes: Routes = [
@@ -19,6 +19,7 @@ const routes: Routes = [
   { path: 'home', component: HomeComponent },
   { path: 'demands', component: DemandsComponent },
   { path: 'offers', component: OffersComponent },
+  { path: 'orders', component: OrdersComponent },
   { path: 'cart', component: ShoppingCartComponent },
   { path: 'profile', component: ProfileComponent },
   // { path: 'Poptávky', component: DemandsComponent },

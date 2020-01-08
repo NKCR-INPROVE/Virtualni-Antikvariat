@@ -1,0 +1,45 @@
+<div fxLayout="row" fxLayoutAlign="start stretch" fxLayoutGap.gt-xs="16px" fxLayout.xs="column" gdAlignColumns.lt-xs="false">
+  <div fxFlex.gt-sm="25%" fxFlex.gt-xs="30%" fxFlex.xs="100%">
+    <mat-list role="list">
+      <mat-list-item role="listitem" *ngFor="let order of orders; let idx = index;" [class.active]="order.id === current.id">
+        <mat-icon mat-list-icon 
+         [matTooltip]="'status' | translate" >{{order.status === 'new' ? 'new_releases' : 'done'}}</mat-icon>
+        <h4 mat-line><a (click)="load(order)">{{ order.user.nazev }}</a></h4>
+        <p mat-line>{{ order.created | date : 'dd.MM.yyyy' }}</p>
+      </mat-list-item>
+    </mat-list>
+  </div>
+  <div fxFlex.gt-sm="75%" fxFlex.gt-xs="70%" fxFlex.xs="100%">
+    <div fxFlex class="app-mat-table-container">
+      <table mat-table [dataSource]="records">
+    
+        <ng-container matColumnDef="text">
+          <th mat-header-cell *matHeaderCellDef>
+            <button mat-button (click)="refresh()">
+              <mat-icon>refresh</mat-icon>
+              {{ 'desc.refresh' | translate }}
+            </button>
+            <button mat-button (click)="process()">
+              <mat-icon>process</mat-icon>
+              {{ 'desc.process' | translate }}
+            </button>
+          </th>
+          <td mat-cell *matCellDef="let element">
+            {{ element.title }}
+          </td>
+        </ng-container>
+
+        <ng-container matColumnDef="price">
+          <th mat-header-cell *matHeaderCellDef></th>
+          <td mat-cell *matCellDef="let element">{{element.cena}} Kč
+          </td>
+        </ng-container>
+    
+        <tr mat-header-row *matHeaderRowDef="displayedColumns; sticky: true"></tr>
+        <tr mat-row [ngClass]="{'app-even': index%2 == 1}" *matRowDef="let row; columns: displayedColumns; let index = index" ></tr>  
+      </table>
+    </div>
+  </div>
+</div>
+
+

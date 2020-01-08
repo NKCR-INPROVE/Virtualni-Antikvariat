@@ -5,7 +5,9 @@ import com.alibaba.fastjson.JSON;
 import cz.inovatika.vdk.common.MD5;
 import java.time.Instant;
 import java.time.ZoneOffset;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 import java.util.logging.Logger;
 import org.apache.solr.client.solrj.beans.Field;
 import org.json.JSONObject;
@@ -21,13 +23,16 @@ public class Cart {
   @Field
   public String user;
   @Field
+  public List<String> libraries;
+  @Field
   public String status;
   @Field
   public String item;
   @Field
   public String doprava;
   @Field
-  public Instant created;
+  public Date created;
+  
   
   public static Cart fromJSON(JSONObject json) {
     Cart o = JSON.parseObject(json.toString(), Cart.class);
@@ -36,8 +41,9 @@ public class Cart {
     }
     if (o.created == null) {
       //Instant instant = Instant.now();
-      o.created = Instant.now();
+      o.created = Date.from(Instant.now());
     }
+    o.libraries = new ArrayList<>();
     return o;
   }
   

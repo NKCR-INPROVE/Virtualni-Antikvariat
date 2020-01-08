@@ -28,7 +28,6 @@ import org.apache.solr.client.solrj.impl.HttpSolrClient;
 import org.apache.solr.client.solrj.impl.NoOpResponseParser;
 import org.apache.solr.client.solrj.request.QueryRequest;
 import org.apache.solr.client.solrj.response.QueryResponse;
-import org.apache.solr.common.SolrDocument;
 import org.apache.solr.common.util.NamedList;
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -74,7 +73,7 @@ public class UsersController {
             List<Cart> cart = response.getBeans(Cart.class);
             LOGGER.log(Level.INFO, "cart {0}", JSON.toJSONString(cart));
             return new JSONObject().put("cart", new JSONArray(JSON.toJSONString(cart)));
-            
+
           } catch (SolrServerException | IOException ex) {
             LOGGER.log(Level.SEVERE, null, ex);
           }
@@ -100,36 +99,68 @@ public class UsersController {
     }
   }
 
+  public static JSONArray getOrders(HttpServletRequest req) {
+    if (isLogged(req)) {
+      try {
+
+        Options opts = Options.getInstance();
+        JSONObject jo = get(req);
+        SolrQuery query = new SolrQuery("libraries:" + jo.getString("code"));
+        query.setFields("*,user:[json],item:[json]");
+        try (HttpSolrClient client = new HttpSolrClient.Builder(opts.getString("solrHost")).build()) {
+          // final QueryResponse response = client.query(opts.getString("cartCore", "cart"), query);
+          //List<Cart> carts = response.getBeans(Cart.class);
+          //return new JSONArray(JSON.toJSONString(carts));
+          
+          QueryRequest qreq = new QueryRequest(query);
+
+        NoOpResponseParser dontMessWithSolr = new NoOpResponseParser();
+        dontMessWithSolr.setWriterType("json");
+        client.setParser(dontMessWithSolr);
+        NamedList<Object> qresp = client.request(qreq, opts.getString("cartCore", "cart"));
+        JSONObject r = new JSONObject((String) qresp.get("response"));
+        JSONObject resp = r.getJSONObject("response");
+        
+        return resp.getJSONArray("docs");
+        
+
+        } catch (SolrServerException | IOException ex) {
+          LOGGER.log(Level.SEVERE, null, ex);
+        }
+
+      } catch (JSONException ex) {
+        LOGGER.log(Level.SEVERE, null, ex);
+      }
+    }
+    return null;
+  }
+
   public static JSONObject orderCart(JSONObject json) {
     try {
-      
-//       JSON in CART format 
-
-      
       Cart cart = Cart.fromJSON(json);
+      // extract libaries.
+      List<OfferRecord> records = JSON.parseArray(cart.item, OfferRecord.class);
+      Map<String, StringBuilder> libraries = new HashMap();
+      for (OfferRecord record : records) {
+        if (!libraries.containsKey(record.knihovna)) {
+          libraries.put(record.knihovna, new StringBuilder());
+          cart.libraries.add(record.knihovna);
+        }
+
+        StringBuilder sb = libraries.get(record.knihovna);
+        sb.append(record.title);
+
+      }
       JSONObject jo = new JSONObject(JSON.toJSONString(cart, SerializerFeature.WriteDateUseDateFormat));
       SolrIndexerCommiter
               .indexJSON(jo, "cartCore");
       User user = JSON.parseObject(cart.user, User.class);
 
-      // extract libaries and send mail.
-      JSONObject doprava = new JSONObject(cart.doprava);
-      List<OfferRecord> records = JSON.parseArray(cart.item, OfferRecord.class);
-      Map<String, StringBuilder> libraries = new HashMap();
-      for(OfferRecord record : records){
-        if (!libraries.containsKey(record.knihovna)) {
-          libraries.put(record.knihovna, new StringBuilder());
-        }
-        
-        StringBuilder sb = libraries.get(record.knihovna);
-        sb.append(record.title);
-        
-      }
-      
+      // send mails.
       for (String key : libraries.keySet()) {
         sendCartMail(libraries.get(key).toString(), user, key);
       }
-      
+
       return json;
     } catch (IOException | SolrServerException ex) {
       LOGGER.log(Level.SEVERE, null, ex);
@@ -216,7 +247,7 @@ public class UsersController {
     }
     return null;
   }
-  
+
   public static JSONObject getDopravy() {
     try {
 
@@ -232,7 +263,7 @@ public class UsersController {
         NamedList<Object> qresp = client.request(qreq, opts.getString("usersCore", "users"));
         JSONObject r = new JSONObject((String) qresp.get("response"));
         JSONObject resp = r.getJSONObject("response");
-        
+
         return resp;
 
       } catch (SolrServerException | IOException ex) {
@@ -390,14 +421,15 @@ public class UsersController {
       return new JSONObject().put("error", ex);
     }
   }
-  
+
   private static void sendCartMail(String msg, User user, String library) {
     try {
       Options opts = Options.getInstance();
-      
+
       String from = opts.getString("admin.email");
       User kn = getUser(library);
-      String to = kn.email;
+      // String to = kn.email;
+      String to = "alberto.hernandez@inovatika.cz";
       try {
         Properties properties = System.getProperties();
         Session session = Session.getDefaultInstance(properties);

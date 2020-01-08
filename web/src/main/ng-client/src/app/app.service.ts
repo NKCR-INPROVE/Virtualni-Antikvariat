@@ -269,6 +269,10 @@ export class AppService {
     return this.http.post<any>(`/api/users/ordercart`, orderData);
   }
 
+  getOrders() {
+    return this.http.get<any>(`/api/users/orders`);
+  }
+
   getCenik() {
     return this.http.get<any>(`/api/users/cenik`);
   }

@@ -273,6 +273,14 @@ public class UsersServlet extends HttpServlet {
 
       }
     },
+    ORDERS {
+      @Override
+      JSONObject doPerform(HttpServletRequest req, HttpServletResponse resp) throws Exception {
+        
+        return new JSONObject().put("orders", UsersController.getOrders(req));
+
+      }
+    },
     CHECK {
       @Override
       JSONObject doPerform(HttpServletRequest req, HttpServletResponse resp) throws Exception {
