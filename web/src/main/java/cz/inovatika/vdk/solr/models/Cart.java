@@ -1,4 +1,3 @@
-
 package cz.inovatika.vdk.solr.models;
 
 import com.alibaba.fastjson.JSON;
@@ -17,6 +16,7 @@ import org.json.JSONObject;
  * @author alberto
  */
 public class Cart {
+
   final static Logger LOGGER = Logger.getLogger(Cart.class.getName());
   @Field
   public String id;
@@ -32,8 +32,7 @@ public class Cart {
   public String doprava;
   @Field
   public Date created;
-  
-  
+
   public static Cart fromJSON(JSONObject json) {
     Cart o = JSON.parseObject(json.toString(), Cart.class);
     if (o.id == null || o.id.trim().isEmpty()) {
@@ -43,8 +42,10 @@ public class Cart {
       //Instant instant = Instant.now();
       o.created = Date.from(Instant.now());
     }
-    o.libraries = new ArrayList<>();
+    if (o.libraries == null) {
+      o.libraries = new ArrayList<>();
+    }
     return o;
   }
-  
+
 }

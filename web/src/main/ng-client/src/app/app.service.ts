@@ -269,6 +269,11 @@ export class AppService {
     return this.http.post<any>(`/api/users/ordercart`, orderData);
   }
 
+  processOrder(orderData: Cart) {
+    // const data = { orderData, cart: this.state.shoppingCart };
+    return this.http.post<any>(`/api/users/processorder`, orderData);
+  }
+
   getOrders() {
     return this.http.get<any>(`/api/users/orders`);
   }
