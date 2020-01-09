@@ -10,6 +10,10 @@ app-result-item {
         .mat-card-title {
           font-size: $app-card-title-font-size;
           scroll-margin-bottom: $app-gap;
+
+          .mat-icon-button {
+            vertical-align: top;
+          }
         }
   
         .mat-card-subtitle {
@@ -75,7 +79,6 @@ app-result-item {
 
     .mat-card-actions {
       padding-top: 0;
-      margin-top: -5px;
 
       &.app-card-actions-top {
         border-bottom: 1px solid $app-gray-3;
@@ -83,17 +86,34 @@ app-result-item {
         padding-right: $app-gap;
         margin-left: -#{$app-gap};
         margin-right: -#{$app-gap};
+        padding-bottom: 13px;
 
         .app-info-text {
           font-size: .9rem;
           margin-left: $app-gap-icon;
           color: $app-gray-7;
 
+          .app-price {
+            margin-right: 2px;
+          }
+
+          .mat-icon-button {
+            margin-right: 0;
+
+            .mat-icon {
+              margin-right: 0;
+            }
+          }
+
           label {
             color: $app-darkest;
             font-weight: bold;
           }
         }
+      }
+
+      &.app-card-actions-bottom {
+        margin-top: -5px;
       }
 
       .mat-icon {
