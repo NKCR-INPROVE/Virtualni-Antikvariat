@@ -71,7 +71,13 @@ a, .app-link {
 
 // icons
 .app-icon-cancel {
-	color: $app-warn-color;
+	color: $app-warn-color !important;
+}
+
+// mat button
+.mat-button,
+.mat-icon-button {
+	color: $app-gray-7;
 }
 
 // popover card
