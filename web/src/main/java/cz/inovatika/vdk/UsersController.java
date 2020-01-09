@@ -137,29 +137,14 @@ public class UsersController {
 
   public static JSONObject orderCart(JSONObject json) {
     try {
-      Cart cart = Cart.fromJSON(json);
-      // extract libaries.
-      List<OfferRecord> records = JSON.parseArray(cart.item, OfferRecord.class);
-      Map<String, StringBuilder> libraries = new HashMap();
-      for (OfferRecord record : records) {
-        if (!libraries.containsKey(record.knihovna)) {
-          libraries.put(record.knihovna, new StringBuilder());
-          cart.libraries.add(record.knihovna);
-        }
-
-        StringBuilder sb = libraries.get(record.knihovna);
-        sb.append(record.title);
-
-      }
+      for(Object key: json.keySet()) {
+        Cart cart = Cart.fromJSON(json.getJSONObject((String) key));
       JSONObject jo = new JSONObject(JSON.toJSONString(cart, SerializerFeature.WriteDateUseDateFormat));
-      SolrIndexerCommiter
+        SolrIndexerCommiter
               .indexJSON(jo, "cartCore");
-      User user = JSON.parseObject(cart.user, User.class);
-
-      // send mails.
-      for (String key : libraries.keySet()) {
-        sendCartMail(libraries.get(key).toString(), user, key);
+        sendCartMail(cart);
       }
+      
 
       return json;
     } catch (IOException | SolrServerException ex) {
@@ -437,12 +422,13 @@ public class UsersController {
     }
   }
 
-  private static void sendCartMail(String msg, User user, String library) {
+  private static void sendCartMail(Cart cart) {
     try {
       Options opts = Options.getInstance();
+      User user = JSON.parseObject(cart.user, User.class);
 
       String from = opts.getString("admin.email");
-      User kn = getUser(library);
+      User kn = getUser(cart.library);
       // String to = kn.email;
       String to = "alberto.hernandez@inovatika.cz";
       try {
@@ -456,7 +442,7 @@ public class UsersController {
 
         message.setSubject(opts.getString("cart.email.subject"));
 
-        String body = user.email + "\n" + msg;
+        String body = user.email + "\n" + cart.item;
         message.setText(body);
 
         Transport.send(message);

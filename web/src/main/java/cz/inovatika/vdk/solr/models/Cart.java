@@ -23,7 +23,7 @@ public class Cart {
   @Field
   public String user;
   @Field
-  public List<String> libraries;
+  public String library;
   @Field
   public String status;
   @Field
@@ -42,9 +42,7 @@ public class Cart {
       //Instant instant = Instant.now();
       o.created = Date.from(Instant.now());
     }
-    if (o.libraries == null) {
-      o.libraries = new ArrayList<>();
-    }
+    
     return o;
   }
 

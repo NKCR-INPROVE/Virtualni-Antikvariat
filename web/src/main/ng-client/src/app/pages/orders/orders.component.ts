@@ -56,7 +56,6 @@ export class OrdersComponent implements OnInit {
       } else {
         this.service.showSnackBar('cart.process_success');
       }
-      
     });
   }
 
