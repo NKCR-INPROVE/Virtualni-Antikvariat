@@ -7,8 +7,6 @@ a, .app-link {
 	@include setLinkColor($app-primary-color, .7);
 }
 
-.mat-button-focus-overlay { background-color: transparent!important; }
-
 .app-cursor-pointer {
 	cursor: pointer;
 }
@@ -103,6 +101,12 @@ a, .app-link {
 			&:first-of-type {
 				padding-left: $app-table-first-cell-left-pd;
 			}
+
+			.mat-button {
+				.mat-icon {
+					@include setIcon(20px);
+				}
+			}
 		}
 	}
 
@@ -176,8 +180,14 @@ a, .app-link {
 		&.app-card-actions-top {
 			.mat-icon-button {
 				@include setIconButton(20px, 20px);	
-			}
-			
+			}	
+		}
+		&.app-card-actions-bottom {
+			.mat-button {
+				.mat-icon {
+					@include setIcon(20px);
+				}
+			}	
 		}
 	}
 

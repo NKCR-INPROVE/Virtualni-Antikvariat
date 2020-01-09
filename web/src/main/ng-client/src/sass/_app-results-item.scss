@@ -89,6 +89,18 @@ app-result-item {
           margin-left: $app-gap-icon;
           color: $app-gray-7;
 
+          .app-price {
+            margin-right: 2px;
+          }
+
+          .mat-icon-button {
+            margin-right: 0;
+
+            .mat-icon {
+              margin-right: 0;
+            }
+          }
+
           label {
             color: $app-darkest;
             font-weight: bold;
