@@ -79,7 +79,6 @@ app-result-item {
 
     .mat-card-actions {
       padding-top: 0;
-      margin-top: -5px;
 
       &.app-card-actions-top {
         border-bottom: 1px solid $app-gray-3;
@@ -87,6 +86,7 @@ app-result-item {
         padding-right: $app-gap;
         margin-left: -#{$app-gap};
         margin-right: -#{$app-gap};
+        padding-bottom: 13px;
 
         .app-info-text {
           font-size: .9rem;
@@ -110,6 +110,10 @@ app-result-item {
             font-weight: bold;
           }
         }
+      }
+
+      &.app-card-actions-bottom {
+        margin-top: -5px;
       }
 
       .mat-icon {
