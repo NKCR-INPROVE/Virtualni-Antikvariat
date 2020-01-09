@@ -147,11 +147,26 @@ export class OrderCartDialogComponent implements OnInit {
     this.data.user.telefon = this.f.telefon.value;
     this.data.user.email = this.f.email.value;
 
-    this.data.doprava = this.dopravaForm.value;
-    this.data.status = 'new';
+    // this.data.doprava = this.dopravaForm.value;
+    // this.data.status = 'new';
 
-    console.log(this.data);
-    this.service.orderCart(this.data).subscribe(resp => {
+    const orders: { [key: string]: Cart } = {};
+    this.data.item.forEach(r => {
+      if (!orders[r.knihovna]) {
+        const cart = new Cart();
+        cart.library = r.knihovna;
+        cart.status = 'new';
+        cart.doprava = this.dopravaForm.value[r.knihovna];
+        cart.user = Object.assign({}, this.data.user);
+        cart.item = [];
+        orders[r.knihovna] = cart;
+      }
+      orders[r.knihovna].item.push(r);
+    });
+
+    console.log(orders);
+
+    this.service.orderCart(orders).subscribe(resp => {
       console.log(resp);
 
       if (resp.error) {
