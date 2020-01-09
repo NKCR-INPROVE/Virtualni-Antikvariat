@@ -7,6 +7,10 @@ a, .app-link {
 	@include setLinkColor($app-primary-color, .7);
 }
 
+.mat-button-focus-overlay {
+	background-color: transparent !important;
+}
+
 .app-cursor-pointer {
 	cursor: pointer;
 }
@@ -76,6 +80,10 @@ a, .app-link {
 .mat-button,
 .mat-icon-button {
 	color: $app-gray-7;
+
+	.mat-button-focus-overlay {
+		display: none !important;
+	}
 }
 
 // popover card
@@ -154,8 +162,27 @@ a, .app-link {
 	.mat-list-item {
 		.mat-icon-button {
 			@include setIconButton(18px, 18px, 0px);
-		}
+		}	
+	}
+
+	&.app-list-nogap-hover-34 {
+		padding-top: 0;
 		
+		.mat-list-item {
+			height: 34px;
+
+			&:hover {
+				background-color: $app-gray-1;
+			}
+
+			.mat-list-item-content {
+				@extend .app-clean-pd;
+
+				.mat-icon-button {
+					margin-right: 5px;
+				}
+			}
+		}
 	}
 }
 

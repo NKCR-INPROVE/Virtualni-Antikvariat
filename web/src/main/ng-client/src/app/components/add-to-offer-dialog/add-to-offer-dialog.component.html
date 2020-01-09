@@ -1,14 +1,17 @@
 <h2 mat-dialog-title>{{'desc.add_to_offer' | translate}}</h2>
 <mat-dialog-content class="mat-typography">
-  <mat-list>
+  <mat-list class="app-list-nogap-hover-34">
     <ng-container *ngFor="let offer of state.offers">
     <mat-list-item *ngIf="offer.knihovna === state.user.code" [class.active]="offer.id === state.activeOffer.id">
-      <mat-icon matTooltip="{{ offer.expired ? 'expired' : 'not_expired' | translate }}" mat-list-icon>
+      <mat-icon matTooltip="{{ offer.expired ? 'expired' : 'not_expired' | translate }}" mat-list-icon [ngClass]="{'app-item-expired' : offer.expired}">
         {{offer.expired ? 'access_time' : 'timelapse'}}</mat-icon>
-      <mat-icon matTooltip="{{ offer.closed ? 'closed' : 'open' | translate }}" mat-list-icon>
+      <mat-icon matTooltip="{{ offer.closed ? 'closed' : 'open' | translate }}" mat-list-icon [ngClass]="{'app-item-closed' : offer.closed}">
         {{offer.closed ? 'lock' : 'lock_open'}}</mat-icon>
-      <span>{{offer.nazev}}</span>
-      <mat-icon *ngIf="!offer.closed" matTooltip="{{ 'desc.add' | translate }}"  (click)="ok(offer.id, offer.nazev)">add</mat-icon>
+      <h4 mat-line>{{ offer.nazev }}</h4>
+      <button mat-icon-button *ngIf="!offer.closed" (click)="ok(offer.id, offer.nazev)">
+        <mat-icon matTooltip="{{ 'offers.add_to_offer' | translate }}">add</mat-icon>
+      </button>
+      <!-- <mat-icon *ngIf="!offer.closed" matTooltip="{{ 'desc.add' | translate }}"  (click)="ok(offer.id, offer.nazev)">add</mat-icon> -->
     </mat-list-item>
   </ng-container>
   </mat-list>
