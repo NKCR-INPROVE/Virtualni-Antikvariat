@@ -189,5 +189,9 @@
     "order":"Objednat",
     "remove": "Odstranit položku",
     "total":"Celkem"
+  },
+  "snack_bar": {
+    "add_success": "Nabídka byla úspěšně přidána",
+    "add_error": "Chyba při přidání nabídky"
   }
 }

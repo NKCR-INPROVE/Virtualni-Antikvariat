@@ -189,5 +189,9 @@
     "order":"order",
     "remove": "remove item",
     "total":"Total"
+  },
+  "snack_bar": {
+    "add_success": "Offer successfully added",
+    "add_error": "Error adding offer"
   }
 }

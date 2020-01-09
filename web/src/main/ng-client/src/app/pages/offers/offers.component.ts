@@ -122,11 +122,11 @@ export class OffersComponent implements OnInit {
         offer.created = formatDate(new Date(), 'yyyy-MM-dd\'T\'HH:mm:ss.SSS\'Z\'', 'cs');
         this.service.addOffer(offer).subscribe(resp => {
           if (resp.error) {
-            this.service.showSnackBar('offer.add_error', '', true);
+            this.service.showSnackBar('snack_bar.add_error', '', true);
           } else {
             this.state.offers.push(resp);
             this.offers.push(resp);
-            this.service.showSnackBar('offer.add_success');
+            this.service.showSnackBar('snack_bar.add_success');
           }
         });
       }

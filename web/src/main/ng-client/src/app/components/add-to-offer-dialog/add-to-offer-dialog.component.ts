@@ -27,10 +27,10 @@ export class AddToOfferDialogComponent implements OnInit {
     this.data.offer_id = id;
     this.service.addToOffer(this.data).subscribe(resp => {
       if (resp.error) {
-        this.service.showSnackBar('offer.add_error', '', true);
+        this.service.showSnackBar('snack_bar.add_error', '', true);
       } else {
         this.state.offers.push(resp);
-        this.service.showSnackBar('offer.add_success');
+        this.service.showSnackBar('snack_bar.add_success');
       }
       this.dialogRef.close('');
     });
