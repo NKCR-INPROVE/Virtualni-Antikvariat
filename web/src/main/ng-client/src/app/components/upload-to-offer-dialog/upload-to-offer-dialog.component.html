@@ -12,10 +12,10 @@
   <mat-list role="list">
     <mat-list-item role="listitem" *ngFor="let file of files" [@fadeInOut]="file.state">
       <!-- <mat-progress-bar [value]="file.progress"></mat-progress-bar> -->
-      <button mat-icon-button (click)="retryFile(file)" *ngIf="file.canRetry" matTooltip="{{ 'desc.refresh' | translate }}">
+      <button mat-icon-button (click)="retryFile(file)" *ngIf="file.canRetry" matTooltip="{{ 'desc.refresh' | translate }}" [disableRipple]="true">
         <mat-icon>refresh</mat-icon>
       </button>
-      <button mat-icon-button (click)="cancelFile(file)" *ngIf="file.canCancel" matTooltip="{{ 'desc.cancel' | translate }}" class="app-icon-cancel">
+      <button mat-icon-button (click)="cancelFile(file)" *ngIf="file.canCancel" matTooltip="{{ 'desc.cancel' | translate }}" class="app-icon-cancel" [disableRipple]="true">
         <mat-icon>cancel</mat-icon>
       </button>
       <label>{{file.data.name}}</label>
