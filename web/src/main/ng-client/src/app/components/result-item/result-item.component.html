@@ -114,10 +114,10 @@
               <button mat-icon-button *ngIf="belongUser(element)" matTooltip="{{ 'desc.add_to_offer' | translate }}" (click)="addToOffer(element)" [disableRipple]="true">
                 <mat-icon fontSet="material-icons-outlined">local_offer</mat-icon>
               </button>
-              <button mat-icon-button *ngIf="!hasDemand()" matTooltip="{{ 'desc.add_to_demand' | translate }}" (click)="addToDemands(element)" [disableRipple]="true">
+              <button mat-icon-button *ngIf="!hasDemand()" matTooltip="{{ 'demands.add_to_demand' | translate }}" (click)="addToDemands(element)" [disableRipple]="true">
                 <mat-icon fontSet="material-icons-outlined">shopping_cart</mat-icon>
               </button>
-              <button mat-icon-button *ngIf="hasDemand()" matTooltip="{{ 'desc.remove_from_demand' | translate }}" (click)="removeFromDemands(element)" [disableRipple]="true">
+              <button mat-icon-button *ngIf="hasDemand()" matTooltip="{{ 'demands.remove_from_demand' | translate }}" (click)="removeFromDemands(element)" [disableRipple]="true">
                 <mat-icon fontSet="material-icons-outlined">remove_shopping_cart</mat-icon>
               </button>
             </ng-container>
@@ -138,13 +138,13 @@
       (click)="addToOffer()">
       <mat-icon fontSet="material-icons-outlined">local_offer</mat-icon>{{ 'desc.add_to_offer' | translate }}
     </button>
-    <button *ngIf="state.isLibrary && !hasDemand()" mat-button matTooltip="{{ 'desc.add_to_demand' | translate }}"
+    <button *ngIf="state.isLibrary && !hasDemand()" mat-button matTooltip="{{ 'demands.add_to_demand' | translate }}"
       (click)="addToDemands()">
-      <mat-icon fontSet="material-icons-outlined">shopping_cart</mat-icon>{{ 'desc.add_to_demand' | translate }}
+      <mat-icon fontSet="material-icons-outlined">shopping_cart</mat-icon>{{ 'demands.add_to_demand' | translate }}
     </button>
-    <button *ngIf="hasDemand()" mat-button matTooltip="{{ 'desc.remove_from_demand' | translate }}"
+    <button *ngIf="hasDemand()" mat-button matTooltip="{{ 'demands.remove_from_demand' | translate }}"
       (click)="removeFromDemands()">
-      <mat-icon fontSet="material-icons-outlined">remove_shopping_cart</mat-icon>{{ 'demands.remove' | translate }}
+      <mat-icon fontSet="material-icons-outlined">remove_shopping_cart</mat-icon>{{ 'demands.remove_from_demand' | translate }}
     </button>
     <button *ngIf="state.isLibrary" mat-button matTooltip="{{ 'desc.csv_format' | translate }}" (click)="csv()">
       <mat-icon>text_format</mat-icon>{{ 'desc.csv_format' | translate }}

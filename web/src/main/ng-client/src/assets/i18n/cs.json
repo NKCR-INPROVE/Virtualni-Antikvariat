@@ -53,7 +53,6 @@
   "desc": {
     "view_original_metadata": "Zobrazit originální metadata",
     "add_to_offer": "Přidat do nabídky",
-    "add_to_demand": "Přidat do poptávky",
     "demands": "Poptávky",
     "offers": "Nabídky",
     "csv_format": "CSV formát",
@@ -99,7 +98,9 @@
   },
   "demands": {
     "add": "Přidat poptávku",
-    "remove": "Odstranit poptávku"
+    "remove": "Odstranit poptávku",
+    "add_to_demand": "Přidat do poptávky",
+    "remove_from_demand": "Odstranit z poptávky"
   },
   "offers": {
     "add": "Přidat nabídku",
@@ -112,7 +113,6 @@
     "import_to_offer": "Importovat do nabídky",
     "add_to_offer_by_searching": "Založit nabídku z vyhledávání",
     "upload_format": "Formát pro nahrání souboru",
-
     "title_245a":"Titul (245a) (245b) (245c)",
     "part_number": "Číslo části (245n)",
     "part_name": "Název části (245p)",

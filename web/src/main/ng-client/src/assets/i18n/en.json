@@ -99,7 +99,9 @@
   },
   "demands": {
     "add": "Add demandd",
-    "remove": "Remove demand"
+    "remove": "Remove demand",
+    "add_to_demand": "Add to demand",
+    "remove_from_demand": "Remove from demand"
   },
   "offers": {
     "add": "Add offer",
@@ -112,7 +114,6 @@
     "import_to_offer": "Import to offer",
     "add_to_offer_by_searching": "Add to offer by searching",
     "upload_format": "Upload format",
-
     "title_245a":"Title (245a) (245b) (245c)",
     "part_number": "Part number (245n)",
     "part_name": "Name number (245p)",
