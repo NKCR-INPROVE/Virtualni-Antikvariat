@@ -10,6 +10,10 @@ app-result-item {
         .mat-card-title {
           font-size: $app-card-title-font-size;
           scroll-margin-bottom: $app-gap;
+
+          .mat-icon-button {
+            vertical-align: top;
+          }
         }
   
         .mat-card-subtitle {
