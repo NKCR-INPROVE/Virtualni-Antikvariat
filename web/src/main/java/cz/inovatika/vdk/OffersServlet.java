@@ -1,16 +1,29 @@
 package cz.inovatika.vdk;
 
+import au.com.bytecode.opencsv.CSVReader;
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.serializer.SerializerFeature;
+import cz.inovatika.vdk.common.Slouceni;
 import cz.inovatika.vdk.common.SolrIndexerCommiter;
 import cz.inovatika.vdk.solr.Indexer;
 import cz.inovatika.vdk.solr.models.Offer;
 import cz.inovatika.vdk.solr.models.OfferRecord;
 import cz.inovatika.vdk.solr.models.User;
+import java.io.ByteArrayInputStream;
+import java.io.File;
 import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
 import java.io.PrintWriter;
+import java.io.Reader;
+import java.io.StringReader;
+import java.io.StringWriter;
 import java.net.InetAddress;
+import java.sql.Connection;
+import java.sql.SQLException;
 import java.util.HashSet;
+import java.util.Iterator;
+import java.util.List;
 import java.util.Set;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -19,6 +32,14 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.xml.transform.Transformer;
+import javax.xml.transform.TransformerFactory;
+import javax.xml.transform.stream.StreamResult;
+import javax.xml.transform.stream.StreamSource;
+import org.apache.commons.fileupload.FileItem;
+import org.apache.commons.fileupload.FileItemFactory;
+import org.apache.commons.fileupload.disk.DiskFileItemFactory;
+import org.apache.commons.fileupload.servlet.ServletFileUpload;
 import org.apache.commons.io.IOUtils;
 import org.apache.solr.client.solrj.SolrQuery;
 import org.apache.solr.client.solrj.SolrServerException;
@@ -97,6 +118,44 @@ public class OffersServlet extends HttpServlet {
     }
   }
 
+  public static void processStream(Reader reader, String idOffer, String knihovna, JSONObject json) throws Exception {
+    try {
+      CSVReader parser = new CSVReader(reader, '\t', '\"', false);
+      String[] parts = parser.readNext();
+      int lines = 0;
+      while (parts != null) {
+        if (!(parts.length == 1 && parts[0].equals(""))) {
+
+          JSONObject slouceni = Slouceni.fromCSVStringArray(parts);
+          
+          //LOGGER.log(Level.INFO, slouceni.toString());
+
+          OfferRecord or = new OfferRecord();
+          or.offer_id = idOffer;
+          or.doc_code = slouceni.getString("docCode");
+          or.knihovna = knihovna;
+          StringBuilder title = new StringBuilder();
+          // concat(marc:datafield[@tag=245]/marc:subfield[@code='a'],marc:datafield[@tag=245]/marc:subfield[@code='b'])
+          title.append(slouceni.optString("245a", ""))
+                  .append(slouceni.optString("245b", ""));
+          or.title = title.toString();
+          or.fields = slouceni.toString();
+          or.generateId();
+          JSONObject ret = new JSONObject(SolrIndexerCommiter.indexJSON(new JSONObject(JSON.toJSONString(or)), "offersCore"));
+
+          //insertNabidka(null, null, docCode, idOffer, slouceni.toString());
+          lines++;
+        }
+        parts = parser.readNext();
+      }
+      json.put("message", "imported " + lines + " lines to offer: " + idOffer);
+    } catch (IOException | JSONException ex) {
+      LOGGER.log(Level.SEVERE, null, ex);
+      json.put("error", "Error processing file: " + ex.toString());
+      //throw new Exception("Not valid csv file. Separator must be tabulator and line must be ", ex);
+    }
+  }
+
   enum Actions {
     ADD {
       @Override
@@ -132,12 +191,12 @@ public class OffersServlet extends HttpServlet {
 
         JSONObject jo = new JSONObject();
         try {
-          
+
           Options opts = Options.getInstance();
           try (HttpSolrClient client = new HttpSolrClient.Builder("http://localhost:8983/solr").build()) {
             client.deleteById(opts.getString("offersCore", "offers"), req.getParameter("id"));
             client.commit(opts.getString("offersCore", "offers"));
-            
+
             client.deleteByQuery(opts.getString("offersCore", "offers"), "offer_id:" + req.getParameter("id"));
             client.commit(opts.getString("offersCore", "offers"));
             Indexer indexer = new Indexer();
@@ -170,7 +229,6 @@ public class OffersServlet extends HttpServlet {
           } else {
             json = new JSONObject(req.getParameter("json"));
           }
-          System.out.println(json);
           OfferRecord or = OfferRecord.fromJSON(json);
           JSONObject ret = new JSONObject(SolrIndexerCommiter.indexJSON(new JSONObject(JSON.toJSONString(or)), "offersCore"));
 
@@ -192,7 +250,7 @@ public class OffersServlet extends HttpServlet {
 
         JSONObject jo = new JSONObject();
         try {
-          
+
           Options opts = Options.getInstance();
           try (HttpSolrClient client = new HttpSolrClient.Builder("http://localhost:8983/solr").build()) {
             client.deleteById(opts.getString("offersCore", "offers"), req.getParameter("id"));
@@ -331,6 +389,8 @@ public class OffersServlet extends HttpServlet {
           SolrQuery query = new SolrQuery("offer_id:" + req.getParameter("id"));
           query.set("wt", "json");
           query.setFields("*,fields:[json]");
+          query.setSort("title", SolrQuery.ORDER.asc);
+          query.setRows(100);
           try (HttpSolrClient client = new HttpSolrClient.Builder(opts.getString("solrHost")).build()) {
             QueryRequest qreq = new QueryRequest(query);
 
@@ -354,7 +414,88 @@ public class OffersServlet extends HttpServlet {
         return jo;
 
       }
-    };
+    },
+    ADDFILE {
+      @Override
+      JSONObject doPerform(HttpServletRequest req, HttpServletResponse resp) throws Exception {
+
+        JSONObject json = new JSONObject();
+        
+        if (!UsersController.isLogged(req)) {
+          json.put("error", "not logged");
+          return json;
+        }
+
+        /// Create a factory for disk-based file items
+        FileItemFactory factory = new DiskFileItemFactory();
+
+        // Create a new file upload handler
+        ServletFileUpload upload = new ServletFileUpload(factory);
+
+        // Parse the request
+        List /* FileItem */ items = upload.parseRequest(req);
+
+        Iterator iter = items.iterator();
+
+        String idOffer = req.getParameter("offerId");
+        String format = req.getParameter("format");
+        while (iter.hasNext()) {
+          FileItem item = (FileItem) iter.next();
+          if (item.isFormField()) {
+            LOGGER.log(Level.INFO, "------ {0} param value : {1}", new Object[]{item.getFieldName(), item.getString()});
+            switch (item.getFieldName()) {
+              case "id":
+                idOffer = item.getString();
+                break;
+              case "fileFormat":
+                format = item.getString();
+                break;
+            }
+          }
+        }
+        if (idOffer == null) {
+          json.put("error", "nabidka ne platna, no id");
+          LOGGER.log(Level.WARNING, "Offer id missing");
+        } else {
+          iter = items.iterator();
+          while (iter.hasNext()) {
+            FileItem item = (FileItem) iter.next();
+            if (item.isFormField()) {
+              continue;
+            }
+            try (InputStream uploadedStream = item.getInputStream()) {
+              byte[] bytes = IOUtils.toByteArray(uploadedStream);
+              ByteArrayInputStream bais = new ByteArrayInputStream(bytes);
+              //uploadedStream.mark(uploadedStream.available());
+
+              try {
+                String knihovna = UsersController.get(req).getString("code");
+
+                if (format.equals("ALEPH")) {
+                  TransformerFactory tfactory = TransformerFactory.newInstance();
+                  StreamSource xslt = new StreamSource(new File(Options.getInstance().getString("alephXSL", "aleph_to_csv.xsl")));
+                  StringWriter sw = new StringWriter();
+                  StreamResult destStream = new StreamResult(sw);
+                  Transformer transformer = tfactory.newTransformer(xslt);
+                  transformer.transform(new StreamSource(bais), destStream);
+
+                  //json.put("cvs", sw.toString());
+                  //out.println(sw.toString());
+                  processStream(new StringReader(sw.toString()), idOffer, knihovna, json);
+                } else {
+                  processStream(new InputStreamReader(bais, "UTF-8"), idOffer, knihovna, json);
+                }
+
+              } catch (Exception ex) {
+                LOGGER.log(Level.SEVERE, "import to offer failed", ex);
+                json.put("error", ex.toString());
+              }
+            }
+          }
+        }
+        return json;
+      }
+    },;
 
     abstract JSONObject doPerform(HttpServletRequest req, HttpServletResponse response) throws Exception;
   }

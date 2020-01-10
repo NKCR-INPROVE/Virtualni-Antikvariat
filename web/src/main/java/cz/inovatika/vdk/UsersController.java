@@ -105,7 +105,7 @@ public class UsersController {
 
         Options opts = Options.getInstance();
         JSONObject jo = get(req);
-        SolrQuery query = new SolrQuery("libraries:" + jo.getString("code"));
+        SolrQuery query = new SolrQuery("library:" + jo.getString("code"));
         query.setFields("*,user:[json],item:[json]");
         try (HttpSolrClient client = new HttpSolrClient.Builder(opts.getString("solrHost")).build()) {
           // final QueryResponse response = client.query(opts.getString("cartCore", "cart"), query);

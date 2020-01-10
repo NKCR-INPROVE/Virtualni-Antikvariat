@@ -55,5 +55,11 @@ public class OfferRecord {
     return ofr;
   }
   
+  public void generateId(){
+    if (this.id == null || this.id.trim().isEmpty()) {
+      this.id = MD5.generate(new String[]{this.offer_id, this.doc_code, this.knihovna, this.zaznam, this.exemplar, this.fields});
+    }
+  }
+  
   
 }

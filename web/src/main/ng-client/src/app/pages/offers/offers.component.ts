@@ -144,7 +144,7 @@ export class OffersComponent implements OnInit {
   uploadToOffer() {
     const dialogRef = this.dialog.open(UploadToOfferDialogComponent, {
       width: '350px',
-      data: { title: 'offers.add' }
+      data: { title: 'offers.add', offerId: this.currentOffer.id }
     });
 
     dialogRef.afterClosed().subscribe(result => {
@@ -187,7 +187,6 @@ export class OffersComponent implements OnInit {
 
   addToVA(record: OfferRecord) {
 
-    let canOffer = true;
     if (!record.cena || record.cena === 0) {
       const dialogRef = this.dialog.open(PromptDialogComponent, {
         width: '350px',

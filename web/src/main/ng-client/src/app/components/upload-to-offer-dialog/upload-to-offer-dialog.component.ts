@@ -77,8 +77,8 @@ export class UploadToOfferDialogComponent implements OnInit {
   private uploadFile(file: FileUploadModel) {
     const fd = new FormData();
     fd.append(this.param, file.data);
-
-    const req = new HttpRequest('POST', this.target, fd, {
+    const url = this.target + '?offerId=' + this.data.offerId + '&format=' + this.format;
+    const req = new HttpRequest('POST', url, fd, {
       reportProgress: true
     });
 

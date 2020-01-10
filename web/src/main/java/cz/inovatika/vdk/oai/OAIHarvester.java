@@ -19,6 +19,7 @@ import javax.xml.transform.stream.StreamResult;
 import javax.xml.transform.stream.StreamSource;
 import java.io.*;
 import java.net.URL;
+import java.time.Instant;
 import java.util.Arrays;
 import java.util.Calendar;
 import java.util.Date;
@@ -177,7 +178,7 @@ public class OAIHarvester {
 
       logger.addHandler(logFile);
 
-      long startTime = (new Date()).getTime();
+      long startTime = Date.from(Instant.now()).getTime();
       currentIndex = 0;
 
       if (jobData.isFromDisk()) {
@@ -211,7 +212,7 @@ public class OAIHarvester {
         }
       }
       SolrIndexerCommiter.closeClients();
-      long timeInMiliseconds = (new Date()).getTime() - startTime;
+      long timeInMiliseconds = Date.from(Instant.now()).getTime() - startTime;
       logger.log(Level.INFO, "HARVEST SUCCESS {0} records", currentDocsSent);
       logger.info(formatElapsedTime(timeInMiliseconds));
 
@@ -229,7 +230,7 @@ public class OAIHarvester {
 
   private void writeStatus(String from) throws FileNotFoundException, IOException {
     if (from == null || "".equals(from)) {
-      statusJson.put(LAST_HARVEST, jobData.getSdfoai().format(new Date()));
+      statusJson.put(LAST_HARVEST, jobData.getSdfoai().format(Date.from(Instant.now())));
     } else {
       statusJson.put(LAST_HARVEST, from);
     }
@@ -246,8 +247,7 @@ public class OAIHarvester {
     c_to.add(jobData.getInterval(), 1);
 
     String to;
-    Date date = new Date();
-    //jobData.getSdfoai().setTimeZone(TimeZone.getTimeZone("GMT"));
+    Date date = Date.from(Instant.now());
 
     if (jobData.getTo() == null) {
       to = jobData.getSdfoai().format(date);
@@ -347,12 +347,12 @@ public class OAIHarvester {
       String identifier;
 
       String fileName = null;
-      String recdate = jobData.getSdfoai().format(new Date());
+      String recdate = jobData.getSdfoai().format(Date.from(Instant.now()));
       if (!jobData.isNoDate()) {
         recdate = xmlReader.getNodeValue("//oai:record[position()=1]/oai:header/oai:datestamp/text()");
       }
       if (recdate == null || "".equals(recdate)) {
-        recdate = jobData.getSdfoai().format(new Date());
+        recdate = jobData.getSdfoai().format(Date.from(Instant.now()));
       }
       if (jobData.isSaveToDisk()) {
         fileName = writeNodeToFile(xmlReader.getNodeElement(),
