@@ -164,7 +164,6 @@ export class OrderCartDialogComponent implements OnInit {
       orders[r.knihovna].item.push(r);
     });
 
-    console.log(orders);
 
     this.service.orderCart(orders).subscribe(resp => {
       console.log(resp);

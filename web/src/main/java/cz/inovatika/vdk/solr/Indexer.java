@@ -488,6 +488,8 @@ public class Indexer {
     addField(doc, "nabidka", record.offer_id, "add");
     if (record.isVA) {
       addField(doc, "isVA", record.isVA, "set");
+    } else {
+      addField(doc, "isVA", false, "set");
     }
     // addField(doc, "nabidka_datum", offer.created, "add");
 

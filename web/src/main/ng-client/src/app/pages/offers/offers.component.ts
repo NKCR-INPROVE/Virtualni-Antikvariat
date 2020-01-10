@@ -197,28 +197,19 @@ export class OffersComponent implements OnInit {
       dialogRef.afterClosed().subscribe(result => {
         if (result) {
           record.cena = result;
-          canOffer = true;
-        } else {
-          canOffer = false;
+          record.isVA = true;
+          this.service.addToOffer(record).subscribe(resp => {
+            if (resp.error) {
+              this.service.showSnackBar('offer.add_to_va_error', '', true);
+            } else {
+              this.service.showSnackBar('offer.add_to_va_success');
+            }
+          });
         }
 
 
       });
-
-      if (canOffer) {
-        record.isVA = true;
-        this.service.addToOffer(record).subscribe(resp => {
-          if (resp.error) {
-            this.service.showSnackBar('offer.add_to_va_error', '', true);
-          } else {
-            this.service.showSnackBar('offer.add_to_va_success');
-          }
-        });
-
-      }
-    }
-
-    if (canOffer) {
+    } else {
       record.isVA = true;
       this.service.addToOffer(record).subscribe(resp => {
         if (resp.error) {
@@ -227,8 +218,8 @@ export class OffersComponent implements OnInit {
           this.service.showSnackBar('offer.add_to_va_success');
         }
       });
-
     }
+
   }
 
   removeFromVA(record: OfferRecord) {
