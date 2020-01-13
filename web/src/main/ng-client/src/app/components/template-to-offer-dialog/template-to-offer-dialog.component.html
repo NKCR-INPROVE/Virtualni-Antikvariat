@@ -7,45 +7,45 @@
 			<input name="action" value="ADDFORMTOOFFER" type="hidden">
 
 			<mat-form-field class="app-input-full-width">
-				<input matInput placeholder="ISBN (020a)" name="isbn">
+				<input matInput placeholder="ISBN (020a)" name="isbn" [(ngModel)]="fields.isbn">
 			</mat-form-field>	
 			<mat-form-field class="app-input-full-width">
-				<input matInput placeholder="ISSN (022a)" name="issn">
+				<input matInput placeholder="ISSN (022a)" name="issn" [(ngModel)]="fields.issn">
 			</mat-form-field>
 			<mat-form-field class="app-input-full-width">
-				<input matInput placeholder="čČNB (015a)" name="ccnb">
+				<input matInput placeholder="čČNB (015a)" name="ccnb" [(ngModel)]="fields['ccnb']">
 			</mat-form-field>	
 			<mat-form-field class="app-input-full-width">
-				<input matInput placeholder="{{ 'offers.title_245a' | translate }}" name="title">
+				<input matInput placeholder="{{ 'offers.title_245a' | translate }}" name="title" [(ngModel)]="fields['245a']">
 			</mat-form-field>	
 			<mat-form-field class="app-input-full-width">
-				<input matInput placeholder="{{ 'offers.part_number' | translate }}" name="f245n">
+				<input matInput placeholder="{{ 'offers.part_number' | translate }}" name="f245n" [(ngModel)]="fields['245n']">
 			</mat-form-field>	
 			<mat-form-field class="app-input-full-width">
-				<input matInput placeholder="{{ 'offers.part_name' | translate }}" name="f245p">
+				<input matInput placeholder="{{ 'offers.part_name' | translate }}" name="f245p" [(ngModel)]="fields['245p']">
 			</mat-form-field>
 			<mat-form-field class="app-input-full-width">
-				<input matInput placeholder="{{ 'offers.edition_info' | translate }}" name="f250a">
+				<input matInput placeholder="{{ 'offers.edition_info' | translate }}" name="f250a" [(ngModel)]="fields['250a']">
 			</mat-form-field>
 		</div>
 		<div fxFlex.gt-sm="50%" fxFlex.gt-xs="50%" fxFlex.xs="100%">
 			<mat-form-field class="app-input-full-width">
-				<input matInput placeholder="{{ 'offers.author_name_surname' | translate }}" name="f100a">
+				<input matInput placeholder="{{ 'offers.author_name_surname' | translate }}" name="f100a" [(ngModel)]="fields['100a']">
 			</mat-form-field>	
 			<mat-form-field class="app-input-full-width">
-				<input matInput placeholder="{{ 'offers.author_corporation' | translate }}" name="f110a">
+				<input matInput placeholder="{{ 'offers.author_corporation' | translate }}" name="f110a" [(ngModel)]="fields['110a']">
 			</mat-form-field>	
 			<mat-form-field class="app-input-full-width">
-				<input matInput placeholder="{{ 'offers.author_action_name' | translate }}" name="f11a">
+				<input matInput placeholder="{{ 'offers.author_action_name' | translate }}" name="f111a" [(ngModel)]="fields['111a']">
 			</mat-form-field>
 			<mat-form-field class="app-input-full-width">
-				<input matInput placeholder="{{ 'offers.publication_details' | translate }}" name="f260">
+				<input matInput placeholder="{{ 'offers.publication_details' | translate }}" name="f260" [(ngModel)]="fields['260']">
 			</mat-form-field>	
 			<mat-form-field class="app-input-full-width">
-				<input matInput placeholder="{{ 'desc.price' | translate }}" name="cena">
+				<input matInput placeholder="{{ 'desc.price' | translate }}" name="cena" [(ngModel)]="fields.cena">
 			</mat-form-field>	
 			<mat-form-field class="app-input-full-width">
-				<input matInput placeholder="{{ 'desc.comment' | translate }}" name="comment">
+				<input matInput placeholder="{{ 'desc.comment' | translate }}" name="comment" [(ngModel)]="fields.comment">
 			</mat-form-field>	
 		</div>
 	</form>

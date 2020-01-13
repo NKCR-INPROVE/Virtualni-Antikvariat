@@ -149,7 +149,7 @@ export class OffersComponent implements OnInit {
 
     dialogRef.afterClosed().subscribe(result => {
       if (result) {
-
+        this.refreshOffer();
       }
     });
 
@@ -173,11 +173,27 @@ export class OffersComponent implements OnInit {
   templateToOffer() {
     const dialogRef = this.dialog.open(TemplateToOfferDialogComponent, {
       width: '600px',
-      data: { title: 'offers.add' }
+      data: new OfferRecord()
     });
 
     dialogRef.afterClosed().subscribe(result => {
       if (result) {
+        const record = new OfferRecord();
+        record.offer_id = this.currentOffer.id;
+        record.title = result.title;
+        record.cena = result.cena;
+        record.comment = result.comment;
+        record.fields = result;
+        record.knihovna = this.currentOffer.knihovna;
+
+        this.service.addToOffer(record).subscribe(resp => {
+          if (resp.error) {
+            this.service.showSnackBar('snack_bar.add_error', '', true);
+          } else {
+            this.refreshOffer();
+            this.service.showSnackBar('snack_bar.add_success');
+          }
+        });
 
       }
     });

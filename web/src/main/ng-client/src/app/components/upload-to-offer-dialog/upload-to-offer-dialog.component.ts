@@ -101,6 +101,7 @@ export class UploadToOfferDialogComponent implements OnInit {
               this.service.showSnackBar('offer.upload_success');
             }
             this.loading = false;
+            this.dialogRef.close(true);
             return event;
         }
       }),

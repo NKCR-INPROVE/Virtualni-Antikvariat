@@ -21,9 +21,11 @@ import java.io.StringWriter;
 import java.net.InetAddress;
 import java.sql.Connection;
 import java.sql.SQLException;
+import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Iterator;
 import java.util.List;
+import java.util.Map;
 import java.util.Set;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -127,9 +129,8 @@ public class OffersServlet extends HttpServlet {
         if (!(parts.length == 1 && parts[0].equals(""))) {
 
           JSONObject slouceni = Slouceni.fromCSVStringArray(parts);
-          
-          //LOGGER.log(Level.INFO, slouceni.toString());
 
+          //LOGGER.log(Level.INFO, slouceni.toString());
           OfferRecord or = new OfferRecord();
           or.offer_id = idOffer;
           or.doc_code = slouceni.getString("docCode");
@@ -230,6 +231,18 @@ public class OffersServlet extends HttpServlet {
             json = new JSONObject(req.getParameter("json"));
           }
           OfferRecord or = OfferRecord.fromJSON(json);
+          if (or.doc_code == null) {
+            JSONObject f = new JSONObject(or.fields);
+            Map<String, Object> map = new HashMap<String, Object>();
+            Iterator<String> keys = f.keys();
+            while (keys.hasNext()) {
+              String key = keys.next();
+              Object value = f.get(key);
+              map.put(key, value);
+            }
+            JSONObject slouceni = Slouceni.fromMap(map);
+            or.doc_code = slouceni.getString("docCode");
+          }
           JSONObject ret = new JSONObject(SolrIndexerCommiter.indexJSON(new JSONObject(JSON.toJSONString(or)), "offersCore"));
 
           Indexer indexer = new Indexer();
@@ -420,7 +433,7 @@ public class OffersServlet extends HttpServlet {
       JSONObject doPerform(HttpServletRequest req, HttpServletResponse resp) throws Exception {
 
         JSONObject json = new JSONObject();
-        
+
         if (!UsersController.isLogged(req)) {
           json.put("error", "not logged");
           return json;
