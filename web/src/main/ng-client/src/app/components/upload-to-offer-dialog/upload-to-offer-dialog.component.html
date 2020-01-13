@@ -21,6 +21,7 @@
       <label>{{file.data.name}}</label>
     </mat-list-item>
   </mat-list>
+  <mat-progress-bar *ngIf="loading" mode="indeterminate"></mat-progress-bar>
 
 </mat-dialog-content>
 <mat-dialog-actions align="end">

@@ -9,6 +9,7 @@ import {
 } from '@angular/common/http';
 
 import { catchError, last, map, tap } from 'rxjs/operators';
+import { AppService } from 'src/app/app.service';
 
 
 @Component({
@@ -16,12 +17,12 @@ import { catchError, last, map, tap } from 'rxjs/operators';
   templateUrl: './upload-to-offer-dialog.component.html',
   styleUrls: ['./upload-to-offer-dialog.component.scss'],
   animations: [
-        trigger('fadeInOut', [
-              state('in', style({ opacity: 100 })),
-              transition('* => void', [
-                    animate(300, style({ opacity: 0 }))
-              ])
-        ])
+    trigger('fadeInOut', [
+      state('in', style({ opacity: 100 })),
+      transition('* => void', [
+        animate(300, style({ opacity: 0 }))
+      ])
+    ])
   ]
 })
 export class UploadToOfferDialogComponent implements OnInit {
@@ -38,11 +39,13 @@ export class UploadToOfferDialogComponent implements OnInit {
   @Output() complete = new EventEmitter<string>();
 
   format: string;
+  loading: boolean = false;
 
   public files: Array<FileUploadModel> = [];
 
 
   constructor(
+    private service: AppService,
     public dialogRef: MatDialogRef<UploadToOfferDialogComponent>,
     @Inject(MAT_DIALOG_DATA) public data: any,
     private http: HttpClient) { }
@@ -83,6 +86,7 @@ export class UploadToOfferDialogComponent implements OnInit {
     });
 
     file.inProgress = true;
+    this.loading = true;
     file.sub = this.http.request(req).pipe(
       map(event => {
         switch (event.type) {
@@ -90,6 +94,13 @@ export class UploadToOfferDialogComponent implements OnInit {
             file.progress = Math.round(event.loaded * 100 / event.total);
             break;
           case HttpEventType.Response:
+            const resp: any = event.body;
+            if (resp.error) {
+              this.service.showSnackBar('offer.upload_error', resp.error, true);
+            } else {
+              this.service.showSnackBar('offer.upload_success');
+            }
+            this.loading = false;
             return event;
         }
       }),
