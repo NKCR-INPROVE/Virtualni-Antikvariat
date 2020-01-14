@@ -5,12 +5,19 @@ app-navbar {
     font-size: 16px;
 
     .mat-toolbar-row {
-      & > div {
-        & > span {
-          &:not(:first-child) {
-            margin-left: $app-gap;
-          }
+      .app-container {
+        padding: 0 $app-gap;
+      }
+
+      div {
+        &.app-fx-left, &.app-fx-right {
+          & > span {
+            &:not(:first-child) {
+              margin-left: $app-gap;
+            }
+          } 
         }
+        
       }
     }
   }
@@ -28,20 +35,16 @@ app-navbar {
     margin-left: $app-gap-icon;
   }
 
-  .app-row-top-wrapper {
+  .app-row-top {
     background-color: $app-lightest;
+    color: $app-gray-6;
 
-    .app-row-top {
-      background-color: $app-lightest;
-      color: $app-gray-6;
-  
-      .app-fx-left {
-        img {
-          max-height: $app-navbar-logo-height;
-          vertical-align: top;
-        }
-      } 
-    }
+    .app-fx-left {
+      img {
+        max-height: $app-navbar-logo-height;
+        vertical-align: top;
+      }
+    } 
   }
 
   .app-row-bottom {

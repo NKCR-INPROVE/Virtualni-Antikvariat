@@ -1,28 +1,30 @@
 <mat-toolbar color="primary">
-  <div class="app-row-top-wrapper">
-    <mat-toolbar-row fxLayout="row" class="app-row-top app-container" fxLayout.lt-sm="column">
-      <div fxFlex fxFlex.lt-sm="100%" class="app-fx-left">
-        <span><a routerLink="home" matTooltip="{{'app.title' | translate}}">
-          <img *ngIf="state.isLibrary" [src]="config.context + '/assets/img/logo-vdk-primary-desc.png'" alt="{{'app.title' | translate}}" />
-          <img *ngIf="!state.isLibrary" [src]="config.context + '/assets/img/logo-va.png'" alt="{{'app.title_va' | translate}}" />
-        </a></span>
-      </div>
-      <div fxFlex fxFlex.lt-sm="100%" class="app-fx-right" [ngClass.lt-md]="'app-hide'">
-        <span><a routerLink="home">{{'navbar.home' | translate}}</a></span>
-        <span><a routerLink="/registrace">{{'navbar.registration' | translate}}</a></span>
-        <span *ngIf="user && user.role === 'ADMIN'"><a routerLink="/admin">{{'navbar.administration' | translate}}</a></span>
-        <span><a (click)="changeLang()" class="app-link">{{currLang}}</a></span>
-        <span>
-          <a *ngIf="!user" (click)="login()" class="app-link">{{'navbar.login' | translate}}</a>
-          <ng-container *ngIf="user">
-            {{user.nazev}}
-            <a routerLink="profile" matTooltip="{{'user.profile' | translate}}"><mat-icon>person</mat-icon></a>
-            <a (click)="logout()" matTooltip="{{'navbar.logout' | translate}}"><mat-icon>input</mat-icon></a>
-          </ng-container>
-        </span>
+  
+    <mat-toolbar-row fxLayout="row" class="app-row-top" fxLayout.lt-sm="column">
+      <div class="app-container">
+        <div fxFlex fxFlex.lt-sm="100%" class="app-fx-left">
+          <span><a routerLink="home" matTooltip="{{'app.title' | translate}}">
+            <img *ngIf="state.isLibrary" [src]="config.context + '/assets/img/logo-vdk-primary-desc.png'" alt="{{'app.title' | translate}}" />
+            <img *ngIf="!state.isLibrary" [src]="config.context + '/assets/img/logo-va.png'" alt="{{'app.title_va' | translate}}" />
+          </a></span>
+        </div>
+        <div fxFlex fxFlex.lt-sm="100%" class="app-fx-right" [ngClass.lt-md]="'app-hide'">
+          <span><a routerLink="home">{{'navbar.home' | translate}}</a></span>
+          <span><a routerLink="/registrace">{{'navbar.registration' | translate}}</a></span>
+          <span *ngIf="user && user.role === 'ADMIN'"><a routerLink="/admin">{{'navbar.administration' | translate}}</a></span>
+          <span><a (click)="changeLang()" class="app-link">{{currLang}}</a></span>
+          <span>
+            <a *ngIf="!user" (click)="login()" class="app-link">{{'navbar.login' | translate}}</a>
+            <ng-container *ngIf="user">
+              {{user.nazev}}
+              <a routerLink="profile" matTooltip="{{'user.profile' | translate}}"><mat-icon>person</mat-icon></a>
+              <a (click)="logout()" matTooltip="{{'navbar.logout' | translate}}"><mat-icon>input</mat-icon></a>
+            </ng-container>
+          </span>
+        </div>
       </div>
     </mat-toolbar-row>
-  </div>
+  
 
   <mat-toolbar-row fxLayout="row" class="app-row-bottom app-container">
     <div fxFlex class="app-fx-left">
