@@ -87,7 +87,8 @@
     "not_expired": "Not expired",
     "closed": "Closed",
     "open" : "Open",
-    "upload": "Upload"
+    "upload": "Upload",
+    "total": "Total"
   },
   "count": "Count of search results",
   "q.placeholder": "Search in virtual depoiste library ...",
@@ -187,9 +188,8 @@
     "nespravne_heslo": "The password you entered is not correct"
   },
   "cart" : {
-    "order":"order",
-    "remove": "remove item",
-    "total":"Total"
+    "order":"Order",
+    "remove_from_basket": "Remove from basket"
   },
   "snack_bar": {
     "add_success": "Offer successfully added",

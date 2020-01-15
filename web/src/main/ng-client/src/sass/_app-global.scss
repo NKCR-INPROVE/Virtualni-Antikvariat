@@ -111,6 +111,10 @@ a, .app-link {
 				padding-left: $app-table-first-cell-left-pd;
 			}
 
+			&.app-header-cell-30 {
+				width: 30px;
+			}
+
 			.mat-button {
 				.mat-icon {
 					@include setIcon(20px);
@@ -137,6 +141,10 @@ a, .app-link {
 		.mat-cell {
 			&:first-of-type {
 				padding-left: $app-table-first-cell-left-pd;
+			}
+
+			&.mat-column-button:last-child {
+				text-align: right;
 			}
 			
 			.mat-icon-button {

@@ -86,7 +86,8 @@
     "not_expired": "Platnost ještě nevypršela",
     "closed": "Zavřená",
     "open" : "Otevřená",
-    "upload": "Nahrát"
+    "upload": "Nahrát",
+    "total": "Celkem"
   },
   "count": "Počet nalezených položek",
   "q.placeholder": "Hledej ve virtuální depozitní knihovně ...",
@@ -187,8 +188,7 @@
   },
   "cart" : {
     "order":"Objednat",
-    "remove": "Odstranit položku",
-    "total":"Celkem"
+    "remove_from_basket": "Odstranit z košíku"
   },
   "snack_bar": {
     "add_success": "Nabídka byla úspěšně přidána",
