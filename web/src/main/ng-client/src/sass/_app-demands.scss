@@ -10,19 +10,12 @@ app-demands {
     .mat-table {
       thead {
         .mat-header-cell {
-          &.mat-column-button {
-            width: 30px;
-            text-align: right;
-          }
+          
         }
       }
 
       tbody {
         .mat-cell {
-          &.mat-column-button {
-            text-align: right;
-          }
-
           .app-comment {
             color: $app-gray-6;
             font-size: .8rem;
