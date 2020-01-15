@@ -39,13 +39,17 @@ export class AppComponent implements OnInit {
       const isLogged = x !== null;
       this.state.user = x;
       this.state.isLibrary = isLogged && this.state.user.role === 'LIBRARY';
+      this.state.isAdmin = isLogged && this.state.user.role === 'ADMIN';
       const lib = isLogged && x.role === 'LIBRARY';
       const theme = lib ? 'vdk-theme' : 'va-theme';
       this.overlayContainer.getContainerElement().classList.add(theme);
       this.componentCssClass = theme;
       const favico = lib ? 'vdk-ico.png' : 'va-ico.png';
       this.setFavIcon('assets/img/' + favico);
-      this.service.getOffers().subscribe();
+      if (this.state.isLibrary) {
+        this.service.getOffers().subscribe();
+      }
+      
     });
     this.router.events.subscribe(val => {
       if (val instanceof NavigationEnd) {

@@ -13,6 +13,7 @@ export class AppState {
 
   public user: User;
   public isLibrary: boolean;
+  public isAdmin: boolean;
 
   private viewsSubject: BehaviorSubject<View[]> = new BehaviorSubject<View[]>([]);
   public views: Observable<View[]> = this.viewsSubject.asObservable();
