@@ -192,6 +192,12 @@
   },
   "snack_bar": {
     "add_success": "Nabídka byla úspěšně přidána",
-    "add_error": "Chyba při přidání nabídky"
+    "add_error": "Chyba při přidání nabídky",
+    "add_to_va_success": "Položka byla úspěšně přidána do Virtuálního antikvariátu",
+    "add_to_va_error": "Chyba při ukládání položky do Virtuálního antikvariátu",
+    "remove_from_va_success": "Položka byla úspěšně odebrána z Virtuálního antikvariátu",
+    "remove_from_va_error": "Chyba při odebírání položky z Virtuálního antikvariátu",
+    "remove_from_offer_success": "Položka byla úspěšně odebrána z nabídky",
+    "remove_from_offer_error": "Chyba při odebírání položky z nabídky"
   }
 }

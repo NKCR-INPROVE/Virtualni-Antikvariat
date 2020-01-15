@@ -33,6 +33,7 @@ app-offers {
 
           &.mat-column-button {
             position: relative;
+            width: 70px;
 
             & > div {
               position: absolute;
@@ -55,6 +56,7 @@ app-offers {
         .mat-cell {
           &.mat-column-price {
             padding-left: calc(#{$app-gap-icon} * 2);
+            width: 100px;
             
             .mat-icon {
               @include setIcon(16px, $app-gray-4);

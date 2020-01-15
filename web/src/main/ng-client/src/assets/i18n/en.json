@@ -193,6 +193,12 @@
   },
   "snack_bar": {
     "add_success": "Offer successfully added",
-    "add_error": "Error adding offer"
+    "add_error": "Error adding offer",
+    "add_to_va_success": "The item has been successfully added to the Virtual Antiquarian Bookshop",
+    "add_to_va_error": "Error saving item to Virtual Antiquarian Bookshop",
+    "remove_from_va_success": "The item successfully removed from Virtual Antiquarian Bookshop",
+    "remove_from_va_error": "Error removing item from Virtual Antiquarian Bookshop",
+    "remove_from_offer_success": "The item has been successfully removed from the menu",
+    "remove_from_offer_error": "Error removing item from menu"
   }
 }

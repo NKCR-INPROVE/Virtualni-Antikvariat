@@ -77,10 +77,10 @@ export class OffersComponent implements OnInit {
       if (result) {
         this.service.removeOfferRecord(this.records[idx].id).subscribe(resp => {
           if (resp.error) {
-            this.service.showSnackBar('offer.remove_from_offer_error', '', true);
+            this.service.showSnackBar('snack_bar.remove_from_offer_error', '', true);
           } else {
             this.load(this.currentOffer);
-            this.service.showSnackBar('offer.remove_from_offer_success');
+            this.service.showSnackBar('snack_bar.remove_from_offer_success');
           }
         });
       }
@@ -215,9 +215,9 @@ export class OffersComponent implements OnInit {
           record.isVA = true;
           this.service.addToOffer(record).subscribe(resp => {
             if (resp.error) {
-              this.service.showSnackBar('offer.add_to_va_error', '', true);
+              this.service.showSnackBar('snack_bar.add_to_va_error', '', true);
             } else {
-              this.service.showSnackBar('offer.add_to_va_success');
+              this.service.showSnackBar('snack_bar.add_to_va_success');
             }
           });
         }
@@ -228,9 +228,9 @@ export class OffersComponent implements OnInit {
       record.isVA = true;
       this.service.addToOffer(record).subscribe(resp => {
         if (resp.error) {
-          this.service.showSnackBar('offer.add_to_va_error', '', true);
+          this.service.showSnackBar('snack_bar.add_to_va_error', '', true);
         } else {
-          this.service.showSnackBar('offer.add_to_va_success');
+          this.service.showSnackBar('snack_bar.add_to_va_success');
         }
       });
     }
@@ -241,9 +241,9 @@ export class OffersComponent implements OnInit {
     record.isVA = false;
     this.service.addToOffer(record).subscribe(resp => {
       if (resp.error) {
-        this.service.showSnackBar('offer.add_error', '', true);
+        this.service.showSnackBar('snack_bar.remove_from_va_error', '', true);
       } else {
-        this.service.showSnackBar('offer.add_success');
+        this.service.showSnackBar('snack_bar.remove_from_va_success');
       }
     });
 
