@@ -8,6 +8,7 @@ import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { STEPPER_GLOBAL_OPTIONS } from '@angular/cdk/stepper';
 import { AppConfiguration } from 'src/app/app-configuration';
 import { Cart } from 'src/app/models/cart';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-shopping-cart',
@@ -22,13 +23,18 @@ export class ShoppingCartComponent implements OnInit {
   data: OfferRecord[];
 
   constructor(
+    private router: Router,
     public dialog: MatDialog,
     private changeDetectorRefs: ChangeDetectorRef,
     private service: AppService,
     public state: AppState) { }
 
   ngOnInit() {
-    this.refresh();
+    if (this.state.isLibrary || this.state.isAdmin) {
+      this.router.navigate(['/home']);
+    } else {
+      this.refresh();
+    }
   }
 
   getCart() {
