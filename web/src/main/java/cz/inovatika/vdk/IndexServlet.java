@@ -2,6 +2,7 @@ package cz.inovatika.vdk;
 
 import cz.inovatika.vdk.solr.models.User;
 import cz.inovatika.vdk.common.SolrIndexerCommiter;
+import cz.inovatika.vdk.common.VDKJobData;
 import cz.inovatika.vdk.solr.Indexer;
 import cz.inovatika.vdk.solr.IndexerQuery;
 import java.io.File;

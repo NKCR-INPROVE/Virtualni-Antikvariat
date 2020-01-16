@@ -112,7 +112,14 @@ public class Indexer {
 
   public Indexer(String configFile) throws Exception {
     this.configFile = configFile;
-    this.jobData = new VDKJobData(configFile, new JSONObject());
+    File file = new File(configFile);
+    if (!file.exists()) {
+      JSONObject initConfig = new JSONObject().put("name", "indexer");
+      this.jobData = new VDKJobData(initConfig);
+    } else {
+      this.jobData = new VDKJobData(configFile, new JSONObject());
+    }
+
     this.jobData.load();
     opts = Options.getInstance();
     init();
@@ -167,8 +174,8 @@ public class Indexer {
       statusFileName = jobData.getStatusFile();
       if (statusFileName == null) {
         statusFileName = InitServlet.CONFIG_DIR
-              + File.separator + "jobs" + File.separator
-              + File.separator + "status" + File.separator + "indexer.status";
+                + File.separator + "jobs" + File.separator
+                + File.separator + "status" + File.separator + "indexer.status";
       }
     }
     server = SolrIndexerCommiter.getServer();
@@ -275,7 +282,6 @@ public class Indexer {
     }
     server.commit();
   }
-
 
   public void indexWanted(String code, String knihovna, boolean wanted) throws Exception {
 
@@ -470,7 +476,6 @@ public class Indexer {
     server.add(doc);
     server.commit();
   }
-
 
   private void addField(SolrInputDocument doc, String name, Object value, String modifier) {
     Map<String, Object> map = new HashMap();
@@ -906,7 +911,7 @@ public class Indexer {
   public void run() throws Exception {
 
     readStatus();
-    
+
     if (jobData.getBoolean("full_index", false)) {
       reindex();
     } else {
@@ -973,7 +978,7 @@ public class Indexer {
 
   private JSONObject update(String fq) throws Exception {
     JSONObject json = new JSONObject();
-      StringBuilder sb = new StringBuilder();
+    StringBuilder sb = new StringBuilder();
     try {
       StorageBrowser docs = new StorageBrowser();
       docs.setWt("json");
@@ -1040,7 +1045,7 @@ public class Indexer {
 
       writeStatus();
     } catch (Exception ex) {
-      
+
       errorMsg += ex.toString();
       json.put("error", errorMsg);
       json.put("doc", sb.toString());
