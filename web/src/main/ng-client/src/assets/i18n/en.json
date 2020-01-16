@@ -69,7 +69,6 @@
     "offer_yes": "\"I want to fund\"",
     "respond_to_offer_yes": "Respond to the offer \"I want to fund\"",
     "respond_to_offer_no": "Respond to the offer \"I do not want to fund\"",
-    "response_to_offer": "The response to the offer was successful",
     "used_filters": "Used filters",
     "matches": "Complying",
     "filter_chci" : "Dokumenty označené jako \"chci do fondu\"",
@@ -202,6 +201,7 @@
     "remove_from_va_success": "The item successfully removed from Virtual Antiquarian Bookshop",
     "remove_from_va_error": "Error removing item from Virtual Antiquarian Bookshop",
     "remove_from_offer_success": "The item has been successfully removed from the menu",
-    "remove_from_offer_error": "Error removing item from menu"
+    "remove_from_offer_error": "Error removing item from menu",
+    "response_to_offer": "The response to the offer was successful"
   }
 }

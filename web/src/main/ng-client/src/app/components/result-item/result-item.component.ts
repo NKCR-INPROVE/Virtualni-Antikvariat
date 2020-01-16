@@ -274,7 +274,7 @@ export class ResultItemComponent implements OnInit, OnDestroy {
         offer.nechci.push(this.state.user.username);
       }
       this.service.addToOffer(offer).subscribe(resp => {
-        this.service.showSnackBar('desc.response_to_offer', '');
+        this.service.showSnackBar('snack_bar.response_to_offer', '');
       });
     } else {
       this.service.addToShoppingCart(offer);
