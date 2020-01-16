@@ -7,8 +7,9 @@
       <mat-radio-button color="primary" class="radio-button" value="csv">CSV</mat-radio-button>
       <mat-radio-button color="primary" class="radio-button" value="aleph">ALEPH</mat-radio-button>
     </mat-radio-group>
-  </div>
+  </div><br />
 
+  <mat-progress-bar *ngIf="loading" mode="indeterminate"></mat-progress-bar>
   <mat-list role="list">
     <mat-list-item role="listitem" *ngFor="let file of files" [@fadeInOut]="file.state">
       <!-- <mat-progress-bar [value]="file.progress"></mat-progress-bar> -->
@@ -21,7 +22,6 @@
       <label>{{file.data.name}}</label>
     </mat-list-item>
   </mat-list>
-  <mat-progress-bar *ngIf="loading" mode="indeterminate"></mat-progress-bar>
 
 </mat-dialog-content>
 <mat-dialog-actions align="end">

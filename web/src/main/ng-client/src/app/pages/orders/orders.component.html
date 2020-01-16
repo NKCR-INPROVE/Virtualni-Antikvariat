@@ -9,20 +9,23 @@
       </mat-list-item>
     </mat-list>
   </div>
-  <div fxFlex.gt-sm="75%" fxFlex.gt-xs="70%" fxFlex.xs="100%">
+  <div *ngIf="current" fxFlex.gt-sm="75%" fxFlex.gt-xs="70%" fxFlex.xs="100%">
     <div fxFlex class="app-mat-table-container">
-      <div>
-        {{current.user.nazev}}
-      </div>
-      <div>
-        {{current.user.adresa}}
-      </div>
-      <div>
-        {{current.user.email}}
-      </div>
-      <div>
-        {{current.user.telefon}}
-      </div>
+      <ng-container *ngIf="current.user">
+        <div>
+          {{current.user.nazev}}
+        </div>
+        <div>
+          {{current.user.adresa}}
+        </div>
+        <div>
+          {{current.user.email}}
+        </div>
+        <div>
+          {{current.user.telefon}}
+        </div>
+      </ng-container>
+      
       <table mat-table [dataSource]="records">
     
         <ng-container matColumnDef="text">

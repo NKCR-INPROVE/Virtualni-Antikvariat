@@ -233,7 +233,7 @@ export class ResultItemComponent implements OnInit, OnDestroy {
   }
 
   userHasDoc(): boolean {
-    if (!this.state.user) {
+    if (!this.state.user || !this.doc.zdroj) {
       return false;
     }
     if (this.state.user.username === 'NKP') {
