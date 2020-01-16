@@ -30,20 +30,20 @@
     <mat-card-title>
       <ng-container *ngIf="doc.titlemd5">{{doc.titlemd5[0]}}</ng-container>
       <ng-container *ngIf="!doc.titlemd5">{{'NOTITLE' | translate}} {{doc.code}}</ng-container>      
-      <button mat-icon-button *ngIf="hasDifferences('title')" #wTitle (click)="openPop('title', wTitle, infoPopup)" [disableRipple]="true">
+      <button mat-icon-button *ngIf="hasDifferences('title')" #wTitle (click)="openPop('title', wTitle, infoPopup)" [matTooltip]="('desc.differences_in' | translate) + ' ' + ('desc.in_title' | translate)" [disableRipple]="true">
         <mat-icon fontSet="material-icons-outlined">info</mat-icon>
       </button>
     </mat-card-title>
     <mat-card-subtitle>
       <div *ngIf="doc.author && doc.author[0]">
         <span *ngFor="let a of doc.author[0]">{{a}}; </span>
-        <button mat-icon-button *ngIf="hasDifferences('author')" #wAuthor (click)="openPop('author', wAuthor, infoPopup)" [disableRipple]="true">
+        <button mat-icon-button *ngIf="hasDifferences('author')" #wAuthor (click)="openPop('author', wAuthor, infoPopup)" [matTooltip]="('desc.differences_in' | translate) + ' ' + ('desc.in_author' | translate)" [disableRipple]="true">
           <mat-icon fontSet="material-icons-outlined">info</mat-icon>
         </button>
       </div>
       <div *ngIf="doc.vydavatel">
         <span>{{'desc.publisher' | translate}}: {{doc.vydavatel[0]}}</span>
-        <button mat-icon-button *ngIf="hasDifferences('vydavatel')" #wVydavatel (click)="openPop('vydavatel', wVydavatel, infoPopup)" [disableRipple]="true">
+        <button mat-icon-button *ngIf="hasDifferences('vydavatel')" #wVydavatel (click)="openPop('vydavatel', wVydavatel, infoPopup)" [matTooltip]="('desc.differences_in_e' | translate) + ' ' + ('desc.in_vydavatel' | translate)" [disableRipple]="true">
           <mat-icon fontSet="material-icons-outlined">info</mat-icon>
         </button>
       </div>
@@ -156,7 +156,9 @@
   <mat-card class="app-popover-card">
     <mat-card-header>
       <mat-card-title>
-        {{ 'desc.differences_in' | translate }} {{ 'desc.' + tooltip.field | translate }}:
+        <ng-container *ngIf="tooltip.field !== 'vydavatel'">{{ 'desc.differences_in' | translate }}</ng-container>
+        <ng-container *ngIf="tooltip.field === 'vydavatel'">{{ 'desc.differences_in_e' | translate }}</ng-container>  
+        {{ 'desc.in_' + tooltip.field | translate }}:
       </mat-card-title>
     </mat-card-header>
     <mat-card-subtitle>
