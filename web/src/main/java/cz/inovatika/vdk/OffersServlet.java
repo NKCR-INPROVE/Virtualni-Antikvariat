@@ -334,6 +334,7 @@ public class OffersServlet extends HttpServlet {
           query.setRows(1000);
           query.set("wt", "json");
           query.setFields("*,fields:[json]");
+          query.setSort("created", SolrQuery.ORDER.desc);
           try (HttpSolrClient client = new HttpSolrClient.Builder(opts.getString("solrHost")).build()) {
             QueryRequest qreq = new QueryRequest(query);
 
