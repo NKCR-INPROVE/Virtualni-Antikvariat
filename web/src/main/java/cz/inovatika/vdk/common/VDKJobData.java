@@ -38,8 +38,11 @@ public class VDKJobData {
     this.runtimeOptions = runtime;
     // String json = IOUtils.toString(Options.class.getResourceAsStream("job.json"), "UTF-8");
     // this.initConfig = new JSONObject(json);
-    this.initConfig = new JSONObject(FileUtils.readFileToString(new File(conf)));
-    this.configSimpleName = initConfig.getString("name");
+    File f = new File(conf);
+    if (f.exists()) {
+      this.initConfig = new JSONObject(FileUtils.readFileToString(f));
+      this.configSimpleName = initConfig.getString("name");
+    }
   }
 
   public VDKJobData(JSONObject initConfig) throws Exception {
