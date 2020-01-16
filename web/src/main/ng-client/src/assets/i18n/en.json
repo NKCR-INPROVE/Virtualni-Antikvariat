@@ -69,6 +69,7 @@
     "offer_yes": "\"I want to fund\"",
     "respond_to_offer_yes": "Respond to the offer \"I want to fund\"",
     "respond_to_offer_no": "Respond to the offer \"I do not want to fund\"",
+    "response_to_offer": "The response to the offer was successful",
     "used_filters": "Used filters",
     "matches": "Complying",
     "filter_chci" : "Dokumenty označené jako \"chci do fondu\"",
