@@ -38,7 +38,7 @@ public class VDKJobData {
     this.runtimeOptions = runtime;
     // String json = IOUtils.toString(Options.class.getResourceAsStream("job.json"), "UTF-8");
     // this.initConfig = new JSONObject(json);
-    this.initConfig = new JSONObject(conf);
+    this.initConfig = new JSONObject(FileUtils.readFileToString(new File(conf)));
     this.configSimpleName = initConfig.getString("name");
   }
 
