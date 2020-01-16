@@ -190,6 +190,7 @@
   },
   "cart" : {
     "order":"Objednat",
+    "add_to_basket": "Vložit do košíku",
     "remove_from_basket": "Odstranit z košíku"
   },
   "snack_bar": {

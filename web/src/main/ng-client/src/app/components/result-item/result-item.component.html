@@ -8,7 +8,7 @@
           <button *ngIf="state.isLibrary" mat-icon-button matTooltip="{{ 'desc.respond_to_offer_yes' | translate }}" (click)="addWanted(n, true)" [disableRipple]="true">
             <mat-icon>add</mat-icon>
           </button>
-          <button *ngIf="!state.isLibrary && n.isVA" mat-icon-button matTooltip="{{ 'desc.addToCart' | translate }}" (click)="toggleShopping(n)" [disableRipple]="true">
+          <button *ngIf="!state.isLibrary && n.isVA" mat-icon-button [matTooltip]="(isInCart ? 'cart.remove_from_basket' : 'cart.add_to_basket')  | translate" (click)="toggleShopping(n)" [disableRipple]="true">
             <mat-icon fontSet="material-icons-outlined">{{isInCart ? 'remove_shopping_cart' : 'shopping_cart'}}</mat-icon>
           </button>
           <button *ngIf="state.isLibrary" mat-icon-button matTooltip="{{ 'desc.respond_to_offer_no' | translate }}" (click)="addWanted(n, false)" [disableRipple]="true">

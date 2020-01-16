@@ -191,6 +191,7 @@
   },
   "cart" : {
     "order":"Order",
+    "add_to_basket": "Add to basket",
     "remove_from_basket": "Remove from basket"
   },
   "snack_bar": {
