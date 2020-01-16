@@ -249,4 +249,8 @@ export class OffersComponent implements OnInit {
 
   }
 
+  formatChciNechci(obj: string[]) {
+    return obj.reduce((acc, s) => acc + ' | ' + s);
+  }
+
 }
