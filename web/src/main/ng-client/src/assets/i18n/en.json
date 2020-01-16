@@ -89,7 +89,9 @@
     "closed": "Closed",
     "open" : "Open",
     "upload": "Upload",
-    "total": "Total"
+    "total": "Total",
+    "more_items_want_to_fund": "More items \"I want to fund\": ",
+    "more_items_do_not_want_to_fund": "More items \"I do not want to fund\": "
   },
   "count": "Count of search results",
   "q.placeholder": "Search in virtual depoiste library ...",

@@ -57,14 +57,14 @@
           <td mat-cell *matCellDef="let row; let idx = index;">
             <span *ngIf="row.chci && row.chci.length > 0" class="app-no-logo app-row-want">
               {{ row.chci[0] }}
-              <button mat-icon-button *ngIf="row.chci.length > 1" [disableRipple]="true" [matTooltip]="'Vice polozek chci do fondu: ' + formatChciNechci(row.chci)">
+              <button mat-icon-button *ngIf="row.chci.length > 1" [disableRipple]="true" [matTooltip]="('desc.more_items_want_to_fund' | translate) + formatChciNechci(row.chci)">
                 <mat-icon fontSet="material-icons-outlined">info</mat-icon> 
               </button>
               <span class="app-pipe"></span>
             </span>
             <span *ngIf="row.nechci && row.nechci.length > 0" class="app-no-logo app-row-want-not">
               {{ row.nechci[0] }}
-              <button mat-icon-button *ngIf="row.nechci.length > 1" [disableRipple]="true" [matTooltip]="'Vice polozek nechci do fondu: ' + formatChciNechci(row.nechci)">
+              <button mat-icon-button *ngIf="row.nechci.length > 1" [disableRipple]="true" [matTooltip]="('desc.more_items_do_not_want_to_fund' | translate) + formatChciNechci(row.nechci)">
                 <mat-icon fontSet="material-icons-outlined">info</mat-icon> 
               </button>
               <span class="app-pipe"></span>
