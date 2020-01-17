@@ -1,0 +1,11 @@
+// --- ORDERS ---
+
+app-orders {
+  .app-address-wrapper {
+    padding: #{$app-gap};
+
+    strong {
+      color: $app-gray-7;
+    }
+  }
+}
