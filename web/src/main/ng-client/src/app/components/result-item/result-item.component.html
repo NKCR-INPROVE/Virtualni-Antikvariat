@@ -4,7 +4,7 @@
       <ng-container *ngIf="doc.nabidka">
         <label>{{'desc.is_offered' | translate}}: </label>
         <ng-container *ngFor="let n of doc.nabidka_ext; let last = last">
-          <span class="app-logo app-no-logo">{{n.knihovna}}</span><span *ngIf="n.cena" class="app-price">{{n.cena}} Kč</span>
+          <span class="app-logo app-no-logo">{{n.knihovna}}</span><span *ngIf="n.cena" class="app-price"><strong>{{n.cena}} Kč</strong></span>
           <button *ngIf="state.isLibrary" mat-icon-button matTooltip="{{ 'desc.respond_to_offer_yes' | translate }}" (click)="addWanted(n, true)" [disableRipple]="true">
             <mat-icon>add</mat-icon>
           </button>
