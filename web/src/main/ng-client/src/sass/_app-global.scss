@@ -71,9 +71,19 @@ a, .app-link {
 	color: $app-gray-4;
 }
 
+.app-snack-success {
+	background-color: $app-success-color;
+	color: $app-lightest;
+}
+
+.app-snack-error {
+	background-color: $app-warning-color;
+	color: $app-lightest;
+}
+
 // icons
 .app-icon-cancel {
-	color: $app-warn-color !important;
+	color: $app-danger-color !important;
 }
 
 // mat button
