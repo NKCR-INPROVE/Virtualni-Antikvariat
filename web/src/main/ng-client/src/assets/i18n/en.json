@@ -206,6 +206,8 @@
     "remove_from_va_error": "Error removing item from Virtual Antiquarian Bookshop",
     "remove_from_offer_success": "The item has been successfully removed from the menu",
     "remove_from_offer_error": "Error removing item from menu",
-    "response_to_offer": "The response to the offer was successful"
+    "response_to_offer": "The response to the offer was successful",
+    "add_to_demand_success": "The item has been successfully added to the demand",
+    "remove_from_demand_success": "The item successfully removed from demand"
   }
 }

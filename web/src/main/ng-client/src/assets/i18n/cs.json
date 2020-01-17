@@ -205,6 +205,8 @@
     "remove_from_va_error": "Chyba při odebírání položky z Virtuálního antikvariátu",
     "remove_from_offer_success": "Položka byla úspěšně odebrána z nabídky",
     "remove_from_offer_error": "Chyba při odebírání položky z nabídky",
-    "response_to_offer": "Reakce na nabídku proběhla úspěšně"
+    "response_to_offer": "Reakce na nabídku proběhla úspěšně",
+    "add_to_demand_success": "Položka byla úspěšně přidána do poptávky",
+    "remove_from_demand_success": "Položka byla úspěšně odebrána z poptávky"
   }
 }

@@ -183,7 +183,7 @@ export class ResultItemComponent implements OnInit, OnDestroy {
       demand.exemplar = ex.md5;
     }
     this.service.addToDemands(demand).subscribe(resp => {
-      this.service.showSnackBar('demands.doc_added_success');
+      this.service.showSnackBar('snack_bar.add_to_demand_success');
     });
   }
 
@@ -192,7 +192,7 @@ export class ResultItemComponent implements OnInit, OnDestroy {
     console.log(demand);
 
     this.service.removeFromDemands(demand).subscribe(resp => {
-      this.service.showSnackBar('demands.doc_removed_success');
+      this.service.showSnackBar('snack_bar.remove_from_demand_success');
     });
   }
 
