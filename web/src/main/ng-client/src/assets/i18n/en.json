@@ -93,7 +93,10 @@
     "upload": "Upload",
     "total": "Total",
     "more_items_want_to_fund": "More items \"I want to fund\": ",
-    "more_items_do_not_want_to_fund": "More items \"I do not want to fund\": "
+    "more_items_do_not_want_to_fund": "More items \"I do not want to fund\": ",
+    "name": "Name",
+    "address": "Address",
+    "phone": "Phone"
   },
   "count": "Count of search results",
   "q.placeholder": "Search in virtual depoiste library ...",

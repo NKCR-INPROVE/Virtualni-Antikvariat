@@ -92,7 +92,10 @@
     "upload": "Nahrát",
     "total": "Celkem",
     "more_items_want_to_fund": "Více položek \"chci do fondu\": ",
-    "more_items_do_not_want_to_fund": "Více položek \"nechci do fondu\": "
+    "more_items_do_not_want_to_fund": "Více položek \"nechci do fondu\": ",
+    "name": "Jméno",
+    "address": "Adresa",
+    "phone": "Telefon"
   },
   "count": "Počet nalezených položek",
   "q.placeholder": "Hledej ve virtuální depozitní knihovně ...",

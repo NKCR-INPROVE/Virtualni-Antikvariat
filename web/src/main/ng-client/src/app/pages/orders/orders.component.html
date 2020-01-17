@@ -11,23 +11,22 @@
   </div>
   <div *ngIf="current" fxFlex.gt-sm="75%" fxFlex.gt-xs="70%" fxFlex.xs="100%">
     <div fxFlex class="app-mat-table-container">
-      <ng-container *ngIf="current.user">
-        <div>
-          {{ current.user.nazev }}
+      <div *ngIf="current.user" class="app-address-wrapper">
+        <div fxFlex="25%">
+          <label class="app-label">{{ 'desc.name' | translate }}</label><br /><strong>{{ current.user.nazev }}</strong> 
         </div>
-        <div>
-          {{current.user.adresa}}
+        <div fxFlex="25%">
+          <label class="app-label">{{ 'desc.address' | translate }}</label><br /><strong>{{ current.user.adresa }}</strong> 
         </div>
-        <div>
-          {{current.user.email}}
+        <div fxFlex="25%">
+          <label class="app-label">{{ 'user.email' | translate }}</label><br /><strong>{{ current.user.email }}</strong>
         </div>
-        <div>
-          {{current.user.telefon}}
+        <div fxFlex="25%">
+          <label class="app-label">{{ 'desc.phone' | translate }}</label><br /><strong>{{ current.user.telefon }}</strong>  
         </div>
-      </ng-container>
+      </div>
       
       <table mat-table [dataSource]="records">
-    
         <ng-container matColumnDef="text">
           <th mat-header-cell *matHeaderCellDef>
             <button mat-button (click)="refresh()">
