@@ -1,6 +1,6 @@
 <div fxLayout="row" fxLayoutAlign="start stretch" fxLayoutGap.gt-xs="16px" fxLayout.xs="column" gdAlignColumns.lt-xs="false">
   <div fxFlex.gt-sm="25%" fxFlex.gt-xs="30%" fxFlex.xs="100%">
-    <mat-list role="list">
+    <mat-list role="list" class="app-list-view-offers">
       <mat-list-item role="listitem" *ngFor="let offer of offers; let idx = index;" [class.active]="offer.id === currentOffer.id">
         <mat-icon [matTooltip]="(offer.expired ? 'desc.expired' : 'desc.not_expired') | translate" mat-list-icon [ngClass]="{'app-item-expired' : offer.expired}">{{offer.expired ? 'access_time' : 'timelapse'}}</mat-icon>
         <mat-icon [matTooltip]="(offer.closed ? 'desc.closed' : 'desc.open') | translate" [ngClass]="{'app-item-closed' : offer.closed}" mat-list-icon>{{offer.closed ? 'lock' : 'lock_open'}}</mat-icon>

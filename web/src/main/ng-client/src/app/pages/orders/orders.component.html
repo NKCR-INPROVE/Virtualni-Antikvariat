@@ -1,6 +1,6 @@
 <div fxLayout="row" fxLayoutAlign="start stretch" fxLayoutGap.gt-xs="16px" fxLayout.xs="column" gdAlignColumns.lt-xs="false">
   <div fxFlex.gt-sm="25%" fxFlex.gt-xs="30%" fxFlex.xs="100%">
-    <mat-list role="list">
+    <mat-list role="list" class="app-list-view-offers">
       <mat-list-item role="listitem" *ngFor="let order of orders; let idx = index;" [class.active]="order.id === current.id">
         <mat-icon mat-list-icon 
          [matTooltip]="'status' | translate" >{{order.status === 'new' ? 'new_releases' : 'done'}}</mat-icon>
@@ -35,7 +35,7 @@
             </button>
             <button mat-button (click)="process()">
               <mat-icon>process</mat-icon>
-              {{ 'desc.process' | translate }}
+              {{ 'desc.mark as processed' | translate }}
             </button>
           </th>
           <td mat-cell *matCellDef="let element">

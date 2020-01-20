@@ -208,6 +208,23 @@ a, .app-link {
 			}
 		}
 	}
+
+	&.app-list-view-offers {
+		.mat-list-item {
+      height: 48px;
+
+      .mat-list-text {
+        .mat-line {
+          font-size: $app-facet-list-item-val-font-size;
+          color: $app-facet-list-item-val-color;
+        }
+      }
+
+      &.active .mat-list-text .mat-line a {
+        font-weight: bold;
+      }
+    }
+	}
 }
 
 // customize mat-button

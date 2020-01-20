@@ -3,25 +3,6 @@
 app-offers {
   @extend .app-wrap-component;
   
-  .mat-list {
-    .mat-list-item {
-      &.mat-2-line {
-        height: 48px;
-
-        .mat-list-text {
-          .mat-line {
-            font-size: $app-facet-list-item-val-font-size;
-            color: $app-facet-list-item-val-color;
-          }
-        }
-
-        &.active .mat-list-text .mat-line a{
-          font-weight: bold;
-        }
-      }
-    }
-  }
-
   .app-mat-table-container {
     max-height: 700px;
     overflow: auto;

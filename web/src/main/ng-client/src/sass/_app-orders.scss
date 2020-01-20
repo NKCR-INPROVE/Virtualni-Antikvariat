@@ -1,6 +1,8 @@
 // --- ORDERS ---
 
 app-orders {
+  @extend .app-wrap-component;
+  
   .app-address-wrapper {
     padding: #{$app-gap};
 

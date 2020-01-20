@@ -95,7 +95,8 @@
     "more_items_do_not_want_to_fund": "Více položek \"nechci do fondu\": ",
     "name": "Jméno",
     "address": "Adresa",
-    "phone": "Telefon"
+    "phone": "Telefon",
+    "mark as processed": "Označit jako zpracované"
   },
   "count": "Počet nalezených položek",
   "q.placeholder": "Hledej ve virtuální depozitní knihovně ...",
