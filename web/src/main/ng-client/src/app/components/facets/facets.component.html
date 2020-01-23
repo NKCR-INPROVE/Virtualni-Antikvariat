@@ -18,10 +18,9 @@
     </h3>
     <mat-list-item>
       <ng-container>
-        <button mat-icon-button *ngIf="filters.offers" [disableRipple]="true">
-          <mat-icon class="active">check_circle</mat-icon>
+        <button mat-icon-button *ngIf="filters.offers" [disableRipple]="true" class="active">
+          <mat-icon>check_circle</mat-icon>
         </button>
-        <!-- <mat-icon *ngIf="filters.offers" class="app-cursor-pointer active">check_circle</mat-icon> -->
         <h4 mat-line>
           <a (click)="toggleOffers()">{{ 'desc.offers' | translate }}</a>
         </h4>
@@ -29,10 +28,9 @@
     </mat-list-item>
     <mat-list-item>
       <ng-container>
-        <button mat-icon-button *ngIf="filters.demands" [disableRipple]="true">
-          <mat-icon class="active">check_circle</mat-icon>
+        <button mat-icon-button *ngIf="filters.demands" [disableRipple]="true" class="active">
+          <mat-icon>check_circle</mat-icon>
         </button>
-        <!-- <mat-icon *ngIf="filters.demands" class="app-cursor-pointer active">check_circle</mat-icon> -->
         <h4 mat-line>
           <a (click)="toggleDemands()">{{ 'desc.demands' | translate }}</a>
         </h4>
@@ -40,10 +38,9 @@
     </mat-list-item>
     <mat-list-item>
       <ng-container>
-        <button mat-icon-button *ngIf="filters.wanted" [disableRipple]="true">
-          <mat-icon class="active">check_circle</mat-icon>
+        <button mat-icon-button *ngIf="filters.wanted" [disableRipple]="true" class="active">
+          <mat-icon>check_circle</mat-icon>
         </button>
-        <!-- <mat-icon *ngIf="filters.wanted" class="app-cursor-pointer active">check_circle</mat-icon> -->
         <h4 mat-line [matTooltip]="'desc.filter_chci' | translate">
           <a (click)="toggleWanted()">{{ 'desc.offer_yes' | translate }}</a>
         </h4>
@@ -51,10 +48,9 @@
     </mat-list-item>
     <mat-list-item>
       <ng-container>
-        <button mat-icon-button *ngIf="filters.matches" [disableRipple]="true">
-          <mat-icon class="active">check_circle</mat-icon>
+        <button mat-icon-button *ngIf="filters.matches" [disableRipple]="true" class="active">
+          <mat-icon>check_circle</mat-icon>
         </button>
-        <!-- <mat-icon *ngIf="filters.matches" class="app-cursor-pointer active">check_circle</mat-icon> -->
         <h4 mat-line [matTooltip]="'desc.filter_matches' | translate">
           <a (click)="toggleMatches()">{{ 'desc.matches' | translate }}</a>
         </h4>
@@ -62,10 +58,9 @@
     </mat-list-item>
     <mat-list-item>
       <ng-container>
-        <button mat-icon-button *ngIf="filters.isVA" [disableRipple]="true">
-          <mat-icon class="active">check_circle</mat-icon>
+        <button mat-icon-button *ngIf="filters.isVA" [disableRipple]="true" class="active">
+          <mat-icon>check_circle</mat-icon>
         </button>
-        <!-- <mat-icon *ngIf="filters.isVA" class="app-cursor-pointer active">check_circle</mat-icon> -->
         <h4 mat-line [matTooltip]="'desc.filter_isVA' | translate">
           <a (click)="toggleIsVA()">{{ 'desc.isVA' | translate }}</a>
         </h4>
@@ -78,10 +73,9 @@
   <ng-container *ngIf="!state.isLibrary">
     <mat-list-item>
       <ng-container>
-        <button mat-icon-button *ngIf="filters.isVA" [disableRipple]="true">
-          <mat-icon class="active">check_circle</mat-icon>
+        <button mat-icon-button *ngIf="filters.isVA" [disableRipple]="true" class="active">
+          <mat-icon>check_circle</mat-icon>
         </button>
-        <!-- <mat-icon *ngIf="filters.isVA" class="app-cursor-pointer active">check_circle</mat-icon> -->
         <h4 mat-line [matTooltip]="'desc.filter_isVA' | translate">
           <a (click)="toggleIsVA()">{{ 'desc.isVA' | translate }}</a>
         </h4>
@@ -98,16 +92,12 @@
       <mat-list-item *ngFor="let f of facets[field]">
         <ng-container [ngSwitch]="field">
           <ng-container *ngSwitchCase="'zdroj'">
-            <button mat-icon-button (click)="addZdrojFilter(f)" [disableRipple]="true">
-              <mat-icon [class.active]="hasZdroj(f, false)">check_circle</mat-icon>
+            <button mat-icon-button (click)="addZdrojFilter(f)" [disableRipple]="true" [class.active]="hasZdroj(f, false)">
+              <mat-icon>check_circle</mat-icon>
             </button>
-            <button mat-icon-button (click)="excludeZdrojFilter(f)" [disableRipple]="true">
-              <mat-icon [class.active]="hasZdroj(f, true)">remove_circle</mat-icon>
+            <button mat-icon-button (click)="excludeZdrojFilter(f)" [disableRipple]="true" [class.active]="hasZdroj(f, true)">
+              <mat-icon>remove_circle</mat-icon>
             </button>
-            <!-- <mat-icon (click)="addZdrojFilter(f)" [class.active]="hasZdroj(f, false)" class="app-cursor-pointer">
-              check_circle</mat-icon>
-            <mat-icon (click)="excludeZdrojFilter(f)" [class.active]="hasZdroj(f, true)" class="app-cursor-pointer">
-              remove_circle</mat-icon> -->
             <h4 mat-line>
               <a (click)="toggleZdrojFilter(f)">{{ f.name }}</a>
             </h4>
@@ -115,10 +105,9 @@
           </ng-container>
 
           <ng-container *ngSwitchDefault>
-            <button mat-icon-button *ngIf="filters[field] === f.name" [disableRipple]="true">
-              <mat-icon class="active">check_circle</mat-icon>
+            <button mat-icon-button *ngIf="filters[field] === f.name" [disableRipple]="true" class="active">
+              <mat-icon>check_circle</mat-icon>
             </button>
-            <!-- <mat-icon *ngIf="filters[field] === f.name" class="app-cursor-pointer active">check_circle</mat-icon> -->
             <h4 mat-line>
               <a (click)="toggleFilter(field, f)">
                 <ng-container [ngSwitch]="field">
