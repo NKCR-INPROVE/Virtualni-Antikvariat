@@ -96,7 +96,9 @@
     "name": "Jméno",
     "address": "Adresa",
     "phone": "Telefon",
-    "mark as processed": "Označit jako zpracované"
+    "mark as processed": "Označit jako zpracované",
+    "next": "Další",
+    "back": "Zpět"
   },
   "count": "Počet nalezených položek",
   "q.placeholder": "Hledej ve virtuální depozitní knihovně ...",
@@ -198,7 +200,12 @@
   "cart" : {
     "order":"Objednat",
     "add_to_basket": "Vložit do košíku",
-    "remove_from_basket": "Odstranit z košíku"
+    "remove_from_basket": "Odstranit z košíku",
+    "order_dialog": "Vytvoření objednávky",
+    "data_entry_step": "Zadání údajů",
+    "delivery_method": "Způsob doručení",
+    "add_success": "Objednávka bylo úspěšně vytvořena",
+    "add_error": "Došlo k chybě při vytváření objednávky"
   },
   "orders": {
     "process_success": "Objednávka byla úspěšně označená jako zpracovaná",

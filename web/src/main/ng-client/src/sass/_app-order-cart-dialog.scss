@@ -1,0 +1,9 @@
+// --- ORDER CART DIALOG ---
+
+app-order-cart-dialog {
+  .mat-stepper-horizontal {
+    .mat-horizontal-stepper-header-container {
+      margin-bottom: $app-gap;
+    }
+  }
+}

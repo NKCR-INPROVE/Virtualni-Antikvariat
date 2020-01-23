@@ -274,7 +274,8 @@ a, .app-link {
 // mat form field
 .app-mat-form-field-wrapper {
 	.mat-form-field,
-	.mat-checkbox {
+	.mat-checkbox,
+	.mat-radio-button {
 		margin-right: $app-gap;
 	}
 }

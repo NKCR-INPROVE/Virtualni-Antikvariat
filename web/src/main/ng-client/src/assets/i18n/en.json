@@ -97,7 +97,9 @@
     "name": "Name",
     "address": "Address",
     "phone": "Phone",
-    "mark as processed": "Mark as processed"
+    "mark as processed": "Mark as processed",
+    "next": "Next",
+    "back": "Back"
   },
   "count": "Count of search results",
   "q.placeholder": "Search in virtual depoiste library ...",
@@ -199,7 +201,12 @@
   "cart" : {
     "order":"Order",
     "add_to_basket": "Add to basket",
-    "remove_from_basket": "Remove from basket"
+    "remove_from_basket": "Remove from basket",
+    "order_dialog": "Create an order",
+    "data_entry_step": "Data entry step",
+    "delivery_method": "Delivery method",
+    "add_success": "Order successfully created",
+    "add_error": "There was an error creating your order"
   },
   "orders": {
     "process_success": "Order successfully marked as processed",

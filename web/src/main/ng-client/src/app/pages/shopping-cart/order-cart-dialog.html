@@ -1,10 +1,9 @@
-<h2 mat-dialog-title>{{'cart.order_dialog' | translate}}</h2>
+<h2 mat-dialog-title>{{ 'cart.order_dialog' | translate }}</h2>
 <mat-dialog-content class="mat-typography">
-
 	<mat-horizontal-stepper linear #stepper>
 		<mat-step [stepControl]="userForm" [errorMessage]="'Fields with * are required' | translate">
-			<form fxFlex [formGroup]="userForm">
-				<ng-template matStepLabel>{{'cart.username_step' | translate}}</ng-template>
+			<form fxFlex [formGroup]="userForm" class="app-mat-form-field-wrapper">
+				<ng-template matStepLabel>{{'cart.data_entry_step' | translate}}</ng-template>
 				<mat-form-field>
 					<input matInput  formControlName="nazev" [placeholder]="'user.nazev' | translate" required cdkFocusInitial />
 				</mat-form-field>
@@ -12,34 +11,33 @@
 					<input matInput  formControlName="adresa" [placeholder]="'user.adresa' | translate" required />
 				</mat-form-field>
 				<mat-form-field>
-					<input matInput formControlName="telefon" [placeholder]="'user.telefon' | translate" type="email"
-						required />
+					<input matInput formControlName="telefon" [placeholder]="'user.telefon' | translate" required />
 				</mat-form-field>
 				<mat-form-field>
 					<input matInput formControlName="email" [placeholder]="'user.email' | translate" required />
 				</mat-form-field>
 				<mat-dialog-actions align="end">
 					<button mat-button type="button" (click)="reset()">Reset</button>
-					<button mat-button type="button" mat-dialog-close>Cancel</button>
-					<button mat-button matStepperNext [disabled]="userForm.invalid">Next</button>
+					<button mat-button type="button" mat-dialog-close>{{ 'desc.cancel' | translate }}</button>
+					<button mat-button matStepperNext [disabled]="userForm.invalid">{{ 'desc.next' | translate }}</button>
 				</mat-dialog-actions>
 			</form>
 		</mat-step>
 		<mat-step [stepControl]="dopravaForm">
-			<form *ngIf="cenik" [formGroup]="dopravaForm">
-			<ng-template matStepLabel>{{'Zpusob doruceni' | translate}}</ng-template>
-			<div *ngFor="let kn of knihovny">
-				{{kn}} 
-				<mat-radio-group aria-label="Select an option" [formControlName]="kn">
-					<mat-radio-button *ngFor="let dp of getDoprava(kn)" [value]="dp">{{'doprava.' + dp | translate}}</mat-radio-button>
-				</mat-radio-group>
-			</div>
-			<div>
-				<button mat-button (click)="ok()">OK</button>
-				<button mat-button matStepperPrevious>Back</button>
-				<button mat-button (click)="stepper.reset()">Reset</button>
-			</div>
-		</form>
+			<form *ngIf="cenik" [formGroup]="dopravaForm" class="app-mat-form-field-wrapper">
+				<ng-template matStepLabel>{{ 'cart.delivery_method' | translate }}</ng-template>
+				<div *ngFor="let kn of knihovny">
+					<p class="app-no-logo">{{ kn }}</p>
+					<mat-radio-group aria-label="Select an option" [formControlName]="kn">
+						<mat-radio-button *ngFor="let dp of getDoprava(kn)" [value]="dp" [color]="'primary'">{{'doprava.' + dp | translate}}</mat-radio-button>
+					</mat-radio-group>
+				</div>
+				<mat-dialog-actions align="end">
+					<button mat-button (click)="ok()">OK</button>
+					<button mat-button matStepperPrevious>{{ 'desc.back' | translate }}</button>
+					<button mat-button (click)="stepper.reset()">Reset</button>
+				</mat-dialog-actions>
+			</form>
 		</mat-step>
 	</mat-horizontal-stepper>
 </mat-dialog-content>
