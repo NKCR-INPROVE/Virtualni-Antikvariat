@@ -201,6 +201,10 @@
     "add_to_basket": "Add to basket",
     "remove_from_basket": "Remove from basket"
   },
+  "orders": {
+    "process_success": "Order successfully marked as processed",
+    "process_error": "There was an error processing your order"
+  },
   "snack_bar": {
     "add_success": "Offer successfully added",
     "add_error": "Error adding offer",

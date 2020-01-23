@@ -200,6 +200,10 @@
     "add_to_basket": "Vložit do košíku",
     "remove_from_basket": "Odstranit z košíku"
   },
+  "orders": {
+    "process_success": "Objednávka byla úspěšně označená jako zpracovaná",
+    "process_error": "Došlo k chybě při zpracování objednávky"
+  },
   "snack_bar": {
     "add_success": "Nabídka byla úspěšně přidána",
     "add_error": "Chyba při přidání nabídky",

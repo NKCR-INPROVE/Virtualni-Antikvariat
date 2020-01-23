@@ -51,10 +51,10 @@ export class OrdersComponent implements OnInit {
     this.service.processOrder(this.current).subscribe(resp => {
 
       if (resp.error) {
-        this.service.showSnackBar('cart.process_error', '', true);
+        this.service.showSnackBar('orders.process_error', '', true);
         this.current.status = 'new';
       } else {
-        this.service.showSnackBar('cart.process_success');
+        this.service.showSnackBar('orders.process_success');
       }
     });
   }
