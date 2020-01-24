@@ -48,6 +48,9 @@
       <tr mat-row [ngClass]="{'app-even': index%2 == 1}" *matRowDef="let row; columns: displayedColumns; let index = index"></tr>  
       <tr mat-footer-row *matFooterRowDef="displayedColumns"></tr>
     </table>
+    <div *ngIf="orderDone">
+      {{'cart.done' | translate}}
+    </div>
   </div>
 </div>
 

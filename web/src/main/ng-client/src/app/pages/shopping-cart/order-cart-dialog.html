@@ -33,7 +33,7 @@
 					</mat-radio-group>
 				</div>
 				<mat-dialog-actions align="end">
-					<button mat-button (click)="ok()">OK</button>
+					<button mat-button (click)="doOrder()">{{'cart.order' | translate}}</button>
 					<button mat-button matStepperPrevious>{{ 'desc.back' | translate }}</button>
 					<button mat-button (click)="stepper.reset()">Reset</button>
 				</mat-dialog-actions>

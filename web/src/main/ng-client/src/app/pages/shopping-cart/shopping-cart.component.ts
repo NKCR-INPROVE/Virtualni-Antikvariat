@@ -19,6 +19,7 @@ export class ShoppingCartComponent implements OnInit {
 
   displayedColumns = ['text', 'cena', 'button'];
   totalCost: number;
+  orderDone = false;
 
   data: OfferRecord[];
 
@@ -30,6 +31,7 @@ export class ShoppingCartComponent implements OnInit {
     public state: AppState) { }
 
   ngOnInit() {
+    this.orderDone = false;
     if (this.state.isLibrary || this.state.isAdmin) {
       this.router.navigate(['/home']);
     } else {
@@ -65,7 +67,9 @@ export class ShoppingCartComponent implements OnInit {
       dialogRef.afterClosed().subscribe(result => {
         if (result) {
           console.log(result);
-          // this.service.orderCart(result).subscribe(resp => { });
+          this.service.emptyCart();
+          this.refresh();
+          this.orderDone = true;
         }
       });
     }
@@ -143,7 +147,7 @@ export class OrderCartDialogComponent implements OnInit {
     // this.user = new User();
   }
 
-  ok() {
+  doOrder() {
     if (this.userForm.invalid) {
       return;
     }
@@ -172,16 +176,13 @@ export class OrderCartDialogComponent implements OnInit {
 
 
     this.service.orderCart(orders).subscribe(resp => {
-      console.log(resp);
-
       if (resp.error) {
         this.service.showSnackBar('cart.add_error', '', true);
       } else {
         this.service.showSnackBar('cart.add_success');
       }
 
-
-      // this.dialogRef.close(this.data);
+      this.dialogRef.close(true);
     });
 
   }

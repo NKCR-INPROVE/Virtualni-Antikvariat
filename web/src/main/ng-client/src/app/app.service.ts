@@ -264,6 +264,11 @@ export class AppService {
     return this.http.post<any>(`/api/users/storecart`, data);
   }
 
+  emptyCart() {
+    localStorage.removeItem('shoppingCart');
+    this.state.shoppingCart = [];
+  }
+
   orderCart(orderData: { [key: string]: Cart }) {
     // const data = { orderData, cart: this.state.shoppingCart };
     return this.http.post<any>(`/api/users/ordercart`, orderData);
