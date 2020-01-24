@@ -1,6 +1,6 @@
 <div fxLayout="row" fxLayoutAlign="start stretch" fxLayoutGap="16px">
   <div fxFlex class="app-mat-table-container">
-    <table mat-table [dataSource]="data" class="mat-elevation-z2">
+    <table mat-table [dataSource]="data" class="mat-elevation-z2" *ngIf="!orderDone">
       <ng-container matColumnDef="text">
         <th mat-header-cell *matHeaderCellDef>
           <button mat-button (click)="order()">
@@ -48,9 +48,9 @@
       <tr mat-row [ngClass]="{'app-even': index%2 == 1}" *matRowDef="let row; columns: displayedColumns; let index = index"></tr>  
       <tr mat-footer-row *matFooterRowDef="displayedColumns"></tr>
     </table>
-    <div *ngIf="orderDone">
-      {{'cart.done' | translate}}
-    </div>
+    <mat-card *ngIf="orderDone" class="app-card-success">
+      {{ 'cart.order_done' | translate }}
+    </mat-card>
   </div>
 </div>
 

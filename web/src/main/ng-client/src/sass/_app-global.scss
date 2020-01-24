@@ -76,6 +76,11 @@ a, .app-link {
 	color: $app-gray-4;
 }
 
+.app-card-success {
+	color: $app-success-color;
+	text-align: center;
+}
+
 .app-snack-success {
 	background-color: $app-success-color;
 	color: $app-lightest;

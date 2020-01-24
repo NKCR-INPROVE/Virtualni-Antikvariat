@@ -206,7 +206,8 @@
     "data_entry_step": "Data entry step",
     "delivery_method": "Delivery method",
     "add_success": "Order successfully created",
-    "add_error": "There was an error creating your order"
+    "add_error": "There was an error creating your order",
+    "order_done": "Your order was successful, the library will send you an email soon. Thank you."
   },
   "orders": {
     "process_success": "Order successfully marked as processed",
