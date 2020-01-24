@@ -205,7 +205,8 @@
     "data_entry_step": "Zadání údajů",
     "delivery_method": "Způsob doručení",
     "add_success": "Objednávka bylo úspěšně vytvořena",
-    "add_error": "Došlo k chybě při vytváření objednávky"
+    "add_error": "Došlo k chybě při vytváření objednávky",
+    "order_done": "Vaše objednávka proběhla úspěšně, knihovna Vám brzy pošle email. Děkujeme."
   },
   "orders": {
     "process_success": "Objednávka byla úspěšně označená jako zpracovaná",
