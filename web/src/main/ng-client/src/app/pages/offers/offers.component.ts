@@ -75,7 +75,7 @@ export class OffersComponent implements OnInit {
 
     dialogRef.afterClosed().subscribe(result => {
       if (result) {
-        this.service.removeOfferRecord(this.records[idx].id).subscribe(resp => {
+        this.service.removeOfferRecord(this.records[idx].id, this.records[idx].doc_code).subscribe(resp => {
           if (resp.error) {
             this.service.showSnackBar('snack_bar.remove_from_offer_error', '', true);
           } else {

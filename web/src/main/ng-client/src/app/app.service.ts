@@ -146,8 +146,8 @@ export class AppService {
       }));
   }
 
-  removeOfferRecord(id: string) {
-    const params: HttpParams = new HttpParams().set('id', id);
+  removeOfferRecord(id: string, code: string) {
+    const params: HttpParams = new HttpParams().set('id', id).set('code', code);
     return this.http.get<any>(`/api/offers/removerecord`, { params })
       .pipe(map(resp => {
         return resp;

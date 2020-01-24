@@ -109,15 +109,18 @@
 
         <ng-container matColumnDef="buttons">
           <th mat-header-cell *matHeaderCellDef></th>
-          <td mat-cell *matCellDef="let element">
+          <td mat-cell *matCellDef="let row; let element">
             <ng-container *ngIf="state.isLibrary">
-              <button mat-icon-button *ngIf="belongUser(element)" matTooltip="{{ 'desc.add_to_offer' | translate }}" (click)="addToOffer(element)" [disableRipple]="true">
-                <mat-icon fontSet="material-icons-outlined">local_offer</mat-icon>
+              <button mat-icon-button *ngIf="row.belongUser && !row.isInOffer" matTooltip="{{ 'desc.add_to_offer' | translate }}" (click)="addToOffer(row)" [disableRipple]="true">
+                <mat-icon fontSet="material-icons-outlined">add_to_queue</mat-icon>
               </button>
-              <button mat-icon-button *ngIf="!hasDemand()" matTooltip="{{ 'demands.add_to_demand' | translate }}" (click)="addToDemands(element)" [disableRipple]="true">
+              <button mat-icon-button *ngIf="row.isInOffer" matTooltip="{{ 'desc.add_to_offer' | translate }}" (click)="removeFromOffer(row)" [disableRipple]="true">
+                <mat-icon fontSet="material-icons-outlined">remove_from_queue</mat-icon>
+              </button>
+              <button mat-icon-button *ngIf="!element.belongUser && !element.isDemand" matTooltip="{{ 'demands.add_to_demand' | translate }}" (click)="addToDemands(element)" [disableRipple]="true">
                 <mat-icon fontSet="material-icons-outlined">shopping_cart</mat-icon>
               </button>
-              <button mat-icon-button *ngIf="hasDemand()" matTooltip="{{ 'demands.remove_from_demand' | translate }}" (click)="removeFromDemands(element)" [disableRipple]="true">
+              <button mat-icon-button *ngIf="!element.belongUser && element.isDemand" matTooltip="{{ 'demands.remove_from_demand' | translate }}" (click)="removeFromDemands(element)" [disableRipple]="true">
                 <mat-icon fontSet="material-icons-outlined">remove_shopping_cart</mat-icon>
               </button>
             </ng-container>
@@ -134,9 +137,15 @@
     <button mat-button matTooltip="{{ 'desc.view_original_metadata' | translate }}" (click)="openLink()">
       <mat-icon>launch</mat-icon>{{ 'desc.view_original_metadata' | translate }}
     </button>
-    <button *ngIf="userHasDoc()" mat-button matTooltip="{{ 'desc.add_to_offer' | translate }}"
+    <button *ngIf="userHasDoc() && !docInOffer" mat-button matTooltip="{{ 'desc.add_to_offer' | translate }}"
       (click)="addToOffer()">
-      <mat-icon fontSet="material-icons-outlined">local_offer</mat-icon>{{ 'desc.add_to_offer' | translate }}
+      <mat-icon fontSet="material-icons-outlined">add_to_queue</mat-icon>
+      {{ 'desc.add_to_offer' | translate }}
+    </button>
+    <button *ngIf="userHasDoc() && docInOffer" mat-button matTooltip="{{ 'desc.add_to_offer' | translate }}"
+      (click)="removeFromOffer()">
+      <mat-icon fontSet="material-icons-outlined">remove_from_queue</mat-icon>
+      {{ 'offers.remove_from_offer' | translate }}
     </button>
     <button *ngIf="state.isLibrary && !hasDemand()" mat-button matTooltip="{{ 'demands.add_to_demand' | translate }}"
       (click)="addToDemands()">

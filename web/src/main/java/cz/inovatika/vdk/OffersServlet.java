@@ -268,6 +268,9 @@ public class OffersServlet extends HttpServlet {
           try (HttpSolrClient client = new HttpSolrClient.Builder("http://localhost:8983/solr").build()) {
             client.deleteById(opts.getString("offersCore", "offers"), req.getParameter("id"));
             client.commit(opts.getString("offersCore", "offers"));
+            
+            Indexer indexer = new Indexer();
+            indexer.indexDocOffers(req.getParameter("code"));
 
             jo.put("msg", "removed");
           } catch (SolrServerException | IOException ex) {

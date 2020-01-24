@@ -11,6 +11,7 @@ import { MatDialog, MatSnackBar } from '@angular/material';
 import { AppConfiguration } from 'src/app/app-configuration';
 import { AddToOfferDialogComponent } from '../add-to-offer-dialog/add-to-offer-dialog.component';
 import { Offer } from 'src/app/models/offer';
+import { ConfirmDialogComponent } from '../confirm-dialog/confirm-dialog.component';
 
 @Component({
   selector: 'app-result-item',
@@ -30,6 +31,7 @@ export class ResultItemComponent implements OnInit, OnDestroy {
   activeStatus: string = null;
   activeZdroj: string = null;
   isInCart: boolean;
+  docInOffer: boolean;
 
   public tooltip: {
     field: string,
@@ -51,6 +53,7 @@ export class ResultItemComponent implements OnInit, OnDestroy {
   ngOnInit() {
     this.setExemplars();
     this.isInCart = this.state.shoppingCart.findIndex(e => e.doc_code === this.doc.code) > -1;
+    this.docInOffer = this.isInOffer();
   }
 
   setExemplars() {
@@ -69,6 +72,10 @@ export class ResultItemComponent implements OnInit, OnDestroy {
             ex.zdroj = 'NKF';
           }
           ex.id = exZdroj.id;
+          ex.isInOffer = this.isInOffer(ex);
+          ex.isDemand = this.hasDemand(ex);
+          ex.belongUser = this.belongUser(ex);
+
           this.exemplars.push(ex);
         });
       });
@@ -144,7 +151,7 @@ export class ResultItemComponent implements OnInit, OnDestroy {
     if (id) {
       window.open('/api/original?id=' + id);
     } else {
-      window.open('/api/original?id=' + this.doc.id);
+      window.open('/api/original?id=' + this.doc.id[0]);
     }
   }
 
@@ -165,11 +172,21 @@ export class ResultItemComponent implements OnInit, OnDestroy {
 
     dialogRef.afterClosed().subscribe(result => {
       if (result) {
-        this.service.addToOffer(record).subscribe();
+        this.service.addToOffer(result).subscribe(resp => {
+          if (resp.error) {
+            this.service.showSnackBar('snack_bar.add_error', '', true);
+          } else {
+            this.service.showSnackBar('snack_bar.add_success');
+            if (ex) {
+              ex.isInOffer = true;
+            } else {
+              this.docInOffer = true;
+            }
+          }
+          console.log(ex);
+        });
       }
     });
-
-
   }
 
   addToDemands(ex?: Exemplar) {
@@ -243,11 +260,55 @@ export class ResultItemComponent implements OnInit, OnDestroy {
     }
   }
 
-  hasDemand(): boolean {
+  isInOffer(ex?: Exemplar): boolean {
+    if (!this.doc.nabidka) {
+      return false;
+    }
+
+    const o = this.doc.nabidka_ext.find(exe => {
+      let kn = exe.knihovna;
+      if (kn === 'UKF' || kn === 'NKF') {
+        kn = 'NKP';
+      }
+      const exInLib: boolean = kn === this.state.user.username;
+      if (ex) {
+        return ex.id === exe.zaznam && exInLib;
+      } else {
+        return exInLib;
+      }
+
+    });
+    if (o) {
+      return true;
+    } else {
+      return false;
+    }
+
+  }
+
+  hasDemand(ex?: Exemplar): boolean {
     if (!this.state.user) {
       return false;
     }
-    return this.doc.poptavka && this.doc.poptavka.includes(this.state.user.username);
+    if (!this.doc.poptavka) {
+      return false;
+    }
+    if (!this.doc.poptavka.includes(this.state.user.username)) {
+      return false;
+    }
+
+    if (ex) {
+      let kn = ex.knihovna;
+      if (kn === 'UKF' || kn === 'NKF') {
+        kn = 'NKP';
+      }
+      const exInLib = kn === this.state.user.username;
+      const o = this.doc.poptavka_ext.find(exe => ex.id === exe.zaznam && exInLib);
+      return o;
+    } else {
+      return true;
+    }
+
   }
 
   toggleShopping(offer: OfferRecord) {
@@ -300,6 +361,50 @@ export class ResultItemComponent implements OnInit, OnDestroy {
   isRowHidden(row): boolean {
     return (this.activeStatus !== null && row.status !== this.activeStatus) ||
       (this.activeZdroj !== null && row.zdroj !== this.activeZdroj);
+  }
+
+  removeFromOffer(ex?: Exemplar) {
+    // this.records = this.records.filter((val, index) => index !== idx);
+
+    const dialogRef = this.dialog.open(ConfirmDialogComponent, {
+      width: '350px',
+      data: { title: 'offers.remove_from_offer' }
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      if (result) {
+
+        const o = this.doc.nabidka_ext.find(exe => {
+          let kn = exe.knihovna;
+          if (kn === 'UKF' || kn === 'NKF') {
+            kn = 'NKP';
+          }
+          const exInLib = kn === this.state.user.username;
+          if (ex) {
+            return ex.id === exe.zaznam && exInLib;
+          } else {
+            return exInLib;
+          }
+
+        });
+
+        const id = o.id;
+
+        this.service.removeOfferRecord(id, this.doc.code).subscribe(resp => {
+          if (resp.error) {
+            this.service.showSnackBar('snack_bar.remove_from_offer_error', '', true);
+          } else {
+            this.service.showSnackBar('snack_bar.remove_from_offer_success');
+            if (ex) {
+              ex.isInOffer = false;
+            } else {
+              this.docInOffer = false;
+            }
+          }
+        });
+      }
+    });
+
   }
 
 

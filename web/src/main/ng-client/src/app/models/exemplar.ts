@@ -10,6 +10,9 @@ export class Exemplar {
   cislo: string;
   rok: string;
   md5: string;
+  isDemand: boolean; // not index. for faster rendering
+  isInOffer: boolean;
+  belongUser: boolean;
 }
 
 export class ExemplarZdroj {
