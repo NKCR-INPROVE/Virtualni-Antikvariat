@@ -12,7 +12,11 @@
     "user_facets": [],
     "otherParams":{
         "stats":"true",
-        "stats.field":"rokvydani"
+        "stats.field":"rokvydani",
+        "facet.range":"rokvydani",
+        "facet.range.start":"1300",
+        "facet.range.end":"2022",
+        "facet.range.gap":"10"
         
     },
     "expirationDays": 7,

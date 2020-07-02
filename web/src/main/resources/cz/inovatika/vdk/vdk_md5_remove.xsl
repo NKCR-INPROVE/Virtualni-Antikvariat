@@ -39,7 +39,7 @@
         </field>
                     
         <field name="ccnb" update="removeregex">
-          <xsl:value-of select="marc:datafield[@tag='015']/marc:subfield[@code='a']"/>
+          <xsl:value-of select="exts:escapeRegex($xslfunctions, marc:datafield[@tag='015']/marc:subfield[@code='a'])"/>
         </field>
         <field name="isbn" update="removeregex">
           <xsl:value-of select="exts:escapeRegex($xslfunctions, marc:datafield[@tag='020']/marc:subfield[@code='a'])"/>
@@ -113,7 +113,7 @@
                     
         <xsl:for-each select="marc:datafield[@tag=996]/marc:subfield[@code='b']">
           <field name="carkod" update="removeregex" >
-            <xsl:value-of select="."/>
+            <xsl:value-of select="exts:escapeRegex($xslfunctions, .)"/>
           </field>
         </xsl:for-each>
         <xsl:for-each select="marc:datafield[@tag=996]/marc:subfield[@code='c']">

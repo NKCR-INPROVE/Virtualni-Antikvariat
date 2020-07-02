@@ -11,7 +11,7 @@
     "name": "indexer",
     "type": "index",
     "cron": "0 45 04 * * ?",
-    "full_index": true,
+    "full_index": false,
     "reindex_offers": true,
     "reindex_demands": true,
     "reindex_wanted": true,
@@ -27,11 +27,13 @@
     "oaiDir": "",
     "statusFile": "nkp_vdk.status",
     "dateFormat": "yyyy-MM-dd",
+    "oaiDateFormat": "yyyy-MM-dd'T'HH:mm:ss'Z'",
     "filePathFormat": "yyyy/MM/dd/HH/mm/ss",
 
     "baseUrl": "http://aleph.nkp.cz/OAI",
     "set": "NKC-VDK",
     "verb": "ListRecords",
+    "metadataPrefix": "marc21",
     "identifierPrefix": "oai:aleph-nkp.cz:",
     "interval": "day",
 
