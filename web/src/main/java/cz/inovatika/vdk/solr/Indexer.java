@@ -168,13 +168,13 @@ public class Indexer {
     }
     if (this.jobData == null) {
       statusFileName = InitServlet.CONFIG_DIR
-              + File.separator + "jobs" + File.separator
+              + File.separator + "jobs"
               + File.separator + "status" + File.separator + "indexer.status";
     } else {
       statusFileName = jobData.getStatusFile();
       if (statusFileName == null) {
         statusFileName = InitServlet.CONFIG_DIR
-                + File.separator + "jobs" + File.separator
+                + File.separator + "jobs"
                 + File.separator + "status" + File.separator + "indexer.status";
       }
     }
@@ -821,16 +821,10 @@ public class Indexer {
 
       SolrIndexerCommiter.indexXML(sb.toString(), opts.getString("solrIdCore", "vdk_id"));
 
-//            String url = String.format("%s/%s/update",
-//                    opts.getString("solrHost", "http://localhost:8983/solr"),
-//                    opts.getString("solrIdCore", "vdk_id"));
-//            SolrIndexerCommiter.postData(url, sb.toString());
       if (total % jobData.getInt("batchSize", 1000) == 0) {
         SolrIndexerCommiter.indexXML("<commit/>", opts.getString("solrIdCore", "vdk_id"));
-        //  SolrIndexerCommiter.postData(url, "<commit/>");
-        //  logger.log(Level.INFO, "Current stored docs: {0}", total);
+        LOGGER.log(Level.INFO, "Current stored docs: {0}", total);
       }
-
       total++;
       checkDemand(code, id);
     } catch (Exception ex) {
@@ -897,12 +891,30 @@ public class Indexer {
     }
   }
 
+  public JSONObject indexFiltered(String fq) throws Exception {
+
+    JSONObject json = new JSONObject();
+    try {
+      jobData.getOpts().put("full_index", false);
+      clean();
+      json.put("index", update(fq));
+//      indexAllOffers();
+//      indexAllDemands();
+
+    } catch (Exception ex) {
+      LOGGER.log(Level.SEVERE, null, ex);
+      json.put("error", ex);
+      SolrIndexerCommiter.closeClients();
+      //throw new Exception(ex);
+    }
+    return json;
+  }
+
   private JSONObject index() throws Exception {
 
     JSONObject json = update(null);
 
-    String to = sdf.format(Instant.now());
-
+    String to = Instant.now().toString();
     statusJson.put(LAST_UPDATE, to);
     writeStatus();
     return json;
@@ -986,6 +998,9 @@ public class Indexer {
       if (fq != null) {
         docs.setStart(fq);
       }
+//      if (fq != null) {
+//        docs.setFilter(fq);
+//      }
       Iterator it = docs.iterator();
       sb.append("<add>");
       while (it.hasNext()) {
@@ -1002,7 +1017,6 @@ public class Indexer {
             writeStatus();
           } else {
             LOGGER.log(Level.INFO, "TIMESTAMP MISSING!!!!");
-
           }
         } else {
           boolean bohemika;

@@ -30,6 +30,7 @@ public class StorageBrowser implements Iterable<Object> {
     String host;
     String core;
     String initStart = null;
+    String fq = null;
 
     String idField;
     String browseField;
@@ -63,6 +64,10 @@ public class StorageBrowser implements Iterable<Object> {
         this.cursor = start;
     }
 
+    public void setFilter(String fq) {
+        this.fq = fq;
+    }
+
     public void setHost(String host) {
         this.host = host;
     }
@@ -83,10 +88,10 @@ public class StorageBrowser implements Iterable<Object> {
         String urlStr = host + "/select?wt=" + wt
                 //+ "&q=*:*&cursorMark=" + cursor;
                 + "&q=" + browseField + ":{" + cursor + "%20TO%20NOW]";
-//
-//        if (initStart != null) {
-//            urlStr += "&fq=" + initStart;
-//        }
+
+        if (fq != null) {
+            urlStr += "&fq=" + fq;
+        }
         if(fl == null){
             //urlStr += "&fl=*," + browseField;
         }else if(!fl.contains(browseField)){
@@ -98,7 +103,7 @@ public class StorageBrowser implements Iterable<Object> {
         if (browseFieldSort) {
             urlStr += "&sort=" + browseField + "+asc";
         }
-        logger.log(Level.INFO, "urlStr: {0}", urlStr);
+        // logger.log(Level.FINE, "urlStr: {0}", urlStr);
 
         java.net.URL url = new java.net.URL(urlStr);
         InputStream is;

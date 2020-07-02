@@ -82,6 +82,7 @@ public class HarvesterJobData {
         this.metadataPrefix = jdata.getString("metadataPrefix");
 
         this.interval = Interval.parseString(jdata.getString("interval"));
+        this.resumptionToken = jdata.getString("resumptionToken", null);
        
         logger.info("HarvesterJobData initialized");
     }

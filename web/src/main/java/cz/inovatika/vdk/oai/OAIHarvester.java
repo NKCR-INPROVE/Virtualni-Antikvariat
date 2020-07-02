@@ -218,6 +218,7 @@ public class OAIHarvester {
 
     } catch (Exception ex) {
       SolrIndexerCommiter.closeClients();
+      logger.log(Level.INFO, "HARVEST ERROR {0} records", currentDocsSent);
       logger.log(Level.SEVERE, null, ex);
       throw new Exception(ex);
     } finally {
@@ -332,7 +333,7 @@ public class OAIHarvester {
 
     String urlString = opts.getString("baseUrl") + query;
     URL url = new URL(urlString.replace("\n", ""));
-    logger.log(Level.INFO, "reading url: {0}", url.toString());
+    logger.log(Level.FINE, "reading url: {0}", url.toString());
     try {
       xmlReader.readUrl(url.toString());
     } catch (Exception ex) {
@@ -485,10 +486,10 @@ public class OAIHarvester {
       String error = xmlReader.getNodeValue(node, "/oai:error/@code");
       if (error == null || error.equals("")) {
 
-        String urlZdroje = opts.getString("baseUrl")
-                + "?verb=GetRecord&identifier=" + identifier
-                + "&metadataPrefix=" + jobData.getMetadataPrefix()
-                + "#set=" + opts.getString("set");
+//        String urlZdroje = opts.getString("baseUrl")
+//                + "?verb=GetRecord&identifier=" + identifier
+//                + "&metadataPrefix=" + jobData.getMetadataPrefix()
+//                + "#set=" + opts.getString("set");
 
         if ("deleted".equals(xmlReader.getNodeValue(node, "./oai:header/@status"))) {
           if (jobData.isFullIndex()) {
@@ -501,17 +502,16 @@ public class OAIHarvester {
 //                    String xmlStr = nodeToString(xmlReader.getNodeElement(), index);
           String xmlStr = nodeToString(node);
 
-          String hlavninazev = xmlReader.getNodeValue(node, "./oai:metadata/marc:record/marc:datafield[@tag='245']/marc:subfield[@code='a']/text()");
-
-          String cnbStr = xmlReader.getNodeValue(node, "./oai:metadata/marc:record/marc:datafield[@tag='015']/marc:subfield[@code='a']/text()");
+//          String hlavninazev = xmlReader.getNodeValue(node, "./oai:metadata/marc:record/marc:datafield[@tag='245']/marc:subfield[@code='a']/text()");
+//
+//          String cnbStr = xmlReader.getNodeValue(node, "./oai:metadata/marc:record/marc:datafield[@tag='015']/marc:subfield[@code='a']/text()");
 
           JSONObject slouceni = Slouceni.fromXml(xmlStr);
-
           try {
             indexer.store(identifier,
                     slouceni.getString("docCode"),
                     slouceni.getString("codeType"),
-                    Bohemika.isBohemika(xmlStr),
+                    slouceni.getBoolean("isBohemika"),
                     xmlStr);
             currentDocsSent++;
           } catch (Exception ex) {

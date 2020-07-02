@@ -349,8 +349,10 @@ public class Slouceni {
                     + " " + xmlReader.getNodeValue("/oai:record/oai:metadata/marc:record/marc:datafield[@tag='260']/marc:subfield[@code='b']/text()")
                     + " " + onlyLeadNumbers(xmlReader.getNodeValue("/oai:record/oai:metadata/marc:record/marc:datafield[@tag='260']/marc:subfield[@code='c']/text()"))
             );
-
-            return generateMD5(map);
+            
+            JSONObject ret = generateMD5(map);
+            ret.put("isBohemika", Bohemika.isBohemika(xmlReader));
+            return ret;
         } catch (Exception ex) {
             logger.log(Level.SEVERE, null, ex);
             JSONObject j = new JSONObject();

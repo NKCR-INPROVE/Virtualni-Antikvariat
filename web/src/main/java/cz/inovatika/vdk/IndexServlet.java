@@ -323,15 +323,26 @@ public class IndexServlet extends HttpServlet {
         PrintWriter out = resp.getWriter();
         JSONObject json = new JSONObject();
         try {
-          User kn = UsersController.toKnihovna(req);
-          if (kn == null) {
-            json.put("error", "rights.notlogged");
-          } else {
-
               String f = System.getProperty("user.home") + File.separator + ".vdkcr" + File.separator + "jobs" + File.separator + "indexer.json";
               Indexer indexer = new Indexer(f);
               indexer.reindex();
-          }
+        } catch (Exception ex) {
+          LOGGER.log(Level.SEVERE, null, ex);
+          json.put("error", ex.toString());
+        }
+        out.println(json.toString());
+      }
+    },
+    INDEXFILTERED {
+      @Override
+      void doPerform(HttpServletRequest req, HttpServletResponse resp) throws Exception {
+        resp.setContentType("application/json");
+        PrintWriter out = resp.getWriter();
+        JSONObject json = new JSONObject();
+        try {
+              String f = System.getProperty("user.home") + File.separator + ".vdkcr" + File.separator + "jobs" + File.separator + "indexer.json";
+              Indexer indexer = new Indexer(f);
+              indexer.indexFiltered(req.getParameter("filter"));
         } catch (Exception ex) {
           LOGGER.log(Level.SEVERE, null, ex);
           json.put("error", ex.toString());
